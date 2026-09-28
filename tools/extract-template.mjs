@@ -100,6 +100,48 @@ for (const rel of files) {
   }
 }
 
+// Dependências que a origem não declara mas o DS gerado precisa (ex.: peers que --legacy-peer-deps não instala)
+const devExtras = Object.entries(brief.origem.dependencias_dev ?? {});
+if (devExtras.length) {
+  const pkgPath = path.join(OUT, "package.json");
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+  pkg.devDependencies = Object.fromEntries(
+    Object.entries({ ...pkg.devDependencies, ...Object.fromEntries(devExtras) }).sort(([a], [b]) => a.localeCompare(b)),
+  );
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+
+  const lockPath = path.join(OUT, "package-lock.json");
+  if (fs.existsSync(lockPath)) {
+    const lock = JSON.parse(fs.readFileSync(lockPath, "utf8"));
+    const root = lock.packages[""];
+    root.devDependencies = Object.fromEntries(
+      Object.entries({ ...root.devDependencies, ...Object.fromEntries(devExtras) }).sort(([a], [b]) => a.localeCompare(b)),
+    );
+    // O pacote e as dependências dele deixam de ser só "peer": passam a ser instalados como dev
+    const resolve = (from, name) => {
+      for (let dir = from; ; dir = dir.slice(0, dir.lastIndexOf("/node_modules/"))) {
+        const key = `${dir ? `${dir}/` : ""}node_modules/${name}`;
+        if (lock.packages[key]) return key;
+        if (!dir.includes("/node_modules/")) return lock.packages[`node_modules/${name}`] ? `node_modules/${name}` : null;
+      }
+    };
+    const fila = devExtras.map(([name]) => `node_modules/${name}`);
+    const vistos = new Set();
+    while (fila.length) {
+      const key = fila.shift();
+      if (vistos.has(key) || !lock.packages[key]) continue;
+      vistos.add(key);
+      const entry = lock.packages[key];
+      delete entry.peer;
+      for (const dep of Object.keys({ ...entry.dependencies, ...entry.optionalDependencies })) {
+        const k = resolve(key, dep);
+        if (k) fila.push(k);
+      }
+    }
+    fs.writeFileSync(lockPath, JSON.stringify(lock, null, 2) + "\n");
+  }
+}
+
 // Overrides: arquivos do template que precisam de versão própria (logos neutros, imagens genéricas, README…)
 const overridden = new Set();
 if (fs.existsSync(OVERRIDES)) {

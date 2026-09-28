@@ -11,7 +11,9 @@
  * Etapas:
  *   1. Copia assets/template para --out
  *   2. Substitui placeholders (__BRAND_NAME__, __FONT_PRIMARY__…) e monta os @import de fontes
- *   3. Recolore todas as cores por família de matiz (primária, secundária, destaque, realce)
+ *   2b. Ajusta os textos de tipografia à origem de cada fonte (Google Fonts ou proprietária)
+ *   3. Recolore todas as cores por família de matiz (primária, secundária, destaque, realce);
+ *      âncoras (cor institucional do H1) viram exatamente a cor do briefing
  *   4. Reescreve os HEX de src/data/tokenGroups.ts a partir dos HSL (mantém o teste de tokens verde)
  *   5. Corrige pares de contraste críticos (texto sobre a primária)
  *   6. Instala logos, favicon e placeholders para as imagens que o template só referencia (.asset.json)
@@ -22,9 +24,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  hexToHsl, hslToHex, hslTriplet, parseTriplet, makeRecolorer, recolorText,
+  hexToHsl, hexToRgb, hslToHex, hslTriplet, parseTriplet, makeRecolorer, recolorText,
   tripletToHexStrict, hslToRgb, contrastRatio,
 } from "./lib/color.mjs";
+import { ajustarFontes } from "./lib/fontes.mjs";
 import { PLACEHOLDERS, placeholderValues, fontImportsBlock } from "./lib/rules.mjs";
 import { auditContrast, contrastTable, blockBodies } from "./lib/contrast.mjs";
 import { validarBriefing, formatarPendencias, normalizarBriefing } from "./lib/briefing.mjs";
@@ -111,14 +114,56 @@ for (const f of manifest.familias) {
   if (t && f.hex && t.hex === f.hex.toUpperCase()) targets[f.nome] = { h: f.hsl[0], s: f.hsl[1], l: f.hsl[2], hex: t.hex };
 }
 
-const families = manifest.familias.map((f) => ({
-  name: f.nome,
-  source: { h: f.hsl[0], s: f.hsl[1], l: f.hsl[2], hex: f.hex },
-  target: targets[f.nome] ?? null,
-  window: f.janela,
-  minSat: f.saturacao_minima,
-}));
+// Âncoras e referências só valem quando a cor muda: gerar a origem com ela mesma não altera nada
+const changed = (f, t) => !!t && t.hex.toUpperCase() !== (f.hex ?? "").toUpperCase();
+
+// Âncoras: cores do template que são a própria cor da marca aplicada como texto (H1, títulos).
+// Viram a cor do briefing; se ela não tiver 4.5:1 sobre branco, a mesma matiz escurecida até ter.
+const WHITE = { r: 255, g: 255, b: 255 };
+function legivelSobreBranco(t) {
+  if (contrastRatio(hexToRgb(t.hex), WHITE) >= 4.5) return t.hex;
+  let l = Math.floor(t.l);
+  while (l > 0 && contrastRatio(hslToRgb({ h: t.h, s: t.s, l }), WHITE) < 4.5) l--;
+  return hslToHex({ h: t.h, s: t.s, l });
+}
+
+const families = manifest.familias.map((f) => {
+  const fam = {
+    name: f.nome,
+    source: { h: f.hsl[0], s: f.hsl[1], l: f.hsl[2], hex: f.hex },
+    target: targets[f.nome] ?? null,
+    window: f.janela,
+    minSat: f.saturacao_minima,
+  };
+  if (f.ancoras?.length && changed(f, fam.target)) {
+    const hex = legivelSobreBranco(fam.target);
+    if (hex !== fam.target.hex) {
+      warnings.push(`A cor ${f.nome} (${fam.target.hex}) não tem 4.5:1 sobre branco: o H1 e os títulos na cor da marca usam ${hex}, a mesma matiz escurecida.`);
+    }
+    fam.anchors = Object.fromEntries(f.ancoras.map((a) => [a.toUpperCase(), hex]));
+  }
+  return fam;
+});
 const recolorer = makeRecolorer(families);
+
+// Referências: um arquivo que apresenta outra cor como "a cor da família" (ex.: a ColorSection mostra
+// a escala a partir de outro azul). Nele, essa cor vira a do briefing e o resto da família se desloca a partir dela.
+const recolorers = new Map();
+function recolorerOf(rel) {
+  if (!recolorers.has(rel)) {
+    let proprio = false;
+    const fams = families.map((fam, i) => {
+      const f = manifest.familias[i];
+      const ref = f.referencias?.[rel];
+      if (!ref || !changed(f, fam.target)) return fam;
+      proprio = true;
+      const { h, s, l } = hexToHsl(ref);
+      return { ...fam, source: { h, s, l, hex: ref.toUpperCase() } };
+    });
+    recolorers.set(rel, proprio ? makeRecolorer(fams) : recolorer);
+  }
+  return recolorers.get(rel);
+}
 
 // ---------- 2. Cópia + placeholders + recoloração ----------
 const TEXT_EXT = /\.(tsx?|jsx?|mjs|cjs|css|scss|html?|json|md|txt|xml|svg|ya?ml|toml)$/i;
@@ -156,8 +201,8 @@ function fillPlaceholders(text) {
     if (entry.isDirectory()) { fs.mkdirSync(dest, { recursive: true }); copy(full); continue; }
     fs.mkdirSync(path.dirname(dest), { recursive: true });
     if (TEXT_EXT.test(rel)) {
-      let text = fillPlaceholders(fs.readFileSync(full, "utf8"));
-      if (!NO_RECOLOR(rel)) text = recolorText(text, recolorer, stats);
+      let text = fillPlaceholders(ajustarFontes(rel, fs.readFileSync(full, "utf8"), brief, warnings));
+      if (!NO_RECOLOR(rel)) text = recolorText(text, recolorerOf(rel), stats);
       fs.writeFileSync(dest, text);
     } else {
       fs.copyFileSync(full, dest);
@@ -225,6 +270,26 @@ for (const selector of [":root", ".dark"]) {
   if (primary && btnFg && degraded(ratio(btnFg, primary), ":root", "--brand-btn-fg", "--primary", 4.5)) {
     css = setVar(css, ":root", "--brand-btn-fg", primFg);
     ajustes.push(`:root --brand-btn-fg → ${primFg} (destaque sem contraste sobre a primária)`);
+  }
+}
+// H1 no dark mode: a cor institucional é fixa e some sobre o fundo escuro. Ganha a mesma matiz clareada até 4.5:1.
+{
+  const regra = /(\r?\n)([ \t]*)h1\s*\{\s*color:\s*(#[0-9A-Fa-f]{6})\s*;\s*\}/.exec(css);
+  const fundo = getVar(css, ".dark", "--background");
+  const bg = fundo && parseTriplet(fundo) ? hslToRgb(parseTriplet(fundo)) : null;
+  if (regra && bg && !/\.dark\s+h1\s*\{/.test(css) && contrastRatio(hexToRgb(regra[3]), bg) < 4.5) {
+    const [bloco, eol, indent, hex] = regra;
+    // A própria primária, se já for legível no escuro (marcas claras); senão, a cor do H1 clareada
+    let corDark = tPrim.hex;
+    if (contrastRatio(hexToRgb(corDark), bg) < 4.5) {
+      const { h, s, l } = hexToHsl(hex);
+      let lx = l;
+      while (lx < 100 && contrastRatio(hslToRgb({ h, s, l: lx }), bg) < 4.5) lx = Math.min(100, lx + 1);
+      corDark = hslToHex({ h, s, l: lx });
+    }
+    const at = regra.index + bloco.length;
+    css = css.slice(0, at) + `${eol}${indent}.dark h1 {${eol}${indent}  color: ${corDark};${eol}${indent}}` + css.slice(at);
+    ajustes.push(`.dark h1 → ${corDark} (a cor do H1, ${hex.toUpperCase()}, tem ${contrastRatio(hexToRgb(hex), bg).toFixed(2)}:1 sobre o fundo escuro)`);
   }
 }
 write(CSS_REL, css);

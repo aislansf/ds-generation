@@ -1,4 +1,5 @@
 // Placeholders do template e os valores que eles recebem na geração (placeholders → marca nova).
+import { hexToHsl } from "./color.mjs";
 
 export const PLACEHOLDERS = {
   BRAND_NAME: "__BRAND_NAME__",
@@ -10,6 +11,7 @@ export const PLACEHOLDERS = {
   BRAND_MANUAL_URL: "__BRAND_MANUAL_URL__",
   OG_IMAGE_URL: "__OG_IMAGE_URL__",
   BRAND_SLOGAN: "__BRAND_SLOGAN__",
+  BRAND_PRIMARY_HUE: "__BRAND_PRIMARY_HUE__",
   FONT_PRIMARY: "__FONT_PRIMARY__",
   FONT_DISPLAY: "__FONT_DISPLAY__",
   FONT_SYSTEM: "__FONT_SYSTEM__",
@@ -32,11 +34,21 @@ export function placeholderValues(brief) {
     [PLACEHOLDERS.BRAND_MANUAL_URL]: brief.manual_marca_url || "#",
     [PLACEHOLDERS.OG_IMAGE_URL]: brief.og_image_url || `https://${d.ds || `ds.${brief.slug}.example`}/favicon.svg`,
     [PLACEHOLDERS.BRAND_SLOGAN]: brief.slogan || brief.descricao || brief.nome,
+    [PLACEHOLDERS.BRAND_PRIMARY_HUE]: String(Math.round(hexToHsl(brief.cores.primaria).h) % 360),
     [PLACEHOLDERS.FONT_PRIMARY]: prim,
     [PLACEHOLDERS.FONT_DISPLAY]: f.display?.nome || prim,
     [PLACEHOLDERS.FONT_SYSTEM]: f.sistema?.nome || prim,
-    [PLACEHOLDERS.FONT_DISPLAY_URL]: f.display?.url_woff2 || "/fonts/display-bold.woff2",
+    [PLACEHOLDERS.FONT_DISPLAY_URL]: (f.display || f.primaria)?.url_woff2 || "/fonts/display-bold.woff2",
   };
+}
+
+/** A fonte vem do Google Fonts? (proprietária = google false ou url_woff2 própria) */
+export const isGoogleFont = (font) => font?.google !== false && !font?.url_woff2;
+
+/** URL do CSS do Google Fonts com os pesos da fonte (ou os padrões do papel dela). */
+export function googleCssUrl(font, key) {
+  const pesos = font.pesos ?? (key === "display" ? [400, 700, 900] : [300, 400, 500, 600, 700, 800, 900]);
+  return `https://fonts.googleapis.com/css2?family=${font.nome.replace(/ /g, "+")}:wght@${pesos.join(";")}&display=swap`;
 }
 
 /** Bloco de @import/@font-face que abre o index.css gerado. */
@@ -54,10 +66,7 @@ export function fontImportsBlock(brief) {
     const font = f[key];
     if (!font?.nome || seen.has(font.nome)) continue;
     seen.add(font.nome);
-    if (font.google !== false && !font.url_woff2) {
-      const pesos = font.pesos ?? (key === "display" ? [400, 700, 900] : [300, 400, 500, 600, 700, 800, 900]);
-      lines.push(`@import url('https://fonts.googleapis.com/css2?family=${font.nome.replace(/ /g, "+")}:wght@${pesos.join(";")}&display=swap');`);
-    }
+    if (isGoogleFont(font)) lines.push(`@import url('${googleCssUrl(font, key)}');`);
   }
   for (const key of ["primaria", "display", "sistema"]) {
     const font = f[key];

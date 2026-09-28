@@ -34,7 +34,7 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 
 3. **Geração** (`skills/ds-build/scripts/generate-ds.mjs`):
    - recusa o briefing se qualquer uma das 30 perguntas estiver sem resposta válida ou sem `confirmado_pelo_usuario: true`;
-   - preenche os placeholders e **recolore por família de matiz**;
+   - preenche os placeholders, ajusta os textos de tipografia à origem de cada fonte (Google Fonts ou proprietária) e **recolore por família de matiz**; as âncoras (cor institucional do H1 e dos validadores) viram exatamente a cor do briefing, e o H1 ganha uma cor legível no dark mode;
    - reescreve os HEX do catálogo de tokens, corrige contrastes que pioraram, instala logos e favicon (ou provisórios, se o usuário respondeu `false`), remove módulos opcionais, ajusta o gênero gramatical e trava os `termos_proibidos` no build.
 
 4. **Reescrita semântica** (o agente, guiado por `references/reescrita-semantica.md`).
@@ -45,7 +45,9 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 - **Dados de exemplo fictícios, não placeholders.** Programas, unidades e painéis viraram nomes genéricos plausíveis (Empreender, Programa Inova, DIROP, Radar Estratégico). Eles ficam listados em `conteudo_exemplo` e o `GERACAO.md` aponta onde aparecem, para o agente trocar pelo universo da marca nova.
 - **Questionário obrigatório.** Cada campo do briefing precisa de resposta explícita; as opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) também são escolhas do usuário. O gerador valida isso (`lib/briefing.mjs`), e o `validar-briefing.mjs` diz ao agente o que ainda perguntar.
 - **Recolorir em vez de criar um placeholder por cor.** O template tem ~500 cores fixas (documentação que mostra valores). Famílias de matiz resolvem com poucas regras e mantêm a hierarquia de tons.
-- **Ida e volta = identidade.** Gerar com o briefing de origem não altera nenhuma cor.
+- **Ida e volta = identidade.** Gerar com o briefing de origem não recolore nenhuma cor (a única cor acrescentada é a do H1 no dark mode, que falta também na origem). Por isso âncoras e referências por arquivo (`familias[].ancoras`, `familias[].referencias`) só valem quando a cor muda.
+- **Cor da marca onde ela aparece como "a cor da marca".** O deslocamento de matiz preserva as relações entre os tons do template, mas o H1, os validadores e a "cor primária" da ColorSection precisam mostrar a cor exata do briefing. Essas cores são declaradas como âncoras ou referências em `origem/ds-sebrae.json`.
+- **Dependências que a origem não declara** (`origem.dependencias_dev`): o DS gerado instala com `--legacy-peer-deps`, que não instala peers. A extração acrescenta essas dependências ao `package.json` e ao `package-lock.json` do template.
 - **Contraste só é corrigido quando piora** em relação ao template.
 
 ## Verificação
@@ -61,6 +63,7 @@ npm run verificar -- --source <ds-sebrae>/frontend --node-modules <ds-sebrae>/fr
 | Ida e volta | `hex=0 hsl=0` |
 | Marca fictícia verde: marcas proibidas / placeholders | 0 / 0 |
 | Marca fictícia verde: termos da origem no DS gerado | 0 |
+| Marca verde: H1 (light e dark), validadores, ColorSection, textos de fonte e dependências | seguem o briefing |
 | Marca verde: `npm run build` | passou |
 | Marca verde: `vitest run` | 96 testes |
 

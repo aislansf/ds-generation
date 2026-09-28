@@ -135,7 +135,8 @@ export function buildScale(hex) {
  * transportada para a cor-alvo preservando a estrutura de luminosidade.
  */
 export function makeRecolorer(families) {
-  // families: [{ name, source:{h,s,l,hex}, target:{h,s,l,hex}, window:[min,max] | {center, radius}, minSat, lightRange? }]
+  // families: [{ name, source:{h,s,l,hex}, target:{h,s,l,hex}, window:[min,max] | {center, radius}, minSat, lightRange?, anchors? }]
+  // anchors: { "#HEX": "#HEX" } — cores do template que representam a própria cor da marca e vão para um valor fixo
   function familyOf({ h, s, l }) {
     for (const f of families) {
       if (!f.target) continue;
@@ -167,6 +168,9 @@ export function makeRecolorer(families) {
   function mapHex(hex) {
     const up = hex.toUpperCase();
     for (const f of families) {
+      if (f.target && f.anchors?.[up]) return f.anchors[up].toUpperCase();
+    }
+    for (const f of families) {
       if (f.target && f.source.hex && f.source.hex.toUpperCase() === up) return f.target.hex.toUpperCase();
     }
     const m = mapHsl(hexToHsl(hex));
@@ -186,6 +190,8 @@ export function makeRecolorer(families) {
 }
 
 const HEX_RE = /#([0-9a-fA-F]{6})\b/g;
+// rgb(0, 94, 184) e rgba(13,56,87,.3): só componentes inteiros; o alfa é preservado
+const RGB_RE = /\b(rgba?\(\s*)(\d{1,3})(\s*,\s*)(\d{1,3})(\s*,\s*)(\d{1,3})(?=\s*[,)])/g;
 // Triplet HSL (formato shadcn): "228 70% 51%" — também dentro de hsl(228 70% 30% / 0.05)
 const TRIPLET_RE = /(?<![\d.#-])(\d{1,3}(?:\.\d+)?) (\d{1,3}(?:\.\d+)?)% (\d{1,3}(?:\.\d+)?)%/g;
 
@@ -197,6 +203,15 @@ export function recolorText(text, recolorer, stats) {
     if (stats) stats.hex++;
     // Preserva a caixa original
     return m === m.toLowerCase() ? mapped.toLowerCase() : mapped;
+  });
+  out = out.replace(RGB_RE, (m, open, r, sep1, g, sep2, b) => {
+    if (+r > 255 || +g > 255 || +b > 255) return m;
+    const hex = rgbToHex({ r: +r, g: +g, b: +b });
+    const mapped = recolorer.mapHex(hex);
+    if (!mapped || mapped === hex) return m;
+    if (stats) stats.hex++;
+    const c = hexToRgb(mapped);
+    return `${open}${c.r}${sep1}${c.g}${sep2}${c.b}`;
   });
   out = out.replace(TRIPLET_RE, (m, h, s, l) => {
     const hsl = { h: +h, s: +s, l: +l };

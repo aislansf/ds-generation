@@ -83,6 +83,7 @@
       "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Manual_de_Marca_Sebrae.pdf"
     ],
     "og_image": "https://storage.googleapis.com/gpt-engineer-file-uploads/yB1Tw9zhWwa2d7QALOrfaFUAcU33/social-images/social-1782410806928-thumbnail-sebrae.webp",
+    "$familias": "Cores da origem que o gerador recolore por matiz. \"ancoras\": cores que representam a própria cor da marca aplicada como texto (H1, títulos) e viram exatamente a cor do briefing, escurecida só se não tiver 4.5:1 sobre branco. \"referencias\": arquivo → cor que aquele arquivo apresenta como a cor da família (ex.: a ColorSection documenta #5BA3D9 como \"cor primária\"); nele, essa cor vira a do briefing e o resto da família se desloca a partir dela. As duas só valem quando a cor do briefing difere da de origem (ida e volta = identidade).",
     "familias": [
       {
         "nome": "primaria",
@@ -96,7 +97,13 @@
           204,
           252
         ],
-        "saturacao_minima": 30
+        "saturacao_minima": 30,
+        "ancoras": [
+          "#005EB8"
+        ],
+        "referencias": {
+          "src/components/ColorSection.tsx": "#5BA3D9"
+        }
       },
       {
         "nome": "secundaria",
@@ -143,6 +150,7 @@
     ],
     "$substituicoes_conteudo": "Aplicadas antes de todas as outras regras, sobre o texto original. Chaves literais, com borda de palavra quando começam/terminam em letra ou número. A ordem importa: frases longas antes das palavras que elas contêm.",
     "substituicoes_conteudo": {
+      "(~204°)": "(~__BRAND_PRIMARY_HUE__°)",
       "Transformando vidas por meio da educação financeira": "__BRAND_SLOGAN__",
       "Transformando vidas por meio da educação": "__BRAND_SLOGAN__",
       "por meio da educação financeira.": "por meio da tecnologia.",
@@ -424,6 +432,10 @@
     "overrides_de_codigo": {
       "src/pages/MarcaPage.tsx": "44564e6a2ee90e02",
       "src/pages/HomePage.tsx": "026ccf211ccea4e6"
+    },
+    "$dependencias_dev": "devDependencies acrescentadas ao package.json do template (e ao package-lock.json). O DS gerado instala com --legacy-peer-deps, que não instala peers: @testing-library/react precisa do @testing-library/dom declarado.",
+    "dependencias_dev": {
+      "@testing-library/dom": "^10.4.1"
     },
     "excluir": [
       "node_modules",

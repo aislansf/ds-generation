@@ -136,7 +136,7 @@ export default function ColorSection() {
         {/* Escala do azul */}
         <h4 className="text-sm font-semibold mb-1">Escala cromática do Primária</h4>
         <p className="text-xs text-muted-foreground mb-3">
-          Escala 50–950 derivada do matiz de <strong>#5BA3D9</strong> (~204°). Use 50–200 para superfícies,
+          Escala 50–950 derivada do matiz de <strong>#5BA3D9</strong> (~__BRAND_PRIMARY_HUE__°). Use 50–200 para superfícies,
           300–500 para componentes e brand, 600–800 para texto/contraste e 900–950 para dark mode.
         </p>
         <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-11 gap-2 mb-6">
