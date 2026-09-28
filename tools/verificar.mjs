@@ -14,6 +14,7 @@
  *   3. ida e volta: gerar com o briefing de origem não altera nenhuma cor (hex=0 hsl=0)
  *   4. marca de teste: sem marcas proibidas nem placeholders não resolvidos
  *   5. marca de teste: nenhum termo da origem no DS gerado
+ *   5b. marca de teste: H1 (light e dark), validadores e ColorSection na cor do briefing; textos de fonte e dependências corretos
  *   6. (com --node-modules) npm run build e vitest passam no DS da marca de teste
  */
 import { spawnSync } from "node:child_process";
@@ -87,6 +88,24 @@ const verde = path.join(OUT, "verde");
     }
   })(verde);
   check("Nenhum termo da origem no DS gerado", hits.length === 0, hits.slice(0, 5).join(", "));
+}
+
+{
+  // Cor institucional (H1 e validadores), ColorSection, textos de fonte e dependências seguem o briefing
+  const brief = JSON.parse(fs.readFileSync(path.join(SKILL, "assets", "examples", "exemplo-verde.json"), "utf8"));
+  const prim = brief.cores.primaria.toUpperCase();
+  const rgb = `rgb(${[1, 3, 5].map((i) => parseInt(prim.slice(i, i + 2), 16)).join(", ")})`;
+  const ler = (rel) => fs.readFileSync(path.join(verde, rel), "utf8");
+  const problemas = [];
+  if (!new RegExp(`h1\\s*\\{\\s*color:\\s*${prim}`, "i").test(ler("src/index.css"))) problemas.push("H1 do index.css");
+  if (!/\.dark h1\s*\{\s*color:\s*#[0-9A-F]{6}/i.test(ler("src/index.css"))) problemas.push("H1 sem cor própria no dark mode");
+  if (!ler("scripts/check-homepage-h1-color.mjs").includes(`TARGET_COLOR = "${prim}"`)) problemas.push("check-homepage-h1-color");
+  const computed = ler("scripts/check-homepage-h1-computed.mjs");
+  if (!computed.includes(`PRIMARY_HEX = "${prim}"`) || !computed.includes(`PRIMARY_RGB = "${rgb}"`)) problemas.push("check-homepage-h1-computed");
+  if (!ler("src/components/ColorSection.tsx").includes(`Cor primária <strong>${prim}</strong>`)) problemas.push("ColorSection sem a primária do briefing");
+  if (/propriet/i.test(ler("src/pages/FundamentosPage.tsx"))) problemas.push("FundamentosPage cita fonte proprietária (todas são do Google Fonts)");
+  if (!JSON.parse(ler("package.json")).devDependencies?.["@testing-library/dom"]) problemas.push("package.json sem @testing-library/dom");
+  check("Cores, fontes e dependências seguem o briefing", problemas.length === 0, problemas.join("; "));
 }
 
 if (args["node-modules"]) {

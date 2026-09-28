@@ -1,5 +1,5 @@
 {
-  "gerado_em": "2026-09-28T22:22:45.620Z",
+  "gerado_em": "2026-09-28T23:07:01.148Z",
   "origem": {
     "commit": "3bba5fe 2026-09-28",
     "conteudo_exemplo": [
@@ -42,7 +42,13 @@
         204,
         252
       ],
-      "saturacao_minima": 30
+      "saturacao_minima": 30,
+      "ancoras": [
+        "#005EB8"
+      ],
+      "referencias": {
+        "src/components/ColorSection.tsx": "#5BA3D9"
+      }
     },
     {
       "nome": "secundaria",
@@ -97,6 +103,7 @@
     "__BRAND_MANUAL_URL__",
     "__OG_IMAGE_URL__",
     "__BRAND_SLOGAN__",
+    "__BRAND_PRIMARY_HUE__",
     "__FONT_PRIMARY__",
     "__FONT_DISPLAY__",
     "__FONT_SYSTEM__",

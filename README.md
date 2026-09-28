@@ -101,6 +101,7 @@ As checagens precisam passar:
 - o briefing incompleto é recusado;
 - gerar a origem a partir dela mesma não altera nenhuma cor;
 - a marca de teste sai sem marcas proibidas, sem placeholders e sem nenhum termo da origem;
+- o H1, os validadores e a ColorSection saem com a cor exata do briefing, os textos de fonte seguem a origem de cada fonte e o `@testing-library/dom` está declarado;
 - o DS gerado passa no build e nos testes.
 
 Se a origem ganhar telas novas, recapture as miniaturas com `npm run imagens -- --source <frontend> --node-modules <node_modules>`.
