@@ -120,7 +120,7 @@ try {
   const run = (argv) => spawnSync(process.execPath, argv, { cwd: ROOT, encoding: "utf8" });
   // A extração falha enquanto as miniaturas não existem nos overrides; o template sai completo mesmo assim
   run(["tools/extract-template.mjs", "--source", path.resolve(args.source), "--out", tpl]);
-  const g = run(["skills/ds-generator/scripts/generate-ds.mjs", "--brief", "tools/marca-neutra.json", "--out", ds, "--template", tpl, "--node-modules", NM]);
+  const g = run(["skills/ds-build/scripts/generate-ds.mjs", "--brief", "tools/marca-neutra.json", "--out", ds, "--template", tpl, "--node-modules", NM]);
   if (g.status !== 0) throw new Error(`Falha ao gerar o DS neutro:\n${g.stdout}${g.stderr}`);
 
   const PORT = 5199;

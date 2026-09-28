@@ -1,6 +1,6 @@
 # ds-generation
 
-Skill **`ds-generator`**: gera um Design System completo para qualquer marca. A partir de um briefing em JSON, respondido pelo usuário pergunta a pergunta, ela produz um site de documentação em React + Vite + Tailwind + shadcn/ui com:
+Skill **`ds-build`** (comando `/ds-build`): gera um Design System completo para qualquer marca. A partir de um briefing em JSON, respondido pelo usuário pergunta a pergunta, ela produz um site de documentação em React + Vite + Tailwind + shadcn/ui com:
 
 - tokens em light e dark;
 - cerca de 50 componentes;
@@ -18,7 +18,18 @@ npx skills add aislansf/ds-generation -g         # para todos os projetos (~/.cl
 npx skills add aislansf/ds-generation -a claude-code -y
 ```
 
-O repositório tem duas skills: `ds-generator` (o gerador) e `ds-build` (o atalho `/ds-build`). Instale as duas.
+### Atualizar
+
+```bash
+npx skills update ds-build
+```
+
+Quem instalou a versão antiga, com a skill `ds-generator`, troca por esta assim:
+
+```bash
+npx skills remove ds-generator
+npx skills add aislansf/ds-generation
+```
 
 Funciona com Claude Code, Cursor, Codex e os outros agentes suportados pelo [skills CLI](https://skills.sh). Requer Node 18+.
 
@@ -41,7 +52,7 @@ O agente faz **todas** as perguntas do briefing (30, incluindo as de "não se ap
 Sem agente:
 
 ```bash
-cp skills/ds-generator/assets/brand-brief.template.json minha-marca.json   # responda cada PREENCHER
+cp skills/ds-build/assets/brand-brief.template.json minha-marca.json   # responda cada PREENCHER
 npm run validar-briefing -- minha-marca.json                              # lista o que falta
 npm run gerar -- --brief minha-marca.json --out ../ds-minha-marca
 cd ../ds-minha-marca && npm install --legacy-peer-deps && npm run build
@@ -52,9 +63,8 @@ A pasta gerada traz um `GERACAO.md` com os ajustes feitos, as pendências e a ta
 ## Estrutura
 
 ```
-skills/ds-build/SKILL.md            comando /ds-build: atalho que carrega a ds-generator
-skills/ds-generator/                o gerador: tudo o que ele usa vem daqui (100% neutro)
-  SKILL.md                          instruções para o agente (questionário obrigatório)
+skills/ds-build/                    o que o `npx skills add` instala (100% neutro)
+  SKILL.md                          comando /ds-build e instruções para o agente (questionário obrigatório)
   scripts/
     validar-briefing.mjs            lista as perguntas sem resposta válida
     generate-ds.mjs                 briefing + template → DS novo

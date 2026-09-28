@@ -25,7 +25,7 @@ const principles = [
   { icon: <BookOpen size={20} />, title: "Claro", desc: "Comunicação plural, acessível e de fácil entendimento." },
 ];
 
-// MODELO: voz da marca genérica do ds-generator. Reescreva com o tom de voz do briefing
+// MODELO: voz da marca genérica do ds-build. Reescreva com o tom de voz do briefing
 // (conteudo.tom_de_voz, conteudo.publico) e o manual da marca, e apague os comentários MODELO.
 const tomDeVozPilares = [
   {

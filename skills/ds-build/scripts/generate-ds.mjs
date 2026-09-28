@@ -435,7 +435,7 @@ const agrupar = (hits) => {
 
 const relatorio = `# Geração do DS ${brief.nome}
 
-Gerado em ${new Date().toISOString()} a partir do template do ds-generator${manifest.origem.commit ? ` (versão ${manifest.origem.commit})` : ""}.
+Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest.origem.commit ? ` (versão ${manifest.origem.commit})` : ""}.
 
 ## Resumo
 
