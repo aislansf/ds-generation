@@ -18,11 +18,21 @@ npx skills add aislansf/ds-generation -g         # para todos os projetos (~/.cl
 npx skills add aislansf/ds-generation -a claude-code -y
 ```
 
+O repositório tem duas skills: `ds-generator` (o gerador) e `ds-build` (o atalho `/ds-build`). Instale as duas.
+
 Funciona com Claude Code, Cursor, Codex e os outros agentes suportados pelo [skills CLI](https://skills.sh). Requer Node 18+.
 
 ## Usar
 
-Com a skill instalada, peça ao agente:
+Com a skill instalada, use o comando:
+
+```text
+/ds-build                          # começa o questionário do zero
+/ds-build Agência Horizonte        # já informa o nome da marca
+/ds-build briefings/horizonte.json # parte de um briefing existente
+```
+
+Ou peça em linguagem natural:
 
 > Crie um design system para a marca X
 
@@ -42,7 +52,8 @@ A pasta gerada traz um `GERACAO.md` com os ajustes feitos, as pendências e a ta
 ## Estrutura
 
 ```
-skills/ds-generator/                o que o `npx skills add` instala (100% neutro)
+skills/ds-build/SKILL.md            comando /ds-build: atalho que carrega a ds-generator
+skills/ds-generator/                o gerador: tudo o que ele usa vem daqui (100% neutro)
   SKILL.md                          instruções para o agente (questionário obrigatório)
   scripts/
     validar-briefing.mjs            lista as perguntas sem resposta válida
