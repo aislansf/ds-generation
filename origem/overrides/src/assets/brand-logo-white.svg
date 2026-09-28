@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 160" role="img" aria-label="Sua Marca">
+  <defs>
+    <mask id="sm-branco-2" maskUnits="userSpaceOnUse" x="0" y="0" width="160" height="160">
+      <rect width="160" height="160" fill="#fff"/>
+      <path d="M38 118 L72 46 L106 118 Z" fill="#000"/>
+      <circle cx="112" cy="54" r="14" fill="#000"/>
+    </mask>
+  </defs>
+  <rect x="8" y="8" width="144" height="144" rx="36" fill="#FFFFFF" mask="url(#sm-branco-2)"/>
+  <text x="180" y="103" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="700" letter-spacing="-1" fill="#FFFFFF">Sua Marca</text>
+</svg>

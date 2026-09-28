@@ -1,0 +1,439 @@
+{
+  "$comentario": "Marca de ORIGEM do template (repositório aislansf/ds-sebrae, pasta frontend/). Uso exclusivo da manutenção (tools/): diz ao extract-template.mjs o que remover e serve para o teste de ida e volta. Nada desta pasta é instalado com a skill.",
+  "nome": "SEBRAE-CE",
+  "nome_curto": "SEBRAE",
+  "nome_completo": "Serviço de Apoio às Micro e Pequenas Empresas do Ceará",
+  "genero": "m",
+  "slug": "sebrae-ce",
+  "slogan": "Transformando vidas por meio da educação",
+  "descricao": "Padrões de UI e implementação para os produtos digitais do SEBRAE.",
+  "dominios": {
+    "ds": "sebrae-ce.dscreator.com.br",
+    "org": "ce.sebrae.com.br",
+    "org_raiz": "sebrae.com.br"
+  },
+  "manual_marca_url": "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Manual_de_Marca_Sebrae.pdf",
+  "og_image_url": "https://storage.googleapis.com/gpt-engineer-file-uploads/yB1Tw9zhWwa2d7QALOrfaFUAcU33/social-images/social-1782410806928-thumbnail-sebrae.webp",
+  "cores": {
+    "primaria": "#2A4FDA",
+    "secundaria": "#11A0D4",
+    "destaque": "#E7F79E",
+    "realce": "#D98217"
+  },
+  "fontes": {
+    "primaria": {
+      "nome": "Figtree",
+      "google": true
+    },
+    "display": {
+      "nome": "Campuni",
+      "google": false,
+      "url_woff2": "https://static-p134603-e1404735.adobeaemcloud.com/8d5fa04350fd5b585a87e5b1a26cf5cb42331dcc0a0fb644f29940873837ace3/fonts/campuni-bold.woff2",
+      "peso": 700
+    },
+    "sistema": {
+      "nome": "Lato",
+      "google": true,
+      "pesos": [
+        300,
+        400,
+        700,
+        900
+      ]
+    }
+  },
+  "logos": {
+    "cor": "logos/sebrae-cor.svg",
+    "branco": "logos/sebrae-white.svg",
+    "preto": "logos/sebrae-black.svg"
+  },
+  "favicon": "logos/favicon.png",
+  "termos_proibidos": [
+    "fnde"
+  ],
+  "conteudo": {
+    "tom_de_voz": "Institucional, próximo e direto; fala com o empreendedor.",
+    "publico": "Equipes internas do SEBRAE-CE e fornecedores que constroem produtos digitais.",
+    "paleta_estendida": [],
+    "regras_de_marca": []
+  },
+  "modulos": {
+    "modelos_bi": true
+  },
+  "confirmado_pelo_usuario": true,
+  "origem": {
+    "prefixo_codigo": "sebrae",
+    "aliases_codigo": {
+      "sebrae-blue": "brand-primary",
+      "sebrae-orange": "brand-secondary",
+      "SEBRAE_BLUE": "BRAND_PRIMARY"
+    },
+    "variantes_nome": [
+      "SEBRAE Ceará",
+      "Sebrae Ceará",
+      "Sebrae-CE",
+      "SEBRAE/CE",
+      "SEBRAE CE"
+    ],
+    "variantes_nome_curto": [
+      "Sebrae"
+    ],
+    "urls_manual": [
+      "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Brandbook_Sebrae.pdf",
+      "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Manual_de_Marca_Sebrae.pdf"
+    ],
+    "og_image": "https://storage.googleapis.com/gpt-engineer-file-uploads/yB1Tw9zhWwa2d7QALOrfaFUAcU33/social-images/social-1782410806928-thumbnail-sebrae.webp",
+    "familias": [
+      {
+        "nome": "primaria",
+        "hex": "#2A4FDA",
+        "hsl": [
+          228,
+          70,
+          51
+        ],
+        "janela": [
+          204,
+          252
+        ],
+        "saturacao_minima": 30
+      },
+      {
+        "nome": "secundaria",
+        "hex": "#11A0D4",
+        "hsl": [
+          196,
+          85,
+          45
+        ],
+        "janela": [
+          180,
+          204
+        ],
+        "saturacao_minima": 30
+      },
+      {
+        "nome": "destaque",
+        "hex": "#E7F79E",
+        "hsl": [
+          71,
+          85,
+          79
+        ],
+        "janela": [
+          58,
+          84
+        ],
+        "saturacao_minima": 40
+      },
+      {
+        "nome": "realce",
+        "hex": "#D98217",
+        "hsl": [
+          33,
+          81,
+          47
+        ],
+        "janela": [
+          31,
+          35.5
+        ],
+        "saturacao_minima": 60
+      }
+    ],
+    "$substituicoes_conteudo": "Aplicadas antes de todas as outras regras, sobre o texto original. Chaves literais, com borda de palavra quando começam/terminam em letra ou número. A ordem importa: frases longas antes das palavras que elas contêm.",
+    "substituicoes_conteudo": {
+      "Transformando vidas por meio da educação financeira": "__BRAND_SLOGAN__",
+      "Transformando vidas por meio da educação": "__BRAND_SLOGAN__",
+      "por meio da educação financeira.": "por meio da tecnologia.",
+      "Transformando vidas": "Conectando pessoas",
+      "Fundo Nacional de Desenvolvimento da Educação": "__BRAND_FULL_NAME__",
+      "Sua porta de entrada para a gestão educacional.": "Sua porta de entrada para os serviços digitais.",
+      "Solicite seu acesso para começar a utilizar as ferramentas de gestão e financiamento da educação brasileira.": "Solicite seu acesso para começar a utilizar as ferramentas de gestão da plataforma.",
+      "<option value=\"mec\">MEC</option>": "<option value=\"parceiro\">Instituição parceira</option>",
+      "usuario@orgao.gov.br": "usuario@__ORG_DOMAIN__",
+      "Protegemos seus dados e o acesso aos recursos da educação com camadas adicionais de proteção.": "Protegemos seus dados e o acesso aos recursos da plataforma com camadas adicionais de proteção.",
+      "Recursos transferidos para educação básica em todo o Brasil": "Recursos aplicados em programas e projetos",
+      "Tecnologias e práticas modernas a serviço da educação.": "Tecnologias e práticas modernas a serviço das pessoas.",
+      "Escolas atendidas": "Empresas atendidas",
+      "foto_escola.jpg": "foto_evento.jpg",
+      "Acompanhamento da situação dos prefeitos e secretários municipais e estaduais da educação.": "Acompanhamento da situação cadastral dos parceiros institucionais.",
+      "Cadastro Base — Prefeitos e Secretários": "Cadastro Base — Parceiros Institucionais",
+      "Acompanhamento do Pacto Nacional pela Retomada de Obras da Educação Básica.": "Acompanhamento da retomada de projetos e obras prioritárias.",
+      "Pacto de Retomada": "Retomada de Projetos",
+      "pacto-retomada": "retomada-projetos",
+      "Programa Escola em Tempo Integral": "Programa Jornada Ampliada",
+      "Os recursos do Programa apoiam a ampliação da jornada escolar.": "Os recursos do programa apoiam a ampliação das ações de capacitação.",
+      "escola-integral": "jornada-ampliada",
+      "Atividade COGER": "Corregedoria",
+      "atividade-coger": "corregedoria",
+      "COGER": "Corregedoria",
+      "pdde-basico": "programa-inova",
+      "Educação Básica": "Capacitação",
+      "Merenda Escolar": "Consultoria",
+      "Livro Didático": "Materiais Didáticos",
+      "Mais Educação": "Mais Conhecimento",
+      "GDDE": "GEAT",
+      "DIRTI": "DITEC",
+      "DIRT": "DIRAD",
+      "DIGAP": "DIGOV",
+      "DIRAE": "DIROP",
+      "DIFIN": "DIAFI",
+      "DIPRO": "DIPLAN",
+      "DIRSU": "DISUP",
+      "UCAE": "UCAP",
+      "UAIN": "UINOV",
+      "UAPN": "UNEG",
+      "UAMP": "UMEP",
+      "pnae": "prog_a",
+      "pnate": "prog_b",
+      "pdde": "prog_c",
+      "ALI (Agentes Locais de Inovação)": "AGI (Agentes de Inovação)",
+      "Agentes Locais de Inovação": "Agentes de Inovação",
+      "ALI": "AGI",
+      "Empretec": "Empreender",
+      "Sebraetec": "Programa Inova",
+      "Sebrae Delas": "Elas Empreendem",
+      "Sebrae Mais": "Gestão Avançada",
+      "Brasil Mais": "Mais Produtividade",
+      "SEI - Seu Negócio": "Primeiro Negócio",
+      "SEI — Seu Negócio": "Primeiro Negócio",
+      ">SEI<": ">Primeiro Negócio<",
+      "Negócio a Negócio": "Visita Técnica",
+      "Na Medida": "Sob Medida",
+      "Planeja": "Planejamento",
+      "Inovação CE": "Inovação Regional",
+      "Regional Cariri": "Regional Sul",
+      "Avenida Monsenhor Tabosa, 777, Praia de Iracema — Fortaleza/CE. CNPJ 07.121.244/0001-08.": "Endereço institucional, 000 — Cidade/UF. CNPJ 00.000.000/0001-00.",
+      "0800 570 0800": "0800 000 0000",
+      "Fortaleza – CE": "Campinas – SP",
+      "value: \"Ceará\"": "value: \"São Paulo\"",
+      "uf: \"CE\"": "uf: \"SP\"",
+      "Visão SEBRAE: ter excelência no desenvolvimento dos pequenos negócios, contribuindo para a construção de um Brasil mais justo, competitivo e sustentável.": "Visão: ser referência em soluções digitais que aproximam pessoas e serviços.",
+      "Estimular o empreendedorismo e impulsionar os pequenos negócios": "Soluções que aproximam pessoas e serviços",
+      "uma entidade privada sem fins lucrativos que promove a competitividade e o desenvolvimento sustentável dos pequenos negócios brasileiros, oferecendo capacitação, consultoria e acesso a mercados.": "uma instituição que oferece serviços, capacitação e atendimento ao seu público por canais digitais e presenciais.",
+      "uma entidade privada sem fins lucrativos...": "uma instituição que oferece serviços...",
+      "Paleta de cores Sebrae — Nós representamos todo o Brasil. E a nossa paleta de cores também!": "Paleta de cores de referência da marca",
+      "e expande para as cores que representam a diversidade brasileira.": "e expande para a paleta estendida da marca.",
+      "Paleta principal — Azul Céu Brasileiro": "Paleta principal — Cor institucional",
+      "— inspirada no azul do céu brasileiro presente na": "— base da identidade visual da marca.",
+      "identidade visual “Nós representamos todo o Brasil”. A partir dela": "A partir dela",
+      "Família Brasil": "Família Estendida",
+      "paleta Brasil": "paleta estendida",
+      "Brasil Sunset": "Pôr do Sol",
+      "brasil-sunset": "por-do-sol",
+      "paletaReferenciaBrasil": "paletaReferencia",
+      "paleta-referencia-brasil": "paleta-referencia",
+      "Coral Carnaval": "Coral",
+      "Verde Tropical": "Verde Menta",
+      "Amarelo Sol": "Amarelo Claro",
+      "Laranja Manga": "Laranja Pêssego",
+      "Roxo Festival": "Roxo Lavanda",
+      "green-tropical": "green-mint",
+      "yellow-sun": "yellow-light",
+      "orange-mango": "orange-peach",
+      "purple-festival": "purple-lavender",
+      "name=\"Tropical\"": "name=\"Menta\"",
+      "name=\"Carnaval\"": "name=\"Vibrante\"",
+      "Background Tropical": "Background Menta",
+      "background Tropical": "background Menta",
+      "background Carnaval": "background Vibrante",
+      "Azul Profundo": "Primária Profunda",
+      "Azul Marinho": "Primária Escura",
+      "Azul Cobalto": "Primária Intensa",
+      "Azul Royal": "Primária Vibrante",
+      "Azul Céu": "Primária Clara",
+      "Azul Primário": "Primária",
+      "Ciano Vibrante": "Secundária Vibrante",
+      "blue-profundo": "primary-deep",
+      "blue-marinho": "primary-dark",
+      "blue-cobalto": "primary-strong",
+      "blue-royal": "primary-vivid",
+      "blue-ceu": "primary-light",
+      "https://static-p134603-e1404735.adobeaemcloud.com/8d5fa04350fd5b585a87e5b1a26cf5cb42331dcc0a0fb644f29940873837ace3/fonts/campuni-bold.woff2": "__FONT_DISPLAY_URL__",
+      "https://static-p134603-e1404735.adobeaemcloud.com/.../fonts/campuni-bold.woff2": "__FONT_DISPLAY_URL__",
+      "campuni-bold.woff2": "display-bold.woff2",
+      "Solicitação%20da%20fonte%20Campuni%20(TTF/OTF)": "Solicitação%20da%20fonte%20display%20(TTF/OTF)",
+      "CDN oficial Sebrae AEM": "CDN oficial da marca",
+      "CDN AEM": "CDN da marca",
+      "Governo Federal é sempre o primeiro na hierarquia, mesmo quando o Sebrae é o promotor.": "Instituições públicas parceiras vêm sempre primeiro na hierarquia, mesmo quando o Sebrae é o promotor.",
+      "Botão Gov.br - Padrão Federal": "Botão de login único (SSO)",
+      "Entrar com gov.br": "Entrar com login único",
+      "login com gov.br": "login único (SSO)",
+      "assinatura Gov.br": "assinatura de parceiro",
+      "e Gov.br": "e login único",
+      "Governo do Brasil": "Marca parceira"
+    },
+    "$substituicoes_regex": "Padrões aplicados logo depois de substituicoes_conteudo: [regex, substituição]. Pegam identificadores e rotas (FarolEstrategicoPage, /farol-estrategico, marcaGov…).",
+    "substituicoes_regex": [
+      [
+        "Farol",
+        "Radar"
+      ],
+      [
+        "farol",
+        "radar"
+      ],
+      [
+        "FAROL",
+        "RADAR"
+      ],
+      [
+        "marca-gov",
+        "marca-parceiro"
+      ],
+      [
+        "marcaGov",
+        "marcaParceiro"
+      ],
+      [
+        "sem-gov",
+        "sem-parceiro"
+      ],
+      [
+        "__gov\\b",
+        "__parceiro"
+      ]
+    ],
+    "$substituicoes_caminho": "Renomeação de arquivos e pastas: [regex, substituição].",
+    "substituicoes_caminho": [
+      [
+        "farol",
+        "radar"
+      ],
+      [
+        "Farol",
+        "Radar"
+      ],
+      [
+        "marca-gov",
+        "marca-parceiro"
+      ],
+      [
+        "paleta-referencia-brasil",
+        "paleta-referencia"
+      ]
+    ],
+    "$termos_especificos": "Não podem sobrar no template (palavra inteira, com caixa). A extração falha se algum aparecer.",
+    "termos_especificos": [
+      "Empretec",
+      "ALI",
+      "Sebraetec",
+      "Brasil Mais",
+      "Delas",
+      "Negócio a Negócio",
+      "Seu Negócio",
+      "SEI",
+      "Na Medida",
+      "Farol",
+      "Planeja",
+      "DIRAE",
+      "DIFIN",
+      "DIPRO",
+      "DIRSU",
+      "DIRT",
+      "DIRTI",
+      "DIGAP",
+      "GDDE",
+      "COGER",
+      "UCAE",
+      "UAIN",
+      "UAPN",
+      "UAMP",
+      "PNAE",
+      "pnae",
+      "pnate",
+      "PDDE",
+      "pdde",
+      "MEC",
+      "Mais Educação",
+      "Fortaleza",
+      "Ceará",
+      "Cariri",
+      "Iracema",
+      "Tabosa",
+      "07.121.244/0001-08",
+      "gov.br",
+      "Gov.br",
+      "Governo",
+      "Fundo Nacional",
+      "Nós representamos",
+      "Brasil Sunset",
+      "Transformando vidas",
+      "educação financeira",
+      "Campuni",
+      "Carnaval",
+      "Tropical",
+      "Festival",
+      "Manga",
+      "Janela aberta",
+      "janela aberta",
+      "Brandbook",
+      "olho no olho",
+      "Pode me chamar",
+      "Univers",
+      "letra S",
+      "Facilitadores",
+      "Céu Brasileiro",
+      "AEM"
+    ],
+    "$termos_proibidos_template": "Substrings proibidas em qualquer lugar do template, sem distinção de caixa (além do prefixo_codigo).",
+    "termos_proibidos_template": [
+      "fnde",
+      "adobeaemcloud",
+      "campuni",
+      "casademarcas"
+    ],
+    "$conteudo_exemplo": "Nomes fictícios que entram no lugar dos da origem. Vão para o manifesto e o GERACAO.md lista onde aparecem, para o agente trocar pelo universo da marca nova.",
+    "conteudo_exemplo": [
+      "Empreender",
+      "AGI",
+      "Agentes de Inovação",
+      "Programa Inova",
+      "Mais Produtividade",
+      "Elas Empreendem",
+      "Gestão Avançada",
+      "Visita Técnica",
+      "Primeiro Negócio",
+      "Sob Medida",
+      "Mais Conhecimento",
+      "Radar Estratégico",
+      "DIROP",
+      "DIAFI",
+      "DIPLAN",
+      "DISUP",
+      "DIRAD",
+      "DITEC",
+      "DIGOV",
+      "GEAT",
+      "UCAP",
+      "UINOV",
+      "UNEG",
+      "UMEP"
+    ],
+    "$imagens_revisadas": "Imagens da origem conferidas uma a uma e copiadas como estão (sem logo, fachada ou texto de marca). Qualquer outra imagem precisa de versão genérica em origem/overrides/, ou a extração falha.",
+    "imagens_revisadas": [
+      "src/assets/brand-empreendedora.jpg",
+      "src/assets/empreendedora-brand.jpg",
+      "src/assets/hub-thumb-1.jpg",
+      "src/assets/hub-thumb-2.jpg",
+      "src/assets/hub-thumb-3.jpg",
+      "src/assets/hub-thumb-4.jpg"
+    ],
+    "$overrides_de_codigo": "Arquivos de código substituídos inteiros por versões neutras em origem/overrides/, com o hash (sha256, 16 primeiros caracteres) do arquivo da origem em que a versão neutra se baseia. Se a origem mudar, a extração falha até alguém revisar.",
+    "overrides_de_codigo": {
+      "src/pages/MarcaPage.tsx": "44564e6a2ee90e02",
+      "src/pages/HomePage.tsx": "026ccf211ccea4e6"
+    },
+    "excluir": [
+      "node_modules",
+      "dist",
+      "bun.lock",
+      "bun.lockb",
+      "README.md",
+      "reports/fnde-report.txt",
+      "reports/legacy-typography-report.txt",
+      "public/images/fnde-*"
+    ]
+  }
+}

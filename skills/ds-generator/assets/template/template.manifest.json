@@ -1,0 +1,107 @@
+{
+  "gerado_em": "2026-09-28T20:59:38.332Z",
+  "origem": {
+    "commit": "3bba5fe 2026-09-28",
+    "conteudo_exemplo": [
+      "Empreender",
+      "AGI",
+      "Agentes de Inovação",
+      "Programa Inova",
+      "Mais Produtividade",
+      "Elas Empreendem",
+      "Gestão Avançada",
+      "Visita Técnica",
+      "Primeiro Negócio",
+      "Sob Medida",
+      "Mais Conhecimento",
+      "Radar Estratégico",
+      "DIROP",
+      "DIAFI",
+      "DIPLAN",
+      "DISUP",
+      "DIRAD",
+      "DITEC",
+      "DIGOV",
+      "GEAT",
+      "UCAP",
+      "UINOV",
+      "UNEG",
+      "UMEP"
+    ]
+  },
+  "familias": [
+    {
+      "nome": "primaria",
+      "hex": "#2A4FDA",
+      "hsl": [
+        228,
+        70,
+        51
+      ],
+      "janela": [
+        204,
+        252
+      ],
+      "saturacao_minima": 30
+    },
+    {
+      "nome": "secundaria",
+      "hex": "#11A0D4",
+      "hsl": [
+        196,
+        85,
+        45
+      ],
+      "janela": [
+        180,
+        204
+      ],
+      "saturacao_minima": 30
+    },
+    {
+      "nome": "destaque",
+      "hex": "#E7F79E",
+      "hsl": [
+        71,
+        85,
+        79
+      ],
+      "janela": [
+        58,
+        84
+      ],
+      "saturacao_minima": 40
+    },
+    {
+      "nome": "realce",
+      "hex": "#D98217",
+      "hsl": [
+        33,
+        81,
+        47
+      ],
+      "janela": [
+        31,
+        35.5
+      ],
+      "saturacao_minima": 60
+    }
+  ],
+  "placeholders": [
+    "__BRAND_NAME__",
+    "__BRAND_SHORT__",
+    "__BRAND_FULL_NAME__",
+    "__DS_DOMAIN__",
+    "__ORG_DOMAIN__",
+    "__ORG_ROOT_DOMAIN__",
+    "__BRAND_MANUAL_URL__",
+    "__OG_IMAGE_URL__",
+    "__BRAND_SLOGAN__",
+    "__FONT_PRIMARY__",
+    "__FONT_DISPLAY__",
+    "__FONT_SYSTEM__",
+    "__FONT_DISPLAY_URL__",
+    "/* __FONT_IMPORTS__ */"
+  ],
+  "arquivos": 193
+}
