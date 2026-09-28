@@ -14,7 +14,7 @@
  *   3. Recolore todas as cores por família de matiz (primária, secundária, destaque, realce)
  *   4. Reescreve os HEX de src/data/tokenGroups.ts a partir dos HSL (mantém o teste de tokens verde)
  *   5. Corrige pares de contraste críticos (texto sobre a primária)
- *   6. Instala logos, favicon e placeholders para imagens hospedadas no CDN da Lovable
+ *   6. Instala logos, favicon e placeholders para as imagens que o template só referencia (.asset.json)
  *   7. Remove módulos opcionais (modelos de BI) conforme o briefing
  *   8. Grava scripts/legacy-brand.config.json e GERACAO.md (relatório com pendências)
  */
@@ -27,6 +27,7 @@ import {
 } from "./lib/color.mjs";
 import { PLACEHOLDERS, placeholderValues, fontImportsBlock } from "./lib/rules.mjs";
 import { auditContrast, contrastTable, blockBodies } from "./lib/contrast.mjs";
+import { validarBriefing, formatarPendencias, normalizarBriefing } from "./lib/briefing.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SKILL = path.resolve(HERE, "..");
@@ -47,25 +48,20 @@ const BRIEF_PATH = path.resolve(args.brief);
 const BRIEF_DIR = path.dirname(BRIEF_PATH);
 const TEMPLATE = path.resolve(args.template ?? path.join(SKILL, "assets/template"));
 const OUT = path.resolve(args.out);
-const brief = JSON.parse(fs.readFileSync(BRIEF_PATH, "utf8"));
+const briefRaw = JSON.parse(fs.readFileSync(BRIEF_PATH, "utf8"));
 const manifest = JSON.parse(fs.readFileSync(path.join(TEMPLATE, "template.manifest.json"), "utf8"));
 const warnings = [];
 
-// ---------- 0. Validação do briefing ----------
+// ---------- 0. Validação do briefing: todas as perguntas respondidas e confirmadas ----------
 const HEX = /^#[0-9a-fA-F]{6}$/;
-const erros = [];
-if (!brief.nome) erros.push("nome");
-if (!brief.slug || !/^[a-z0-9-]+$/.test(brief.slug)) erros.push("slug (minúsculas, números e hífen)");
-if (!HEX.test(brief.cores?.primaria ?? "")) erros.push("cores.primaria (#RRGGBB)");
-if (!brief.fontes?.primaria?.nome) erros.push("fontes.primaria.nome");
-for (const k of ["secundaria", "destaque", "realce"]) {
-  const v = brief.cores?.[k];
-  if (v && !HEX.test(v)) erros.push(`cores.${k} (#RRGGBB)`);
-}
-if (erros.length) {
-  console.error(`Briefing inválido — campos obrigatórios/malformados: ${erros.join(", ")}`);
+const pendencias = validarBriefing(briefRaw, BRIEF_DIR);
+if (pendencias.length) {
+  console.error(`Briefing incompleto — nada foi gerado. ${pendencias.length} pergunta(s) sem resposta válida:\n`);
+  console.error(formatarPendencias(pendencias));
+  console.error("\nPergunte ao usuário e rode de novo. Não invente respostas nem preencha padrões sem que ele escolha.");
   process.exit(1);
 }
+const brief = normalizarBriefing(briefRaw);
 
 if (fs.existsSync(OUT) && fs.readdirSync(OUT).length) {
   if (!args.force) {
@@ -104,12 +100,12 @@ const targets = {
   realce: brief.cores.realce ? fromHex(brief.cores.realce) : null,
 };
 
-// Famílias extras declaradas na origem recebem a cor de mesmo nome do briefing, se houver
+// Famílias extras declaradas no manifesto recebem a cor de mesmo nome do briefing, se houver
 for (const f of manifest.familias) {
   if (!(f.nome in targets) && HEX.test(brief.cores?.[f.nome] ?? "")) targets[f.nome] = fromHex(brief.cores[f.nome]);
 }
 
-// Se a cor-alvo for a própria cor de origem, usa o HSL exato do CSS de origem (ida e volta = identidade)
+// Se a cor-alvo for a própria cor de referência, usa o HSL exato do template (ida e volta = identidade)
 for (const f of manifest.familias) {
   const t = targets[f.nome];
   if (t && f.hex && t.hex === f.hex.toUpperCase()) targets[f.nome] = { h: f.hsl[0], s: f.hsl[1], l: f.hsl[2], hex: t.hex };
@@ -131,7 +127,7 @@ const values = placeholderValues(brief);
 const fontBlock = fontImportsBlock(brief);
 const stats = { arquivos: 0, hex: 0, hsl: 0 };
 
-// Concordância de gênero antes do nome da marca (o template foi escrito para "o SEBRAE")
+// Concordância de gênero antes do nome da marca (o template foi escrito no masculino: "do __BRAND_SHORT__")
 const FEM = { do: "da", no: "na", pelo: "pela", ao: "à", o: "a", Do: "Da", No: "Na", Pelo: "Pela", Ao: "À", O: "A" };
 const BRAND_PH = "__BRAND_(?:NAME|SHORT|FULL_NAME)__";
 function agreeGender(text) {
@@ -198,7 +194,7 @@ const getVar = (cssText, selector, name) => {
 };
 const ratio = (a, b) => contrastRatio(hslToRgb(parseTriplet(a)), hslToRgb(parseTriplet(b)));
 const ajustes = [];
-// Só corrige pares que ficaram PIORES que na marca de origem: o que já era decisão de design da origem fica como está
+// Só corrige pares que ficaram PIORES que no template: o que já era decisão de design do template fica como está
 const srcCss = fs.readFileSync(path.join(TEMPLATE, CSS_REL), "utf8");
 const srcRatio = (selector, fgName, bgName) => {
   const fg = getVar(srcCss, selector, fgName) ?? getVar(srcCss, ":root", fgName);
@@ -281,10 +277,9 @@ const logos = {};
 for (const [kind, { file, fill }] of Object.entries(logoKinds)) {
   const src = resolveBrief(brief.logos?.[kind]);
   let svg;
-  if (src && fs.existsSync(src)) svg = asSvg(src);
+  if (src) svg = asSvg(src);
   else {
-    if (src) warnings.push(`Logo "${kind}" não encontrado em ${src} — usei um logotipo tipográfico provisório.`);
-    else warnings.push(`Logo "${kind}" não informado — usei um logotipo tipográfico provisório.`);
+    warnings.push(`A marca não tem logo "${kind}" (resposta do briefing) — usei um logotipo tipográfico provisório.`);
     svg = wordmark(fill);
   }
   logos[kind] = svg;
@@ -297,7 +292,7 @@ for (const [rel, kind] of [["src/assets/brand-logo-white.svg", "branco"], ["src/
   if (fs.existsSync(P(rel))) write(rel, logos[kind]);
 }
 
-// Demais .asset.json apontam para o CDN da Lovable do projeto de origem → placeholders locais
+// Demais .asset.json (imagens sem arquivo no template) → placeholders locais nas cores da marca
 const placeholders = [];
 (function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -313,11 +308,12 @@ const placeholders = [];
       url = "/marca/brand-cor.svg";
     } else {
       url = `/placeholders/${stem}.svg`;
-      const label = stem.replace(/[-_]/g, " ");
-      write(`public/placeholders/${stem}.svg`, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+      // Composição abstrata nas cores da marca, sem texto: aparece em headers e miniaturas até a imagem definitiva
+      write(`public/placeholders/${stem}.svg`, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
   <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${tPrim.hex}"/><stop offset="1" stop-color="${targets.secundaria.hex}"/></linearGradient></defs>
   <rect width="1600" height="900" fill="url(#g)"/>
-  <text x="800" y="470" text-anchor="middle" font-family="${brief.fontes.primaria.nome}, Arial, sans-serif" font-size="44" fill="#FFFFFF" opacity="0.85">${label}</text>
+  <circle cx="1320" cy="140" r="360" fill="#FFFFFF" opacity="0.08"/>
+  <circle cx="260" cy="820" r="420" fill="#FFFFFF" opacity="0.06"/>
 </svg>
 `);
       placeholders.push(`${rel} → public${url}`);
@@ -328,17 +324,20 @@ const placeholders = [];
 
 // Favicon
 const favSrc = resolveBrief(brief.favicon);
-if (favSrc && fs.existsSync(favSrc) && path.extname(favSrc).toLowerCase() === ".png") {
+if (favSrc && path.extname(favSrc).toLowerCase() === ".png") {
   fs.copyFileSync(favSrc, P("public/favicon.png"));
 } else {
-  const letter = short.charAt(0).toUpperCase();
-  write("public/favicon.svg", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${tPrim.hex}"/><text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="38" fill="#FFFFFF">${letter}</text></svg>\n`);
+  if (favSrc) fs.copyFileSync(favSrc, P("public/favicon.svg"));
+  else {
+    const letter = short.charAt(0).toUpperCase();
+    write("public/favicon.svg", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${tPrim.hex}"/><text x="32" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="38" fill="#FFFFFF">${letter}</text></svg>\n`);
+    warnings.push("A marca não tem favicon (resposta do briefing) — gerei um monograma em public/favicon.svg.");
+  }
   if (fs.existsSync(P("public/favicon.png"))) fs.rmSync(P("public/favicon.png"));
   for (const rel of ["index.html", "src/components/SEO.tsx"]) {
     if (!fs.existsSync(P(rel))) continue;
     write(rel, read(rel).replace(/type="image\/png" href="\/favicon\.png"/g, 'type="image/svg+xml" href="/favicon.svg"').replace(/\/favicon\.png/g, "/favicon.svg"));
   }
-  if (!favSrc) warnings.push("Favicon não informado — gerei um monograma em public/favicon.svg.");
 }
 // index.html: idioma e autor
 if (fs.existsSync(P("index.html"))) {
@@ -348,7 +347,7 @@ if (fs.existsSync(P("index.html"))) {
 // ---------- 6. Módulos opcionais ----------
 const removidos = [];
 if (brief.modulos?.modelos_bi === false) {
-  const BI = /\/modelos-bi|ModelosBIPage|PlanejaBIPage|MPIBIPage|GestaoPessoasBIPage|FarolEstrategicoHubPage|FarolEstrategicoDocsPage/;
+  const BI = /\/modelos-bi|ModelosBIPage|PlanejaBIPage|MPIBIPage|GestaoPessoasBIPage|RadarEstrategicoHubPage|RadarEstrategicoDocsPage/;
   for (const rel of ["src/App.tsx", "src/utils/prefetchRoutes.ts", "public/llms.txt", "public/sitemap.xml"]) {
     if (!fs.existsSync(P(rel))) continue;
     const lines = read(rel).split("\n");
@@ -375,7 +374,7 @@ if (brief.modulos?.modelos_bi === false) {
       removidos.push(`${NAV}: item "Modelos de BI" do menu`);
     }
   }
-  for (const rel of ["src/pages/ModelosBIPage.tsx", "src/pages/modelos-bi", "src/pages/FarolEstrategicoDocsPage.tsx"]) {
+  for (const rel of ["src/pages/ModelosBIPage.tsx", "src/pages/modelos-bi", "src/pages/RadarEstrategicoDocsPage.tsx"]) {
     if (fs.existsSync(P(rel))) { fs.rmSync(P(rel), { recursive: true, force: true }); removidos.push(rel); }
   }
 }
@@ -387,7 +386,7 @@ if (fs.existsSync(P("package.json"))) {
   write("package.json", JSON.stringify(pkg, null, 2) + "\n");
 }
 const propria = [brief.nome, brief.nome_curto, brief.slug, brief.nome_completo, ...Object.values(brief.dominios ?? {})].filter(Boolean).join(" ").toLowerCase();
-const termos = [...new Set([manifest.origem.prefixo_codigo, ...(brief.termos_proibidos ?? [])].map((t) => t.toLowerCase()))]
+const termos = [...new Set((brief.termos_proibidos ?? []).map((t) => t.toLowerCase()))]
   .filter((t) => !propria.includes(t));
 write("scripts/legacy-brand.config.json", JSON.stringify({ termos }, null, 2) + "\n");
 
@@ -410,10 +409,12 @@ function scan(re) {
 }
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const legados = termos.length ? scan(new RegExp(termos.map(esc).join("|"), "i")) : [];
-const especificos = manifest.origem.termos_especificos.length
-  ? scan(new RegExp(manifest.origem.termos_especificos.map(esc).join("|")))
+const exemplos = manifest.origem.conteudo_exemplo ?? [];
+const especificos = exemplos.length
+  ? scan(new RegExp(`(?<![\\p{L}\\p{N}_])(?:${exemplos.map(esc).join("|")})(?![\\p{L}\\p{N}_])`, "u"))
   : [];
 const sobras = scan(/__[A-Z_]+__/);
+const modelos = scan(/MODELO:/);
 const fotos = [];
 (function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -434,7 +435,7 @@ const agrupar = (hits) => {
 
 const relatorio = `# Geração do DS ${brief.nome}
 
-Gerado em ${new Date().toISOString()} a partir do template de **${manifest.origem.nome}**.
+Gerado em ${new Date().toISOString()} a partir do template do ds-generator${manifest.origem.commit ? ` (versão ${manifest.origem.commit})` : ""}.
 
 ## Resumo
 
@@ -467,22 +468,26 @@ ${lista(removidos)}
 ### 1. Ocorrências de marcas proibidas (${legados.length}) — o build falha enquanto houver
 ${lista(agrupar(legados))}
 
-### 2. Conteúdo de exemplo da marca de origem (${especificos.length})
-Nomes de programas, diretorias e produtos da origem usados em dados fictícios. Troque por exemplos do universo da nova marca.
+### 2. Conteúdo de exemplo genérico (${especificos.length})
+Nomes fictícios de programas, unidades e produtos usados nos dados de demonstração (${exemplos.slice(0, 8).join(", ")}…). Troque por exemplos do universo da nova marca.
 ${lista(agrupar(especificos))}
 
 ### 3. Placeholders não resolvidos (${sobras.length})
 ${lista(sobras)}
 
-### 4. Imagens herdadas do template (${fotos.length})
-Fotos e miniaturas ainda mostram a identidade de origem. Substitua ou recapture as miniaturas com o DS novo rodando.
+### 4. Imagens genéricas do template (${fotos.length})
+Fotos sem marca, selo "marca parceira" e miniaturas capturadas com a marca neutra "Sua Marca". Recapture as miniaturas com o DS novo rodando e troque as fotos se a marca tiver as suas.
 ${lista(fotos)}
 
 ### 5. Placeholders de imagem gerados (${placeholders.length})
 ${lista(placeholders)}
 
-### 6. Textos que precisam de reescrita semântica
-Veja \`references/reescrita-semantica.md\` na skill: MarcaPage, ColorSection (paleta estendida), FundamentosPage (tipografia/iconografia), HomePage, ConteudoPage (tom de voz), AcessibilidadePage, public/llms.txt.
+### 6. Textos-modelo marcados com \`MODELO:\` (${modelos.length})
+Conteúdo genérico (voz da marca, regras do logo, medidas de referência) que precisa vir do manual e do briefing. Reescreva e apague o comentário \`MODELO:\` de cada trecho.
+${lista(modelos)}
+
+### 7. Outros textos que precisam de reescrita semântica
+Veja \`references/reescrita-semantica.md\` na skill: ColorSection (paleta estendida), FundamentosPage (tipografia/iconografia), ConteudoPage (tom de voz), AcessibilidadePage, public/llms.txt.
 
 ## Contraste (${contraste.length} pares, ${falhas.length} abaixo de AA)
 
@@ -502,6 +507,6 @@ if (args["node-modules"]) {
 
 console.log(`DS "${brief.nome}" gerado em ${OUT}`);
 console.log(`  arquivos=${stats.arquivos} hex=${stats.hex} hsl=${stats.hsl} ajustes=${ajustes.length} removidos=${removidos.length}`);
-console.log(`  marcas proibidas: ${legados.length} · conteúdo de origem: ${especificos.length} · placeholders: ${sobras.length} · contraste < AA: ${falhas.length}`);
+console.log(`  marcas proibidas: ${legados.length} · conteúdo de exemplo: ${especificos.length} · placeholders: ${sobras.length} · textos-modelo: ${modelos.length} · contraste < AA: ${falhas.length}`);
 if (warnings.length) console.log("  avisos:\n    " + warnings.join("\n    "));
 console.log(`  relatório: ${path.join(OUT, "GERACAO.md")}`);

@@ -86,15 +86,15 @@ const lineMultiData = [
 
 /* ========== COLUMN CHART DATA ========== */
 const basicColumnData = [
-  { name: "Fev", pnae: 44, pnate: 76, pdde: 35 },
-  { name: "Mar", pnae: 55, pnate: 85, pdde: 41 },
-  { name: "Abr", pnae: 57, pnate: 101, pdde: 36 },
-  { name: "Mai", pnae: 56, pnate: 98, pdde: 26 },
-  { name: "Jun", pnae: 61, pnate: 87, pdde: 45 },
-  { name: "Jul", pnae: 58, pnate: 105, pdde: 48 },
-  { name: "Ago", pnae: 63, pnate: 91, pdde: 52 },
-  { name: "Set", pnae: 60, pnate: 114, pdde: 53 },
-  { name: "Out", pnae: 66, pnate: 94, pdde: 41 },
+  { name: "Fev", prog_a: 44, prog_b: 76, prog_c: 35 },
+  { name: "Mar", prog_a: 55, prog_b: 85, prog_c: 41 },
+  { name: "Abr", prog_a: 57, prog_b: 101, prog_c: 36 },
+  { name: "Mai", prog_a: 56, prog_b: 98, prog_c: 26 },
+  { name: "Jun", prog_a: 61, prog_b: 87, prog_c: 45 },
+  { name: "Jul", prog_a: 58, prog_b: 105, prog_c: 48 },
+  { name: "Ago", prog_a: 63, prog_b: 91, prog_c: 52 },
+  { name: "Set", prog_a: 60, prog_b: 114, prog_c: 53 },
+  { name: "Out", prog_a: 66, prog_b: 94, prog_c: 41 },
 ];
 
 const dataLabelsData = [
@@ -128,12 +128,12 @@ const groupedStackedData = [
 ];
 
 const horizontalData = [
-  { name: "Educação Básica", valor: 4500 },
+  { name: "Capacitação", valor: 4500 },
   { name: "Infraestrutura", valor: 3200 },
   { name: "Tecnologia", valor: 2800 },
-  { name: "Merenda Escolar", valor: 2400 },
+  { name: "Consultoria", valor: 2400 },
   { name: "Transporte", valor: 1800 },
-  { name: "Livro Didático", valor: 1200 },
+  { name: "Materiais Didáticos", valor: 1200 },
 ];
 
 const tooltipStyle = { background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 };
@@ -142,8 +142,8 @@ const tooltipStyle = { background: "hsl(var(--card))", border: "1px solid hsl(va
 const codeBasicColumn = `import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const data = [
-  { name: "Fev", pnae: 44, pnate: 76, pdde: 35 },
-  { name: "Mar", pnae: 55, pnate: 85, pdde: 41 },
+  { name: "Fev", prog_a: 44, prog_b: 76, prog_c: 35 },
+  { name: "Mar", prog_a: 55, prog_b: 85, prog_c: 41 },
   // ...
 ];
 
@@ -154,9 +154,9 @@ const data = [
     <YAxis label={{ value: "R$ (milhões)", angle: -90, position: "insideLeft" }} />
     <Tooltip />
     <Legend />
-    <Bar dataKey="pnae" name="Empretec" fill="hsl(var(--success))" radius={[2,2,0,0]} />
-    <Bar dataKey="pnate" name="ALI" fill="hsl(var(--primary))" radius={[2,2,0,0]} />
-    <Bar dataKey="pdde" name="Programa Inova" fill="hsl(var(--info))" radius={[2,2,0,0]} />
+    <Bar dataKey="prog_a" name="Empreender" fill="hsl(var(--success))" radius={[2,2,0,0]} />
+    <Bar dataKey="prog_b" name="AGI" fill="hsl(var(--primary))" radius={[2,2,0,0]} />
+    <Bar dataKey="prog_c" name="Programa Inova" fill="hsl(var(--info))" radius={[2,2,0,0]} />
   </BarChart>
 </ResponsiveContainer>`;
 
@@ -180,10 +180,10 @@ const codeStackedColumn = `// Colunas empilhadas com labels internos
     <YAxis />
     <Tooltip />
     <Legend />
-    <Bar dataKey="produto_a" name="Empretec" stackId="a"
+    <Bar dataKey="produto_a" name="Empreender" stackId="a"
       fill="hsl(var(--success))"
       label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
-    <Bar dataKey="produto_b" name="ALI" stackId="a"
+    <Bar dataKey="produto_b" name="AGI" stackId="a"
       fill="hsl(var(--primary))"
       label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
     <Bar dataKey="produto_c" name="Programa Inova" stackId="a"
@@ -200,11 +200,11 @@ const codeStacked100 = `// Colunas 100% empilhadas (valores em %)
     <YAxis tickFormatter={(v) => \`\${v}%\`} />
     <Tooltip formatter={(value) => \`\${value}%\`} />
     <Legend />
-    <Bar dataKey="produto_a" name="Empretec" stackId="a"
+    <Bar dataKey="produto_a" name="Empreender" stackId="a"
       fill="hsl(var(--success))"
       label={{ position: "inside", fontSize: 10, fill: "#fff",
         formatter: (v) => \`\${v}%\` }} />
-    <Bar dataKey="produto_b" name="ALI" stackId="a"
+    <Bar dataKey="produto_b" name="AGI" stackId="a"
       fill="hsl(var(--primary))"
       label={{ position: "inside", fontSize: 10, fill: "#fff",
         formatter: (v) => \`\${v}%\` }} />
@@ -712,9 +712,9 @@ export default function ChartsSection() {
               <YAxis className="text-xs fill-muted-foreground" label={{ value: "R$ (milhões)", angle: -90, position: "insideLeft", style: { fontSize: 11, fill: "hsl(var(--muted-foreground))" } }} />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend />
-              <Bar dataKey="pnae" name="Empretec" fill="hsl(var(--success))" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="pnate" name="ALI" fill="hsl(var(--primary))" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="pdde" name="Programa Inova" fill="hsl(var(--info))" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="prog_a" name="Empreender" fill="hsl(var(--success))" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="prog_b" name="AGI" fill="hsl(var(--primary))" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="prog_c" name="Programa Inova" fill="hsl(var(--info))" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
@@ -757,8 +757,8 @@ export default function ChartsSection() {
               <YAxis className="text-xs fill-muted-foreground" />
               <Tooltip contentStyle={tooltipStyle} />
               <Legend />
-              <Bar dataKey="produto_a" name="Empretec" stackId="a" fill="hsl(var(--success))" label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
-              <Bar dataKey="produto_b" name="ALI" stackId="a" fill="hsl(var(--primary))" label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
+              <Bar dataKey="produto_a" name="Empreender" stackId="a" fill="hsl(var(--success))" label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
+              <Bar dataKey="produto_b" name="AGI" stackId="a" fill="hsl(var(--primary))" label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
               <Bar dataKey="produto_c" name="Programa Inova" stackId="a" fill="hsl(var(--info))" radius={[4, 4, 0, 0]} label={{ position: "inside", fontSize: 10, fill: "#fff" }} />
             </BarChart>
           </ResponsiveContainer>
@@ -781,8 +781,8 @@ export default function ChartsSection() {
               <YAxis className="text-xs fill-muted-foreground" tickFormatter={(v) => `${v}%`} />
               <Tooltip contentStyle={tooltipStyle} formatter={(value: number) => `${value}%`} />
               <Legend />
-              <Bar dataKey="produto_a" name="Empretec" stackId="a" fill="hsl(var(--success))" label={{ position: "inside", fontSize: 10, fill: "#fff", formatter: (v: number) => `${v}%` }} />
-              <Bar dataKey="produto_b" name="ALI" stackId="a" fill="hsl(var(--primary))" label={{ position: "inside", fontSize: 10, fill: "#fff", formatter: (v: number) => `${v}%` }} />
+              <Bar dataKey="produto_a" name="Empreender" stackId="a" fill="hsl(var(--success))" label={{ position: "inside", fontSize: 10, fill: "#fff", formatter: (v: number) => `${v}%` }} />
+              <Bar dataKey="produto_b" name="AGI" stackId="a" fill="hsl(var(--primary))" label={{ position: "inside", fontSize: 10, fill: "#fff", formatter: (v: number) => `${v}%` }} />
               <Bar dataKey="produto_c" name="Programa Inova" stackId="a" fill="hsl(var(--info))" radius={[4, 4, 0, 0]} label={{ position: "inside", fontSize: 10, fill: "#fff", formatter: (v: number) => `${v}%` }} />
             </BarChart>
           </ResponsiveContainer>

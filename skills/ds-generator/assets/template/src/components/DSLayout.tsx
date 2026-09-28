@@ -105,26 +105,26 @@ const navItems: NavItem[] = [
     label: "Modelos de BI", path: "/modelos-bi", icon: <BarChart3 size={18} />,
     children: [
       {
-        label: "Farol Estratégico - BI",
-        path: "/modelos-bi/farol-estrategico",
+        label: "Radar Estratégico - BI",
+        path: "/modelos-bi/radar-estrategico",
         children: [
           {
             label: "BI",
-            path: "/modelos-bi/farol-estrategico/bi",
+            path: "/modelos-bi/radar-estrategico/bi",
             children: [
-              { label: "v1.0", path: "/modelos-bi/farol-estrategico/bi" },
+              { label: "v1.0", path: "/modelos-bi/radar-estrategico/bi" },
             ],
           },
           {
             label: "Docs",
-            path: "/modelos-bi/farol-estrategico/docs",
+            path: "/modelos-bi/radar-estrategico/docs",
             children: [
-              { label: "v1.0", path: "/modelos-bi/farol-estrategico/docs" },
+              { label: "v1.0", path: "/modelos-bi/radar-estrategico/docs" },
             ],
           },
         ],
       },
-      { label: "Planeja - BI", path: "/modelos-bi/planeja" },
+      { label: "Planejamento - BI", path: "/modelos-bi/planeja" },
       { label: "MPI - BI", path: "/modelos-bi/mpi", title: "Monitoramento da Performance das Iniciativas" },
       { label: "Gestão de Pessoas - BI", path: "/modelos-bi/gestao-pessoas" },
     ],

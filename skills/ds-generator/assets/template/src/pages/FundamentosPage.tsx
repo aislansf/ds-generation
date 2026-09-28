@@ -4,7 +4,7 @@ import { PageHeader, SectionHeader, CodeBlock } from "@/components/DSComponents"
 import { SEO } from "@/components/SEO";
 import ColorSection from "@/components/ColorSection";
 import { FontFamilyCard } from "@/components/FontFamilyCard";
-import paletaReferenciaBrasil from "@/assets/paleta-referencia-brasil.png.asset.json";
+import paletaReferencia from "@/assets/paleta-referencia.png.asset.json";
 import GridSection from "@/components/GridSection";
 import {
   ArrowRight, Bell, Check, ChevronRight, Download, Eye,
@@ -305,7 +305,7 @@ export default function FundamentosPage() {
         <FontFamilyCard
           badge="Fonte Secundária"
           badgeClass="bg-secondary text-secondary-foreground"
-          source="Proprietária __BRAND_SHORT__ · CDN AEM"
+          source="Proprietária __BRAND_SHORT__ · CDN da marca"
           name="__FONT_DISPLAY__"
           fontStack="'__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif"
           summary="Sans-serif de display com personalidade institucional. Reservada para títulos de impacto, hero e números em destaque."
@@ -324,13 +324,13 @@ export default function FundamentosPage() {
           powerBi="Aplicar apenas em títulos de cartões KPI e cabeçalhos de páginas. Para o restante mantenha __FONT_PRIMARY__. Caso o ambiente Power BI não carregue __FONT_DISPLAY__, o fallback automático é __FONT_PRIMARY__."
           cssVar="--font-display"
           tailwindClass="font-heading · font-display"
-          cssSnippet={`/* CSS puro */\n@font-face {\n  font-family: '__FONT_DISPLAY__';\n  src: url('/fonts/campuni-bold.woff2') format('woff2');\n  font-weight: 700;\n  font-display: swap;\n}\n\n.titulo-hero {\n  font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n  font-weight: 700;\n  line-height: 1.1;\n}`}
-          htmlSnippet={`<!-- HTML standalone com fallback -->\n<style>\n  @font-face {\n    font-family: '__FONT_DISPLAY__';\n    src: url('https://static-p134603-e1404735.adobeaemcloud.com/.../fonts/campuni-bold.woff2') format('woff2');\n    font-weight: 700;\n    font-display: swap;\n  }\n</style>\n\n<h1 style="font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif; font-weight: 700;">\n  Transformando vidas\n</h1>`}
+          cssSnippet={`/* CSS puro */\n@font-face {\n  font-family: '__FONT_DISPLAY__';\n  src: url('/fonts/display-bold.woff2') format('woff2');\n  font-weight: 700;\n  font-display: swap;\n}\n\n.titulo-hero {\n  font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n  font-weight: 700;\n  line-height: 1.1;\n}`}
+          htmlSnippet={`<!-- HTML standalone com fallback -->\n<style>\n  @font-face {\n    font-family: '__FONT_DISPLAY__';\n    src: url('__FONT_DISPLAY_URL__') format('woff2');\n    font-weight: 700;\n    font-display: swap;\n  }\n</style>\n\n<h1 style="font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif; font-weight: 700;">\n  Conectando pessoas\n</h1>`}
           tokenSnippet={`/* tokens.css */\n:root {\n  --font-display: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n  --font-heading: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n}`}
-          footnote="__FONT_DISPLAY__ é proprietária da __BRAND_SHORT__. Enquanto o arquivo oficial não estiver em /public/fonts/campuni-bold.woff2, o sistema usa __FONT_PRIMARY__ como fallback automático."
+          footnote="__FONT_DISPLAY__ é proprietária da __BRAND_SHORT__. Enquanto o arquivo oficial não estiver em /public/fonts/display-bold.woff2, o sistema usa __FONT_PRIMARY__ como fallback automático."
           downloads={[
-            { label: "__FONT_DISPLAY__ Bold (WOFF2) — CDN oficial __BRAND_SHORT__ AEM", url: "https://static-p134603-e1404735.adobeaemcloud.com/8d5fa04350fd5b585a87e5b1a26cf5cb42331dcc0a0fb644f29940873837ace3/fonts/campuni-bold.woff2", note: "Arquivo usado em __ORG_ROOT_DOMAIN__. Hospedar localmente em /public/fonts/campuni-bold.woff2 para produção." },
-            { label: "Solicitação interna — Marca __BRAND_SHORT__", url: "mailto:marca@__ORG_ROOT_DOMAIN__?subject=Solicitação%20da%20fonte%20Campuni%20(TTF/OTF)", note: "Para receber o pacote completo (TTF/OTF) com todos os pesos — uso em Power BI, PowerPoint e impressos." },
+            { label: "__FONT_DISPLAY__ Bold (WOFF2) — CDN oficial da marca", url: "__FONT_DISPLAY_URL__", note: "Arquivo usado em __ORG_ROOT_DOMAIN__. Hospedar localmente em /public/fonts/display-bold.woff2 para produção." },
+            { label: "Solicitação interna — Marca __BRAND_SHORT__", url: "mailto:marca@__ORG_ROOT_DOMAIN__?subject=Solicitação%20da%20fonte%20display%20(TTF/OTF)", note: "Para receber o pacote completo (TTF/OTF) com todos os pesos — uso em Power BI, PowerPoint e impressos." },
           ]}
         />
       </div>
@@ -417,7 +417,7 @@ export default function FundamentosPage() {
           <div className="space-y-6">
             {/* Headings H1-H6 (__FONT_DISPLAY__) */}
             {[
-              { tag: "h1", cls: "text-5xl font-black", sample: "__BRAND_SLOGAN__ financeira", spec: "__FONT_DISPLAY__ Bold · 48px / 1.1" },
+              { tag: "h1", cls: "text-5xl font-black", sample: "__BRAND_SLOGAN__", spec: "__FONT_DISPLAY__ Bold · 48px / 1.1" },
               { tag: "h2", cls: "text-4xl font-bold",  sample: "Conheça o Design System __BRAND_SHORT__",          spec: "__FONT_DISPLAY__ Bold · 36px / 1.15" },
               { tag: "h3", cls: "text-3xl font-bold",  sample: "Componentes, tokens e padrões",           spec: "__FONT_DISPLAY__ Bold · 30px / 1.2" },
               { tag: "h4", cls: "text-2xl font-semibold", sample: "Diretrizes de uso da marca",           spec: "__FONT_DISPLAY__ SemiBold · 24px / 1.25" },
@@ -623,7 +623,7 @@ export default function FundamentosPage() {
           {[
             { cls: "text-7xl", token: "--text-7xl", lead: "--leading-7xl", sample: "Aa" },
             { cls: "text-6xl", token: "--text-6xl", lead: "--leading-6xl", sample: "Aa" },
-            { cls: "text-5xl", token: "--text-5xl", lead: "--leading-5xl", sample: "Transformando vidas" },
+            { cls: "text-5xl", token: "--text-5xl", lead: "--leading-5xl", sample: "Conectando pessoas" },
             { cls: "text-4xl", token: "--text-4xl", lead: "--leading-4xl", sample: "Design System __BRAND_SHORT__" },
             { cls: "text-3xl", token: "--text-3xl", lead: "--leading-3xl", sample: "Componentes e tokens" },
             { cls: "text-2xl", token: "--text-2xl", lead: "--leading-2xl", sample: "Diretrizes de uso" },
@@ -783,7 +783,7 @@ export default function FundamentosPage() {
 /* __FONT_DISPLAY__ (secundária) — fonte proprietária __BRAND_SHORT__ */
 @font-face {
   font-family: '__FONT_DISPLAY__';
-  src: url('/fonts/campuni-bold.woff2') format('woff2');
+  src: url('/fonts/display-bold.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
@@ -824,22 +824,22 @@ h1, h2, h3, h4, h5, h6 {
           className="block w-full rounded-md overflow-hidden cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-ring"
         >
           <img
-            src={paletaReferenciaBrasil.url}
-            alt="Paleta de cores __BRAND_SHORT__ — Nós representamos todo o Brasil. E a nossa paleta de cores também!"
+            src={paletaReferencia.url}
+            alt="Paleta de cores de referência da marca"
             className="w-full h-auto rounded-md transition-transform hover:scale-[1.01]"
             loading="lazy"
           />
         </button>
         <figcaption className="text-xs text-muted-foreground mt-3">
           Referência cromática institucional: a paleta do Design System parte da cor primária{" "}
-          <strong>#2A4FDA</strong> e expande para as cores que representam a diversidade brasileira.
+          <strong>#2A4FDA</strong> e expande para a paleta estendida da marca.
         </figcaption>
       </figure>
       <ImageLightbox
         open={paletaOpen}
         onClose={() => setPaletaOpen(false)}
-        src={paletaReferenciaBrasil.url}
-        alt="Paleta de cores __BRAND_SHORT__ — Nós representamos todo o Brasil. E a nossa paleta de cores também!"
+        src={paletaReferencia.url}
+        alt="Paleta de cores de referência da marca"
       />
 
       <ColorSection />

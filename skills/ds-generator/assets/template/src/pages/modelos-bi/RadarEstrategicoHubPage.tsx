@@ -2,31 +2,31 @@ import { BarChart3, FileText, ArrowRight } from "lucide-react";
 
 const items = [
   {
-    label: "BI · Farol Estratégico",
+    label: "BI · Radar Estratégico",
     description: "Painel analítico (Power BI-like) com filtros, KPIs e gráficos.",
-    path: "/modelos-bi/farol-estrategico/bi",
+    path: "/modelos-bi/radar-estrategico/bi",
     version: "v1.0",
     icon: BarChart3,
   },
   {
-    label: "Docs · Farol Estratégico",
+    label: "Docs · Radar Estratégico",
     description: "Documentação técnica: componentes, tokens e implementação.",
-    path: "/modelos-bi/farol-estrategico/docs",
+    path: "/modelos-bi/radar-estrategico/docs",
     version: "v1.0",
     icon: FileText,
   },
 ];
 
-export default function FarolEstrategicoHubPage() {
+export default function RadarEstrategicoHubPage() {
   return (
     <div className="container max-w-6xl py-10 space-y-8">
       <header className="space-y-2">
         <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-          <BarChart3 size={14} /> Modelos de BI · Farol Estratégico
+          <BarChart3 size={14} /> Modelos de BI · Radar Estratégico
         </span>
-        <h1 className="text-3xl font-semibold text-foreground">Farol Estratégico</h1>
+        <h1 className="text-3xl font-semibold text-foreground">Radar Estratégico</h1>
         <p className="text-muted-foreground max-w-2xl">
-          Hub do painel Farol Estratégico. Acesse o BI ou a documentação. Novas versões serão adicionadas aqui.
+          Hub do painel Radar Estratégico. Acesse o BI ou a documentação. Novas versões serão adicionadas aqui.
         </p>
       </header>
 

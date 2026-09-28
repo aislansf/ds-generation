@@ -12,7 +12,7 @@ import {
   ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area
 } from "recharts";
 import { brandCor as brandLogoReduzida } from "@/assets/brand";
-import marcaGov from "@/assets/marca-gov.png";
+import marcaParceiro from "@/assets/marca-parceiro.png";
 import { brandWhite as iconeBrandNegativo } from "@/assets/brand";
 import { useTheme } from "@/hooks/useTheme";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -53,8 +53,8 @@ const revenueData = [
 ];
 
 const categoryData = [
-  { name: "Empretec", value: 40, color: "hsl(var(--primary))" },
-  { name: "ALI", value: 25, color: "hsl(var(--secondary))" },
+  { name: "Empreender", value: 40, color: "hsl(var(--primary))" },
+  { name: "AGI", value: 25, color: "hsl(var(--secondary))" },
   { name: "Programa Inova", value: 20, color: "hsl(var(--warning))" },
   { name: "Outros", value: 15, color: "hsl(var(--muted-foreground))" },
 ];
@@ -62,14 +62,14 @@ const categoryData = [
 const tableRows = [
   { id: "00001", servidor: "Ana Silva Pereira", diretoria: "Diretoria A", status: "Concluído", prazo: "20 Dias", descontos: "R$ 600,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Regular" },
   { id: "00002", servidor: "Bruno Souza Lima", diretoria: "Diretoria A", status: "Em ajuste", prazo: "15 Dias", descontos: "R$ 450,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Atenção" },
-  { id: "00003", servidor: "Carla Mendes Rocha", diretoria: "Diretoria B", status: "Concluído", prazo: "30 Dias", descontos: "R$ 720,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Regular" },
-  { id: "00004", servidor: "Diego Alves Castro", diretoria: "Diretoria C", status: "Em ajuste", prazo: "10 Dias", descontos: "R$ 380,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Em Ajuste" },
+  { id: "00003", servidor: "Carla Mendes Rocha", diretoria: "Diretoria B", status: "Concluído", prazo: "30 Dias", descontos: "R$ 720,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Regular" },
+  { id: "00004", servidor: "Diego Alves Castro", diretoria: "Diretoria C", status: "Em ajuste", prazo: "10 Dias", descontos: "R$ 380,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Em Ajuste" },
   { id: "00005", servidor: "Eduarda Lopes Tavares", diretoria: "Diretoria B", status: "Concluído", prazo: "25 Dias", descontos: "R$ 510,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Regular" },
-  { id: "00006", servidor: "Felipe Nunes Araújo", diretoria: "Diretoria C", status: "Em ajuste", prazo: "18 Dias", descontos: "R$ 420,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Em Ajuste" },
+  { id: "00006", servidor: "Felipe Nunes Araújo", diretoria: "Diretoria C", status: "Em ajuste", prazo: "18 Dias", descontos: "R$ 420,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Em Ajuste" },
   { id: "00007", servidor: "Gabriela Pinto Sá", diretoria: "Diretoria A", status: "Concluído", prazo: "22 Dias", descontos: "R$ 690,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Regular" },
-  { id: "00008", servidor: "Henrique Costa Vieira", diretoria: "Diretoria B", status: "Em ajuste", prazo: "12 Dias", descontos: "R$ 350,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Atenção" },
+  { id: "00008", servidor: "Henrique Costa Vieira", diretoria: "Diretoria B", status: "Em ajuste", prazo: "12 Dias", descontos: "R$ 350,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Atenção" },
   { id: "00009", servidor: "Isabela Ramos Duarte", diretoria: "Diretoria C", status: "Concluído", prazo: "28 Dias", descontos: "R$ 740,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Regular" },
-  { id: "00010", servidor: "João Pedro Cardoso", diretoria: "Diretoria A", status: "Em ajuste", prazo: "9 Dias", descontos: "R$ 290,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Em Ajuste" },
+  { id: "00010", servidor: "João Pedro Cardoso", diretoria: "Diretoria A", status: "Em ajuste", prazo: "9 Dias", descontos: "R$ 290,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Em Ajuste" },
 ];
 
 function StatusDot({ status }: { status: string }) {

@@ -12,7 +12,7 @@ import {
   ResponsiveContainer, PieChart, Pie, Cell,
 } from "recharts";
 import { brandCor as brandLogoReduzida } from "@/assets/brand";
-import marcaGov from "@/assets/marca-gov.png";
+import marcaParceiro from "@/assets/marca-parceiro.png";
 import { brandWhite as iconeBrandNegativo } from "@/assets/brand";
 import { useTheme } from "@/hooks/useTheme";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -29,7 +29,7 @@ const menuItems: MenuItem[] = [
   { label: "Início", icon: <Home size={16} /> },
   {
     label: "Programas", icon: <GraduationCap size={16} />,
-    children: [{ label: "Empretec" }, { label: "ALI" }, { label: "Programa Inova" }, { label: "Negócio a Negócio" }],
+    children: [{ label: "Empreender" }, { label: "AGI" }, { label: "Programa Inova" }, { label: "Visita Técnica" }],
   },
   {
     label: "Financeiro", icon: <Wallet size={16} />,
@@ -71,9 +71,9 @@ const donutData = [
 const tableRows = [
   { id: "00001", servidor: "Ana Silva Pereira", diretoria: "Diretoria A", status: "Em ajuste", prazo: "20 Dias", descontos: "R$ 600,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Regular" },
   { id: "00002", servidor: "Bruno Souza Lima", diretoria: "Diretoria A", status: "Em ajuste", prazo: "15 Dias", descontos: "R$ 450,00", modalidade: "40h bimestral", unidade: "__BRAND_NAME__", statusTag: "Atenção" },
-  { id: "00003", servidor: "Carla Mendes Rocha", diretoria: "Diretoria B", status: "Em ajuste", prazo: "30 Dias", descontos: "R$ 720,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Regular" },
-  { id: "00004", servidor: "Diego Alves Castro", diretoria: "Diretoria C", status: "Em ajuste", prazo: "10 Dias", descontos: "R$ 380,00", modalidade: "40h bimestral", unidade: "DIRAE/__BRAND_NAME__", statusTag: "Em Ajuste" },
-  { id: "00005", servidor: "Eduarda Santos Lima", diretoria: "Diretoria D", status: "Em ajuste", prazo: "25 Dias", descontos: "R$ 510,00", modalidade: "40h bimestral", unidade: "DIFIN/__BRAND_NAME__", statusTag: "Em Ajuste" },
+  { id: "00003", servidor: "Carla Mendes Rocha", diretoria: "Diretoria B", status: "Em ajuste", prazo: "30 Dias", descontos: "R$ 720,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Regular" },
+  { id: "00004", servidor: "Diego Alves Castro", diretoria: "Diretoria C", status: "Em ajuste", prazo: "10 Dias", descontos: "R$ 380,00", modalidade: "40h bimestral", unidade: "DIROP/__BRAND_NAME__", statusTag: "Em Ajuste" },
+  { id: "00005", servidor: "Eduarda Santos Lima", diretoria: "Diretoria D", status: "Em ajuste", prazo: "25 Dias", descontos: "R$ 510,00", modalidade: "40h bimestral", unidade: "DIAFI/__BRAND_NAME__", statusTag: "Em Ajuste" },
 ];
 
 function StatusDot({ status }: { status: string }) {

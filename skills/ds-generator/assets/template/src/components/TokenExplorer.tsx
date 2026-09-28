@@ -165,7 +165,7 @@ export default function TokenExplorer() {
                     className="font-medium flex-1 truncate"
                     style={{ fontSize: `calc(${f.value} * ${fontScale})` }}
                   >
-                    Transformando vidas
+                    Conectando pessoas
                   </p>
                 </div>
               ))}

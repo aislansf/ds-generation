@@ -14,7 +14,7 @@ A fonte da verdade dos valores é `src/index.css`. O `tailwind.config.ts` só ma
 |---|---|
 | `--brand-primary` | Cor institucional exata |
 | `--brand-primary-50` … `-700` | Escala da primária: 50–200 superfícies, 300–400 bordas/realces, 500 base, 600–700 texto e hover |
-| `--brand-secondary`, `--brand-secondary-50` … `-600` | Escala de apoio (no SEBRAE, ciano 196°). Por herança, `--brand-secondary` sem sufixo é alias do azul |
+| `--brand-secondary`, `--brand-secondary-50` … `-600` | Escala de apoio (no template, ciano 196°). Por herança, `--brand-secondary` sem sufixo é alias do azul |
 | `--brand-comp-*` | Cores complementares para gráficos e ilustrações (amarelo, dourado, vermelho, índigo, lima) |
 | `--brand-btn-fg`, `--brand-btn-hover` | Botão institucional: texto de destaque sobre a primária e o hover dela |
 

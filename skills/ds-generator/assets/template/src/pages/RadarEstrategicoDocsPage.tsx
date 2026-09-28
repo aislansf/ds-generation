@@ -3,7 +3,7 @@ import { ArrowUpRight, BookOpen, Boxes, Code2, Palette, Workflow } from "lucide-
 import { PageHeader, SectionHeader } from "@/components/DSComponents";
 
 /**
- * Documentação técnica do template "Farol Estratégico".
+ * Documentação técnica do template "Radar Estratégico".
  * Lista componentes utilizados, tokens aplicados e passos de implementação.
  */
 
@@ -15,7 +15,7 @@ const componentes: { nome: string; origem: string; uso: string }[] = [
   { nome: "Recharts (BarChart)", origem: "recharts", uso: "Gráficos Planejada × Executada por mês e detalhamento por Natureza." },
   { nome: "Filtros (Select nativo)", origem: "elemento <select> com tokens", uso: "8 filtros multidimensionais — PPA, Iniciativa, Ação, Natureza, Unidade, Eixo, Programa, Gestor." },
   { nome: "Tabs", origem: "padrão internos do DS", uso: "Despesas · Receitas · Atendimento." },
-  { nome: "Breadcrumb", origem: "componente local", uso: "Hierarquia: Início › Painéis Estratégicos › Farol Estratégico." },
+  { nome: "Breadcrumb", origem: "componente local", uso: "Hierarquia: Início › Painéis Estratégicos › Radar Estratégico." },
 ];
 
 const tokens: { token: string; valor: string; uso: string }[] = [
@@ -31,16 +31,16 @@ const tokens: { token: string; valor: string; uso: string }[] = [
 ];
 
 const arquivos: { caminho: string; descricao: string }[] = [
-  { caminho: "src/pages/FarolEstrategicoPage.tsx", descricao: "Página principal do template (standalone, sem DSLayout)." },
-  { caminho: "src/data/farolEstrategico.ts", descricao: "Datasets — despesas mensais, trimestrais e por natureza." },
-  { caminho: "src/assets/thumb-farol-estrategico.jpg", descricao: "Thumbnail listada em /templates." },
+  { caminho: "src/pages/RadarEstrategicoPage.tsx", descricao: "Página principal do template (standalone, sem DSLayout)." },
+  { caminho: "src/data/radarEstrategico.ts", descricao: "Datasets — despesas mensais, trimestrais e por natureza." },
+  { caminho: "src/assets/thumb-radar-estrategico.jpg", descricao: "Thumbnail listada em /templates." },
   { caminho: "src/components/bi/BISkeletons.tsx", descricao: "Esqueletos de carregamento reutilizados." },
-  { caminho: "src/App.tsx", descricao: "Rota /templates/farol-estrategico (lazy import)." },
+  { caminho: "src/App.tsx", descricao: "Rota /templates/radar-estrategico (lazy import)." },
   { caminho: "src/pages/TemplatesPage.tsx", descricao: "Card de entrada na galeria de templates." },
 ];
 
 const passos: { titulo: string; desc: string }[] = [
-  { titulo: "1. Importe os dados", desc: "Use src/data/farolEstrategico.ts como fonte ou substitua pelo endpoint real (mantendo o shape: { mes, planejada, executada })." },
+  { titulo: "1. Importe os dados", desc: "Use src/data/radarEstrategico.ts como fonte ou substitua pelo endpoint real (mantendo o shape: { mes, planejada, executada })." },
   { titulo: "2. Reaproveite a sidebar", desc: "A sidebar segue o padrão de SidebarMenuPreview — estados hover/ativo/disabled via tokens. Para reutilizar em outra página, copie a seção <aside>." },
   { titulo: "3. Mantenha a estrutura de filtros", desc: "Filtros são state local (useState) + useMemo. Para conectar a um backend, troque o useMemo por uma query (React Query) preservando as chaves." },
   { titulo: "4. Loading & refresh", desc: "Use o padrão isLoading + BISkeletons. O botão 'Atualizar' aciona um setTimeout de 500ms — substitua pelo refetch real." },
@@ -48,18 +48,18 @@ const passos: { titulo: string; desc: string }[] = [
   { titulo: "6. Validação de tokens", desc: "Não use cores hardcoded — qualquer valor hex novo deve virar token em src/index.css e ser validado por src/data/__tests__/tokenGroups.validator.test.ts." },
 ];
 
-export default function FarolEstrategicoDocsPage() {
+export default function RadarEstrategicoDocsPage() {
   return (
     <div>
       <PageHeader
         badge="Documentação · Template"
-        title="Farol Estratégico"
+        title="Radar Estratégico"
         description="Painel executivo inspirado em Power BI para acompanhamento orçamentário e indicadores estratégicos. Esta página descreve componentes, tokens e passos para implementar ou estender o template."
       />
 
       <div className="flex flex-wrap gap-3 mb-10">
         <Link
-          to="/templates/farol-estrategico"
+          to="/templates/radar-estrategico"
           className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm rounded-md"
         >
           <ArrowUpRight size={14} /> Abrir template
@@ -177,15 +177,15 @@ export default function FarolEstrategicoDocsPage() {
       <pre className="brand-card overflow-x-auto text-xs font-mono leading-relaxed mb-8">
 {`// src/App.tsx
 import { lazy } from "react";
-const FarolEstrategicoPage = lazy(() => import("@/pages/FarolEstrategicoPage"));
+const RadarEstrategicoPage = lazy(() => import("@/pages/RadarEstrategicoPage"));
 
-<Route path="/templates/farol-estrategico" element={<FarolEstrategicoPage />} />`}
+<Route path="/templates/radar-estrategico" element={<RadarEstrategicoPage />} />`}
       </pre>
 
       <SectionHeader
         id="powerbi"
         title="Integração com Power BI (HTML Content)"
-        description="Use o arquivo /farol-estrategico-powerbi.html como base. Abaixo, uma medida DAX pronta que devolve o HTML e instruções de como referenciá-lo no visual."
+        description="Use o arquivo /radar-estrategico-powerbi.html como base. Abaixo, uma medida DAX pronta que devolve o HTML e instruções de como referenciá-lo no visual."
         badge="Power BI"
       />
 
@@ -200,7 +200,7 @@ const FarolEstrategicoPage = lazy(() => import("@/pages/FarolEstrategicoPage"));
         </div>
         <div className="brand-card">
           <h4 className="font-semibold text-sm mb-1">3 · Vincule ao visual</h4>
-          <p className="text-xs text-muted-foreground">Adicione o visual <strong>HTML Content</strong> ao canvas e arraste a medida <code>HTML Farol</code> para o campo <strong>Values</strong>. O dashboard será renderizado.</p>
+          <p className="text-xs text-muted-foreground">Adicione o visual <strong>HTML Content</strong> ao canvas e arraste a medida <code>HTML Radar</code> para o campo <strong>Values</strong>. O dashboard será renderizado.</p>
         </div>
         <div className="brand-card">
           <h4 className="font-semibold text-sm mb-1">4 · Atualize dinamicamente</h4>
@@ -209,7 +209,7 @@ const FarolEstrategicoPage = lazy(() => import("@/pages/FarolEstrategicoPage"));
       </div>
 
       <pre className="brand-card overflow-x-auto text-xs font-mono leading-relaxed mb-4">
-{`HTML Farol =
+{`HTML Radar =
 VAR Css =
     "<style>
         body{margin:0;font-family:'Segoe UI',sans-serif;background:#F5F7FB;color:#0F172A}
@@ -229,7 +229,7 @@ VAR Saldo    = FORMAT ( [Saldo Orcamentario], "\\R\\$ #,0,,.0\\M" )
 VAR Atend    = FORMAT ( [MEI Atendidos], "#,0" )
 VAR Html =
     "<div style='padding:12px'>" &
-        "<div class='h'><h1>Farol Estratégico — __BRAND_SHORT__</h1>" &
+        "<div class='h'><h1>Radar Estratégico — __BRAND_SHORT__</h1>" &
         "<span style='font-size:11px;opacity:.8'>PPA 2022-2026</span></div>" &
         "<div class='k'>" &
             "<div class='c'><div class='v'>" & Despesa & "</div><div class='l'>Despesa executada</div></div>" &
@@ -247,12 +247,12 @@ RETURN
         <h4 className="font-semibold text-sm mb-2">Versão completa com gráficos</h4>
         <p className="text-xs text-muted-foreground mb-2">
           Para a versão com Chart.js (gráficos, tabela e filtros), copie o conteúdo de
-          <code className="mx-1 text-primary">public/farol-estrategico-powerbi.html</code>
+          <code className="mx-1 text-primary">public/radar-estrategico-powerbi.html</code>
           para uma variável DAX. Como o HTML é extenso, o caminho recomendado é:
         </p>
         <ol className="list-decimal pl-5 text-xs text-muted-foreground space-y-1">
-          <li>Salvar o HTML como uma coluna em uma tabela calculada (ex.: <code>FarolHTML[Html]</code>).</li>
-          <li>Criar a medida <code>HTML Farol Completo = SELECTEDVALUE(FarolHTML[Html])</code>.</li>
+          <li>Salvar o HTML como uma coluna em uma tabela calculada (ex.: <code>RadarHTML[Html]</code>).</li>
+          <li>Criar a medida <code>HTML Radar Completo = SELECTEDVALUE(RadarHTML[Html])</code>.</li>
           <li>Arrastar essa medida para o campo <strong>Values</strong> do visual <strong>HTML Content</strong>.</li>
         </ol>
         <p className="text-xs text-muted-foreground mt-2">
@@ -275,10 +275,10 @@ RETURN
             Baixe ou abra o template publicado em:
           </p>
           <code className="block text-[11px] font-mono text-primary break-all">
-            /farol-estrategico-powerbi-template.html
+            /radar-estrategico-powerbi-template.html
           </code>
           <a
-            href="/farol-estrategico-powerbi-template.html"
+            href="/radar-estrategico-powerbi-template.html"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded-md"
@@ -314,7 +314,7 @@ RETURN
           </thead>
           <tbody>
             {[
-              { p: "{{TITULO}}", s: "Título do header", e: "Farol Estratégico" },
+              { p: "{{TITULO}}", s: "Título do header", e: "Radar Estratégico" },
               { p: "{{SUBTITULO}}", s: "Subtítulo do header", e: "Painel executivo · __BRAND_SHORT__" },
               { p: "{{PERIODO}}", s: "Badge de período", e: "PPA 2022-2026" },
               { p: "{{KPI_1_VALOR}} … {{KPI_4_VALOR}}", s: "Valores dos 4 KPIs", e: "R$ 74,9M" },
@@ -343,7 +343,7 @@ RETURN
         badge="DAX"
       />
       <pre className="brand-card overflow-x-auto text-xs font-mono leading-relaxed mb-8">
-{`HTML Farol Template =
+{`HTML Radar Template =
 VAR Template =
     "<!doctype html><html><body style='margin:0;font-family:Segoe UI,sans-serif;background:#F5F7FB;color:#0F172A'>"
     & "<div style='padding:16px'>"
@@ -368,7 +368,7 @@ VAR Template =
     &   "</div>"
     & "</div></body></html>"
 
-VAR R1 = SUBSTITUTE ( Template,  "{{TITULO}}",      "Farol Estratégico" )
+VAR R1 = SUBSTITUTE ( Template,  "{{TITULO}}",      "Radar Estratégico" )
 VAR R2 = SUBSTITUTE ( R1,        "{{SUBTITULO}}",   "Painel executivo · __BRAND_SHORT__" )
 VAR R3 = SUBSTITUTE ( R2,        "{{PERIODO}}",     "PPA 2022-2026" )
 VAR R4 = SUBSTITUTE ( R3,        "{{KPI_1_VALOR}}", FORMAT ( [Despesa Executada], "\\R\\$ #,0,,.0\\M" ) )

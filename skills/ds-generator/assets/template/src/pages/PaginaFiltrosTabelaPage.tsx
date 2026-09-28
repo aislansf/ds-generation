@@ -18,10 +18,10 @@ const menuItems: MenuItem[] = [
     { label: "Pequenos Negócios" }, { label: "MEI" }, { label: "Produtor Rural" },
   ]},
   { label: "Capacitação", icon: <GraduationCap size={16} />, children: [
-    { label: "Cursos" }, { label: "Eventos" }, { label: "Empretec" },
+    { label: "Cursos" }, { label: "Eventos" }, { label: "Empreender" },
   ]},
   { label: "Soluções", icon: <Wallet size={16} />, children: [
-    { label: "Consultoria" }, { label: "Programa Inova" }, { label: "ALI" },
+    { label: "Consultoria" }, { label: "Programa Inova" }, { label: "AGI" },
   ]},
   { label: "Indicadores", icon: <BarChart3 size={16} /> },
   { label: "Documentos", icon: <FileText size={16} />, children: [
@@ -45,18 +45,18 @@ interface Row {
 }
 
 const rows: Row[] = [
-  { id: "SOL-0001", iniciativa: "Empretec — Seminário de Empreendedorismo", unidade: "UCAE", modalidade: "Capacitação presencial", uf: "CE", inicio: "10/03/2026", status: "Aprovado",   valor: "R$ 1.240.000,00" },
-  { id: "SOL-0002", iniciativa: "ALI — Agentes Locais de Inovação",       unidade: "UAIN", modalidade: "Atendimento individual",  uf: "CE", inicio: "05/01/2026", status: "Em Análise", valor: "R$ 780.500,00" },
-  { id: "SOL-0003", iniciativa: "Programa Inova — Inovação e Tecnologia",      unidade: "UAIN", modalidade: "Consultoria tecnológica", uf: "CE", inicio: "20/04/2026", status: "Aprovado",   valor: "R$ 2.150.000,00" },
-  { id: "SOL-0004", iniciativa: "Negócio a Negócio",                      unidade: "UAPN", modalidade: "Atendimento individual",  uf: "CE", inicio: "15/05/2026", status: "Pendente",   valor: "R$ 4.890.000,00" },
-  { id: "SOL-0005", iniciativa: "__BRAND_SHORT__ Mais — Pequenas Empresas",        unidade: "UAPN", modalidade: "Capacitação à distância", uf: "CE", inicio: "10/02/2026", status: "Aprovado",   valor: "R$ 6.320.000,00" },
-  { id: "SOL-0006", iniciativa: "MEI — Microempreendedor Individual",     unidade: "UAMP", modalidade: "Atendimento coletivo",    uf: "CE", inicio: "30/06/2026", status: "Rejeitado",  valor: "R$ 540.000,00" },
-  { id: "SOL-0007", iniciativa: "__BRAND_SHORT__ Delas — Mulheres de Negócio",     unidade: "UAPN", modalidade: "Capacitação presencial",  uf: "CE", inicio: "31/03/2026", status: "Em Análise", valor: "R$ 1.890.000,00" },
-  { id: "SOL-0008", iniciativa: "Inovação Aberta — __BRAND_NAME__",            unidade: "UAIN", modalidade: "Edital",                   uf: "CE", inicio: "12/07/2026", status: "Concluído",  valor: "R$ 320.000,00" },
+  { id: "SOL-0001", iniciativa: "Empreender — Seminário de Empreendedorismo", unidade: "UCAP", modalidade: "Capacitação presencial", uf: "SP", inicio: "10/03/2026", status: "Aprovado",   valor: "R$ 1.240.000,00" },
+  { id: "SOL-0002", iniciativa: "AGI — Agentes de Inovação",       unidade: "UINOV", modalidade: "Atendimento individual",  uf: "SP", inicio: "05/01/2026", status: "Em Análise", valor: "R$ 780.500,00" },
+  { id: "SOL-0003", iniciativa: "Programa Inova — Inovação e Tecnologia",      unidade: "UINOV", modalidade: "Consultoria tecnológica", uf: "SP", inicio: "20/04/2026", status: "Aprovado",   valor: "R$ 2.150.000,00" },
+  { id: "SOL-0004", iniciativa: "Visita Técnica",                      unidade: "UNEG", modalidade: "Atendimento individual",  uf: "SP", inicio: "15/05/2026", status: "Pendente",   valor: "R$ 4.890.000,00" },
+  { id: "SOL-0005", iniciativa: "Gestão Avançada — Pequenas Empresas",        unidade: "UNEG", modalidade: "Capacitação à distância", uf: "SP", inicio: "10/02/2026", status: "Aprovado",   valor: "R$ 6.320.000,00" },
+  { id: "SOL-0006", iniciativa: "MEI — Microempreendedor Individual",     unidade: "UMEP", modalidade: "Atendimento coletivo",    uf: "SP", inicio: "30/06/2026", status: "Rejeitado",  valor: "R$ 540.000,00" },
+  { id: "SOL-0007", iniciativa: "Elas Empreendem — Mulheres de Negócio",     unidade: "UNEG", modalidade: "Capacitação presencial",  uf: "SP", inicio: "31/03/2026", status: "Em Análise", valor: "R$ 1.890.000,00" },
+  { id: "SOL-0008", iniciativa: "Inovação Aberta — __BRAND_NAME__",            unidade: "UINOV", modalidade: "Edital",                   uf: "SP", inicio: "12/07/2026", status: "Concluído",  valor: "R$ 320.000,00" },
 ];
 
 const STATUSES = ["Aprovado", "Em Análise", "Pendente", "Rejeitado", "Concluído"] as const;
-const UNIDADES = ["UCAE", "UAIN", "UAPN", "UAMP"];
+const UNIDADES = ["UCAP", "UINOV", "UNEG", "UMEP"];
 const MODALIDADES = [
   "Atendimento individual", "Atendimento coletivo",
   "Capacitação presencial", "Capacitação à distância",

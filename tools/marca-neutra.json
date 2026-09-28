@@ -1,0 +1,43 @@
+{
+  "$comentario": "Marca neutra usada só para capturar as miniaturas genéricas do template (tools/imagens-neutras.mjs). Tons de cinza-azulado para não sugerir nenhuma identidade.",
+
+  "nome": "Sua Marca",
+  "nome_curto": "Sua Marca",
+  "nome_completo": "Nome Completo da Instituição",
+  "genero": "f",
+  "slug": "sua-marca",
+  "slogan": "Conectando pessoas por meio da tecnologia",
+  "descricao": "Padrões de UI para os produtos digitais da Sua Marca.",
+
+  "dominios": { "ds": "ds.suamarca.example", "org": "suamarca.example", "org_raiz": false },
+  "manual_marca_url": false,
+  "og_image_url": false,
+
+  "cores": { "primaria": "#334155", "secundaria": "#64748B", "destaque": "#E2E8F0", "realce": "#B45309" },
+
+  "fontes": {
+    "primaria": { "nome": "Inter", "google": true },
+    "display": false,
+    "sistema": false
+  },
+
+  "logos": {
+    "cor": "../origem/overrides/src/assets/marca/brand-cor.svg",
+    "branco": "../origem/overrides/src/assets/marca/brand-white.svg",
+    "preto": "../origem/overrides/src/assets/marca/brand-black.svg"
+  },
+  "favicon": "../origem/overrides/public/favicon.png",
+
+  "termos_proibidos": [],
+
+  "conteudo": {
+    "tom_de_voz": "Claro e direto.",
+    "publico": "Equipes que constroem produtos digitais.",
+    "paleta_estendida": [],
+    "regras_de_marca": []
+  },
+
+  "modulos": { "modelos_bi": true },
+
+  "confirmado_pelo_usuario": true
+}

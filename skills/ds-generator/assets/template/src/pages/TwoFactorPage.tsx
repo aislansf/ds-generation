@@ -70,7 +70,7 @@ export default function TwoFactorPage() {
                   Verificação de Segurança em Duas Etapas.
                 </h2>
                 <p className="text-lg text-white/80">
-                  Protegemos seus dados e o acesso aos recursos da educação com camadas adicionais de proteção.
+                  Protegemos seus dados e o acesso aos recursos da plataforma com camadas adicionais de proteção.
                 </p>
               </div>
             </div>

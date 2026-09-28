@@ -5,7 +5,7 @@ import {
   Filter, Eye, BarChart3, TrendingUp
 } from "lucide-react";
 import { brandCor as brandLogoCompleta } from "@/assets/brand";
-import marcaGov from "@/assets/marca-gov.png";
+import marcaParceiro from "@/assets/marca-parceiro.png";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell

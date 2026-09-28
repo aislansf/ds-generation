@@ -3,13 +3,13 @@ import { SEO } from "@/components/SEO";
 
 const panels = [
   {
-    label: "Farol Estratégico - BI",
-    description: "Hub com BI e Docs do Farol Estratégico, com versionamento.",
-    path: "/modelos-bi/farol-estrategico",
+    label: "Radar Estratégico - BI",
+    description: "Hub com BI e Docs do Radar Estratégico, com versionamento.",
+    path: "/modelos-bi/radar-estrategico",
     available: true,
   },
   {
-    label: "Planeja - BI",
+    label: "Planejamento - BI",
     description: "Painel de planejamento estratégico (em construção).",
     path: "/modelos-bi/planeja",
     available: false,
@@ -33,7 +33,7 @@ export default function ModelosBIPage() {
     <div className="container max-w-6xl py-10 space-y-8">
       <SEO
         title="Modelos de BI — Design System __BRAND_SHORT__"
-        description="Hub de painéis analíticos do __BRAND_NAME__: Farol Estratégico, Planeja, MPI e Gestão de Pessoas, com versões e documentação técnica."
+        description="Hub de painéis analíticos do __BRAND_NAME__: Radar Estratégico, Planejamento, MPI e Gestão de Pessoas, com versões e documentação técnica."
         path="/modelos-bi"
       />
       <header className="space-y-2">

@@ -9,9 +9,9 @@
   <url><loc>https://__DS_DOMAIN__/conteudo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://__DS_DOMAIN__/acessibilidade</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://__DS_DOMAIN__/modelos-bi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico/bi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico/docs</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/radar-estrategico</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/radar-estrategico/bi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/radar-estrategico/docs</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://__DS_DOMAIN__/templates/dashboard-institucional</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://__DS_DOMAIN__/templates/dashboard-bi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://__DS_DOMAIN__/templates/tela-listagem</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>

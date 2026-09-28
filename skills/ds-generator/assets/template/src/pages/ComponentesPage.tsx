@@ -1060,7 +1060,7 @@ function CardSection() {
   {/* Card de indicador */}
   <div className="bg-card rounded-lg border border-border p-4 text-center">
     <p className="text-3xl font-bold text-primary">1.247</p>
-    <p className="text-xs text-muted-foreground mt-1">Escolas atendidas</p>
+    <p className="text-xs text-muted-foreground mt-1">Empresas atendidas</p>
     <p className="text-xs text-success mt-2">↑ 12% em relação ao mês anterior</p>
   </div>
 
@@ -1087,7 +1087,7 @@ function CardSection() {
 
         <div className="bg-card rounded-lg border border-border p-4 text-center">
           <p className="text-3xl font-bold text-primary">1.247</p>
-          <p className="text-xs text-muted-foreground mt-1">Escolas atendidas</p>
+          <p className="text-xs text-muted-foreground mt-1">Empresas atendidas</p>
           <p className="text-xs text-success mt-2">↑ 12% em relação ao mês anterior</p>
         </div>
 
@@ -1104,18 +1104,18 @@ function CardSection() {
 /* ==================== TABLE ==================== */
 
 const tableProducts = [
-  { name: "ALI", category: "Inovação", price: "R$ 99.000", stock: 120, rating: 4.5, status: "Ativo" },
-  { name: "Empretec", category: "Empreendedorismo", price: "R$ 59.990", stock: 80, rating: 4.2, status: "Ativo" },
+  { name: "AGI", category: "Inovação", price: "R$ 99.000", stock: 120, rating: 4.5, status: "Ativo" },
+  { name: "Empreender", category: "Empreendedorismo", price: "R$ 59.990", stock: 80, rating: 4.2, status: "Ativo" },
   { name: "Programa Inova", category: "Tecnologia", price: "R$ 129.000", stock: 0, rating: 4.0, status: "Suspenso" },
-  { name: "SEI - Seu Negócio", category: "Capacitação", price: "R$ 39.500", stock: 250, rating: 4.7, status: "Ativo" },
-  { name: "Negócio a Negócio", category: "Atendimento", price: "R$ 149.000", stock: 35, rating: 4.3, status: "Ativo" },
+  { name: "Primeiro Negócio", category: "Capacitação", price: "R$ 39.500", stock: 250, rating: 4.7, status: "Ativo" },
+  { name: "Visita Técnica", category: "Atendimento", price: "R$ 149.000", stock: 35, rating: 4.3, status: "Ativo" },
 ];
 
 const tableProducts2 = [
   { name: "MEI - Microempreendedor", category: "Formalização", price: "R$ 49.000", stock: 200, rating: 4.6, status: "Ativo" },
-  { name: "Brasil Mais", category: "Produtividade", price: "R$ 29.990", stock: 150, rating: 4.3, status: "Ativo" },
-  { name: "Na Medida", category: "Capacitação", price: "R$ 89.000", stock: 60, rating: 4.1, status: "Estoque Limitado" },
-  { name: "__BRAND_SHORT__ Delas", category: "Mulheres", price: "R$ 349.000", stock: 30, rating: 4.8, status: "Ativo" },
+  { name: "Mais Produtividade", category: "Produtividade", price: "R$ 29.990", stock: 150, rating: 4.3, status: "Ativo" },
+  { name: "Sob Medida", category: "Capacitação", price: "R$ 89.000", stock: 60, rating: 4.1, status: "Estoque Limitado" },
+  { name: "Elas Empreendem", category: "Mulheres", price: "R$ 349.000", stock: 30, rating: 4.8, status: "Ativo" },
   { name: "Compras Públicas", category: "Mercado", price: "R$ 499.000", stock: 10, rating: 4.4, status: "Novo" },
 ];
 
@@ -1843,9 +1843,9 @@ function TableWithCheckbox() {
 function AccordionSection() {
   const [open, setOpen] = useState<number | null>(0);
   const items = [
-    { title: "O que é o __BRAND_SHORT__?", content: "O __BRAND_SHORT__ é uma entidade privada sem fins lucrativos que promove a competitividade e o desenvolvimento sustentável dos pequenos negócios brasileiros, oferecendo capacitação, consultoria e acesso a mercados." },
-    { title: "Como o __BRAND_SHORT__ apoia o meu negócio?", content: "Por meio de cursos, consultorias, eventos, programas de inovação como ALI e Programa Inova, além de orientação para formalização do MEI e acesso a crédito e novos mercados." },
-    { title: "Quais programas e soluções estão disponíveis?", content: "Empretec, ALI (Agentes Locais de Inovação), Programa Inova, Brasil Mais, __BRAND_SHORT__ Delas, Compras Públicas, Negócio a Negócio e SEI - Seu Negócio, entre outras soluções para pequenos negócios." },
+    { title: "O que é o __BRAND_SHORT__?", content: "O __BRAND_SHORT__ é uma instituição que oferece serviços, capacitação e atendimento ao seu público por canais digitais e presenciais." },
+    { title: "Como o __BRAND_SHORT__ apoia o meu negócio?", content: "Por meio de cursos, consultorias, eventos, programas de inovação como AGI e Programa Inova, além de orientação para formalização do MEI e acesso a crédito e novos mercados." },
+    { title: "Quais programas e soluções estão disponíveis?", content: "Empreender, AGI (Agentes de Inovação), Programa Inova, Mais Produtividade, Elas Empreendem, Compras Públicas, Visita Técnica e Primeiro Negócio, entre outras soluções para pequenos negócios." },
   ];
 
   return (
@@ -1858,9 +1858,9 @@ function AccordionSection() {
 import { ChevronDown } from "lucide-react";
 
 const items = [
-  { title: "O que é o __BRAND_SHORT__?", content: "O __BRAND_SHORT__ é uma entidade privada sem fins lucrativos..." },
+  { title: "O que é o __BRAND_SHORT__?", content: "O __BRAND_SHORT__ é uma instituição que oferece serviços..." },
   { title: "Como o __BRAND_SHORT__ apoia o meu negócio?", content: "Por meio de cursos, consultorias, eventos..." },
-  { title: "Quais programas e soluções estão disponíveis?", content: "Empretec, ALI, Programa Inova, Brasil Mais..." },
+  { title: "Quais programas e soluções estão disponíveis?", content: "Empreender, AGI, Programa Inova, Mais Produtividade..." },
 ];
 const [open, setOpen] = useState<number | null>(0);
 
@@ -2236,7 +2236,7 @@ function BreadcrumbSection() {
     <li><ChevronRight size={14} className="text-muted-foreground" /></li>
     <li><a href="#" className="text-primary hover:underline">Programas</a></li>
     <li><ChevronRight size={14} className="text-muted-foreground" /></li>
-    <li className="text-muted-foreground" aria-current="page">Empretec</li>
+    <li className="text-muted-foreground" aria-current="page">Empreender</li>
   </ol>
 </nav>`}
     >
@@ -2246,7 +2246,7 @@ function BreadcrumbSection() {
           <li><ChevronRight size={14} className="text-muted-foreground" /></li>
           <li><a href="#" className="text-primary hover:underline">Programas</a></li>
           <li><ChevronRight size={14} className="text-muted-foreground" /></li>
-          <li className="text-muted-foreground" aria-current="page">Empretec</li>
+          <li className="text-muted-foreground" aria-current="page">Empreender</li>
         </ol>
       </nav>
     </ComponentPreview>
@@ -2802,7 +2802,7 @@ function KebabMenu() {
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">Em linha de tabela</span>
           <div className="flex items-center gap-3 border border-border rounded-md px-3 py-2 bg-card">
-            <span className="text-sm text-foreground">Programa __BRAND_SHORT__ Delas</span>
+            <span className="text-sm text-foreground">Programa Elas Empreendem</span>
             <KebabDemo onAction={setLastAction} />
           </div>
         </div>
@@ -3177,10 +3177,10 @@ const [searchVal, setSearchVal] = useState("");
               className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
             >
               <option value="todos">Todos</option>
-              <option value="Empretec">Empretec</option>
+              <option value="Empreender">Empreender</option>
               <option value="Programa Inova">Programa Inova</option>
-              <option value="SEI - Seu Negócio">SEI</option>
-              <option value="Negócio a Negócio">Negócio a Negócio</option>
+              <option value="Primeiro Negócio">Primeiro Negócio</option>
+              <option value="Visita Técnica">Visita Técnica</option>
             </select>
           </div>
           <button className="inline-flex items-center gap-1.5 border border-border px-3 py-2 rounded text-sm hover:bg-muted transition-colors">
@@ -3226,7 +3226,7 @@ function BigNumbersSection() {
       code={`import { Users, DollarSign, Clock, BarChart3, TrendingUp, TrendingDown } from "lucide-react";
 
 const kpis = [
-  { icon: <Users size={20} />, value: "12.847", label: "Escolas atendidas", trend: "+12,3%", up: true, comparison: "vs. 11.436 mês anterior", color: "text-primary bg-primary/10" },
+  { icon: <Users size={20} />, value: "12.847", label: "Empresas atendidas", trend: "+12,3%", up: true, comparison: "vs. 11.436 mês anterior", color: "text-primary bg-primary/10" },
   { icon: <DollarSign size={20} />, value: "R$ 847M", label: "Recursos transferidos", trend: "+8,7%", up: true, comparison: "vs. R$ 779M trimestre anterior", color: "text-success bg-success-bg" },
   { icon: <Clock size={20} />, value: "23", label: "Pendências", trend: "-15,4%", up: false, comparison: "vs. 27 semana anterior", color: "text-warning bg-warning-bg" },
   { icon: <BarChart3 size={20} />, value: "94,2%", label: "Taxa de execução", trend: "+2,1%", up: true, comparison: "Meta: 95%", color: "text-info bg-info-bg" },
@@ -3266,7 +3266,7 @@ const kpis = [
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: <Users size={20} />, value: "12.847", label: "Escolas atendidas", trend: "+12,3%", up: true, comparison: "vs. 11.436 mês anterior", color: "text-primary bg-primary/10" },
+          { icon: <Users size={20} />, value: "12.847", label: "Empresas atendidas", trend: "+12,3%", up: true, comparison: "vs. 11.436 mês anterior", color: "text-primary bg-primary/10" },
           { icon: <DollarSign size={20} />, value: "R$ 847M", label: "Recursos transferidos", trend: "+8,7%", up: true, comparison: "vs. R$ 779M no trimestre anterior", color: "text-success bg-success-bg" },
           { icon: <Clock size={20} />, value: "23", label: "Pendências", trend: "-15,4%", up: false, comparison: "vs. 27 semana anterior", color: "text-warning bg-warning-bg" },
           { icon: <BarChart3 size={20} />, value: "94,2%", label: "Taxa de execução", trend: "+2,1%", up: true, comparison: "Meta: 95%", color: "text-info bg-info-bg" },
@@ -3346,7 +3346,7 @@ function BulkUploadSection() {
   };
 
   const handleFileSelect = () => {
-    simulateUpload(["relatorio_2026.pdf", "planilha_dados.xlsx", "comprovante_003.pdf", "foto_escola.jpg"]);
+    simulateUpload(["relatorio_2026.pdf", "planilha_dados.xlsx", "comprovante_003.pdf", "foto_evento.jpg"]);
   };
 
   return (
@@ -3695,7 +3695,7 @@ function DescriptionListSection() {
       code={`{/* Layout padrão (rótulo + valor empilhados/divididos) */}
 <dl className="border border-border rounded-lg divide-y divide-border">
   {[
-    { term: "Programa", value: "ALI – Agentes Locais de Inovação" },
+    { term: "Programa", value: "AGI – Agentes de Inovação" },
     { term: "Empresa atendida", value: "Padaria Pão Quente ME" },
     { term: "CNPJ", value: "12.345.678/0001-90" },
     { term: "Porte", value: <span className="brand-badge-success">Microempresa</span> },
@@ -3712,7 +3712,7 @@ function DescriptionListSection() {
 <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
   {[
     { term: "Código do atendimento", value: "__BRAND_NAME__-2026-00312" },
-    { term: "Município", value: "Fortaleza – CE" },
+    { term: "Município", value: "Campinas – SP" },
   ].map((item, i) => (
     <div key={i} className="bg-muted/30 rounded-lg px-4 py-3">
       <dt className="text-xs font-medium text-muted-foreground mb-0.5">{item.term}</dt>
@@ -3725,7 +3725,7 @@ function DescriptionListSection() {
         {/* Standard layout */}
         <dl className="border border-border rounded-lg divide-y divide-border">
           {[
-            { term: "Programa", value: "ALI – Agentes Locais de Inovação" },
+            { term: "Programa", value: "AGI – Agentes de Inovação" },
             { term: "Empresa atendida", value: "Padaria Pão Quente ME" },
             { term: "CNPJ", value: "12.345.678/0001-90" },
             { term: "Porte", value: <span className="brand-badge-success">Microempresa</span> },
@@ -3747,8 +3747,8 @@ function DescriptionListSection() {
             {[
               { term: "Código do atendimento", value: "__BRAND_NAME__-2026-00312" },
               { term: "Solução", value: "Programa Inova - Consultoria Tecnológica" },
-              { term: "Município", value: "Fortaleza – CE" },
-              { term: "UF", value: "Ceará" },
+              { term: "Município", value: "Campinas – SP" },
+              { term: "UF", value: "São Paulo" },
               { term: "Modalidade", value: "Presencial + EAD" },
               { term: "Encontros realizados", value: "8 de 12 previstos" },
             ].map((item, i) => (
@@ -3817,7 +3817,7 @@ function StatsCardsSection() {
     <div>
       <p className="text-xs opacity-70 mb-1">Total acumulado 2026</p>
       <p className="text-3xl font-bold">R$ 8,6B</p>
-      <p className="text-sm opacity-80 mt-2">Recursos transferidos para educação básica em todo o Brasil</p>
+      <p className="text-sm opacity-80 mt-2">Recursos aplicados em programas e projetos</p>
     </div>
     <DollarSign size={40} className="opacity-20" />
   </div>
@@ -3870,11 +3870,11 @@ function StatsCardsSection() {
           <span className="text-sm text-muted-foreground block mb-3">Top 5 programas por valor</span>
           <div className="space-y-2">
             {[
-              { name: "Empretec", value: "R$ 3,1B", pct: 100 },
-              { name: "SEI - Seu Negócio", value: "R$ 2,4B", pct: 77 },
+              { name: "Empreender", value: "R$ 3,1B", pct: 100 },
+              { name: "Primeiro Negócio", value: "R$ 2,4B", pct: 77 },
               { name: "Programa Inova", value: "R$ 1,8B", pct: 58 },
-              { name: "Negócio a Negócio", value: "R$ 890M", pct: 29 },
-              { name: "Brasil Mais", value: "R$ 420M", pct: 14 },
+              { name: "Visita Técnica", value: "R$ 890M", pct: 29 },
+              { name: "Mais Produtividade", value: "R$ 420M", pct: 14 },
             ].map((item, i) => (
               <div key={i}>
                 <div className="flex items-center justify-between text-xs mb-1">
@@ -3913,7 +3913,7 @@ function StatsCardsSection() {
             <div>
               <p className="text-xs opacity-70 mb-1">Total acumulado 2026</p>
               <p className="text-3xl font-bold">R$ 8,6B</p>
-              <p className="text-sm opacity-80 mt-2">Recursos transferidos para educação básica em todo o Brasil</p>
+              <p className="text-sm opacity-80 mt-2">Recursos aplicados em programas e projetos</p>
             </div>
             <DollarSign size={40} className="opacity-20" />
           </div>
@@ -3924,7 +3924,7 @@ function StatsCardsSection() {
           <div>
             <span className="text-sm text-muted-foreground block mb-2">Ações pendentes</span>
             <div className="space-y-2">
-              {["Aprovar atendimento Empretec #3421", "Revisar parecer Programa Inova #1872", "Assinar termo Brasil Mais #099"].map((item, i) => (
+              {["Aprovar atendimento Empreender #3421", "Revisar parecer Programa Inova #1872", "Assinar termo Mais Produtividade #099"].map((item, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm">
                   <div className="w-1.5 h-1.5 rounded-full bg-warning shrink-0" />
                   <span className="truncate">{item}</span>

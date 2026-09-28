@@ -66,7 +66,7 @@ function SignInPreview() {
         </div>
 
         <p className="text-center text-[10px] text-muted-foreground mt-6">
-          © 2026 __BRAND_NAME__ — Fundo Nacional de Desenvolvimento da Educação
+          © 2026 __BRAND_NAME__ — __BRAND_FULL_NAME__
         </p>
       </div>
     </div>
@@ -163,7 +163,7 @@ function SignUpPreview() {
         </div>
 
         <p className="text-center text-[10px] text-muted-foreground mt-6">
-          © 2026 __BRAND_NAME__ — Fundo Nacional de Desenvolvimento da Educação
+          © 2026 __BRAND_NAME__ — __BRAND_FULL_NAME__
         </p>
       </div>
     </div>
@@ -334,7 +334,7 @@ function TwoFactorPreview() {
         </div>
 
         <p className="text-center text-[10px] text-muted-foreground mt-6">
-          © 2026 __BRAND_NAME__ — Fundo Nacional de Desenvolvimento da Educação
+          © 2026 __BRAND_NAME__ — __BRAND_FULL_NAME__
         </p>
       </div>
     </div>

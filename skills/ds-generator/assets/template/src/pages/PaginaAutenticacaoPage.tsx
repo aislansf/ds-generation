@@ -45,8 +45,8 @@ export default function PaginaAutenticacaoPage() {
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-16 w-auto brightness-0 invert" />
               <div className="mt-12 space-y-6 max-w-lg">
                 <h1 className="text-4xl font-bold text-white leading-tight text-balance">
-                  <span className="block">Transformando vidas</span>
-                  <span className="block">por meio da educação financeira.</span>
+                  <span className="block">Conectando pessoas</span>
+                  <span className="block">por meio da tecnologia.</span>
                 </h1>
               </div>
             </div>
@@ -68,8 +68,8 @@ export default function PaginaAutenticacaoPage() {
             <div className="relative z-10 flex flex-col items-center text-center gap-4 max-w-md mx-auto">
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-10 sm:h-12 w-auto brightness-0 invert" />
               <h1 className="text-lg sm:text-xl font-bold text-white leading-snug text-balance">
-                <span className="inline sm:block">Transformando vidas </span>
-                <span className="inline sm:block">por meio da educação financeira.</span>
+                <span className="inline sm:block">Conectando pessoas </span>
+                <span className="inline sm:block">por meio da tecnologia.</span>
               </h1>
             </div>
           </div>
@@ -83,9 +83,9 @@ export default function PaginaAutenticacaoPage() {
                 </p>
               </div>
 
-              {/* Botão Gov.br - Padrão Federal */}
+              {/* Botão de login único (SSO) */}
               <button className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-[#1351b4] hover:bg-[#1351b4]/90 text-white font-semibold text-sm transition-all shadow-md group">
-                <span>Entrar com gov.br</span>
+                <span>Entrar com login único</span>
                 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -206,8 +206,8 @@ export default function PaginaAutenticacaoPage() {
               <div className="flex flex-col items-center gap-3">
                 <p className="text-[10px] text-muted-foreground text-center leading-relaxed">
                   © 2026 __BRAND_NAME__ — __BRAND_FULL_NAME__.<br />
-                  Avenida Monsenhor Tabosa, 777, Praia de Iracema — Fortaleza/CE. CNPJ 07.121.244/0001-08.<br />
-                  Atendimento: 0800 570 0800 · ouvidoria@__ORG_DOMAIN__
+                  Endereço institucional, 000 — Cidade/UF. CNPJ 00.000.000/0001-00.<br />
+                  Atendimento: 0800 000 0000 · ouvidoria@__ORG_DOMAIN__
                 </p>
               </div>
             </div>

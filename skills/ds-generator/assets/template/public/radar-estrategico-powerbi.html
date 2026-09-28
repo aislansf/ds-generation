@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Farol Estratégico — Power BI HTML</title>
+<title>Radar Estratégico — Power BI HTML</title>
 <!-- Chart.js via CDN (compatível com o visual "HTML Content" do Power BI) -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
@@ -81,7 +81,7 @@
 <div class="app">
   <header class="header">
     <div>
-      <h1>Farol Estratégico</h1>
+      <h1>Radar Estratégico</h1>
       <div class="sub">Painel executivo · __BRAND_SHORT__</div>
     </div>
     <span class="badge">PPA 2022-2026</span>
@@ -124,11 +124,11 @@
     </table>
   </section>
 
-  <p class="footer">__BRAND_SHORT__ · Farol Estratégico — Versão HTML para Power BI (HTML Content visual)</p>
+  <p class="footer">__BRAND_SHORT__ · Radar Estratégico — Versão HTML para Power BI (HTML Content visual)</p>
 </div>
 
 <script>
-/* ── Datasets (espelham src/data/farolEstrategico.ts) ── */
+/* ── Datasets (espelham src/data/radarEstrategico.ts) ── */
 const despesasMensais=[
   {mes:"Jan",p:13766136,e:6349927},{mes:"Fev",p:20500868,e:7648795},
   {mes:"Mar",p:22676796,e:19040450},{mes:"Abr",p:14738404,e:31446696},
@@ -156,10 +156,10 @@ const kpis=[
 ];
 const filtros={
   ppa:["Todos","PPA 2022-2026","PPA 2026-2030"],
-  iniciativa:["Todos","Empretec","ALI","Programa Inova","Negócio a Negócio"],
+  iniciativa:["Todos","Empreender","AGI","Programa Inova","Visita Técnica"],
   acao:["Todos","Capacitação","Mentoria","Consultoria","Eventos"],
   natureza:["Todos","Serviços Especializados","Pessoal","Serviços Contratados"],
-  unidade:["Todos","DIRAE/__BRAND_NAME__","DIFIN/__BRAND_NAME__","DIRSU/__BRAND_NAME__"],
+  unidade:["Todos","DIROP/__BRAND_NAME__","DIAFI/__BRAND_NAME__","DISUP/__BRAND_NAME__"],
   eixo:["Todos","Competitividade","Educação Empreendedora","Inovação","Mercados"]
 };
 

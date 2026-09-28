@@ -16,13 +16,13 @@ const headerBusinessBg = headerBusinessBgAsset.url;
 import { useTheme } from "@/hooks/useTheme";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { KPIGridSkeleton, ChartCardSkeleton } from "@/components/bi/BISkeletons";
-import { downloadFarolReact, downloadFarolVanilla } from "@/utils/farolDownload";
+import { downloadRadarReact, downloadRadarVanilla } from "@/utils/radarDownload";
 import {
   despesasMensais, trimestresTotais, despesasPorNatureza,
   kpiDespesas, kpiReceitas, kpiAtendimento,
   filterOptions, defaultFilters, filterLabels, formatBRL, formatBRLFull,
   type FilterKey, type FiltersState,
-} from "@/data/farolEstrategico";
+} from "@/data/radarEstrategico";
 
 /* ─── Menu lateral (padrão Menu Lateral Final) ─── */
 interface MenuItem { label: string; icon: React.ReactNode; children?: { label: string }[]; }
@@ -30,7 +30,7 @@ const menuItems: MenuItem[] = [
   { label: "Início", icon: <Home size={16} /> },
   {
     label: "Painéis Estratégicos", icon: <BarChart3 size={16} />,
-    children: [{ label: "Farol Estratégico" }, { label: "Execução Orçamentária" }, { label: "Indicadores PPA" }],
+    children: [{ label: "Radar Estratégico" }, { label: "Execução Orçamentária" }, { label: "Indicadores PPA" }],
   },
   { label: "Metas e KPIs", icon: <Target size={16} /> },
   { label: "Relatórios", icon: <FileText size={16} /> },
@@ -86,13 +86,13 @@ function FilterSelect({ name, value, onChange }: {
 }
 
 /* ═══════════════ PAGE ═══════════════ */
-export default function FarolEstrategicoPage() {
+export default function RadarEstrategicoPage() {
   const { theme, toggleTheme } = useTheme();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [collapsed, setCollapsed] = useState(true);
   const [expanded, setExpanded] = useState<Record<string, boolean>>({ "Painéis Estratégicos": true });
-  const [activeItem, setActiveItem] = useState("Farol Estratégico");
+  const [activeItem, setActiveItem] = useState("Radar Estratégico");
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -225,7 +225,7 @@ export default function FarolEstrategicoPage() {
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-sidebar-border">
               <div className={`flex items-center gap-2 min-w-0 ${collapsed && !isMobile ? "justify-center w-full" : ""}`}>
-                {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">Farol Estratégico - BI</span>}
+                {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">Radar Estratégico - BI</span>}
               </div>
               {(!collapsed || isMobile) && (
                 <button
@@ -344,9 +344,9 @@ export default function FarolEstrategicoPage() {
             <ChevronRight size={12} className="text-muted-foreground/50" />
             <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Painéis Estratégicos</a>
             <ChevronRight size={12} className="text-muted-foreground/50" />
-            <span className="font-semibold text-foreground" aria-current="page">Farol Estratégico</span>
+            <span className="font-semibold text-foreground" aria-current="page">Radar Estratégico</span>
             <Link
-              to="/modelos-bi/farol-estrategico/docs"
+              to="/modelos-bi/radar-estrategico/docs"
               className="ml-auto inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
             >
               <BookOpen size={12} /> Ver documentação
@@ -369,14 +369,14 @@ export default function FarolEstrategicoPage() {
               <Download size={12} /> Exportar
             </button>
             <button
-              onClick={() => downloadFarolReact()}
+              onClick={() => downloadRadarReact()}
               className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md"
               title="Baixa um pacote .zip com o template em React + TS pronto para npm install"
             >
               <Download size={12} /> Código-fonte (React)
             </button>
             <button
-              onClick={() => downloadFarolVanilla()}
+              onClick={() => downloadRadarVanilla()}
               className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md"
               title="Baixa um pacote .zip estático em HTML/CSS/JS — abre direto no navegador"
             >
@@ -585,7 +585,7 @@ export default function FarolEstrategicoPage() {
           {/* Footer */}
           <div className="flex items-center justify-end gap-3 px-5 py-3 border-t border-border bg-muted/30">
             <img src={brandLogoReduzida} alt="__BRAND_NAME__" className="h-5 w-auto opacity-60" />
-            <span className="text-[10px] text-muted-foreground">Farol Estratégico · Painel Institucional v.1.0</span>
+            <span className="text-[10px] text-muted-foreground">Radar Estratégico · Painel Institucional v.1.0</span>
           </div>
         </main>
       </div>

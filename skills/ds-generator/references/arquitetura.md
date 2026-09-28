@@ -35,7 +35,7 @@ Dentro do `DSLayout` (documentação):
 
 | Rota | Página | Conteúdo |
 |---|---|---|
-| `/` | HomePage | Hero da marca, bloco Brandbook, princípios, navegação e status |
+| `/` | HomePage | Hero da marca, voz da marca, princípios, navegação e status |
 | `/fundamentos` | FundamentosPage | Tipografia, cores, iconografia (Lucide), grid, elevação, motion, responsividade |
 | `/tokens` | TokensPage | Explorador de tokens (lê `tokenGroups.ts`) |
 | `/componentes` | ComponentesPage | 25 seções: botão, inputs, select, checkbox/radio, switch, badge, alert, card, tabela, accordion, tabs, modal, toast, breadcrumb, paginação, tooltip, skeleton, spinner, empty state, dropdown, kebab, datepicker, filtros, KPIs, upload |
@@ -43,23 +43,23 @@ Dentro do `DSLayout` (documentação):
 | `/marca` | MarcaPage | Logos para download, área de proteção, tamanhos mínimos, fundos, usos incorretos |
 | `/conteudo` | ConteudoPage | Webwriting: princípios, estrutura, boas práticas, faça/evite, SEO |
 | `/acessibilidade` | AcessibilidadePage | Contraste, foco, teclado, dark mode, semântica, ARIA, alvos |
-| `/modelos-bi/*` | ModelosBIPage, modelos-bi/*, FarolEstrategicoDocsPage | **Opcional**: produtos de BI da origem |
+| `/modelos-bi/*` | ModelosBIPage, modelos-bi/*, RadarEstrategicoDocsPage | **Opcional**: modelos de painéis de BI (Radar Estratégico, Planejamento, MPI, Gestão de Pessoas) |
 
-Standalone (tela cheia, fora do DSLayout): `/templates/dashboard-institucional`, `dashboard-bi`, `tela-listagem`, `tela-formulario`, `pagina-autenticacao`, `cadastro`, `autenticacao-2fa`, `pagina-erro`, `modal-acesso`, `pagina-filtros-tabela`, `farol-estrategico`.
+Standalone (tela cheia, fora do DSLayout): `/templates/dashboard-institucional`, `dashboard-bi`, `tela-listagem`, `tela-formulario`, `pagina-autenticacao`, `cadastro`, `autenticacao-2fa`, `pagina-erro`, `modal-acesso`, `pagina-filtros-tabela`, `radar-estrategico`.
 
 ## Validadores (rodam no `npm run build`)
 
 | Script | Garante |
 |---|---|
 | `typecheck` | TypeScript sem erros |
-| `check:legacy-brand` | Nenhum termo de `scripts/legacy-brand.config.json` no código (marca de origem + antigas) |
+| `check:legacy-brand` | Nenhum termo de `scripts/legacy-brand.config.json` no código (`termos_proibidos` do briefing) |
 | `check:legacy-typography` | `<p>` com tipografia avulsa não passa do baseline em `reports/` |
 | `check:homepage-h1` | A regra global de cor do H1 existe no CSS |
 
 Testes (`npx vitest run`): validador de tokens (77 casos), regressão da sidebar (320px, logo 60×60, sem corte de texto), variantes de header e FontFamilyCard.
 
-O DS gerado **não traz CI**. Como modelo, a origem (`ds-sebrae/.github/workflows/main.yml`) roda lint, typecheck, build e testes, faz deploy por FTP e roda smoke da URL pública a cada 6h (`scripts/smoke-public-url.mjs`, `check-homepage-h1-computed.mjs` e `check-homepage-interactive-tokens.mjs`, que já vêm no DS gerado).
+O DS gerado **não traz CI**. Um pipeline típico roda lint, typecheck, build e testes, publica (FTP, S3, Pages…) e roda um smoke da URL pública periodicamente com os scripts que já vêm no DS gerado: `scripts/smoke-public-url.mjs`, `check-homepage-h1-computed.mjs` e `check-homepage-interactive-tokens.mjs`.
 
 ## Módulo opcional: Modelos de BI
 
-Com `modulos.modelos_bi: false`, o gerador remove as linhas de rota e prefetch que citam `/modelos-bi` e as páginas do hub, o item "Modelos de BI" do `navItems` no `DSLayout`, as páginas `ModelosBIPage`, `modelos-bi/` e `FarolEstrategicoDocsPage`, e as entradas de `sitemap.xml` e `llms.txt`. O template `/templates/farol-estrategico` permanece.
+Com `modulos.modelos_bi: false`, o gerador remove as linhas de rota e prefetch que citam `/modelos-bi` e as páginas do hub, o item "Modelos de BI" do `navItems` no `DSLayout`, as páginas `ModelosBIPage`, `modelos-bi/` e `RadarEstrategicoDocsPage`, e as entradas de `sitemap.xml` e `llms.txt`. O template `/templates/radar-estrategico` permanece.

@@ -22,10 +22,10 @@ const menuItems: MenuItem[] = [
   {
     label: "Programas", icon: <GraduationCap size={16} />, iconName: "graduation-cap",
     children: [
-      { label: "Empretec" },
-      { label: "ALI" },
+      { label: "Empreender" },
+      { label: "AGI" },
       { label: "Programa Inova" },
-      { label: "Negócio a Negócio" },
+      { label: "Visita Técnica" },
     ],
   },
   {
@@ -294,10 +294,10 @@ function generateSidebarCode(): string {
         </svg>
       </button>
       <div class="brand-sidebar__subitems">
-        <a href="#" class="brand-sidebar__subitem">Empretec</a>
-        <a href="#" class="brand-sidebar__subitem">ALI</a>
+        <a href="#" class="brand-sidebar__subitem">Empreender</a>
+        <a href="#" class="brand-sidebar__subitem">AGI</a>
         <a href="#" class="brand-sidebar__subitem">Programa Inova</a>
-        <a href="#" class="brand-sidebar__subitem">Negócio a Negócio</a>
+        <a href="#" class="brand-sidebar__subitem">Visita Técnica</a>
       </div>
     </div>
 

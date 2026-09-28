@@ -1,11 +1,6 @@
 {
   "version": 1,
-  "asset_id": "dbfd1ebc-4cbb-4a20-9b36-7c36a9d7d702",
-  "project_id": "fb8735e8-550e-40d0-b21a-ecdee382bceb",
-  "url": "/__l5e/assets-v1/dbfd1ebc-4cbb-4a20-9b36-7c36a9d7d702/sebrae-cor.svg",
-  "r2_key": "a/v1/fb8735e8-550e-40d0-b21a-ecdee382bceb/dbfd1ebc-4cbb-4a20-9b36-7c36a9d7d702/sebrae-cor.svg",
-  "original_filename": "sebrae-cor.svg",
-  "size": 3670,
-  "content_type": "image/svg+xml",
-  "created_at": "2026-06-24T04:06:49Z"
+  "url": "/placeholders/brand-cor.svg",
+  "original_filename": "brand-cor.svg",
+  "content_type": "image/svg+xml"
 }

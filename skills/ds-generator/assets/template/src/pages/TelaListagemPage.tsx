@@ -26,7 +26,7 @@ const menuItems: MenuItem[] = [
   { label: "Início", icon: <Home size={16} /> },
   {
     label: "Programas", icon: <GraduationCap size={16} />,
-    children: [{ label: "Empretec" }, { label: "ALI" }, { label: "Programa Inova" }, { label: "Negócio a Negócio" }],
+    children: [{ label: "Empreender" }, { label: "AGI" }, { label: "Programa Inova" }, { label: "Visita Técnica" }],
   },
   {
     label: "Financeiro", icon: <Wallet size={16} />,
@@ -67,8 +67,8 @@ interface Row {
 
 const rows: Row[] = [
   {
-    id: "PRG-00021", programa: "Empretec — Empreendedorismo", responsavel: "Ana Silva Pereira",
-    unidade: "DIRAE/__BRAND_NAME__", modalidade: "Repasse trimestral", valor: "R$ 1.240.000,00", status: "Aprovado",
+    id: "PRG-00021", programa: "Empreender — Empreendedorismo", responsavel: "Ana Silva Pereira",
+    unidade: "DIROP/__BRAND_NAME__", modalidade: "Repasse trimestral", valor: "R$ 1.240.000,00", status: "Aprovado",
     subRows: [
       { parcela: "1ª Parcela", vencimento: "10/03/2026", valor: "R$ 310.000,00", status: "Pago" },
       { parcela: "2ª Parcela", vencimento: "10/06/2026", valor: "R$ 310.000,00", status: "Pago" },
@@ -77,8 +77,8 @@ const rows: Row[] = [
     ],
   },
   {
-    id: "PRG-00022", programa: "ALI — Agentes Locais de Inovação", responsavel: "Bruno Souza Lima",
-    unidade: "DIRAE/__BRAND_NAME__", modalidade: "Repasse mensal", valor: "R$ 780.500,00", status: "Em Análise",
+    id: "PRG-00022", programa: "AGI — Agentes de Inovação", responsavel: "Bruno Souza Lima",
+    unidade: "DIROP/__BRAND_NAME__", modalidade: "Repasse mensal", valor: "R$ 780.500,00", status: "Em Análise",
     subRows: [
       { parcela: "Janeiro", vencimento: "05/01/2026", valor: "R$ 65.000,00", status: "Pago" },
       { parcela: "Fevereiro", vencimento: "05/02/2026", valor: "R$ 65.000,00", status: "Pago" },
@@ -87,22 +87,22 @@ const rows: Row[] = [
   },
   {
     id: "PRG-00023", programa: "Programa Inova — Consultoria Tecnológica", responsavel: "Carla Mendes Rocha",
-    unidade: "DIFIN/__BRAND_NAME__", modalidade: "Repasse anual", valor: "R$ 2.150.000,00", status: "Aprovado",
+    unidade: "DIAFI/__BRAND_NAME__", modalidade: "Repasse anual", valor: "R$ 2.150.000,00", status: "Aprovado",
     subRows: [
       { parcela: "Parcela única", vencimento: "20/04/2026", valor: "R$ 2.150.000,00", status: "Pago" },
     ],
   },
   {
-    id: "PRG-00024", programa: "Negócio a Negócio", responsavel: "Diego Alves Castro",
-    unidade: "DIRAE/__BRAND_NAME__", modalidade: "Aquisição direta", valor: "R$ 4.890.000,00", status: "Pendente",
+    id: "PRG-00024", programa: "Visita Técnica", responsavel: "Diego Alves Castro",
+    unidade: "DIROP/__BRAND_NAME__", modalidade: "Aquisição direta", valor: "R$ 4.890.000,00", status: "Pendente",
     subRows: [
       { parcela: "Lote 1 — Ônibus rural", vencimento: "15/05/2026", valor: "R$ 2.890.000,00", status: "Pendente" },
       { parcela: "Lote 2 — Ônibus urbano", vencimento: "15/08/2026", valor: "R$ 2.000.000,00", status: "Pendente" },
     ],
   },
   {
-    id: "PRG-00025", programa: "SEI — Seu Negócio", responsavel: "Eduarda Santos Lima",
-    unidade: "DIPRO/__BRAND_NAME__", modalidade: "Aquisição centralizada", valor: "R$ 6.320.000,00", status: "Aprovado",
+    id: "PRG-00025", programa: "Primeiro Negócio", responsavel: "Eduarda Santos Lima",
+    unidade: "DIPLAN/__BRAND_NAME__", modalidade: "Aquisição centralizada", valor: "R$ 6.320.000,00", status: "Aprovado",
     subRows: [
       { parcela: "Ensino Fundamental I", vencimento: "10/02/2026", valor: "R$ 2.500.000,00", status: "Pago" },
       { parcela: "Ensino Fundamental II", vencimento: "10/05/2026", valor: "R$ 2.000.000,00", status: "Pago" },
@@ -111,14 +111,14 @@ const rows: Row[] = [
   },
   {
     id: "PRG-00026", programa: "MEI - Microempreendedor", responsavel: "Fernanda Costa Reis",
-    unidade: "DIPRO/__BRAND_NAME__", modalidade: "Repasse semestral", valor: "R$ 540.000,00", status: "Rejeitado",
+    unidade: "DIPLAN/__BRAND_NAME__", modalidade: "Repasse semestral", valor: "R$ 540.000,00", status: "Rejeitado",
     subRows: [
       { parcela: "1º Semestre", vencimento: "30/06/2026", valor: "R$ 270.000,00", status: "Rejeitado" },
     ],
   },
   {
-    id: "PRG-00027", programa: "Mais Educação", responsavel: "Gustavo Henrique Dias",
-    unidade: "DIRAE/__BRAND_NAME__", modalidade: "Repasse trimestral", valor: "R$ 1.890.000,00", status: "Em Análise",
+    id: "PRG-00027", programa: "Mais Conhecimento", responsavel: "Gustavo Henrique Dias",
+    unidade: "DIROP/__BRAND_NAME__", modalidade: "Repasse trimestral", valor: "R$ 1.890.000,00", status: "Em Análise",
     subRows: [
       { parcela: "1º Trimestre", vencimento: "31/03/2026", valor: "R$ 472.500,00", status: "Pago" },
       { parcela: "2º Trimestre", vencimento: "30/06/2026", valor: "R$ 472.500,00", status: "Em Análise" },
@@ -295,7 +295,7 @@ export default function TelaListagemPage() {
   // Modal "Novo registro"
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState({
-    programa: "", responsavel: "", unidade: "DIRAE/__BRAND_NAME__",
+    programa: "", responsavel: "", unidade: "DIROP/__BRAND_NAME__",
     modalidade: "Repasse mensal", valor: "", inicio: "",
   });
   const [toast, setToast] = useState<string | null>(null);
@@ -349,7 +349,7 @@ export default function TelaListagemPage() {
     e.preventDefault();
     setModalOpen(false);
     setToast(`Registro "${form.programa || "Sem título"}" criado com sucesso.`);
-    setForm({ programa: "", responsavel: "", unidade: "DIRAE/__BRAND_NAME__", modalidade: "Repasse mensal", valor: "", inicio: "" });
+    setForm({ programa: "", responsavel: "", unidade: "DIROP/__BRAND_NAME__", modalidade: "Repasse mensal", valor: "", inicio: "" });
     setTimeout(() => setToast(null), 4000);
   };
 
@@ -540,9 +540,9 @@ export default function TelaListagemPage() {
           <KPICompare title="Programas ativos" current="142" previous="126 em 2025" color="#16A34A" />
           <KPIProgress title="Execução orçamentária" value="R$ 84,2M" target="R$ 120M" pct={70} color="#D98217" />
           <KPIRanking title="Top unidades por volume" items={[
-            { label: "DIRAE/__BRAND_NAME__", value: "R$ 6,1M" },
-            { label: "DIPRO/__BRAND_NAME__", value: "R$ 4,3M" },
-            { label: "DIFIN/__BRAND_NAME__", value: "R$ 2,0M" },
+            { label: "DIROP/__BRAND_NAME__", value: "R$ 6,1M" },
+            { label: "DIPLAN/__BRAND_NAME__", value: "R$ 4,3M" },
+            { label: "DIAFI/__BRAND_NAME__", value: "R$ 2,0M" },
           ]} />
         </div>
 
@@ -908,7 +908,7 @@ export default function TelaListagemPage() {
                   required
                   value={form.programa}
                   onChange={(e) => setForm({ ...form, programa: e.target.value })}
-                  placeholder="Ex.: Empretec — Empreendedorismo"
+                  placeholder="Ex.: Empreender — Empreendedorismo"
                   className="w-full px-3 py-2 text-xs bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary"
                 />
               </div>
@@ -937,9 +937,9 @@ export default function TelaListagemPage() {
                     onChange={(e) => setForm({ ...form, unidade: e.target.value })}
                     className="w-full px-3 py-2 text-xs bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
                   >
-                    <option>DIRAE/__BRAND_NAME__</option>
-                    <option>DIPRO/__BRAND_NAME__</option>
-                    <option>DIFIN/__BRAND_NAME__</option>
+                    <option>DIROP/__BRAND_NAME__</option>
+                    <option>DIPLAN/__BRAND_NAME__</option>
+                    <option>DIAFI/__BRAND_NAME__</option>
                     <option>__BRAND_NAME__</option>
                   </select>
                 </div>

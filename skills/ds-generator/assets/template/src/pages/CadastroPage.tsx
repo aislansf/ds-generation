@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { brandCor as brandLogoCompleta } from "@/assets/brand";
 import { brandCor as brandLogoReduzida } from "@/assets/brand";
-import marcaGov from "@/assets/marca-gov.png";
+import marcaParceiro from "@/assets/marca-parceiro.png";
 import exemploImg from "@/assets/exemplo-imagem-login.jpg";
 
 export default function CadastroPage() {
@@ -54,10 +54,10 @@ export default function CadastroPage() {
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-16 w-auto brightness-0 invert" />
               <div className="mt-12 space-y-6 max-w-lg">
                 <h1 className="text-4xl font-bold text-white leading-tight">
-                  Sua porta de entrada para a gestão educacional.
+                  Sua porta de entrada para os serviços digitais.
                 </h1>
                 <p className="text-lg text-white/80">
-                  Solicite seu acesso para começar a utilizar as ferramentas de gestão e financiamento da educação brasileira.
+                  Solicite seu acesso para começar a utilizar as ferramentas de gestão da plataforma.
                 </p>
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function CadastroPage() {
                     required
                     type="email"
                     className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
-                    placeholder="usuario@orgao.gov.br"
+                    placeholder="usuario@__ORG_DOMAIN__"
                   />
                 </div>
 
@@ -132,7 +132,7 @@ export default function CadastroPage() {
                     <select className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors">
                       <option value="">Selecione seu órgão</option>
                       <option value="brand">__BRAND_NAME__</option>
-                      <option value="mec">MEC</option>
+                      <option value="parceiro">Instituição parceira</option>
                       <option value="prefeitura">Prefeitura Municipal</option>
                       <option value="estado">Secretaria Estadual</option>
                     </select>
@@ -184,7 +184,7 @@ export default function CadastroPage() {
               <div className="flex flex-col items-center gap-3">
                 <img src={brandLogoReduzida} alt="__BRAND_NAME__" className="h-6 opacity-40 grayscale" />
                 <p className="text-[10px] text-muted-foreground text-center leading-relaxed">
-                  © 2026 Fundo Nacional de Desenvolvimento da Educação.<br />
+                  © 2026 __BRAND_FULL_NAME__.<br />
                   Sistema de Credenciamento Único.
                 </p>
               </div>

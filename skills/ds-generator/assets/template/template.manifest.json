@@ -1,32 +1,32 @@
 {
-  "gerado_em": "2026-09-28T19:51:33.457Z",
+  "gerado_em": "2026-09-28T20:59:38.332Z",
   "origem": {
-    "pasta": "ds-sebrae/frontend",
     "commit": "3bba5fe 2026-09-28",
-    "briefing": "assets/examples/sebrae-ce.json",
-    "nome": "SEBRAE-CE",
-    "prefixo_codigo": "sebrae",
-    "termos": [
-      "sebrae",
-      "SEBRAE",
-      "SEBRAE-CE",
-      "SEBRAE Ceará",
-      "Sebrae Ceará",
-      "Sebrae-CE",
-      "SEBRAE/CE",
-      "SEBRAE CE"
-    ],
-    "termos_especificos": [
-      "Sebraetec",
-      "Empretec",
-      "ALI (Agentes Locais de Inovação)",
-      "Brasil Mais",
-      "Sebrae Delas",
-      "Farol Estratégico",
-      "DIRAE",
-      "DIFIN",
-      "DIPRO",
-      "DIRSU"
+    "conteudo_exemplo": [
+      "Empreender",
+      "AGI",
+      "Agentes de Inovação",
+      "Programa Inova",
+      "Mais Produtividade",
+      "Elas Empreendem",
+      "Gestão Avançada",
+      "Visita Técnica",
+      "Primeiro Negócio",
+      "Sob Medida",
+      "Mais Conhecimento",
+      "Radar Estratégico",
+      "DIROP",
+      "DIAFI",
+      "DIPLAN",
+      "DISUP",
+      "DIRAD",
+      "DITEC",
+      "DIGOV",
+      "GEAT",
+      "UCAP",
+      "UINOV",
+      "UNEG",
+      "UMEP"
     ]
   },
   "familias": [
@@ -100,6 +100,7 @@
     "__FONT_PRIMARY__",
     "__FONT_DISPLAY__",
     "__FONT_SYSTEM__",
+    "__FONT_DISPLAY_URL__",
     "/* __FONT_IMPORTS__ */"
   ],
   "arquivos": 193

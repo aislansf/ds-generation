@@ -19,7 +19,7 @@ interface MenuItem {
 }
 const menuItems: MenuItem[] = [
   { label: "Início", icon: <Home size={16} /> },
-  { label: "Programas", icon: <GraduationCap size={16} />, children: [{ label: "Empretec" }, { label: "ALI" }, { label: "Programa Inova" }, { label: "Negócio a Negócio" }] },
+  { label: "Programas", icon: <GraduationCap size={16} />, children: [{ label: "Empreender" }, { label: "AGI" }, { label: "Programa Inova" }, { label: "Visita Técnica" }] },
   { label: "Financeiro", icon: <Wallet size={16} />, children: [{ label: "Prestação de Contas" }, { label: "Repasses" }, { label: "Convênios" }] },
   { label: "Relatórios", icon: <BarChart3 size={16} />, children: [{ label: "Indicadores" }, { label: "Dashboards" }, { label: "Exportações" }] },
   { label: "Usuários", icon: <Users size={16} /> },
@@ -54,7 +54,7 @@ interface FormState {
 
 const initialForm: FormState = {
   programa: "", responsavel: "", email: "", cpf: "",
-  unidade: "DIRAE/__BRAND_NAME__", modalidade: "Repasse mensal",
+  unidade: "DIROP/__BRAND_NAME__", modalidade: "Repasse mensal",
   valor: "", observacoes: "",
   dataInicio: "", dataFim: "", parcelas: "12",
 };
@@ -485,7 +485,7 @@ export default function TelaFormularioPage() {
 
                     <Field label="Nome do programa" id="programa" required error={errors.programa}>
                       <input id="programa" type="text" value={form.programa} onChange={(e) => update("programa", e.target.value)}
-                        placeholder="Ex: Empretec — Empreendedorismo"
+                        placeholder="Ex: Empreender — Empreendedorismo"
                         className={inputCls(errors.programa)} aria-invalid={!!errors.programa} />
                     </Field>
 
@@ -519,10 +519,10 @@ export default function TelaFormularioPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Field label="Unidade gestora" id="unidade" required error={errors.unidade}>
                         <select id="unidade" value={form.unidade} onChange={(e) => update("unidade", e.target.value)} className={inputCls(errors.unidade)}>
-                          <option>DIRAE/__BRAND_NAME__</option>
-                          <option>DIFIN/__BRAND_NAME__</option>
-                          <option>DIPRO/__BRAND_NAME__</option>
-                          <option>DIGAP/__BRAND_NAME__</option>
+                          <option>DIROP/__BRAND_NAME__</option>
+                          <option>DIAFI/__BRAND_NAME__</option>
+                          <option>DIPLAN/__BRAND_NAME__</option>
+                          <option>DIGOV/__BRAND_NAME__</option>
                         </select>
                       </Field>
                       <Field label="Modalidade" id="modalidade" required error={errors.modalidade}>

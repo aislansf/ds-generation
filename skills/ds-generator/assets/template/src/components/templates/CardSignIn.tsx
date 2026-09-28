@@ -141,8 +141,8 @@ const cardSignInCode = `<!-- Modelo Card (Sign In) — __BRAND_NAME__ -->
     <img src="/assets/brand-empreendedora.jpg" alt="Mulher empreendedora trabalhando em casa" />
     <div class="card-signin__overlay"></div>
     <div class="card-signin__caption">
-      <strong>Estimular o empreendedorismo e impulsionar os pequenos negócios</strong>
-      <span>Visão __BRAND_SHORT__: ter excelência no desenvolvimento dos pequenos negócios, contribuindo para a construção de um Brasil mais justo, competitivo e sustentável.</span>
+      <strong>Soluções que aproximam pessoas e serviços</strong>
+      <span>Visão: ser referência em soluções digitais que aproximam pessoas e serviços.</span>
     </div>
   </div>
 </div>

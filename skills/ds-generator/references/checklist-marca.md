@@ -8,7 +8,7 @@ Marque cada item antes de dizer ao usuário que o DS está pronto. Os que não p
 - [ ] `GERACAO.md` sem marcas proibidas nem placeholders não resolvidos
 
 ## Cor e contraste
-- [ ] `validar-contraste.mjs src/index.css`: nenhum par piorou em relação à origem (os pares que já falhavam na origem aparecem também no DS do SEBRAE)
+- [ ] `validar-contraste.mjs src/index.css`: nenhum par piorou em relação ao template (os pares que já ficam abaixo de AA no template aparecem em qualquer marca)
 - [ ] Texto sobre a primária legível: botão primário, botão institucional (`variant="brand"`), sidebar, header
 - [ ] Dark mode revisado em `/`, `/componentes` e `/templates`
 - [ ] Nenhum tom "fora da família" visível (ilustrações, gráficos, badges)
@@ -16,13 +16,14 @@ Marque cada item antes de dizer ao usuário que o DS está pronto. Os que não p
 ## Marca
 - [ ] Logos oficiais (não o provisório tipográfico) em cor, branco e preto
 - [ ] Favicon oficial
-- [ ] Página `/marca` reescrita com as regras do manual (área de proteção, tamanhos mínimos, usos incorretos)
+- [ ] Página `/marca` reescrita com as regras do manual (área de proteção, tamanhos mínimos, usos incorretos) e sem o aviso "Valores de referência"
+- [ ] Nenhum comentário `MODELO:` restante (`grep -rn "MODELO:" src`)
 - [ ] Paleta estendida com nomes e usos da nova marca
 - [ ] Fontes carregando (confira no DevTools → Network → Font); fonte proprietária com `url_woff2` acessível e CORS liberado
 
 ## Conteúdo
 - [ ] Concordância de gênero ("da Agência", não "do Agência")
-- [ ] Sem programas, diretorias ou produtos da origem nos dados de exemplo
+- [ ] Dados de exemplo genéricos do template (Empreender, Programa Inova, DIROP…) trocados pelo universo da marca
 - [ ] Tom de voz da página Webwriting coerente com a marca
 - [ ] Metadados (`index.html`, `llms.txt`, `sitemap.xml`) com o domínio correto
 

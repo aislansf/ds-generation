@@ -1,11 +1,6 @@
 {
   "version": 1,
-  "asset_id": "731055a7-0c6a-4bd3-a901-0c759fbfc75e",
-  "project_id": "fb8735e8-550e-40d0-b21a-ecdee382bceb",
-  "url": "/__l5e/assets-v1/731055a7-0c6a-4bd3-a901-0c759fbfc75e/thumb-pagina-filtros-tabela.jpg",
-  "r2_key": "a/v1/fb8735e8-550e-40d0-b21a-ecdee382bceb/731055a7-0c6a-4bd3-a901-0c759fbfc75e/thumb-pagina-filtros-tabela.jpg",
+  "url": "/placeholders/thumb-pagina-filtros-tabela.svg",
   "original_filename": "thumb-pagina-filtros-tabela.jpg",
-  "size": 119593,
-  "content_type": "image/jpeg",
-  "created_at": "2026-06-29T01:41:54Z"
+  "content_type": "image/jpeg"
 }

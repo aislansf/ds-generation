@@ -1,54 +1,56 @@
 {
-  "$comentario": "Briefing de marca para o ds-generator. Campos com * são obrigatórios. Caminhos de arquivo são relativos a este JSON.",
+  "$comentario": "Briefing de marca do ds-generator. TODAS as perguntas são obrigatórias: troque cada valor PREENCHER pela resposta do usuário. Onde houver opção de 'não se aplica' (false, \"derivar\", \"manter\", []), ela precisa ser escolhida pelo usuário, nunca assumida. Caminhos de arquivo são relativos a este JSON. Confira com: node scripts/validar-briefing.mjs <este-arquivo>.",
 
-  "nome": "* Nome de exibição da marca — ex.: SEBRAE-CE",
-  "nome_curto": "Nome curto/sigla — ex.: SEBRAE (padrão: nome)",
-  "nome_completo": "Razão social ou nome por extenso",
-  "genero": "m ou f — concordância no texto: 'do SEBRAE' (m) / 'da Agência' (f). Padrão: m",
-  "slug": "* identificador em minúsculas, sem espaços — ex.: sebrae-ce",
-  "slogan": "Frase-assinatura da marca (aparece em exemplos de tipografia e rodapés)",
-  "descricao": "Uma frase sobre o Design System (usada no README e em metatags)",
+  "nome": "PREENCHER: nome de exibição da marca (ex.: Agência Horizonte)",
+  "nome_curto": "PREENCHER: nome curto ou sigla (ex.: Horizonte); repita o nome se não houver",
+  "nome_completo": "PREENCHER: razão social ou nome por extenso",
+  "genero": "PREENCHER: \"m\" (do/no/o Instituto) ou \"f\" (da/na/a Agência)",
+  "slug": "PREENCHER: minúsculas, números e hífen (ex.: agencia-horizonte)",
+  "slogan": "PREENCHER: frase-assinatura (aparece em exemplos de tipografia, login e rodapés)",
+  "descricao": "PREENCHER: uma frase sobre o Design System (README e metatags)",
 
   "dominios": {
-    "ds": "domínio onde o DS será publicado — ex.: ds.minhamarca.com.br",
-    "org": "domínio institucional usado em e-mails de exemplo — ex.: minhamarca.com.br",
-    "org_raiz": "domínio do portal principal (se diferente de org)"
+    "ds": "PREENCHER: domínio onde o DS será publicado (ex.: ds.agenciahorizonte.com.br)",
+    "org": "PREENCHER: domínio institucional, usado em e-mails de exemplo (ex.: agenciahorizonte.com.br)",
+    "org_raiz": "PREENCHER: domínio do portal principal, ou false se for o mesmo do institucional"
   },
-  "manual_marca_url": "URL do manual/brandbook em PDF",
-  "og_image_url": "URL da imagem de compartilhamento (opcional)",
+  "manual_marca_url": "PREENCHER: URL do manual/brandbook, ou false se não houver",
+  "og_image_url": "PREENCHER: URL da imagem de compartilhamento, ou false para usar o favicon",
 
   "cores": {
-    "primaria": "* #RRGGBB — cor institucional principal",
-    "secundaria": "#RRGGBB — apoio (padrão: análoga da primária, -32° de matiz)",
-    "destaque": "#RRGGBB — texto/realce sobre a primária, ex.: botão institucional (padrão: tint claro da primária)",
-    "realce": "#RRGGBB — cor de chamada pontual: asterisco obrigatório, links de ação (padrão: mantém o laranja do template)"
+    "primaria": "PREENCHER: #RRGGBB — cor institucional principal",
+    "secundaria": "PREENCHER: #RRGGBB, ou \"derivar\" (análoga da primária)",
+    "destaque": "PREENCHER: #RRGGBB para texto/realce sobre a primária, ou \"derivar\" (tom claro da primária)",
+    "realce": "PREENCHER: #RRGGBB para chamadas pontuais (asterisco obrigatório, links de ação), ou \"manter\" (laranja do template)"
   },
 
   "fontes": {
-    "primaria": { "nome": "* ex.: Inter", "google": true },
-    "display": { "nome": "ex.: Poppins", "google": true, "url_woff2": "se for proprietária, URL do .woff2", "peso": 700 },
-    "sistema": { "nome": "ex.: Lato", "google": true }
+    "primaria": { "nome": "PREENCHER: ex.: Inter", "google": true },
+    "display": "PREENCHER: { \"nome\": \"Poppins\", \"google\": true }, ou { \"nome\", \"google\": false, \"url_woff2\": \"https://…\", \"peso\": 700 } se for proprietária, ou false para usar a primária",
+    "sistema": "PREENCHER: { \"nome\": \"Lato\", \"google\": true }, ou false para usar a primária"
   },
 
   "logos": {
-    "cor": "caminho para SVG da marca em cores",
-    "branco": "caminho para SVG monocromático branco",
-    "preto": "caminho para SVG monocromático preto"
+    "cor": "PREENCHER: caminho do logo em cores (SVG de preferência), ou false se não houver",
+    "branco": "PREENCHER: caminho do logo monocromático branco, ou false",
+    "preto": "PREENCHER: caminho do logo monocromático preto, ou false"
   },
-  "favicon": "caminho para favicon .png ou .svg (padrão: monograma gerado)",
+  "favicon": "PREENCHER: caminho de .png ou .svg, ou false para gerar um monograma",
 
-  "termos_proibidos": ["marcas antigas que não podem aparecer no código, ex.: nome-da-marca-anterior"],
+  "termos_proibidos": ["PREENCHER: marcas ou nomes antigos que não podem aparecer no DS; [] se não houver"],
 
   "conteudo": {
-    "tom_de_voz": "Como a marca fala — ex.: institucional, próximo, direto",
-    "publico": "Quem usa os produtos digitais",
+    "tom_de_voz": "PREENCHER: como a marca fala (ex.: institucional, próximo, direto)",
+    "publico": "PREENCHER: quem usa os produtos digitais",
     "paleta_estendida": [
-      { "nome": "ex.: Verde Tropical", "hex": "#84F4BC", "uso": "gráficos e ilustrações" }
+      { "nome": "PREENCHER: ex.: Verde Mata", "hex": "#2E7D32", "uso": "ex.: gráficos e ilustrações" }
     ],
-    "regras_de_marca": ["ex.: área de proteção = altura do símbolo", "ex.: não aplicar a marca sobre fundos com baixo contraste"]
+    "regras_de_marca": ["PREENCHER: ex.: área de proteção = altura do símbolo; [] se o manual não definir"]
   },
 
   "modulos": {
-    "modelos_bi": "true mantém os Modelos de BI da origem (Farol, Planeja, MPI, Gestão de Pessoas); false remove rotas, menu e páginas"
-  }
+    "modelos_bi": "PREENCHER: true mantém os Modelos de BI (Radar Estratégico, Planejamento, MPI, Gestão de Pessoas); false remove rotas, menu e páginas"
+  },
+
+  "confirmado_pelo_usuario": "PREENCHER: true somente depois que o usuário revisar o resumo de todas as respostas e confirmar"
 }

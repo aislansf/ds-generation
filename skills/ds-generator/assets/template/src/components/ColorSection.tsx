@@ -114,27 +114,27 @@ export default function ColorSection() {
       <div className="brand-card mb-6">
         <div className="flex items-center gap-2 mb-4">
           <Palette size={18} className="text-primary" />
-          <h4 className="text-sm font-semibold">Paleta principal — Azul Céu Brasileiro</h4>
+          <h4 className="text-sm font-semibold">Paleta principal — Cor institucional</h4>
         </div>
         <p className="text-xs text-muted-foreground mb-4">
-          Cor primária <strong>#5BA3D9</strong> — inspirada no azul do céu brasileiro presente na
-          identidade visual “Nós representamos todo o Brasil”. A partir dela é construída toda a escala
+          Cor primária <strong>#5BA3D9</strong> — base da identidade visual da marca.
+          A partir dela é construída toda a escala
           cromática, secundárias, complementares, semânticas e gradientes do sistema.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
           {[
-            { name: "Azul Profundo",  hex: "#005EB8", token: "blue-profundo" },
-            { name: "Azul Marinho",   hex: "#0024A9", token: "blue-marinho"  },
-            { name: "Azul Cobalto",   hex: "#0041D9", token: "blue-cobalto"  },
-            { name: "Azul Royal",     hex: "#3B4AFF", token: "blue-royal"    },
-            { name: "Azul Céu",       hex: "#40BBFF", token: "blue-ceu"      },
+            { name: "Primária Profunda",  hex: "#005EB8", token: "primary-deep" },
+            { name: "Primária Escura",   hex: "#0024A9", token: "primary-dark"  },
+            { name: "Primária Intensa",   hex: "#0041D9", token: "primary-strong"  },
+            { name: "Primária Vibrante",     hex: "#3B4AFF", token: "primary-vivid"    },
+            { name: "Primária Clara",       hex: "#40BBFF", token: "primary-light"      },
           ].map((c) => (
             <ColorSwatch key={c.hex} name={c.name} hex={c.hex} token={c.token} />
           ))}
         </div>
 
         {/* Escala do azul */}
-        <h4 className="text-sm font-semibold mb-1">Escala cromática do Azul Primário</h4>
+        <h4 className="text-sm font-semibold mb-1">Escala cromática do Primária</h4>
         <p className="text-xs text-muted-foreground mb-3">
           Escala 50–950 derivada do matiz de <strong>#5BA3D9</strong> (~204°). Use 50–200 para superfícies,
           300–500 para componentes e brand, 600–800 para texto/contraste e 900–950 para dark mode.
@@ -161,19 +161,19 @@ export default function ColorSection() {
           ))}
         </div>
 
-        {/* Secundárias — Família Brasil */}
-        <h4 className="text-sm font-semibold mb-1">Cores Secundárias — Família Brasil</h4>
+        {/* Secundárias — Família Estendida */}
+        <h4 className="text-sm font-semibold mb-1">Cores Secundárias — Família Estendida</h4>
         <p className="text-xs text-muted-foreground mb-3">
           Extraídas da paleta de referência (Pantone). Uso em destaques institucionais, categorias e
           ilustrações que dialogam com o azul primário.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {[
-            { name: "Azul Profundo", hex: "#0041D9", token: "brand-deep",    pantone: "Pantone 2728C" },
-            { name: "Azul Royal",    hex: "#3B4AFF", token: "brand-royal",   pantone: "Pantone 2726C" },
-            { name: "Ciano Vibrante",hex: "#40BBFF", token: "cyan",          pantone: "Pantone 298C"  },
-            { name: "Verde Tropical",hex: "#84F4BC", token: "green-tropical",pantone: "Pantone 3375C" },
-            { name: "Amarelo Sol",   hex: "#FFED69", token: "yellow-sun",    pantone: "Pantone 100C"  },
+            { name: "Primária Profunda", hex: "#0041D9", token: "brand-deep",    pantone: "Pantone 2728C" },
+            { name: "Primária Vibrante",    hex: "#3B4AFF", token: "brand-royal",   pantone: "Pantone 2726C" },
+            { name: "Secundária Vibrante",hex: "#40BBFF", token: "cyan",          pantone: "Pantone 298C"  },
+            { name: "Verde Menta",hex: "#84F4BC", token: "green-mint",pantone: "Pantone 3375C" },
+            { name: "Amarelo Claro",   hex: "#FFED69", token: "yellow-light",    pantone: "Pantone 100C"  },
           ].map(c => (
             <div key={c.token} className="text-center">
               <div className="h-14 rounded-lg border border-border mb-1" style={{ backgroundColor: c.hex }} />
@@ -197,10 +197,10 @@ export default function ColorSection() {
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
           {[
-            { name: "Coral Carnaval", hex: "#F4455A", token: "coral",           pantone: "Pantone 1785C" },
+            { name: "Coral", hex: "#F4455A", token: "coral",           pantone: "Pantone 1785C" },
             { name: "Rosa Suave",     hex: "#FFABAB", token: "pink-soft",       pantone: "Pantone 169C"  },
-            { name: "Laranja Manga",  hex: "#FFB380", token: "orange-mango",    pantone: "Pantone 7410C" },
-            { name: "Roxo Festival",  hex: "#9285F9", token: "purple-festival", pantone: "Pantone 2715C" },
+            { name: "Laranja Pêssego",  hex: "#FFB380", token: "orange-peach",    pantone: "Pantone 7410C" },
+            { name: "Roxo Lavanda",  hex: "#9285F9", token: "purple-lavender", pantone: "Pantone 2715C" },
             { name: "Magenta",        hex: "#CD5BE8", token: "magenta",         pantone: "Pantone 252C"  },
           ].map(c => (
             <div key={c.token} className="text-center">
@@ -220,7 +220,7 @@ export default function ColorSection() {
           <h4 className="text-sm font-semibold">Cores semânticas (feedback)</h4>
         </div>
         <p className="text-xs text-muted-foreground mb-4">
-          Derivadas da paleta Brasil, ajustadas para contraste AA. Cada cor possui par “base + soft”
+          Derivadas da paleta estendida, ajustadas para contraste AA. Cada cor possui par “base + soft”
           para garantir legibilidade entre texto e fundo em modo claro e escuro.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -233,7 +233,7 @@ export default function ColorSection() {
               darkBgHex: "#052E16",
               fgHex: "#FFFFFF",
               token: "success",
-              desc: "Confirmações, ações concluídas, validações positivas. Deriva do Verde Tropical.",
+              desc: "Confirmações, ações concluídas, validações positivas. Deriva do Verde Menta.",
             },
             {
               name: "Warning",
@@ -243,7 +243,7 @@ export default function ColorSection() {
               darkBgHex: "#422006",
               fgHex: "#4A2F06",
               token: "warning",
-              desc: "Alertas, atenção necessária. Deriva do Amarelo Sol e Laranja Manga.",
+              desc: "Alertas, atenção necessária. Deriva do Amarelo Claro e Laranja Pêssego.",
             },
             {
               name: "Danger",
@@ -253,7 +253,7 @@ export default function ColorSection() {
               darkBgHex: "#450A0A",
               fgHex: "#FFFFFF",
               token: "danger",
-              desc: "Erros, falhas, ações destrutivas. Deriva do Coral Carnaval.",
+              desc: "Erros, falhas, ações destrutivas. Deriva do Coral.",
             },
             {
               name: "Info",
@@ -263,7 +263,7 @@ export default function ColorSection() {
               darkBgHex: "#1E3A5F",
               fgHex: "#FFFFFF",
               token: "info",
-              desc: "Informações contextuais, dicas. Deriva do Azul Primário.",
+              desc: "Informações contextuais, dicas. Deriva do Primária.",
             },
           ].map(c => (
             <div key={c.token} className="border border-border rounded-lg overflow-hidden">
@@ -334,7 +334,7 @@ export default function ColorSection() {
           <h4 className="text-sm font-semibold">Gradientes do sistema</h4>
         </div>
         <p className="text-xs text-muted-foreground mb-4">
-          Combinações construídas a partir do azul primário e da paleta Brasil. Use em headers, hero
+          Combinações construídas a partir do azul primário e da paleta estendida. Use em headers, hero
           sections, cards de destaque, campanhas e dataviz. Clique para copiar o CSS.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -357,19 +357,19 @@ export default function ColorSection() {
             description="Dashboards, covers de seção, painéis de indicadores."
           />
           <GradientCard
-            name="Brasil Sunset"
+            name="Pôr do Sol"
             css="linear-gradient(120deg, #FFED69 0%, #FFB380 50%, #F4455A 100%)"
             colors={["#FFED69", "#FFB380", "#F4455A"]}
             description="Campanhas, banners de evento, comunicação calorosa."
           />
           <GradientCard
-            name="Tropical"
+            name="Menta"
             css="linear-gradient(120deg, #84F4BC 0%, #40BBFF 100%)"
             colors={["#84F4BC", "#40BBFF"]}
             description="Ilustrações, ambientes leves, ações de sustentabilidade."
           />
           <GradientCard
-            name="Carnaval"
+            name="Vibrante"
             css="linear-gradient(120deg, #9285F9 0%, #CD5BE8 50%, #F4455A 100%)"
             colors={["#9285F9", "#CD5BE8", "#F4455A"]}
             description="Destaques editoriais, capas de conteúdo, comunicação cultural."
@@ -396,7 +396,7 @@ export default function ColorSection() {
         <ul className="text-xs text-muted-foreground list-disc pl-5 mb-4 space-y-1">
           <li><strong>Botão primário:</strong> <code className="bg-muted px-1 rounded">blue-400</code> fundo, texto branco · hover <code className="bg-muted px-1 rounded">blue-500</code> · pressed <code className="bg-muted px-1 rounded">blue-600</code>.</li>
           <li><strong>Botão secundário:</strong> outline <code className="bg-muted px-1 rounded">blue-600</code>, texto <code className="bg-muted px-1 rounded">blue-700</code>, hover preenche <code className="bg-muted px-1 rounded">blue-50</code>.</li>
-          <li><strong>CTA promocional:</strong> gradiente <em>Primary</em> ou <em>Brasil Sunset</em>.</li>
+          <li><strong>CTA promocional:</strong> gradiente <em>Primary</em> ou <em>Pôr do Sol</em>.</li>
           <li><strong>Links:</strong> <code className="bg-muted px-1 rounded">blue-600</code> · hover <code className="bg-muted px-1 rounded">blue-700</code> · visited <code className="bg-muted px-1 rounded">blue-800</code>.</li>
           <li><strong>Dark mode:</strong> background <code className="bg-muted px-1 rounded">blue-950</code>, surface <code className="bg-muted px-1 rounded">blue-900</code>, primary mantém <code className="bg-muted px-1 rounded">blue-400</code>.</li>
           <li><strong>Dataviz (sequência fixa):</strong> #5BA3D9 → #F4455A → #84F4BC → #FFED69 → #9285F9 → #FFB380 → #40BBFF → #CD5BE8.</li>
@@ -466,7 +466,7 @@ export default function ColorSection() {
 }
 
 .btn-primary {
-  background-color: hsl(var(--primary));       /* #5BA3D9 — Azul Céu */
+  background-color: hsl(var(--primary));       /* #5BA3D9 — Primária Clara */
   color: hsl(var(--primary-foreground));        /* #FFFFFF */
 }
 
@@ -474,14 +474,14 @@ export default function ColorSection() {
 .btn-primary:active { background-color: #2A75AE; }  /* blue-600 */
 
 .btn-secondary {
-  background-color: hsl(var(--secondary));      /* #0041D9 — Azul Profundo */
+  background-color: hsl(var(--secondary));      /* #0041D9 — Primária Profunda */
   color: hsl(var(--secondary-foreground));      /* #FFFFFF */
 }
 
 /* Gradientes do sistema */
 .hero-banner    { background: linear-gradient(135deg, #5BA3D9 0%, #2A75AE 100%); }
 .brand-deep     { background: linear-gradient(135deg, #3B4AFF 0%, #0041D9 100%); }
-.brasil-sunset  { background: linear-gradient(120deg, #FFED69 0%, #FFB380 50%, #F4455A 100%); }
+.por-do-sol  { background: linear-gradient(120deg, #FFED69 0%, #FFB380 50%, #F4455A 100%); }
 
 /* Feedback semântico */
 .alert-success {

@@ -1,70 +1,82 @@
-# Handoff: do ds-sebrae à skill `ds-generator`
+# Handoff: do DS de referência à skill `ds-generator`
 
 ## Contexto
 
-O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é o Design System do SEBRAE-CE: um site de documentação em Vite + React + Tailwind + shadcn com tokens, componentes, templates de tela e validadores. Este repositório transforma esse DS em um **gerador**: dado um briefing de marca, produz um DS novo no mesmo padrão.
-
-A skill nasceu dentro do `ds-sebrae` (`.claude/skills/ds-generator/`) e foi migrada para cá, para poder ser instalada com `npx skills add aislansf/ds-generation` e versionada separadamente.
+O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System completo (Vite + React + Tailwind + shadcn com tokens, componentes, templates de tela e validadores). Este repositório transforma esse DS em um **gerador**: dado um briefing de marca, produz um DS novo no mesmo padrão.
 
 | Repositório | Papel |
 |---|---|
 | `aislansf/ds-sebrae` → `frontend/` | **Origem**: o DS de referência, onde componentes e tokens evoluem |
-| `aislansf/ds-generation` (este) | **Gerador**: template extraído + scripts + instruções para o agente |
+| `aislansf/ds-generation` (este) | **Gerador**: template neutro + scripts + instruções para o agente |
+
+**A skill instalada é 100% neutra.** Tudo o que `npx skills add` copia (`skills/ds-generator/`) está livre de nomes, logos, imagens e dados da origem, e também de conteúdo herdado por ela de outras marcas (FNDE, Governo Federal). O conhecimento sobre a origem fica só em `origem/` e `tools/`, que não são instalados.
 
 ## Como funciona
 
-1. **Extração** (`extract-template.mjs`): copia o `frontend/` da origem e troca nomes, domínios, fontes e identificadores por placeholders (`SEBRAE-CE` → `__BRAND_NAME__`, `sebrae-card` → `brand-card`, `SebraeLogo` → `BrandLogo`). As **cores ficam como estão**.
-2. **Geração** (`generate-ds.mjs`):
-   - preenche os placeholders e **recolore por família de matiz**: tudo o que é azul institucional vai para a matiz da nova primária, preservando a estrutura de luminosidade;
-   - reescreve os HEX do catálogo de tokens com o mesmo algoritmo do teste;
-   - corrige contrastes que ficaram piores que na origem;
-   - instala logos e favicon, ou gera provisórios;
-   - troca por arquivos locais as imagens que estavam no CDN da Lovable;
-   - remove módulos opcionais;
-   - ajusta o gênero gramatical ("da Agência");
-   - trava a marca de origem e as antigas no build.
-3. **Reescrita semântica** (o agente, guiado por `references/reescrita-semantica.md`): página Marca, nomes da paleta estendida, tom de voz e dados de exemplo.
+1. **Extração** (`tools/extract-template.mjs` + `origem/ds-sebrae.json`): copia o `frontend/` da origem e aplica, nesta ordem:
 
-Explicação completa das regras, das famílias de cor e de como ajustá-las: `skills/ds-generator/references/geracao.md`.
+   | Ordem | Regra | Exemplo |
+   |---|---|---|
+   | 0 | `substituicoes_conteudo` (literal, com borda de palavra) | `Empretec` → `Empreender`, endereço/CNPJ reais → fictícios, `Fundo Nacional…` → `__BRAND_FULL_NAME__` |
+   | 0b | `substituicoes_regex` | `Farol` → `Radar`, `marcaGov` → `marcaParceiro` |
+   | 1 | URLs de manual, imagem OG e domínios | `<domínio do DS>` → `__DS_DOMAIN__` |
+   | 2 | Slogan, nome completo e variantes do nome | `<nome e variantes>` → `__BRAND_NAME__` |
+   | 3 | Fontes | `Figtree` → `__FONT_PRIMARY__` |
+   | 4 | `aliases_codigo` | `<prefixo>-blue` → `brand-primary` |
+   | 5 | Nome curto como palavra | → `__BRAND_SHORT__` |
+   | 6 | Identificadores | `<prefixo>-card` → `brand-card`, `<Prefixo>Logo` → `BrandLogo` |
+
+   Nomes de arquivo passam por `substituicoes_caminho` e pela regra 6. Os `.asset.json` (ponteiros para o CDN do projeto de origem) viram ponteiros locais neutros. Por fim, `origem/overrides/` é copiado por cima: logos "Sua Marca", favicon, selo "marca parceira", imagem de login e miniaturas.
+
+   A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) ou de `termos_especificos` (palavra inteira), ou qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`.
+
+2. **Imagens** (`tools/imagens-neutras.mjs`): escreve os logos neutros, rasteriza favicon/selo/imagem de login com o Chromium do Playwright e captura as miniaturas da página Templates a partir de um DS gerado com `tools/marca-neutra.json` (cinza-azulado, "Sua Marca").
+
+3. **Geração** (`skills/ds-generator/scripts/generate-ds.mjs`):
+   - recusa o briefing se qualquer uma das 30 perguntas estiver sem resposta válida ou sem `confirmado_pelo_usuario: true`;
+   - preenche os placeholders e **recolore por família de matiz**;
+   - reescreve os HEX do catálogo de tokens, corrige contrastes que pioraram, instala logos e favicon (ou provisórios, se o usuário respondeu `false`), remove módulos opcionais, ajusta o gênero gramatical e trava os `termos_proibidos` no build.
+
+4. **Reescrita semântica** (o agente, guiado por `references/reescrita-semantica.md`).
 
 ## Decisões
 
-- **Recolorir em vez de criar um placeholder por cor.** O DS de origem tem ~500 cores fixas em páginas e templates (documentação que mostra valores). Um placeholder para cada uma seria frágil. Famílias de matiz resolvem com poucas regras e mantêm a hierarquia de tons.
-- **Ida e volta = identidade.** Gerar com o briefing de origem não altera nenhuma cor. É a garantia de que o gerador não "inventa" mudanças.
-- **Contraste só é corrigido quando piora.** A origem tem pares abaixo de AA por decisão de design (ex.: texto branco sobre a primária no dark). O gerador não reverte decisões da origem; só age quando a nova marca fica pior.
-- **O build falha com a marca antiga.** O `check-legacy-brand.mjs` do DS gerado lê `scripts/legacy-brand.config.json` (prefixo da origem + `termos_proibidos`). Isso força a troca completa.
-- **O template é gerado, não editado.** Mudanças de componente acontecem na origem e chegam aqui por reextração. Só `assets/overrides/` é mantido à mão.
+- **Neutralizar na extração, não no template.** O template é gerado. Toda troca de nome e todo arquivo genérico vive em `origem/`, então uma reextração nunca traz a marca de volta, e a checagem de remanescentes impede que um termo novo da origem passe despercebido.
+- **Dados de exemplo fictícios, não placeholders.** Programas, unidades e painéis viraram nomes genéricos plausíveis (Empreender, Programa Inova, DIROP, Radar Estratégico). Eles ficam listados em `conteudo_exemplo` e o `GERACAO.md` aponta onde aparecem, para o agente trocar pelo universo da marca nova.
+- **Questionário obrigatório.** Cada campo do briefing precisa de resposta explícita; as opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) também são escolhas do usuário. O gerador valida isso (`lib/briefing.mjs`), e o `validar-briefing.mjs` diz ao agente o que ainda perguntar.
+- **Recolorir em vez de criar um placeholder por cor.** O template tem ~500 cores fixas (documentação que mostra valores). Famílias de matiz resolvem com poucas regras e mantêm a hierarquia de tons.
+- **Ida e volta = identidade.** Gerar com o briefing de origem não altera nenhuma cor.
+- **Contraste só é corrigido quando piora** em relação ao template.
 
-## Verificação no momento da migração
-
-| Checagem | Resultado |
-|---|---|
-| Extração: remanescentes de "sebrae" no template | 0 |
-| Ida e volta (SEBRAE → SEBRAE) | `hex=0 hsl=0` |
-| Marca fictícia verde: `npm run build` | passou (typecheck, marcas proibidas, tipografia, H1, vite) |
-| Marca verde: `vitest run` | 96 testes, 6 arquivos |
-| Marca verde: contraste | 11 pares abaixo de AA contra 13 na origem; nenhum piorou |
-
-Template extraído do commit registrado em `skills/ds-generator/assets/template/template.manifest.json`.
-
-## Manutenção
+## Verificação
 
 ```bash
 npm run verificar -- --source <ds-sebrae>/frontend --node-modules <ds-sebrae>/frontend/node_modules
 ```
 
-Se a extração acusar remanescentes (um programa, uma diretoria ou um domínio novo da origem), ajuste o bloco `origem` em `assets/examples/sebrae-ce.json`:
+| Checagem | Resultado na última execução |
+|---|---|
+| Extração: remanescentes da origem | 0 |
+| Briefing incompleto | recusado (30 pendências) |
+| Ida e volta | `hex=0 hsl=0` |
+| Marca fictícia verde: marcas proibidas / placeholders | 0 / 0 |
+| Marca fictícia verde: termos da origem no DS gerado | 0 |
+| Marca verde: `npm run build` | passou |
+| Marca verde: `vitest run` | 96 testes |
 
-- `substituicoes_conteudo`: troca direta por um texto neutro;
-- `termos_especificos`: só reporta no `GERACAO.md`, para o agente reescrever;
-- `variantes_nome`, `aliases_codigo`: formas novas do nome da marca.
+## Manutenção
 
-Depois de verificar, faça o commit do template atualizado junto com o que mudou.
+Se a extração acusar remanescentes (um programa, uma unidade, um endereço ou uma imagem nova na origem):
+
+- texto: acrescente a troca em `substituicoes_conteudo` (frases longas antes das palavras que elas contêm) ou `substituicoes_regex`, e o termo em `termos_especificos` para a checagem;
+- imagem: confira-a; se for genérica, liste em `imagens_revisadas`; se mostrar marca, gere uma versão neutra em `origem/overrides/` (miniaturas: `npm run imagens`);
+- nome da marca: `variantes_nome`, `aliases_codigo`.
+
+Faça o commit do template atualizado junto com o que mudou em `origem/`.
 
 ## Limitações conhecidas
 
-- **Imagens `.jpg`** (miniaturas dos templates, fotos) são copiadas sem troca. Próximo passo útil: um script Playwright que recapture as miniaturas do DS gerado.
-- **Conteúdo legado na origem**: `ColorSection.tsx` descreve uma paleta "céu brasileiro" e o slogan "Transformando vidas por meio da educação" parece herdado do FNDE. Corrigir no `ds-sebrae` evita que isso se propague.
-- **Fonte proprietária**: a Campuni do SEBRAE vem de um CDN da Adobe AEM. Uma marca nova com fonte própria precisa de uma URL `.woff2` com CORS liberado.
-- **CI herdado**: o workflow de deploy por FTP não vem no template. Cada DS gerado precisa do seu próprio pipeline.
+- **Páginas Home e Marca** são versões neutras mantidas à mão em `origem/overrides/` (texto-modelo marcado com `MODELO:`). Quando a origem muda uma delas, a extração falha pelo hash de `overrides_de_codigo`: leve a mudança para a versão neutra e atualize o hash.
+- **Fonte proprietária**: uma marca com fonte própria precisa de uma URL `.woff2` com CORS liberado (`fontes.*.url_woff2`).
+- **CI**: o template não traz workflow de deploy. Cada DS gerado precisa do seu.
 - **Idioma**: o template é pt-BR.

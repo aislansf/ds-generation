@@ -1,21 +1,21 @@
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
-import farolPageSource from "@/pages/FarolEstrategicoPage.tsx?raw";
-import farolDataSource from "@/data/farolEstrategico.ts?raw";
+import radarPageSource from "@/pages/RadarEstrategicoPage.tsx?raw";
+import radarDataSource from "@/data/radarEstrategico.ts?raw";
 import biSkeletonsSource from "@/components/bi/BISkeletons.tsx?raw";
 import indexCssSource from "@/index.css?raw";
 import {
   despesasMensais, trimestresTotais, despesasPorNatureza,
   kpiDespesas, kpiReceitas, kpiAtendimento,
-} from "@/data/farolEstrategico";
+} from "@/data/radarEstrategico";
 
 const DS_URL = "https://__DS_DOMAIN__";
-const TEMPLATE_PATH = "/templates/farol-estrategico";
+const TEMPLATE_PATH = "/templates/radar-estrategico";
 
 /* ─────────── READMEs ─────────── */
 function readmeReact() {
-  return `# Farol Estratégico — Versão React
+  return `# Radar Estratégico — Versão React
 
 Template do **Design System __BRAND_NAME__** inspirado em painéis Power BI para
 acompanhamento orçamentário e indicadores estratégicos.
@@ -38,20 +38,20 @@ Acesse \`http://localhost:5173\`.
 
 ## Estrutura
 \`\`\`
-farol-estrategico/
+radar-estrategico/
 ├── index.html
 ├── package.json · vite.config.ts · tsconfig.json
 ├── tailwind.config.ts · postcss.config.js
 └── src/
     ├── main.tsx · App.tsx · index.css
-    ├── pages/FarolEstrategicoPage.tsx
-    ├── data/farolEstrategico.ts
+    ├── pages/RadarEstrategicoPage.tsx
+    ├── data/radarEstrategico.ts
     ├── components/bi/BISkeletons.tsx
     └── hooks/  ·  assets/brand.ts
 \`\`\`
 
 ## Customização
-- **Dados:** edite \`src/data/farolEstrategico.ts\` ou troque por chamada de API.
+- **Dados:** edite \`src/data/radarEstrategico.ts\` ou troque por chamada de API.
 - **Tokens:** todos os valores visuais vêm de \`src/index.css\` — nunca use cores hardcoded.
 
 ---
@@ -60,7 +60,7 @@ Gerado em ${new Date().toISOString().slice(0, 10)} a partir de ${DS_URL}.
 }
 
 function readmeVanilla() {
-  return `# Farol Estratégico — Versão HTML/CSS/JS
+  return `# Radar Estratégico — Versão HTML/CSS/JS
 
 Versão **estática** (sem build) do template. Abre direto em qualquer navegador moderno.
 
@@ -74,7 +74,7 @@ Versão **estática** (sem build) do template. Abre direto em qualquer navegador
 
 ## Estrutura
 \`\`\`
-farol-estrategico/
+radar-estrategico/
 ├── index.html   (markup)
 ├── styles.css   (tokens HSL + utilitários)
 ├── app.js       (filtros, KPIs e gráficos via Chart.js CDN)
@@ -95,7 +95,7 @@ Gerado em ${new Date().toISOString().slice(0, 10)} a partir de ${DS_URL}.
 
 /* ─────────── Opção A — React ─────────── */
 const packageJsonReact = `{
-  "name": "farol-estrategico",
+  "name": "radar-estrategico",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -175,7 +175,7 @@ const indexHtml = `<!doctype html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Farol Estratégico — __BRAND_NAME__</title>
+    <title>Radar Estratégico — __BRAND_NAME__</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -200,8 +200,8 @@ createRoot(document.getElementById("root")!).render(
 );
 `;
 
-const appTsx = `import FarolEstrategicoPage from "./pages/FarolEstrategicoPage";
-export default function App() { return <FarolEstrategicoPage />; }
+const appTsx = `import RadarEstrategicoPage from "./pages/RadarEstrategicoPage";
+export default function App() { return <RadarEstrategicoPage />; }
 `;
 
 const useMobileHook = `import { useEffect, useState } from "react";
@@ -238,9 +238,9 @@ export const brandCor = ph;
 export const brandWhite = ph;
 `;
 
-export async function downloadFarolReact() {
+export async function downloadRadarReact() {
   const zip = new JSZip();
-  const root = zip.folder("farol-estrategico")!;
+  const root = zip.folder("radar-estrategico")!;
   root.file("README.md", readmeReact());
   root.file("package.json", packageJsonReact);
   root.file("vite.config.ts", viteConfig);
@@ -254,15 +254,15 @@ export async function downloadFarolReact() {
   src.file("main.tsx", mainTsx);
   src.file("App.tsx", appTsx);
   src.file("index.css", indexCssSource);
-  src.file("pages/FarolEstrategicoPage.tsx", farolPageSource);
-  src.file("data/farolEstrategico.ts", farolDataSource);
+  src.file("pages/RadarEstrategicoPage.tsx", radarPageSource);
+  src.file("data/radarEstrategico.ts", radarDataSource);
   src.file("components/bi/BISkeletons.tsx", biSkeletonsSource);
   src.file("hooks/use-mobile.tsx", useMobileHook);
   src.file("hooks/useTheme.ts", useThemeHook);
   src.file("assets/brand.ts", brandAssetsStub);
 
   const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
-  saveAs(blob, "farol-estrategico-react.zip");
+  saveAs(blob, "radar-estrategico-react.zip");
 }
 
 /* ─────────── Opção B — Vanilla ─────────── */
@@ -278,7 +278,7 @@ const vanillaHtml = `<!doctype html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Farol Estratégico — __BRAND_NAME__</title>
+  <title>Radar Estratégico — __BRAND_NAME__</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -290,10 +290,10 @@ const vanillaHtml = `<!doctype html>
   <header class="topbar">
     <div class="brand">
       <span class="brand-dot"></span>
-      <div><strong>Farol Estratégico</strong><small>Painel Institucional · __BRAND_NAME__</small></div>
+      <div><strong>Radar Estratégico</strong><small>Painel Institucional · __BRAND_NAME__</small></div>
     </div>
     <nav class="breadcrumb" aria-label="Navegação">
-      <a href="#">Início</a> › <a href="#">Painéis Estratégicos</a> › <span aria-current="page">Farol Estratégico</span>
+      <a href="#">Início</a> › <a href="#">Painéis Estratégicos</a> › <span aria-current="page">Radar Estratégico</span>
     </nav>
   </header>
 
@@ -325,7 +325,7 @@ const vanillaHtml = `<!doctype html>
     </section>
   </main>
 
-  <footer class="bottom"><span>Farol Estratégico · Painel Institucional v.1.0</span></footer>
+  <footer class="bottom"><span>Radar Estratégico · Painel Institucional v.1.0</span></footer>
 </body>
 </html>
 `;
@@ -407,7 +407,7 @@ th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid hsl(var(-
   color: hsl(var(--muted-foreground)); border-top: 1px solid hsl(var(--border)); }
 `;
 
-const vanillaJs = `/* Farol Estratégico — versão vanilla. Sem build. */
+const vanillaJs = `/* Radar Estratégico — versão vanilla. Sem build. */
 (async function () {
   const data = await fetch("data.json").then(r => r.json());
   const fmtBRL = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -415,10 +415,10 @@ const vanillaJs = `/* Farol Estratégico — versão vanilla. Sem build. */
 
   const filterDefs = [
     { key: "ppa", label: "PPA", options: ["Todos", "2024-2027", "2020-2023"] },
-    { key: "iniciativa", label: "Iniciativa", options: ["Todas", "Capacita +", "Inovação CE"] },
+    { key: "iniciativa", label: "Iniciativa", options: ["Todas", "Capacita +", "Inovação Regional"] },
     { key: "acao", label: "Ação", options: ["Todas", "Atendimento", "Capacitação", "Mentoria"] },
     { key: "natureza", label: "Natureza", options: ["Todas", "Custeio", "Investimento"] },
-    { key: "unidade", label: "Unidade", options: ["Todas", "Sede", "Regional Cariri"] },
+    { key: "unidade", label: "Unidade", options: ["Todas", "Sede", "Regional Sul"] },
     { key: "eixo", label: "Eixo Estratégico", options: ["Todos", "Educação", "Competitividade"] },
     { key: "programa", label: "Programa", options: ["Todos", "MEI", "Pequenos Negócios"] },
     { key: "gestor", label: "Gestor", options: ["Todos", "Diretoria", "Superintendência"] },
@@ -499,14 +499,14 @@ const vanillaJs = `/* Farol Estratégico — versão vanilla. Sem build. */
 })();
 `;
 
-export async function downloadFarolVanilla() {
+export async function downloadRadarVanilla() {
   const zip = new JSZip();
-  const root = zip.folder("farol-estrategico")!;
+  const root = zip.folder("radar-estrategico")!;
   root.file("README.md", readmeVanilla());
   root.file("index.html", vanillaHtml);
   root.file("styles.css", vanillaCss);
   root.file("app.js", vanillaJs);
   root.file("data.json", buildDataJson());
   const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
-  saveAs(blob, "farol-estrategico-vanilla.zip");
+  saveAs(blob, "radar-estrategico-vanilla.zip");
 }

@@ -20,12 +20,12 @@ O portal documenta fundamentos visuais, sistema de cores e tipografia, bibliotec
 - [Tela de Listagem](/templates/tela-listagem): Modelo de página com filtros, tabela e paginação.
 - [Tela de Formulário](/templates/tela-formulario): Modelo de página de formulário institucional.
 - [Página com Filtros e Tabela](/templates/pagina-filtros-tabela): Layout com sidebar de filtros e tabela.
-- [Página de Autenticação](/templates/pagina-autenticacao): Fluxo de login com gov.br.
+- [Página de Autenticação](/templates/pagina-autenticacao): Fluxo de login único (SSO).
 - [Dashboard Institucional](/templates/dashboard-institucional): Painel consolidado de programas e indicadores.
 - [Dashboard BI](/templates/dashboard-bi): Painel analítico no padrão BI.
 
 ## Modelos de BI
 
 - [Modelos de BI](/modelos-bi): Hub de painéis analíticos do __BRAND_NAME__.
-- [Farol Estratégico — BI](/modelos-bi/farol-estrategico/bi): Painel BI do Farol Estratégico.
-- [Farol Estratégico — Docs](/modelos-bi/farol-estrategico/docs): Documentação técnica e integração com Power BI.
+- [Radar Estratégico — BI](/modelos-bi/radar-estrategico/bi): Painel BI do Radar Estratégico.
+- [Radar Estratégico — Docs](/modelos-bi/radar-estrategico/docs): Documentação técnica e integração com Power BI.

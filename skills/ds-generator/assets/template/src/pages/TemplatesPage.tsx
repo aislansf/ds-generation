@@ -18,7 +18,7 @@ const thumbFiltrosTabela = thumbFiltrosTabelaAsset.url;
 import thumbTelaListagem from "@/assets/thumb-tela-listagem.jpg";
 import thumbTelaFormulario from "@/assets/thumb-tela-formulario.jpg";
 import thumbPaginaAutenticacao from "@/assets/thumb-pagina-autenticacao.jpg";
-import thumbFarolEstrategico from "@/assets/thumb-farol-estrategico.jpg";
+import thumbRadarEstrategico from "@/assets/thumb-radar-estrategico.jpg";
 import thumbPaginaErro from "@/assets/thumb-pagina-erro.jpg";
 import thumbModalAcesso from "@/assets/thumb-modal-acesso.jpg";
 import { PageHeader, SectionHeader, CodeBlock } from "@/components/DSComponents";
@@ -38,14 +38,14 @@ const brandLogoCompleta = brandLogo;
 const brandLogoReduzida = brandLogo;
 const brandLogoCompleta2 = brandLogoWhite;
 const brandLogoReduzida2 = brandLogoWhite;
-import marcaGov from "@/assets/marca-gov.png";
+import marcaParceiro from "@/assets/marca-parceiro.png";
 
 /* ─── Header variant type ─── */
 interface HeaderVariant {
   id: string;
   title: string;
   description: string;
-  audience: "interno" | "interno-classificado" | "externo" | "claro-completa" | "claro-reduzida" | "claro-sem-gov";
+  audience: "interno" | "interno-classificado" | "externo" | "claro-completa" | "claro-reduzida" | "claro-sem-parceiro";
   brandStyle: "completa" | "reduzida";
   menuPosition: "esquerda" | "direita" | "sem";
   showClassification?: boolean;
@@ -64,11 +64,11 @@ export const headerVariants: HeaderVariant[] = [
   { id: "cls-full-right", title: "Marca completa · Classificação · Menu direito", description: "Com classificação e menu à direita.", audience: "interno-classificado", brandStyle: "completa", menuPosition: "direita", showClassification: true },
   // Público externo
   { id: "ext-full-left", title: "Público externo · Background\u00a0Sky to Ocean", description: "Versão externa com menu à direita e background Sky to Ocean", audience: "externo", brandStyle: "completa", menuPosition: "direita" },
-  { id: "ext-full-right", title: "Público externo · Background descolado", description: "Versão externa com menu à direita e background Carnaval.", audience: "externo", brandStyle: "completa", menuPosition: "direita" },
-  { id: "ext-red-left", title: "Público externo · Background Tropical", description: "Versão externa com menu à direita e background Tropical", audience: "externo", brandStyle: "reduzida", menuPosition: "direita" },
+  { id: "ext-full-right", title: "Público externo · Background descolado", description: "Versão externa com menu à direita e background Vibrante.", audience: "externo", brandStyle: "completa", menuPosition: "direita" },
+  { id: "ext-red-left", title: "Público externo · Background Menta", description: "Versão externa com menu à direita e background Menta", audience: "externo", brandStyle: "reduzida", menuPosition: "direita" },
   // Fundo claro — Programa e Gestão
-  { id: "claro-full", title: "Fundo claro · Marca completa com título e subtítulo", description: "Header com fundo dourado, marca completa __BRAND_NAME__, título do programa e assinatura Gov.br.", audience: "claro-completa", brandStyle: "completa", menuPosition: "sem", showTitle: true },
-  { id: "claro-full-clean", title: "Fundo claro · Marca completa · Sem título", description: "Header limpo com fundo dourado, marca completa __BRAND_NAME__ e assinatura Gov.br, sem título do programa.", audience: "claro-completa", brandStyle: "completa", menuPosition: "sem", showTitle: false },
+  { id: "claro-full", title: "Fundo claro · Marca completa com título e subtítulo", description: "Header com fundo dourado, marca completa __BRAND_NAME__, título do programa e assinatura de parceiro.", audience: "claro-completa", brandStyle: "completa", menuPosition: "sem", showTitle: true },
+  { id: "claro-full-clean", title: "Fundo claro · Marca completa · Sem título", description: "Header limpo com fundo dourado, marca completa __BRAND_NAME__ e assinatura de parceiro, sem título do programa.", audience: "claro-completa", brandStyle: "completa", menuPosition: "sem", showTitle: false },
   // Testeira para aplicação de arte
   { id: "int-testeira-art", title: "Testeira · Aplicação de arte", description: "Faixa fina (36-52px) com fundo #16329C, marca __BRAND_SHORT__ branca e menu à esquerda — ideal para aplicação de arte na testeira.", audience: "interno", brandStyle: "completa", menuPosition: "esquerda", showTitle: false, testeira: { bg: "#16329C" } },
   { id: "int-testeira-art-blue", title: "Testeira · Aplicação de arte (Azul)", description: "Faixa fina (36-52px) com fundo #2A4FDA, menu à esquerda e ícone de modo escuro — ideal para aplicação de arte na testeira.", audience: "interno", brandStyle: "completa", menuPosition: "esquerda", showTitle: false, testeira: { bg: "#2A4FDA" } },
@@ -80,13 +80,13 @@ export const headerVariants: HeaderVariant[] = [
 
 function getHeaderBg(audience: string) {
   if (audience === "externo") return "bg-[#3B4AFF]";
-  if (audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-gov") return "bg-[#F0F3FF]";
+  if (audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-parceiro") return "bg-[#F0F3FF]";
   return "bg-[#2A4FDA]";
 }
 
 function getHeaderBgHex(audience: string) {
   if (audience === "externo") return "#3B4AFF";
-  if (audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-gov") return "#F0F3FF";
+  if (audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-parceiro") return "#F0F3FF";
   return "#2A4FDA";
 }
 
@@ -101,7 +101,7 @@ function getClassificationText(audience: string) {
 }
 
 function isLightHeader(audience: string) {
-  return audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-gov";
+  return audience === "claro-completa" || audience === "claro-reduzida" || audience === "claro-sem-parceiro";
 }
 
 /* ─── Single Header Preview ─── */
@@ -169,9 +169,9 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
           <div className="flex items-center gap-3 shrink-0">
             {variant.audience === "claro-completa" ? (
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-[40px] w-auto" />
-            ) : variant.audience === "claro-sem-gov" && variant.brandStyle === "completa" ? (
+            ) : variant.audience === "claro-sem-parceiro" && variant.brandStyle === "completa" ? (
               <img src={brandLogoCompleta2} alt="__BRAND_NAME__" className="h-[38px] w-auto" />
-            ) : variant.audience === "claro-sem-gov" && variant.brandStyle === "reduzida" ? (
+            ) : variant.audience === "claro-sem-parceiro" && variant.brandStyle === "reduzida" ? (
               <img src={brandLogoReduzida2} alt="__BRAND_NAME__" className="h-[38px] w-auto" />
             ) : (
               <img src={brandLogoReduzida} alt="__BRAND_NAME__" className="h-[40px] w-auto" />
@@ -317,7 +317,7 @@ function generateHeaderCode(variant: HeaderVariant): string {
 <header class="brand-header-light" style="background-color: ${bgHex};">
   <div class="brand-header-light__inner">
     <img src="${logoSrc}" alt="__BRAND_NAME__" class="brand-header-light__logo" />${titleHtml}
-    <img src="/assets/marca-gov.png" alt="Governo do Brasil" class="brand-header-light__gov" />
+    <img src="/assets/marca-parceiro.png" alt="Marca parceira" class="brand-header-light__parceiro" />
   </div>
 </header>
 
@@ -359,7 +359,7 @@ function generateHeaderCode(variant: HeaderVariant): string {
   color: rgba(13, 56, 87, 0.7);
   line-height: 1.3;
 }
-.brand-header-light__gov {
+.brand-header-light__parceiro {
   height: 40px;
   width: auto;
   flex-shrink: 0;
@@ -527,7 +527,7 @@ export default function TemplatesPage() {
     { title: "Dashboard BI", desc: "Painel executivo com análise profunda de dados, indicadores de performance (KPIs) e gráficos avançados.", preview: "bg-brand-secondary-50" },
     { title: "Tela de Listagem", desc: "Tabela com filtros dinâmicos, busca, cards estatísticos avançados, tabela aninhada (nesting) e paginação.", preview: "bg-brand-secondary-50" },
     { title: "Tela de Formulário", desc: "Formulário com validação, steps e feedback.", preview: "bg-brand-primary-50" },
-    { title: "Fluxo de Autenticação Completo", desc: "Login, Cadastro e 2FA com branding __BRAND_NAME__ e Gov.br.", preview: "bg-brand-primary-50" },
+    { title: "Fluxo de Autenticação Completo", desc: "Login, Cadastro e 2FA com branding __BRAND_NAME__ e login único.", preview: "bg-brand-primary-50" },
     { title: "Página de Erro", desc: "404, 500 e erros genéricos com ação de retorno.", preview: "bg-brand-secondary-50" },
     { title: "Modal de Acesso", desc: "Modal de senha para proteger conteúdos restritos. Modelo visual reutilizável (use autenticação real em produção).", preview: "bg-brand-primary-50" },
     { title: "Página com Filtros e Tabela", desc: "Combinação de sidebar de filtros com tabela de resultados.", preview: "bg-brand-primary-50" },
@@ -544,7 +544,7 @@ export default function TemplatesPage() {
   const filteredVariants = activeAudience === "all"
     ? headerVariants
     : activeAudience === "claro"
-      ? headerVariants.filter(v => v.audience === "claro-completa" || v.audience === "claro-reduzida" || v.audience === "claro-sem-gov")
+      ? headerVariants.filter(v => v.audience === "claro-completa" || v.audience === "claro-reduzida" || v.audience === "claro-sem-parceiro")
       : headerVariants.filter(v => v.audience === activeAudience);
 
   return (
@@ -1007,9 +1007,9 @@ export default function TemplatesPage() {
           const isAutenticacao = t.title === "Fluxo de Autenticação Completo";
           const isErro = t.title === "Página de Erro";
           const isModalAcesso = t.title === "Modal de Acesso";
-          const isFarol = t.title === "Farol Estratégico";
+          const isRadar = t.title === "Radar Estratégico";
           const isFiltrosTabela = t.title === "Página com Filtros e Tabela";
-          const isInteractive = isDashboard || isDashboardBI || isListagem || isFormulario || isAutenticacao || isErro || isFarol || isModalAcesso || isFiltrosTabela;
+          const isInteractive = isDashboard || isDashboardBI || isListagem || isFormulario || isAutenticacao || isErro || isRadar || isModalAcesso || isFiltrosTabela;
           const route = isDashboard
             ? "/templates/dashboard-institucional"
             : isDashboardBI
@@ -1022,8 +1022,8 @@ export default function TemplatesPage() {
                         ? "/templates/pagina-erro"
                         : isModalAcesso
                           ? "/templates/modal-acesso"
-                        : isFarol
-                          ? "/templates/farol-estrategico"
+                        : isRadar
+                          ? "/templates/radar-estrategico"
                         : isFiltrosTabela
                           ? "/templates/pagina-filtros-tabela"
                           : "/templates/pagina-autenticacao";
@@ -1031,8 +1031,8 @@ export default function TemplatesPage() {
             ? (customDashboardThumb || thumbDashboardInstitucional)
             : isDashboardBI
               ? thumbDashboardBI
-              : isFarol
-                ? thumbFarolEstrategico
+              : isRadar
+                ? thumbRadarEstrategico
                 : isListagem 
                   ? thumbTelaListagem 
                   : isFormulario 
@@ -1048,12 +1048,12 @@ export default function TemplatesPage() {
             ? "Thumbnail do Dashboard Institucional com KPIs, gráfico donut e barras"
             : isDashboardBI
               ? "Thumbnail do Dashboard BI com indicadores de performance e gráficos executivos"
-              : isFarol
-                ? "Thumbnail do Farol Estratégico inspirado em Power BI, com KPIs e gráfico de barras"
+              : isRadar
+                ? "Thumbnail do Radar Estratégico inspirado em Power BI, com KPIs e gráfico de barras"
               : isListagem
                 ? "Thumbnail da Tela de Listagem com filtros, cards estatísticos e tabela aninhada"
                 : isAutenticacao
-            ? "Thumbnail da Página de Autenticação com login institucional e Gov.br"
+            ? "Thumbnail da Página de Autenticação com login institucional e login único"
             : isErro
               ? "Thumbnail da Página de Erro com estados de 404, 500 e erro genérico"
               : isModalAcesso
