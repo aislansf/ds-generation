@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://__DS_DOMAIN__/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://__DS_DOMAIN__/fundamentos</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://__DS_DOMAIN__/tokens</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://__DS_DOMAIN__/componentes</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://__DS_DOMAIN__/marca</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/conteudo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/acessibilidade</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico/bi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/modelos-bi/farol-estrategico/docs</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/dashboard-institucional</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/dashboard-bi</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/tela-listagem</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/tela-formulario</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/pagina-autenticacao</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/cadastro</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/autenticacao-2fa</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/pagina-erro</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/modal-acesso</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://__DS_DOMAIN__/templates/pagina-filtros-tabela</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

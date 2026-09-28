@@ -1,0 +1,608 @@
+/* __FONT_IMPORTS__ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* === __BRAND_SHORT__ Design Tokens === */
+    /* Marca oficial __BRAND_SHORT__ — Pantone 2935 C / HEX #2A4FDA */
+
+    /* Primary palette (immutable brand) */
+    --brand-primary: 228 70% 51%;        /* __BRAND_SHORT__ Blue #2A4FDA */
+    --brand-secondary: 228 70% 51%;       /* alias mantido — usa azul institucional */
+
+    /* Extended __BRAND_SHORT__ blue scale */
+    --brand-primary-50: 228 90% 97%;
+    --brand-primary-100: 228 85% 92%;
+    --brand-primary-200: 228 80% 82%;
+    --brand-primary-300: 228 75% 70%;
+    --brand-primary-400: 228 72% 60%;
+    --brand-primary-500: 228 70% 51%;
+    --brand-primary-600: 228 72% 42%;
+    --brand-primary-700: 228 75% 32%;
+
+    /* Secondary accent — ciano __BRAND_SHORT__ (apoio) */
+    --brand-secondary-50: 196 90% 96%;
+    --brand-secondary-100: 196 88% 88%;
+    --brand-secondary-200: 196 85% 75%;
+    --brand-secondary-300: 196 82% 60%;
+    --brand-secondary-400: 196 82% 48%;
+    --brand-secondary-500: 196 85% 40%;
+    --brand-secondary-600: 196 88% 30%;
+
+    /* Complementary colors */
+    --brand-comp-blue-light: 228 90% 88%;
+    --brand-comp-blue-mid: 228 70% 65%;
+    --brand-comp-yellow: 46 98% 60%;
+    --brand-comp-gold: 42 90% 55%;
+    --brand-comp-red: 0 78% 52%;
+    --brand-comp-indigo: 245 75% 55%;
+    --brand-comp-lime: 152 70% 45%;
+
+    /* ===== LIGHT MODE (default) ===== */
+    --background: 210 25% 99%;
+    --foreground: 228 60% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 228 60% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 60% 12%;
+    --primary: 228 70% 51%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 196 85% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 228 12% 42%;
+    --accent: 228 90% 96%;
+    --accent-foreground: 228 70% 25%;
+    /* Card icon surface — #84F4BC (verde menta __BRAND_SHORT__) */
+    --card-icon: 196 83% 46%;
+    --card-icon-foreground: 0 0% 100%;
+    --destructive: 0 78% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 18% 88%;
+    --input: 220 18% 88%;
+    --ring: 228 70% 51%;
+    --radius: 0.375rem;
+
+    /* Semantic feedback – light */
+    --success: 145 63% 32%;
+    --success-foreground: 0 0% 100%;
+    --success-bg: 145 50% 95%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 90% 18%;
+    --warning-bg: 38 90% 95%;
+    --error: 0 78% 52%;
+    --error-foreground: 0 0% 100%;
+    --error-bg: 0 70% 96%;
+    --info: 228 70% 60%;
+    --info-foreground: 0 0% 100%;
+    --info-bg: 228 90% 96%;
+
+    /* __BRAND_SHORT__ button accent — texto sobre azul institucional (rgb 231,247,158) */
+    --brand-btn-fg: 71 85% 79%;
+    --brand-btn-hover: 226 78% 40%; /* #183ab8 */
+
+    /* Sidebar – light */
+    --header-background: 228 70% 51%;
+    /* Header shell (top bar) — superfície clara com tinta institucional */
+    --header-surface: 227 100% 97%; /* #F1F4FF */
+    --header-surface-foreground: 228 70% 42%;
+    --header-surface-border: 220 18% 88%;
+    --sidebar-background: 228 72% 42%;
+    --sidebar-foreground: 228 30% 95%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 228 70% 35%;
+    --sidebar-accent: 228 75% 35%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 228 60% 30%;
+    --sidebar-ring: 196 85% 50%;
+    --sidebar-muted: 228 25% 75%;
+
+    /* === Spacing tokens (escala base 4px) === */
+    --space-0: 0;
+    --space-px: 1px;
+    --space-0-5: 0.125rem; /* 2px */
+    --space-1: 0.25rem;    /* 4px  */
+    --space-1-5: 0.375rem; /* 6px  */
+    --space-2: 0.5rem;     /* 8px  */
+    --space-3: 0.75rem;    /* 12px */
+    --space-4: 1rem;       /* 16px */
+    --space-5: 1.25rem;    /* 20px */
+    --space-6: 1.5rem;     /* 24px */
+    --space-8: 2rem;       /* 32px */
+    --space-10: 2.5rem;    /* 40px */
+    --space-12: 3rem;      /* 48px */
+    --space-14: 3.5rem;    /* 56px */
+    --space-16: 4rem;      /* 64px */
+    --space-20: 5rem;      /* 80px */
+    --space-24: 6rem;      /* 96px */
+    --space-32: 8rem;      /* 128px */
+
+    /* === Typography scale (font-size) === */
+    /* Escala tipográfica ampliada (+1–2pt) para melhorar leitura */
+    --text-xs: 0.8125rem;   /* 13px */
+    --text-sm: 0.9375rem;   /* 15px */
+    --text-base: 1.0625rem; /* 17px */
+    --text-lg: 1.1875rem;   /* 19px */
+    --text-xl: 1.375rem;    /* 22px */
+    --text-2xl: 1.625rem;   /* 26px */
+    --text-3xl: 2rem;       /* 32px */
+    --text-4xl: 2.5rem;     /* 40px */
+    --text-5xl: 3.25rem;    /* 52px */
+    --text-6xl: 4rem;       /* 64px */
+    --text-7xl: 4.75rem;    /* 76px */
+
+    /* === Line heights (pareados com text-*) === */
+    /* Line-heights unitless — escalam com a fonte e melhoram leitura dos pequenos */
+    --leading-xs:   1.55;
+    --leading-sm:   1.6;
+    --leading-base: 1.6;
+    --leading-lg:   1.55;
+    --leading-xl:   1.45;
+    --leading-2xl:  1.35;
+    --leading-3xl:  1.25;
+    --leading-4xl:  1.2;
+    --leading-5xl:  1.15;
+    --leading-6xl:  1.1;
+    --leading-7xl:  1.05;
+    /* line-height utilitários (unitless) */
+    --leading-tight:   1.2;
+    --leading-snug:    1.35;
+    --leading-normal:  1.6;
+    --leading-relaxed: 1.75;
+    --leading-loose:   1.9;
+
+    /* === Letter spacing === */
+    --tracking-tighter: -0.03em;
+    --tracking-tight:   -0.015em;
+    --tracking-normal:  0em;
+    --tracking-wide:    0.02em;
+    --tracking-wider:   0.05em;
+    --tracking-widest:  0.12em;
+
+    /* Font weights */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+
+    /* Shadows / Elevation – light */
+    --shadow-xs: 0 1px 2px 0 hsl(228 70% 30% / 0.05);
+    --shadow-sm: 0 1px 3px 0 hsl(228 70% 30% / 0.07), 0 1px 2px -1px hsl(228 70% 30% / 0.06);
+    --shadow-md: 0 4px 6px -1px hsl(228 70% 30% / 0.08), 0 2px 4px -2px hsl(228 70% 30% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(228 70% 30% / 0.09), 0 4px 6px -4px hsl(228 70% 30% / 0.05);
+    --shadow-xl: 0 20px 25px -5px hsl(228 70% 30% / 0.12), 0 8px 10px -6px hsl(228 70% 30% / 0.05);
+
+    /* Border radius tokens */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Z-index tokens */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+
+    /* Breakpoints (reference) */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+
+    /* Duration tokens */
+    --duration-fast: 100ms;
+    --duration-normal: 200ms;
+    --duration-slow: 300ms;
+    --duration-slower: 500ms;
+
+    /* Easing tokens */
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ===== DARK MODE ===== */
+  .dark {
+    --background: 210 25% 8%;
+    --foreground: 210 20% 90%;
+    --card: 210 22% 12%;
+    --card-foreground: 210 20% 90%;
+    --popover: 210 22% 12%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 228 75% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 196 80% 55%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 18% 18%;
+    --muted-foreground: 210 15% 60%;
+    --accent: 228 50% 22%;
+    --accent-foreground: 228 60% 85%;
+    /* Card icon surface — #84F4BC mantém-se no dark para reforçar identidade */
+    --card-icon: 196 83% 46%;
+    --card-icon-foreground: 0 0% 100%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 18% 22%;
+    --input: 210 18% 22%;
+    --ring: 228 75% 62%;
+
+    /* Semantic feedback – dark */
+    --success: 145 55% 42%;
+    --success-foreground: 0 0% 100%;
+    --success-bg: 145 30% 14%;
+    --warning: 38 88% 58%;
+    --warning-foreground: 38 90% 88%;
+    --warning-bg: 38 50% 14%;
+    --error: 0 72% 58%;
+    --error-foreground: 0 0% 100%;
+    --error-bg: 0 40% 14%;
+    --info: 228 70% 65%;
+    --info-foreground: 0 0% 100%;
+    --info-bg: 228 45% 16%;
+
+    /* Sidebar – dark */
+    --header-background: 228 75% 18%;
+    /* Header shell (top bar) — dark */
+    --header-surface: 210 22% 10%;
+    --header-surface-foreground: 228 75% 75%;
+    --header-surface-border: 210 18% 20%;
+    --sidebar-background: 210 25% 6%;
+    --sidebar-foreground: 210 20% 80%;
+    --sidebar-primary: 228 75% 62%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 22% 14%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 210 18% 16%;
+    --sidebar-ring: 196 80% 55%;
+    --sidebar-muted: 210 15% 50%;
+
+    /* Shadows – dark */
+    --shadow-xs: 0 1px 2px 0 hsl(0 0% 0% / 0.15);
+    --shadow-sm: 0 1px 3px 0 hsl(0 0% 0% / 0.2), 0 1px 2px -1px hsl(0 0% 0% / 0.15);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.25), 0 2px 4px -2px hsl(0 0% 0% / 0.15);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -4px hsl(0 0% 0% / 0.15);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.35), 0 8px 10px -6px hsl(0 0% 0% / 0.15);
+
+    /* __BRAND_SHORT__ scales – dark adjusted */
+    --brand-primary-50: 228 40% 14%;
+    --brand-primary-100: 228 45% 20%;
+    --brand-primary-200: 228 50% 30%;
+    --brand-primary-300: 228 60% 45%;
+    --brand-primary-400: 228 70% 55%;
+    --brand-primary-500: 228 75% 65%;
+    --brand-primary-600: 228 78% 75%;
+    --brand-primary-700: 228 80% 85%;
+
+    --brand-secondary-50: 196 40% 14%;
+    --brand-secondary-100: 196 45% 20%;
+    --brand-secondary-200: 196 55% 30%;
+    --brand-secondary-300: 196 65% 45%;
+    --brand-secondary-400: 196 75% 55%;
+    --brand-secondary-500: 196 80% 65%;
+    --brand-secondary-600: 196 85% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: '__FONT_PRIMARY__', system-ui, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0em;
+    font-weight: 400;
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', system-ui, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { font-size: 3rem;     line-height: 1.1;  letter-spacing: -0.025em; font-weight: 900; }
+  h2 { font-size: 2.25rem;  line-height: 1.15; letter-spacing: -0.022em; font-weight: 700; }
+  h3 { font-size: 1.875rem; line-height: 1.2;  letter-spacing: -0.02em;  font-weight: 700; }
+  h4 { font-size: 1.5rem;   line-height: 1.25; letter-spacing: -0.015em; font-weight: 600; }
+  h5 { font-size: 1.25rem;  line-height: 1.3;  letter-spacing: -0.01em;  font-weight: 600; }
+  h6 { font-size: 1.125rem; line-height: 1.35; letter-spacing: -0.005em; font-weight: 600; }
+
+  code, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  /* Form fields — default border #95ADFF, hover #2A4FDA, placeholder #96A1C0 */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    border-color: #95ADFF;
+    transition: border-color 0.15s ease;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):hover,
+  select:hover,
+  textarea:hover {
+    border-color: #2A4FDA;
+  }
+  input::placeholder,
+  textarea::placeholder,
+  select {
+    color: #96A1C0;
+  }
+
+  /* Checkbox e Radio — mesmas cores de linha do Select/Input */
+  input[type="checkbox"],
+  input[type="radio"] {
+    border: 1px solid #95ADFF;
+    accent-color: #2A4FDA;
+    transition: border-color 0.15s ease;
+  }
+  input[type="checkbox"]:hover,
+  input[type="radio"]:hover {
+    border-color: #2A4FDA;
+  }
+}
+
+@layer utilities {
+  #desktop-sidebar .text-xs,
+  #mobile-sidebar .text-xs {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+  }
+  #desktop-sidebar .text-sm,
+  #mobile-sidebar .text-sm {
+    font-size: 1.05rem;
+    line-height: 1.6rem;
+  }
+  #desktop-sidebar .text-base,
+  #mobile-sidebar .text-base {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+  }
+  #desktop-sidebar .text-\[10px\],
+  #mobile-sidebar .text-\[10px\] {
+    font-size: 0.75rem;
+    line-height: 1.2rem;
+  }
+
+  .brand-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .brand-section {
+    @apply py-8 md:py-12;
+  }
+
+  .brand-card {
+    @apply bg-card rounded-lg border border-border p-6 transition-all duration-200;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .brand-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    @apply border-primary/20;
+  }
+
+  /* Foco por teclado consistente para cards e elementos interativos */
+  .brand-card:focus-visible,
+  .brand-card a:focus-visible,
+  .brand-card button:focus-visible,
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [role="link"]:focus-visible,
+  [tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px hsl(var(--ring) / 0.18), var(--shadow-md);
+    border-radius: var(--radius, 0.5rem);
+  }
+
+  /* Cards clicáveis (links/botões que envolvem .brand-card) */
+  a.brand-card:focus-visible,
+  button.brand-card:focus-visible {
+    transform: translateY(-2px);
+    @apply border-primary/40;
+  }
+
+  .brand-card-hover {
+    @apply brand-card transition-all duration-200;
+  }
+
+  .brand-card-hover:hover {
+    box-shadow: var(--shadow-md);
+    @apply border-primary/20;
+  }
+
+  .brand-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .brand-badge-primary {
+    @apply brand-badge bg-primary text-primary-foreground;
+  }
+
+  .brand-badge-secondary {
+    @apply brand-badge bg-secondary text-secondary-foreground;
+  }
+
+  .brand-badge-success {
+    @apply brand-badge;
+    background: hsl(var(--success-bg));
+    color: hsl(var(--success));
+  }
+
+  .brand-badge-warning {
+    @apply brand-badge;
+    background: hsl(var(--warning-bg));
+    color: hsl(var(--warning));
+  }
+
+  .brand-badge-error {
+    @apply brand-badge;
+    background: hsl(var(--error-bg));
+    color: hsl(var(--error));
+  }
+
+  .brand-badge-info {
+    @apply brand-badge;
+    background: hsl(var(--info-bg));
+    color: hsl(var(--info));
+  }
+}
+
+/* Cor institucional aplicada a todos os títulos H1 do Design System. */
+@layer base {
+  h1 {
+    color: #005EB8;
+  }
+}
+
+/* Defaults globais H2–H6 ancorados nos tokens do DS.
+ * Remove a necessidade de repetir text-2xl, leading e font-bold em
+ * cards e seções. Classes Tailwind explícitas no JSX continuam
+ * sobrescrevendo quando houver intenção de divergir. */
+@layer base {
+  h2 {
+    font-size: var(--ds-heading-section-font-size);
+    line-height: var(--ds-heading-section-line-height);
+    font-weight: var(--ds-heading-section-font-weight);
+  }
+  h3 {
+    font-size: var(--ds-heading-section-font-size);
+    line-height: var(--ds-heading-section-line-height);
+    font-weight: var(--ds-heading-section-font-weight);
+  }
+  h4 {
+    font-size: var(--ds-heading-subsection-font-size);
+    line-height: var(--ds-heading-subsection-line-height);
+    font-weight: var(--ds-heading-subsection-font-weight);
+  }
+  h5,
+  h6 {
+    font-size: var(--ds-heading-eyebrow-font-size);
+    line-height: var(--ds-heading-eyebrow-line-height);
+    font-weight: var(--ds-heading-eyebrow-font-weight);
+    letter-spacing: var(--ds-heading-eyebrow-letter-spacing);
+    text-transform: uppercase;
+  }
+}
+
+/* Default global de parágrafo ancorado nos tokens de Body do DS.
+ * Qualquer <p> sem utilitário Tailwind explícito herda .ds-body.
+ * Utilitários como text-sm, text-xs, text-lg continuam sobrescrevendo. */
+@layer base {
+  p {
+    font-size: var(--ds-body-font-size);
+    line-height: var(--ds-body-line-height);
+    font-weight: var(--ds-body-font-weight);
+  }
+}
+
+/* === Tokens de tipografia de seção (H2/H3) ===
+ * Garante que H2 e H3 utilizados em cards e seções compartilhem
+ * exatamente as mesmas métricas em todos os breakpoints.
+ * Fonte única da verdade para Tailwind (.ds-heading-section) e CSS puro. */
+@layer base {
+  :root {
+    --ds-heading-section-font-size: 1.5rem;   /* 24px — equivalente a text-2xl */
+    --ds-heading-section-line-height: 2rem;   /* 32px — equivalente a leading-8 */
+    --ds-heading-section-min-height: 2rem;    /* casa com a line-height */
+    --ds-heading-section-font-weight: 700;
+
+    /* Subtítulo de bloco (H4) — usado em títulos internos de cards */
+    --ds-heading-subsection-font-size: 1.125rem; /* 18px — text-lg */
+    --ds-heading-subsection-line-height: 1.5rem; /* 24px — leading-6 */
+    --ds-heading-subsection-min-height: 1.5rem;
+    --ds-heading-subsection-font-weight: 700;
+
+    /* Eyebrow / rótulo de seção (H5/H6) — UPPERCASE com tracking */
+    --ds-heading-eyebrow-font-size: 0.6875rem; /* 11px */
+    --ds-heading-eyebrow-line-height: 1rem;    /* 16px */
+    --ds-heading-eyebrow-min-height: 1rem;
+    --ds-heading-eyebrow-font-weight: 700;
+    --ds-heading-eyebrow-letter-spacing: 0.08em;
+  }
+}
+
+@layer components {
+  .ds-heading-section {
+    font-size: var(--ds-heading-section-font-size);
+    line-height: var(--ds-heading-section-line-height);
+    min-height: var(--ds-heading-section-min-height);
+    font-weight: var(--ds-heading-section-font-weight);
+  }
+
+  .ds-heading-subsection {
+    font-size: var(--ds-heading-subsection-font-size);
+    line-height: var(--ds-heading-subsection-line-height);
+    min-height: var(--ds-heading-subsection-min-height);
+    font-weight: var(--ds-heading-subsection-font-weight);
+  }
+
+  .ds-heading-eyebrow {
+    font-size: var(--ds-heading-eyebrow-font-size);
+    line-height: var(--ds-heading-eyebrow-line-height);
+    min-height: var(--ds-heading-eyebrow-min-height);
+    font-weight: var(--ds-heading-eyebrow-font-weight);
+    letter-spacing: var(--ds-heading-eyebrow-letter-spacing);
+    text-transform: uppercase;
+  }
+}
+
+/* === Tokens tipográficos de Body ===
+ * Padronizam parágrafo, lead e texto pequeno em todos os cards/páginas. */
+@layer base {
+  :root {
+    --ds-body-lead-font-size: 1.125rem;     /* 18px */
+    --ds-body-lead-line-height: 1.75rem;    /* 28px */
+    --ds-body-lead-font-weight: 400;
+
+    --ds-body-font-size: 1rem;              /* 16px */
+    --ds-body-line-height: 1.5rem;          /* 24px */
+    --ds-body-font-weight: 400;
+
+    --ds-body-small-font-size: 0.875rem;    /* 14px */
+    --ds-body-small-line-height: 1.25rem;   /* 20px */
+    --ds-body-small-font-weight: 400;
+  }
+}
+
+@layer components {
+  .ds-body-lead {
+    font-size: var(--ds-body-lead-font-size);
+    line-height: var(--ds-body-lead-line-height);
+    font-weight: var(--ds-body-lead-font-weight);
+  }
+  .ds-body {
+    font-size: var(--ds-body-font-size);
+    line-height: var(--ds-body-line-height);
+    font-weight: var(--ds-body-font-weight);
+  }
+  .ds-body-small {
+    font-size: var(--ds-body-small-font-size);
+    line-height: var(--ds-body-small-line-height);
+    font-weight: var(--ds-body-small-font-weight);
+  }
+}

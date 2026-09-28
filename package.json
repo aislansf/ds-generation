@@ -1,0 +1,16 @@
+{
+  "name": "ds-generation",
+  "private": true,
+  "description": "Skill ds-generator: gera Design Systems completos (React + Tailwind + shadcn) a partir de um briefing de marca.",
+  "type": "module",
+  "scripts": {
+    "verificar": "node tools/verificar.mjs",
+    "gerar": "node skills/ds-generator/scripts/generate-ds.mjs",
+    "extrair": "node skills/ds-generator/scripts/extract-template.mjs",
+    "contraste": "node skills/ds-generator/scripts/validar-contraste.mjs",
+    "escala": "node skills/ds-generator/scripts/gerar-escala.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

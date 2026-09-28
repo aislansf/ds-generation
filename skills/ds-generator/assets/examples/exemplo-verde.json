@@ -1,0 +1,40 @@
+{
+  "$comentario": "Marca fictícia usada para testar o gerador com uma matiz bem diferente da origem (azul → verde).",
+
+  "nome": "Agência Verde",
+  "nome_curto": "Verde",
+  "nome_completo": "Agência Estadual de Desenvolvimento Sustentável",
+  "genero": "f",
+  "slug": "agencia-verde",
+  "slogan": "Desenvolvimento que cuida do amanhã",
+  "descricao": "Padrões de UI para os serviços digitais da Agência Verde.",
+
+  "dominios": {
+    "ds": "ds.agenciaverde.example",
+    "org": "agenciaverde.example"
+  },
+  "manual_marca_url": "https://agenciaverde.example/manual-de-marca.pdf",
+
+  "cores": {
+    "primaria": "#0B7A4B",
+    "secundaria": "#1F9BB5",
+    "destaque": "#F4D35E"
+  },
+
+  "fontes": {
+    "primaria": { "nome": "Inter", "google": true },
+    "display": { "nome": "Poppins", "google": true, "pesos": [600, 700, 800] },
+    "sistema": { "nome": "Source Sans 3", "google": true, "pesos": [400, 600] }
+  },
+
+  "logos": {},
+
+  "termos_proibidos": ["fnde"],
+
+  "conteudo": {
+    "tom_de_voz": "Claro, otimista e técnico quando necessário.",
+    "publico": "Servidores e fornecedores que constroem serviços digitais da agência."
+  },
+
+  "modulos": { "modelos_bi": false, "dashboard_bi": true }
+}

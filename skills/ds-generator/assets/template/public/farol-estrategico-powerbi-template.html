@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Farol Estratégico — Template Power BI</title>
+</head>
+<body style="margin:0;font-family:'Segoe UI','Poppins',sans-serif;background:#F5F7FB;color:#0F172A;font-size:13px;line-height:1.4">
+  <div style="padding:16px;max-width:1600px;margin:0 auto">
+
+    <!-- HEADER -->
+    <div style="background:#16329C;color:#ffffff;border-radius:8px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div>
+        <h1 style="margin:0;font-size:18px;font-weight:600;letter-spacing:.2px">{{TITULO}}</h1>
+        <div style="font-size:11px;opacity:.8;margin-top:2px">{{SUBTITULO}}</div>
+      </div>
+      <span style="background:rgba(255,255,255,.15);padding:4px 10px;border-radius:999px;font-size:11px">{{PERIODO}}</span>
+    </div>
+
+    <!-- KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px">
+
+      <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#005EB8"></div>
+        <div style="font-size:22px;font-weight:700;color:#005EB8">{{KPI_1_VALOR}}</div>
+        <div style="font-size:11px;color:#64748B;margin-top:4px">{{KPI_1_LABEL}}</div>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#2A4FDA"></div>
+        <div style="font-size:22px;font-weight:700;color:#2A4FDA">{{KPI_2_VALOR}}</div>
+        <div style="font-size:11px;color:#64748B;margin-top:4px">{{KPI_2_LABEL}}</div>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#16A34A"></div>
+        <div style="font-size:22px;font-weight:700;color:#16A34A">{{KPI_3_VALOR}}</div>
+        <div style="font-size:11px;color:#64748B;margin-top:4px">{{KPI_3_LABEL}}</div>
+      </div>
+
+      <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#D97706"></div>
+        <div style="font-size:22px;font-weight:700;color:#D97706">{{KPI_4_VALOR}}</div>
+        <div style="font-size:11px;color:#64748B;margin-top:4px">{{KPI_4_LABEL}}</div>
+      </div>
+
+    </div>
+
+    <!-- DESTAQUE -->
+    <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px;margin-bottom:14px">
+      <h3 style="margin:0 0 8px;font-size:13px;font-weight:600;color:#0F172A">{{SECAO_TITULO}}</h3>
+      <p style="margin:0;font-size:12px;color:#64748B">{{SECAO_DESCRICAO}}</p>
+    </div>
+
+    <!-- TABELA -->
+    <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:8px;padding:14px">
+      <h3 style="margin:0 0 8px;font-size:13px;font-weight:600;color:#0F172A">Detalhamento</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead>
+          <tr>
+            <th style="background:#F0F3FF;color:#16329C;font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid #E2E8F0;font-size:11px;text-transform:uppercase;letter-spacing:.04em">Indicador</th>
+            <th style="background:#F0F3FF;color:#16329C;font-weight:600;text-align:right;padding:8px 10px;border-bottom:1px solid #E2E8F0;font-size:11px;text-transform:uppercase;letter-spacing:.04em">Planejado</th>
+            <th style="background:#F0F3FF;color:#16329C;font-weight:600;text-align:right;padding:8px 10px;border-bottom:1px solid #E2E8F0;font-size:11px;text-transform:uppercase;letter-spacing:.04em">Executado</th>
+            <th style="background:#F0F3FF;color:#16329C;font-weight:600;text-align:right;padding:8px 10px;border-bottom:1px solid #E2E8F0;font-size:11px;text-transform:uppercase;letter-spacing:.04em">% Execução</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0">{{LINHA_1_LABEL}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_1_PLANEJADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_1_EXECUTADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_1_PCT}}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0">{{LINHA_2_LABEL}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_2_PLANEJADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_2_EXECUTADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_2_PCT}}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0">{{LINHA_3_LABEL}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_3_PLANEJADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_3_EXECUTADO}}</td>
+            <td style="padding:8px 10px;border-bottom:1px solid #E2E8F0;text-align:right;font-variant-numeric:tabular-nums">{{LINHA_3_PCT}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:11px;color:#64748B;text-align:center;margin-top:8px">__BRAND_SHORT__ · Farol Estratégico — Template HTML para Power BI (HTML Content visual)</p>
+  </div>
+</body>
+</html>

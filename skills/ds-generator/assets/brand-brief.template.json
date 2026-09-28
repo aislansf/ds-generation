@@ -1,0 +1,54 @@
+{
+  "$comentario": "Briefing de marca para o ds-generator. Campos com * são obrigatórios. Caminhos de arquivo são relativos a este JSON.",
+
+  "nome": "* Nome de exibição da marca — ex.: SEBRAE-CE",
+  "nome_curto": "Nome curto/sigla — ex.: SEBRAE (padrão: nome)",
+  "nome_completo": "Razão social ou nome por extenso",
+  "genero": "m ou f — concordância no texto: 'do SEBRAE' (m) / 'da Agência' (f). Padrão: m",
+  "slug": "* identificador em minúsculas, sem espaços — ex.: sebrae-ce",
+  "slogan": "Frase-assinatura da marca (aparece em exemplos de tipografia e rodapés)",
+  "descricao": "Uma frase sobre o Design System (usada no README e em metatags)",
+
+  "dominios": {
+    "ds": "domínio onde o DS será publicado — ex.: ds.minhamarca.com.br",
+    "org": "domínio institucional usado em e-mails de exemplo — ex.: minhamarca.com.br",
+    "org_raiz": "domínio do portal principal (se diferente de org)"
+  },
+  "manual_marca_url": "URL do manual/brandbook em PDF",
+  "og_image_url": "URL da imagem de compartilhamento (opcional)",
+
+  "cores": {
+    "primaria": "* #RRGGBB — cor institucional principal",
+    "secundaria": "#RRGGBB — apoio (padrão: análoga da primária, -32° de matiz)",
+    "destaque": "#RRGGBB — texto/realce sobre a primária, ex.: botão institucional (padrão: tint claro da primária)",
+    "realce": "#RRGGBB — cor de chamada pontual: asterisco obrigatório, links de ação (padrão: mantém o laranja do template)"
+  },
+
+  "fontes": {
+    "primaria": { "nome": "* ex.: Inter", "google": true },
+    "display": { "nome": "ex.: Poppins", "google": true, "url_woff2": "se for proprietária, URL do .woff2", "peso": 700 },
+    "sistema": { "nome": "ex.: Lato", "google": true }
+  },
+
+  "logos": {
+    "cor": "caminho para SVG da marca em cores",
+    "branco": "caminho para SVG monocromático branco",
+    "preto": "caminho para SVG monocromático preto"
+  },
+  "favicon": "caminho para favicon .png ou .svg (padrão: monograma gerado)",
+
+  "termos_proibidos": ["marcas antigas que não podem aparecer no código, ex.: nome-da-marca-anterior"],
+
+  "conteudo": {
+    "tom_de_voz": "Como a marca fala — ex.: institucional, próximo, direto",
+    "publico": "Quem usa os produtos digitais",
+    "paleta_estendida": [
+      { "nome": "ex.: Verde Tropical", "hex": "#84F4BC", "uso": "gráficos e ilustrações" }
+    ],
+    "regras_de_marca": ["ex.: área de proteção = altura do símbolo", "ex.: não aplicar a marca sobre fundos com baixo contraste"]
+  },
+
+  "modulos": {
+    "modelos_bi": "true mantém os Modelos de BI da origem (Farol, Planeja, MPI, Gestão de Pessoas); false remove rotas, menu e páginas"
+  }
+}

@@ -1,0 +1,7 @@
+# Scripts e textos com LF em qualquer SO (a skill roda em Windows, macOS e Linux)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.lockb binary

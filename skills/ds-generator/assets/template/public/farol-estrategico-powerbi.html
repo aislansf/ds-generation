@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Farol Estratégico — Power BI HTML</title>
+<!-- Chart.js via CDN (compatível com o visual "HTML Content" do Power BI) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --primary:#005EB8;
+    --primary-2:#16329C;
+    --secondary:#2A4FDA;
+    --bg:#F5F7FB;
+    --card:#FFFFFF;
+    --fg:#0F172A;
+    --muted:#64748B;
+    --border:#E2E8F0;
+    --success:#16A34A;
+    --warning:#D97706;
+    --destructive:#DC2626;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:'Poppins','Segoe UI',system-ui,sans-serif;font-size:13px;line-height:1.4}
+  a{color:inherit;text-decoration:none}
+  .app{padding:16px;max-width:1600px;margin:0 auto}
+  .header{background:var(--primary-2);color:#fff;border-radius:8px;padding:14px 18px;
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .header h1{margin:0;font-size:18px;font-weight:600;letter-spacing:.2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:2px}
+  .header .badge{background:rgba(255,255,255,.15);padding:4px 10px;border-radius:999px;font-size:11px}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;background:var(--card);
+    border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:14px}
+  .toolbar .field{display:flex;flex-direction:column;min-width:140px;flex:1}
+  .toolbar label{font-size:10px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .toolbar select{border:1px solid var(--border);border-radius:4px;padding:6px 8px;
+    font-size:12px;background:#fff;color:var(--fg);cursor:pointer}
+
+  .tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--border)}
+  .tab{padding:8px 14px;font-size:12px;font-weight:600;color:var(--muted);
+    border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent}
+  .tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;margin-bottom:14px}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:8px;
+    padding:14px;position:relative;overflow:hidden}
+  .kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+  .kpi.k-secondary::before{background:var(--secondary)}
+  .kpi.k-success::before{background:var(--success)}
+  .kpi.k-warning::before{background:var(--warning)}
+  .kpi .v{font-size:22px;font-weight:700;color:var(--primary)}
+  .kpi.k-secondary .v{color:var(--secondary)}
+  .kpi.k-success .v{color:var(--success)}
+  .kpi.k-warning .v{color:var(--warning)}
+  .kpi .l{font-size:11px;color:var(--muted);margin-top:4px}
+
+  .grid-2{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:14px}
+  @media (max-width:980px){.grid-2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+  .card h3{margin:0 0 8px;font-size:13px;font-weight:600;color:var(--fg)}
+  .card .legend{font-size:11px;color:var(--muted)}
+  .chart-box{position:relative;height:300px}
+  .chart-sm{position:relative;height:260px}
+
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead th{background:#F0F3FF;color:var(--primary-2);font-weight:600;
+    text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);font-size:11px;
+    text-transform:uppercase;letter-spacing:.04em}
+  tbody td{padding:8px 10px;border-bottom:1px solid var(--border)}
+  tbody tr:hover{background:#F8FAFC}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+
+  .footer{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div>
+      <h1>Farol Estratégico</h1>
+      <div class="sub">Painel executivo · __BRAND_SHORT__</div>
+    </div>
+    <span class="badge">PPA 2022-2026</span>
+  </header>
+
+  <section class="toolbar" id="filters"></section>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="despesas">Despesas</button>
+    <button class="tab" data-tab="receitas">Receitas</button>
+    <button class="tab" data-tab="atendimento">Atendimento</button>
+  </nav>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid-2">
+    <div class="card">
+      <h3>Despesas — Planejada × Executada (mensal)</h3>
+      <div class="chart-box"><canvas id="chartMensal"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Totais por trimestre</h3>
+      <div class="chart-sm"><canvas id="chartTrimestre"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:14px">
+    <h3>Despesas por natureza</h3>
+    <div class="chart-box" style="height:340px"><canvas id="chartNatureza"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h3>Detalhamento</h3>
+    <table id="tabela">
+      <thead><tr>
+        <th>Mês</th><th class="num">Planejada</th>
+        <th class="num">Executada</th><th class="num">% Execução</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <p class="footer">__BRAND_SHORT__ · Farol Estratégico — Versão HTML para Power BI (HTML Content visual)</p>
+</div>
+
+<script>
+/* ── Datasets (espelham src/data/farolEstrategico.ts) ── */
+const despesasMensais=[
+  {mes:"Jan",p:13766136,e:6349927},{mes:"Fev",p:20500868,e:7648795},
+  {mes:"Mar",p:22676796,e:19040450},{mes:"Abr",p:14738404,e:31446696},
+  {mes:"Mai",p:35521535,e:22562835},{mes:"Jun",p:29511471,e:4567357},
+  {mes:"Jul",p:21643725,e:0},{mes:"Ago",p:21287289,e:0},
+  {mes:"Set",p:21113857,e:0},{mes:"Out",p:25395975,e:0},
+  {mes:"Nov",p:19941285,e:0},{mes:"Dez",p:19792792,e:0}
+];
+const trimestres=[
+  {l:"1º Tri",v:33039171,p:12},{l:"2º Tri",v:41868596,p:15},
+  {l:"3º Tri",v:0,p:0},{l:"4º Tri",v:0,p:0}
+];
+const natureza=[
+  {l:"Serviços Especializados",v:20356830},{l:"Pessoal",v:15462178},
+  {l:"Serviços Contratados",v:10800219},{l:"Convênios c/ Outras Entidades",v:8656072},
+  {l:"Benefícios Sociais",v:4745617},{l:"Despesas com Viagens",v:3139510},
+  {l:"Encargos Sociais",v:2504195},{l:"Aluguéis e Encargos",v:2233541},
+  {l:"Divulgação e Propaganda",v:1505208}
+];
+const kpis=[
+  {v:281261916,l:"Despesa original",c:"k-secondary"},
+  {v:282598425,l:"Despesa planejada",c:""},
+  {v:74907767,l:"Despesa executada",c:"k-success"},
+  {v:207690658,l:"Saldo disponível",c:"k-warning"}
+];
+const filtros={
+  ppa:["Todos","PPA 2022-2026","PPA 2026-2030"],
+  iniciativa:["Todos","Empretec","ALI","Programa Inova","Negócio a Negócio"],
+  acao:["Todos","Capacitação","Mentoria","Consultoria","Eventos"],
+  natureza:["Todos","Serviços Especializados","Pessoal","Serviços Contratados"],
+  unidade:["Todos","DIRAE/__BRAND_NAME__","DIFIN/__BRAND_NAME__","DIRSU/__BRAND_NAME__"],
+  eixo:["Todos","Competitividade","Educação Empreendedora","Inovação","Mercados"]
+};
+
+const fmtBRL=v=>v===0?"R$ 0":v>=1e6?`R$ ${(v/1e6).toFixed(1).replace(".",",")}M`:
+  v>=1e3?`R$ ${(v/1e3).toFixed(0)}K`:`R$ ${v.toLocaleString("pt-BR")}`;
+const fmtFull=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
+
+/* ── Render filtros ── */
+const fwrap=document.getElementById("filters");
+Object.entries(filtros).forEach(([k,opts])=>{
+  const f=document.createElement("div");f.className="field";
+  f.innerHTML=`<label>${k}</label><select>${opts.map(o=>`<option>${o}</option>`).join("")}</select>`;
+  fwrap.appendChild(f);
+});
+
+/* ── Render KPIs ── */
+const kw=document.getElementById("kpis");
+kpis.forEach(k=>{
+  const d=document.createElement("div");d.className=`kpi ${k.c}`;
+  d.innerHTML=`<div class="v">${fmtBRL(k.v)}</div><div class="l">${k.l}</div>`;
+  kw.appendChild(d);
+});
+
+/* ── Tabela ── */
+const tbody=document.querySelector("#tabela tbody");
+despesasMensais.forEach(r=>{
+  const pct=r.p?((r.e/r.p)*100).toFixed(1).replace(".",","):"0,0";
+  tbody.insertAdjacentHTML("beforeend",
+    `<tr><td>${r.mes}</td><td class="num">${fmtFull(r.p)}</td>
+    <td class="num">${fmtFull(r.e)}</td><td class="num">${pct}%</td></tr>`);
+});
+
+/* ── Gráficos (Chart.js) ── */
+const C={primary:"#005EB8",secondary:"#2A4FDA",muted:"#94A3B8",border:"#E2E8F0"};
+Chart.defaults.font.family="'Poppins','Segoe UI',sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color="#475569";
+
+new Chart(document.getElementById("chartMensal"),{
+  type:"bar",
+  data:{labels:despesasMensais.map(d=>d.mes),
+    datasets:[
+      {label:"Planejada",data:despesasMensais.map(d=>d.p),backgroundColor:C.primary,borderRadius:4},
+      {label:"Executada",data:despesasMensais.map(d=>d.e),backgroundColor:C.secondary,borderRadius:4}
+    ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:"bottom",labels:{boxWidth:10}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fmtFull(c.parsed.y)}`}}},
+    scales:{y:{ticks:{callback:v=>fmtBRL(v)},grid:{color:C.border}},
+      x:{grid:{display:false}}}}
+});
+
+new Chart(document.getElementById("chartTrimestre"),{
+  type:"doughnut",
+  data:{labels:trimestres.map(t=>t.l),
+    datasets:[{data:trimestres.map(t=>t.v),
+      backgroundColor:["#005EB8","#2A4FDA","#94A3B8","#CBD5E1"],borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:"60%",
+    plugins:{legend:{position:"bottom",labels:{boxWidth:10}},
+      tooltip:{callbacks:{label:c=>` ${c.label}: ${fmtFull(c.parsed)}`}}}}
+});
+
+new Chart(document.getElementById("chartNatureza"),{
+  type:"bar",
+  data:{labels:natureza.map(n=>n.l),
+    datasets:[{label:"Executado",data:natureza.map(n=>n.v),backgroundColor:C.primary,borderRadius:4}]},
+  options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>` ${fmtFull(c.parsed.x)}`}}},
+    scales:{x:{ticks:{callback:v=>fmtBRL(v)},grid:{color:C.border}},
+      y:{grid:{display:false}}}}
+});
+
+/* ── Tabs (apenas visual, dados de despesas) ── */
+document.querySelectorAll(".tab").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+  });
+});
+</script>
+</body>
+</html>

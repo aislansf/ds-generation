@@ -1,0 +1,82 @@
+{
+  "$comentario": "Marca de ORIGEM do template (repositório aislansf/ds-sebrae, pasta frontend/). O bloco 'origem' só existe aqui: diz ao extract-template.mjs o que remover. Também serve para regenerar o DS do SEBRAE e comparar com o original.",
+
+  "nome": "SEBRAE-CE",
+  "nome_curto": "SEBRAE",
+  "nome_completo": "Serviço de Apoio às Micro e Pequenas Empresas do Ceará",
+  "genero": "m",
+  "slug": "sebrae-ce",
+  "slogan": "Transformando vidas por meio da educação",
+  "descricao": "Padrões de UI e implementação para os produtos digitais do SEBRAE.",
+
+  "dominios": {
+    "ds": "sebrae-ce.dscreator.com.br",
+    "org": "ce.sebrae.com.br",
+    "org_raiz": "sebrae.com.br"
+  },
+  "manual_marca_url": "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Manual_de_Marca_Sebrae.pdf",
+  "og_image_url": "https://storage.googleapis.com/gpt-engineer-file-uploads/yB1Tw9zhWwa2d7QALOrfaFUAcU33/social-images/social-1782410806928-thumbnail-sebrae.webp",
+
+  "cores": {
+    "primaria": "#2A4FDA",
+    "secundaria": "#11A0D4",
+    "destaque": "#E7F79E",
+    "realce": "#D98217"
+  },
+
+  "fontes": {
+    "primaria": { "nome": "Figtree", "google": true },
+    "display": {
+      "nome": "Campuni",
+      "google": false,
+      "url_woff2": "https://static-p134603-e1404735.adobeaemcloud.com/8d5fa04350fd5b585a87e5b1a26cf5cb42331dcc0a0fb644f29940873837ace3/fonts/campuni-bold.woff2",
+      "peso": 700
+    },
+    "sistema": { "nome": "Lato", "google": true, "pesos": [300, 400, 700, 900] }
+  },
+
+  "logos": {
+    "cor": "sebrae-ce/sebrae-cor.svg",
+    "branco": "sebrae-ce/sebrae-white.svg",
+    "preto": "sebrae-ce/sebrae-black.svg"
+  },
+  "favicon": "sebrae-ce/favicon.png",
+
+  "termos_proibidos": ["fnde"],
+
+  "conteudo": {
+    "tom_de_voz": "Institucional, próximo e direto; fala com o empreendedor.",
+    "publico": "Equipes internas do SEBRAE-CE e fornecedores que constroem produtos digitais."
+  },
+
+  "modulos": { "modelos_bi": true, "dashboard_bi": true },
+
+  "origem": {
+    "prefixo_codigo": "sebrae",
+    "aliases_codigo": {
+      "sebrae-blue": "brand-primary",
+      "sebrae-orange": "brand-secondary",
+      "SEBRAE_BLUE": "BRAND_PRIMARY"
+    },
+    "variantes_nome": ["SEBRAE Ceará", "Sebrae Ceará", "Sebrae-CE", "SEBRAE/CE", "SEBRAE CE"],
+    "variantes_nome_curto": ["Sebrae"],
+    "urls_manual": [
+      "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Brandbook_Sebrae.pdf",
+      "https://sebraemg.com.br/diversos/web/docs/casademarcas/manuais/Manual_de_Marca_Sebrae.pdf"
+    ],
+    "og_image": "https://storage.googleapis.com/gpt-engineer-file-uploads/yB1Tw9zhWwa2d7QALOrfaFUAcU33/social-images/social-1782410806928-thumbnail-sebrae.webp",
+    "familias": [
+      { "nome": "primaria",   "hex": "#2A4FDA", "hsl": [228, 70, 51], "janela": [204, 252], "saturacao_minima": 30 },
+      { "nome": "secundaria", "hex": "#11A0D4", "hsl": [196, 85, 45], "janela": [180, 204], "saturacao_minima": 30 },
+      { "nome": "destaque",   "hex": "#E7F79E", "hsl": [71, 85, 79],  "janela": [58, 84],   "saturacao_minima": 40 },
+      { "nome": "realce",     "hex": "#D98217", "hsl": [33, 81, 47],  "janela": [31, 35.5], "saturacao_minima": 60 }
+    ],
+    "substituicoes_conteudo": { "Sebraetec": "Programa Inova" },
+    "termos_especificos": ["Sebraetec", "Empretec", "ALI (Agentes Locais de Inovação)", "Brasil Mais", "Sebrae Delas", "Farol Estratégico", "DIRAE", "DIFIN", "DIPRO", "DIRSU"],
+    "excluir": [
+      "node_modules", "dist", "bun.lock", "bun.lockb", "README.md",
+      "reports/fnde-report.txt", "reports/legacy-typography-report.txt",
+      "public/images/fnde-*"
+    ]
+  }
+}
