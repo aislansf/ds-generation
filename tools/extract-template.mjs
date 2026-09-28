@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * extract-template.mjs — transforma o DS de origem em um template neutro com placeholders,
- * gravado em skills/ds-generator/assets/template/. Ferramenta de manutenção: não faz parte da skill instalada.
+ * gravado em skills/ds-build/assets/template/. Ferramenta de manutenção: não faz parte da skill instalada.
  *
  * Uso:
  *   node tools/extract-template.mjs --source <pasta-frontend> [--brief origem/ds-sebrae.json] [--out <pasta>]
@@ -16,18 +16,18 @@
  *   7. Falha (exit 1) se sobrar qualquer termo da origem (nome, marcas proibidas, termos_especificos).
  *
  * As cores NÃO viram placeholder: o template guarda as cores de origem e o gerador
- * recolore por família de matiz (ver skills/ds-generator/scripts/lib/color.mjs).
+ * recolore por família de matiz (ver skills/ds-build/scripts/lib/color.mjs).
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { PLACEHOLDERS } from "../skills/ds-generator/scripts/lib/rules.mjs";
+import { PLACEHOLDERS } from "../skills/ds-build/scripts/lib/rules.mjs";
 import { buildExtractionRules, buildPathRules, applyRules, residualMatchers } from "./lib/regras-extracao.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SKILL = path.join(ROOT, "skills", "ds-generator");
+const SKILL = path.join(ROOT, "skills", "ds-build");
 
 const args = Object.fromEntries(
   process.argv.slice(2).reduce((acc, a, i, all) => {

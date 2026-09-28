@@ -1,6 +1,6 @@
 # Design System __BRAND_NAME__
 
-Site de documentação e biblioteca de UI do Design System __BRAND_SHORT__, gerado pelo `ds-generator` a partir do DS de referência.
+Site de documentação e biblioteca de UI do Design System __BRAND_SHORT__, gerado pelo `ds-build` a partir do DS de referência.
 
 ## Stack
 

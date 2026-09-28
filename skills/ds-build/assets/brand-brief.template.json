@@ -1,5 +1,5 @@
 {
-  "$comentario": "Briefing de marca do ds-generator. TODAS as perguntas são obrigatórias: troque cada valor PREENCHER pela resposta do usuário. Onde houver opção de 'não se aplica' (false, \"derivar\", \"manter\", []), ela precisa ser escolhida pelo usuário, nunca assumida. Caminhos de arquivo são relativos a este JSON. Confira com: node scripts/validar-briefing.mjs <este-arquivo>.",
+  "$comentario": "Briefing de marca do ds-build. TODAS as perguntas são obrigatórias: troque cada valor PREENCHER pela resposta do usuário. Onde houver opção de 'não se aplica' (false, \"derivar\", \"manter\", []), ela precisa ser escolhida pelo usuário, nunca assumida. Caminhos de arquivo são relativos a este JSON. Confira com: node scripts/validar-briefing.mjs <este-arquivo>.",
 
   "nome": "PREENCHER: nome de exibição da marca (ex.: Agência Horizonte)",
   "nome_curto": "PREENCHER: nome curto ou sigla (ex.: Horizonte); repita o nome se não houver",

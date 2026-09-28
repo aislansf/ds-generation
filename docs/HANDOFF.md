@@ -1,4 +1,4 @@
-# Handoff: do DS de referência à skill `ds-generator`
+# Handoff: do DS de referência à skill `ds-build`
 
 ## Contexto
 
@@ -9,7 +9,7 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 | `aislansf/ds-sebrae` → `frontend/` | **Origem**: o DS de referência, onde componentes e tokens evoluem |
 | `aislansf/ds-generation` (este) | **Gerador**: template neutro + scripts + instruções para o agente |
 
-**A skill instalada é 100% neutra.** Tudo o que `npx skills add` copia (`skills/ds-generator/`) está livre de nomes, logos, imagens e dados da origem, e também de conteúdo herdado por ela de outras marcas (FNDE, Governo Federal). O conhecimento sobre a origem fica só em `origem/` e `tools/`, que não são instalados.
+**A skill instalada é 100% neutra.** Tudo o que `npx skills add` copia (`skills/ds-build/`) está livre de nomes, logos, imagens e dados da origem, e também de conteúdo herdado por ela de outras marcas (FNDE, Governo Federal). O conhecimento sobre a origem fica só em `origem/` e `tools/`, que não são instalados.
 
 ## Como funciona
 
@@ -32,7 +32,7 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 
 2. **Imagens** (`tools/imagens-neutras.mjs`): escreve os logos neutros, rasteriza favicon/selo/imagem de login com o Chromium do Playwright e captura as miniaturas da página Templates a partir de um DS gerado com `tools/marca-neutra.json` (cinza-azulado, "Sua Marca").
 
-3. **Geração** (`skills/ds-generator/scripts/generate-ds.mjs`):
+3. **Geração** (`skills/ds-build/scripts/generate-ds.mjs`):
    - recusa o briefing se qualquer uma das 30 perguntas estiver sem resposta válida ou sem `confirmado_pelo_usuario: true`;
    - preenche os placeholders e **recolore por família de matiz**;
    - reescreve os HEX do catálogo de tokens, corrige contrastes que pioraram, instala logos e favicon (ou provisórios, se o usuário respondeu `false`), remove módulos opcionais, ajusta o gênero gramatical e trava os `termos_proibidos` no build.

@@ -5,7 +5,7 @@ import brandCorAsset from "@/assets/marca/brand-cor.svg.asset.json";
 import brandBlackAsset from "@/assets/marca/brand-black.svg.asset.json";
 import brandWhiteAsset from "@/assets/marca/brand-white.svg.asset.json";
 
-// MODELO: página de marca genérica do ds-generator. Os valores abaixo são referências de mercado;
+// MODELO: página de marca genérica do ds-build. Os valores abaixo são referências de mercado;
 // substitua cada um pelas regras do manual da marca (briefing: conteudo.regras_de_marca) e apague os comentários MODELO.
 
 const LOGO_COR = brandCorAsset.url;

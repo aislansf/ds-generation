@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Verifica ocorrências de marcas legadas/proibidas no projeto.
- * Os termos vêm de scripts/legacy-brand.config.json (gerado pelo ds-generator):
+ * Os termos vêm de scripts/legacy-brand.config.json (gerado pelo ds-build):
  *   { "termos": ["marca-antiga", "outra-marca"] }
  * Gera um relatório em reports/legacy-brand-report.txt e falha o processo
  * (exit 1) caso encontre qualquer ocorrência.

@@ -1,7 +1,7 @@
 // Regras de extração: marca de origem → template neutro com placeholders.
 // A ordem importa: conteúdo específico da origem primeiro (pode conter o nome da marca),
 // depois domínios e URLs (contêm o prefixo), nomes, fontes e, por último, identificadores de código.
-import { PLACEHOLDERS } from "../../skills/ds-generator/scripts/lib/rules.mjs";
+import { PLACEHOLDERS } from "../../skills/ds-build/scripts/lib/rules.mjs";
 
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);

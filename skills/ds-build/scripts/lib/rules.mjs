@@ -43,7 +43,7 @@ export function placeholderValues(brief) {
 export function fontImportsBlock(brief) {
   const f = brief.fontes ?? {};
   const lines = [
-    "/* === Tipografia da marca (gerado pelo ds-generator) ===",
+    "/* === Tipografia da marca (gerado pelo ds-build) ===",
     ` * Primária: ${f.primaria?.nome} — corpo, UI, H1/H3.`,
     ` * Display:  ${f.display?.nome || f.primaria?.nome} — H2 e títulos de impacto.`,
     ` * Sistema:  ${f.sistema?.nome || f.primaria?.nome} — legendas e leitura prolongada.`,

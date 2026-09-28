@@ -24,7 +24,7 @@ import { fileURLToPath } from "node:url";
 import { residualMatchers } from "./lib/regras-extracao.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SKILL = path.join(ROOT, "skills", "ds-generator");
+const SKILL = path.join(ROOT, "skills", "ds-build");
 const ORIGEM = path.join(ROOT, "origem", "ds-sebrae.json");
 const OUT = path.join(os.tmpdir(), "ds-generation-verificar");
 
