@@ -8,6 +8,8 @@ Skill **`ds-build`** (comando `/ds-build`): gera um Design System completo para 
 - páginas de marca, webwriting e acessibilidade;
 - validadores de build e testes.
 
+Junto vem a skill **`ds-run`** (comando `/ds-run`), que sobe o DS gerado com `npm run dev` para ver o projeto rodando.
+
 O template da skill é neutro: marca "Sua Marca", imagens genéricas e dados de exemplo fictícios.
 
 ## Instalar
@@ -24,6 +26,8 @@ npx skills add aislansf/ds-generation -a claude-code -y
 npx skills update ds-build
 ```
 
+Quem já tinha a `ds-build` e ainda não tem a `ds-run` roda de novo `npx skills add aislansf/ds-generation`.
+
 Quem instalou a versão antiga, com a skill `ds-generator`, troca por esta assim:
 
 ```bash
@@ -35,19 +39,23 @@ Funciona com Claude Code, Cursor, Codex e os outros agentes suportados pelo [ski
 
 ## Usar
 
-Com a skill instalada, use o comando:
+Com as skills instaladas, use os comandos:
 
 ```text
 /ds-build                          # começa o questionário do zero
 /ds-build Agência Horizonte        # já informa o nome da marca
 /ds-build briefings/horizonte.json # parte de um briefing existente
+/ds-run                            # sobe o último DS gerado (npm run dev)
+/ds-run ../ds-horizonte            # sobe o DS de uma pasta
 ```
 
 Ou peça em linguagem natural:
 
 > Crie um design system para a marca X
 
-O agente faz **todas** as perguntas do briefing (30, incluindo as de "não se aplica", que o usuário precisa escolher), mostra um resumo para confirmação, gera o projeto, roda build e testes, reescreve os textos de marca e entrega o DS com a lista de pendências. O gerador se recusa a rodar enquanto faltar alguma resposta.
+O agente faz **todas** as perguntas do briefing (30, incluindo as de "não se aplica", que o usuário precisa escolher). Se você não entregar todas as respostas de uma vez, ele pergunta **uma por vez** e só passa para a próxima depois da resposta. Em seguida, mostra um resumo para confirmação, gera o projeto, roda build e testes, reescreve os textos de marca e entrega o DS com a lista de pendências. O gerador se recusa a rodar enquanto faltar alguma resposta.
+
+O `/ds-run` acha a pasta do DS (a da última geração, a atual ou uma vizinha com `GERACAO.md`), instala as dependências se faltarem, roda `npm run dev` em segundo plano e mostra o endereço (porta 8080 ou a próxima livre).
 
 Sem agente:
 
@@ -76,6 +84,8 @@ skills/ds-build/                    o que o `npx skills add` instala (100% neutr
     brand-brief.template.json       modelo de briefing
     examples/exemplo-verde.json     marca fictícia de teste
     template/                       template neutro (gerado, não editar à mão)
+skills/ds-run/                      também instalado
+  SKILL.md                          comando /ds-run: sobe o DS gerado com npm run dev
 origem/                             manutenção: DS de referência de onde o template é extraído
   ds-sebrae.json                    briefing da origem + regras de neutralização
   logos/                            logos da origem (só para o teste de ida e volta)
