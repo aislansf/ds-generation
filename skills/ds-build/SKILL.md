@@ -8,9 +8,11 @@ argument-hint: "[nome da marca | caminho/do/briefing.json]"
 
 Comando: `/ds-build`. Argumentos recebidos: `$ARGUMENTS`
 
-- **Caminho de um `.json`:** é o briefing. Rode `scripts/validar-briefing.mjs <briefing>` e pergunte só o que estiver pendente. Mesmo que nada falte, mostre o resumo das respostas e peça confirmação antes de gerar.
-- **Texto:** é a resposta da pergunta `nome`. Copie o modelo de briefing, grave o nome e siga com as demais perguntas.
+- **Caminho de um `.json`:** é o briefing. Rode `scripts/validar-briefing.mjs <briefing>` e pergunte só o que estiver pendente, uma pergunta por vez. Mesmo que nada falte, mostre o resumo das respostas e peça confirmação antes de gerar.
+- **Texto:** é a resposta da pergunta `nome`. Copie o modelo de briefing, grave o nome e siga com as demais perguntas, uma por vez.
 - **Vazio** (ou `$ARGUMENTS` aparecendo literalmente acima, quando a skill foi acionada por um pedido em linguagem natural): comece o questionário pela primeira pergunta, aproveitando o que o usuário já disse no pedido como proposta a confirmar.
+
+Depois de gerar, o comando `/ds-run` (skill `ds-run`) sobe o DS com `npm run dev` para o usuário ver o projeto rodando.
 
 Gera um Design System completo para uma marca: troca **nome, cores, fontes, logos e textos** de um template neutro e mantém a arquitetura, os tokens, os ~50 componentes, os templates de tela e os validadores.
 
@@ -76,19 +78,25 @@ Copie `assets/brand-brief.template.json` para a pasta de trabalho do usuário (e
 
 Regras do questionário:
 
-- **Pergunte tudo ao usuário.** Use a ferramenta de perguntas (ex.: AskUserQuestion) quando houver opções fechadas (gênero, "derivar", módulos) e peça o restante em texto. Agrupe em rodadas curtas, mas não avance para a etapa 3 com perguntas abertas.
+- **Pergunte tudo ao usuário.** Não avance para a etapa 3 com perguntas abertas.
+- **Uma pergunta por vez.** Se o usuário não entregou todas as respostas de uma só vez (briefing completo ou uma mensagem que cobre todos os campos), faça as pendentes uma a uma: cada mensagem sua traz **uma única pergunta**, e a próxima só vem depois da resposta. Não junte perguntas numa lista nem em rodadas, mesmo as curtas.
+  - Siga a ordem da tabela, pulando o que já foi respondido.
+  - Comece cada pergunta com o progresso (ex.: "Pergunta 7 de 30") e diga, quando houver, quais são as opções de "não se aplica".
+  - Para opções fechadas (gênero, `"derivar"`, `"manter"`, `false`, módulos), use a ferramenta de perguntas (ex.: AskUserQuestion) com **uma** pergunta por chamada. O restante, peça em texto.
+  - Se o usuário responder mais de uma pergunta na mesma mensagem, grave todas as respostas e siga para a próxima pendente.
+  - Os itens 20–22 (logos) podem ser uma pergunta só, porque são respondidos juntos com os arquivos.
 - **Nunca invente nem assuma respostas.** As opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) existem para o usuário escolher, não para você preencher em silêncio. Se o usuário disser "tanto faz" ou "não sei", explique o efeito de cada opção e peça que ele escolha.
 - **Pode extrair do material do usuário.** Se ele enviar um manual de marca em PDF, leia-o para propor cores, fontes, regras do logo e tom de voz. Mesmo assim, apresente o que encontrou e peça confirmação de cada item.
 - **Confira os arquivos.** Caminhos de logo e favicon são relativos ao JSON e precisam existir. Se o usuário não tiver os arquivos, pergunte se prefere enviá-los ou responder `false`.
 - **Confirme antes de gerar.** Mostre um resumo com todas as respostas e só grave `"confirmado_pelo_usuario": true` depois de o usuário aprovar. Se ele mudar algo, atualize e confirme de novo.
 
-Depois de cada rodada de respostas, rode:
+Grave cada resposta no briefing assim que o usuário responder e, depois, rode:
 
 ```bash
 node scripts/validar-briefing.mjs <briefing.json>
 ```
 
-Ele lista cada pergunta pendente com o motivo (sem resposta, ainda com o texto do modelo, resposta inválida). Continue perguntando até a saída ser `Briefing completo`.
+Ele lista cada pergunta pendente com o motivo (sem resposta, ainda com o texto do modelo, resposta inválida). Faça a primeira da lista e continue, uma por vez, até a saída ser `Briefing completo`. Se uma resposta for inválida, refaça só aquela pergunta, explicando o motivo.
 
 ### 2. Conferir o que o usuário já tem
 
@@ -132,7 +140,7 @@ Não troque cores fixas à mão: se um tom ficou errado, ajuste o briefing ou as
 
 ### 6. Revisão visual
 
-Rode `npm run dev` (porta 8080) e confira no navegador, em light e dark: `/`, `/fundamentos`, `/tokens`, `/componentes`, `/templates`, `/marca`. Procure:
+Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o mesmo que o `/ds-run` faz) e pegue o endereço da linha `Local:` do Vite: porta 8080 ou a próxima livre. Confira no navegador, em light e dark: `/`, `/fundamentos`, `/tokens`, `/componentes`, `/templates`, `/marca`. Procure:
 
 - texto ilegível sobre a primária (botões, sidebar, header);
 - tons "estranhos" em ilustrações e gráficos (sinal de uma cor fora das janelas de família);
@@ -143,7 +151,7 @@ Depois rode `node <skill>/scripts/validar-contraste.mjs src/index.css` e confirm
 
 ### 7. Entregar
 
-Informe ao usuário: a pasta gerada, o resultado de build e testes, as pendências que ficaram (imagens, logos provisórios, conteúdo que precisa de decisão dele) e a tabela de contraste resumida. Não publique nem faça deploy sem ele pedir. O DS gerado não traz pipeline de CI; se o usuário quiser um, use como modelo o que está descrito em `references/arquitetura.md`.
+Informe ao usuário: a pasta gerada, o resultado de build e testes, as pendências que ficaram (imagens, logos provisórios, conteúdo que precisa de decisão dele), a tabela de contraste resumida e, se o servidor da etapa 6 ainda estiver no ar, o endereço dele. Diga também que `/ds-run <pasta-destino>` sobe o DS de novo quando ele quiser. Não publique nem faça deploy sem ele pedir. O DS gerado não traz pipeline de CI; se o usuário quiser um, use como modelo o que está descrito em `references/arquitetura.md`.
 
 ## Limites conhecidos
 

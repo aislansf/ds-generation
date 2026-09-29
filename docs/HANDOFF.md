@@ -9,7 +9,7 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 | `aislansf/ds-sebrae` → `frontend/` | **Origem**: o DS de referência, onde componentes e tokens evoluem |
 | `aislansf/ds-generation` (este) | **Gerador**: template neutro + scripts + instruções para o agente |
 
-**A skill instalada é 100% neutra.** Tudo o que `npx skills add` copia (`skills/ds-build/`) está livre de nomes, logos, imagens e dados da origem, e também de conteúdo herdado por ela de outras marcas (FNDE, Governo Federal). O conhecimento sobre a origem fica só em `origem/` e `tools/`, que não são instalados.
+**A skill instalada é 100% neutra.** Tudo o que `npx skills add` copia (`skills/ds-build/` e `skills/ds-run/`) está livre de nomes, logos, imagens e dados da origem, e também de conteúdo herdado por ela de outras marcas (FNDE, Governo Federal). O conhecimento sobre a origem fica só em `origem/` e `tools/`, que não são instalados.
 
 ## Como funciona
 
@@ -39,11 +39,13 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 
 4. **Reescrita semântica** (o agente, guiado por `references/reescrita-semantica.md`).
 
+5. **Execução** (skill `ds-run`, comando `/ds-run`): acha a pasta do DS gerado, instala as dependências se faltarem e sobe `npm run dev` em segundo plano, entregando o endereço local ao usuário.
+
 ## Decisões
 
 - **Neutralizar na extração, não no template.** O template é gerado. Toda troca de nome e todo arquivo genérico vive em `origem/`, então uma reextração nunca traz a marca de volta, e a checagem de remanescentes impede que um termo novo da origem passe despercebido.
 - **Dados de exemplo fictícios, não placeholders.** Programas, unidades e painéis viraram nomes genéricos plausíveis (Empreender, Programa Inova, DIROP, Radar Estratégico). Eles ficam listados em `conteudo_exemplo` e o `GERACAO.md` aponta onde aparecem, para o agente trocar pelo universo da marca nova.
-- **Questionário obrigatório.** Cada campo do briefing precisa de resposta explícita; as opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) também são escolhas do usuário. O gerador valida isso (`lib/briefing.mjs`), e o `validar-briefing.mjs` diz ao agente o que ainda perguntar.
+- **Questionário obrigatório.** Cada campo do briefing precisa de resposta explícita; as opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) também são escolhas do usuário. O gerador valida isso (`lib/briefing.mjs`), e o `validar-briefing.mjs` diz ao agente o que ainda perguntar. Quando o usuário não entrega todas as respostas de uma vez, o agente faz uma pergunta por mensagem, na ordem do briefing.
 - **Recolorir em vez de criar um placeholder por cor.** O template tem ~500 cores fixas (documentação que mostra valores). Famílias de matiz resolvem com poucas regras e mantêm a hierarquia de tons.
 - **Ida e volta = identidade.** Gerar com o briefing de origem não recolore nenhuma cor (a única cor acrescentada é a do H1 no dark mode, que falta também na origem). Por isso âncoras e referências por arquivo (`familias[].ancoras`, `familias[].referencias`) só valem quando a cor muda.
 - **Cor da marca onde ela aparece como "a cor da marca".** O deslocamento de matiz preserva as relações entre os tons do template, mas o H1, os validadores e a "cor primária" da ColorSection precisam mostrar a cor exata do briefing. Essas cores são declaradas como âncoras ou referências em `origem/ds-sebrae.json`.
