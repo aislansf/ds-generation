@@ -48,9 +48,12 @@ export interface RegistroAtendimento {
   responsavel: string | null;
   proximaAcao: string | null;
   prazoProximaAcao: string | null;
-  possuiCompressor: boolean;
-  possuiSecador: boolean;
-  contratoManutencao: boolean;
+  /** Já participou de algum programa do __BRAND_SHORT__ (Empreender, AGI, Programa Inova…). */
+  participouPrograma: boolean;
+  /** Possui CNPJ ativo/formalizado. */
+  possuiCnpjAtivo: boolean;
+  /** Possui consultoria __BRAND_SHORT__ vigente. */
+  consultoriaVigente: boolean;
 }
 
 export interface EmpresaAgregada {

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Filter, X, Upload, Download } from "lucide-react";
 import { STATUS_LIST } from "@/lib/bi/types";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Props {
   onImportar: () => void;
@@ -29,8 +30,37 @@ export default function BIHeaderFilters({ onImportar, onExportar }: Props) {
   const set = <K extends keyof typeof filtros>(k: K, v: (typeof filtros)[K]) =>
     setFiltros({ ...filtros, [k]: v });
 
-  const selectCls =
-    "h-9 rounded-md border border-input bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-ring";
+  const TODOS = "__todos__";
+
+  function FiltroSelect({
+    label,
+    value,
+    onChange,
+    opcoes,
+  }: {
+    label: string;
+    value: string | null;
+    onChange: (v: string | null) => void;
+    opcoes: string[];
+  }) {
+    return (
+      <Select value={value ?? TODOS} onValueChange={(v) => onChange(v === TODOS ? null : v)}>
+        <SelectTrigger className="h-9 text-xs" aria-label={label}>
+          <SelectValue placeholder={label} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={TODOS} className="text-xs">
+            {label}: todos
+          </SelectItem>
+          {opcoes.map((o) => (
+            <SelectItem key={o} value={o} className="text-xs">
+              {o}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    );
+  }
 
   return (
     <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
@@ -52,54 +82,12 @@ export default function BIHeaderFilters({ onImportar, onExportar }: Props) {
           className="h-9 text-xs"
           aria-label="Período final"
         />
-        <select className={selectCls} value={filtros.uf ?? ""} onChange={(e) => set("uf", e.target.value || null)} aria-label="Estado">
-          <option value="">Estado</option>
-          {ufs.map((u) => (
-            <option key={u} value={u}>
-              {u}
-            </option>
-          ))}
-        </select>
-        <select className={selectCls} value={filtros.cidade ?? ""} onChange={(e) => set("cidade", e.target.value || null)} aria-label="Cidade">
-          <option value="">Cidade</option>
-          {cidades.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-        <select className={selectCls} value={filtros.status ?? ""} onChange={(e) => set("status", (e.target.value || null) as never)} aria-label="Status">
-          <option value="">Status</option>
-          {STATUS_LIST.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-        <select className={selectCls} value={filtros.potencial ?? ""} onChange={(e) => set("potencial", e.target.value || null)} aria-label="Potencial">
-          <option value="">Potencial</option>
-          {["Alto", "Médio", "Baixo"].map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
-        <select className={selectCls} value={filtros.porte ?? ""} onChange={(e) => set("porte", e.target.value || null)} aria-label="Porte">
-          <option value="">Porte</option>
-          {["Pequeno", "Médio", "Grande"].map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
-          ))}
-        </select>
-        <select className={selectCls} value={filtros.segmento ?? ""} onChange={(e) => set("segmento", e.target.value || null)} aria-label="Segmento">
-          <option value="">Segmento</option>
-          {segmentos.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
+        <FiltroSelect label="Estado" value={filtros.uf} onChange={(v) => set("uf", v)} opcoes={ufs} />
+        <FiltroSelect label="Município" value={filtros.cidade} onChange={(v) => set("cidade", v)} opcoes={cidades} />
+        <FiltroSelect label="Status" value={filtros.status} onChange={(v) => set("status", v as never)} opcoes={STATUS_LIST} />
+        <FiltroSelect label="Potencial" value={filtros.potencial} onChange={(v) => set("potencial", v)} opcoes={["Alto", "Médio", "Baixo"]} />
+        <FiltroSelect label="Porte" value={filtros.porte} onChange={(v) => set("porte", v)} opcoes={["Pequeno", "Médio", "Grande"]} />
+        <FiltroSelect label="Segmento" value={filtros.segmento} onChange={(v) => set("segmento", v)} opcoes={segmentos} />
       </div>
       <div className="flex flex-wrap gap-2 mt-3 justify-end">
         <Button variant="outline" size="sm" onClick={resetFiltros}>

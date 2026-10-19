@@ -10,9 +10,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   Legend, LabelList,
 } from "recharts";
-import { brandCor as brandLogoReduzida, brandWhite as iconeBrandNegativo } from "@/assets/brand";
-import headerBusinessBgAsset from "@/assets/header-business-bg.png.asset.json";
-const headerBusinessBg = headerBusinessBgAsset.url;
+import { brandCor as brandLogoReduzida } from "@/assets/brand";
+import { BIPanelHeader } from "@/components/bi/BIPanelHeader";
 import { useTheme } from "@/hooks/useTheme";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { KPIGridSkeleton, ChartCardSkeleton } from "@/components/bi/BISkeletons";
@@ -168,23 +167,12 @@ export default function RadarEstrategicoPage() {
         <ArrowLeft size={12} /> Voltar ao DS
       </Link>
 
-      {/* HEADER — Composição visual (negócios) · Sem título */}
-      <header className="shrink-0 sticky top-0 z-40 border-b border-border bg-background">
-        <div
-          role="img"
-          aria-label="Clareza que o mercado exige para o futuro dos negócios"
-          style={{
-            height: "112px",
-            backgroundImage: `url(${headerBusinessBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-        <div
-          className="text-white flex items-center px-4 gap-3"
-          style={{ height: "36px", minHeight: "36px", maxHeight: "52px", backgroundColor: "#123148" }}
-        >
+      {/* HEADER — institucional compartilhado com os demais painéis de BI */}
+      <BIPanelHeader
+        className="shrink-0 border-b border-border"
+        title="Radar Estratégico — Painel Executivo"
+        subtitle="__BRAND_NAME__ · dados ilustrativos"
+        leading={
           <button
             onClick={() => setSidebarOpen((o) => !o)}
             className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
@@ -193,7 +181,8 @@ export default function RadarEstrategicoPage() {
             <Menu size={18} />
             <span className="text-[10px] hidden sm:inline">Menu</span>
           </button>
-          <div className="flex-1" />
+        }
+        right={
           <button
             onClick={toggleTheme}
             className="p-1.5 hover:bg-white/10 rounded transition-colors shrink-0"
@@ -201,8 +190,9 @@ export default function RadarEstrategicoPage() {
           >
             {theme === "dark" ? <Moon size={16} className="text-white/80" /> : <Sun size={16} className="text-white/80" />}
           </button>
-        </div>
-      </header>
+        }
+      />
+
 
       {/* BODY */}
       <div className="flex-1 flex min-h-0 relative">
@@ -211,7 +201,7 @@ export default function RadarEstrategicoPage() {
             type="button"
             aria-label="Fechar menu"
             onClick={() => setSidebarOpen(false)}
-            className="fixed inset-0 top-[148px] z-30 bg-black/40"
+            className="fixed inset-0 top-[64px] z-30 bg-black/40"
           />
         )}
 
@@ -219,7 +209,7 @@ export default function RadarEstrategicoPage() {
           <aside
             className={`${
               isMobile
-                ? "fixed left-0 top-[148px] bottom-0 z-40 w-[260px] shadow-xl"
+                ? "fixed left-0 top-[64px] bottom-0 z-40 w-[260px] shadow-xl"
                 : `${collapsed ? "w-16" : "w-[260px]"} shrink-0`
             } bg-sidebar text-sidebar-foreground flex flex-col transition-all duration-200`}
           >

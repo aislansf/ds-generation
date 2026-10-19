@@ -1,7 +1,7 @@
 {
-  "gerado_em": "2026-09-28T23:07:01.148Z",
+  "gerado_em": "2026-10-19T15:42:47.493Z",
   "origem": {
-    "commit": "3bba5fe 2026-09-28",
+    "commit": null,
     "conteudo_exemplo": [
       "Empreender",
       "AGI",
@@ -26,7 +26,46 @@
       "UCAP",
       "UINOV",
       "UNEG",
-      "UMEP"
+      "UMEP",
+      "Região Metropolitana",
+      "Sertão Oeste",
+      "Região Central",
+      "Vale do Sul",
+      "Planalto Oeste",
+      "Vale Claro",
+      "Porto Central",
+      "Serra Alta",
+      "Nova Esperança",
+      "Lagoa Azul",
+      "Cachoeira Alta",
+      "Bom Retiro",
+      "Monte Claro",
+      "Vila Nova",
+      "Rio Verde",
+      "Praia Mansa",
+      "Campo Alegre",
+      "Barra Grande",
+      "Alto Bonito",
+      "Santa Rita",
+      "Vale Formoso",
+      "Serra Verde",
+      "Boa Vista",
+      "Fonte Nova",
+      "Ponte Alta",
+      "Areia Branca",
+      "São Bento",
+      "Lagoa Seca",
+      "Porto do Norte",
+      "Mirante da Serra",
+      "Costa Dourada",
+      "Jardim das Flores",
+      "Recanto Verde",
+      "Morada do Sol",
+      "Novo Horizonte",
+      "Santa Helena",
+      "Senador Almeida",
+      "Morro Alto",
+      "Missão Nova"
     ]
   },
   "familias": [
@@ -110,5 +149,5 @@
     "__FONT_DISPLAY_URL__",
     "/* __FONT_IMPORTS__ */"
   ],
-  "arquivos": 193
+  "arquivos": 305
 }

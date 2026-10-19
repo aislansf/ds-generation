@@ -17,7 +17,7 @@ export function CodeBlock({ code, language = "html", title }: CodeBlockProps) {
   }, [code]);
 
   return (
-    <div className="rounded-lg border border-border overflow-hidden my-4">
+    <div className="rounded-lg border border-border overflow-hidden my-4 min-w-0 max-w-full">
       {title && (
         <div className="bg-muted px-4 py-2 text-xs font-medium text-muted-foreground flex items-center justify-between border-b border-border">
           <span>{title}</span>

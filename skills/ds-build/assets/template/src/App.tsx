@@ -27,6 +27,10 @@ function lazyWithRetry<T extends { default: React.ComponentType<unknown> }>(
   });
 }
 
+const GraficosIndexPage = lazyWithRetry(() => import("@/pages/graficos/GraficosIndexPage"));
+const GraficosCategoriaPage = lazy(() => import("@/pages/graficos/GraficosCategoriaPage"));
+const GraficosPlaygroundPage = lazyWithRetry(() => import("@/pages/graficos/GraficosPlaygroundPage"));
+const GraficosDownloadsPage = lazyWithRetry(() => import("@/pages/graficos/GraficosDownloadsPage"));
 const FundamentosPage = lazyWithRetry(() => import("@/pages/FundamentosPage"));
 const TokensPage = lazyWithRetry(() => import("@/pages/TokensPage"));
 const ComponentesPage = lazyWithRetry(() => import("@/pages/ComponentesPage"));
@@ -36,6 +40,8 @@ const ConteudoPage = lazyWithRetry(() => import("@/pages/ConteudoPage"));
 const AcessibilidadePage = lazyWithRetry(() => import("@/pages/AcessibilidadePage"));
 const DashboardInstitucionalPage = lazyWithRetry(() => import("@/pages/DashboardInstitucionalPage"));
 const DashboardBIPage = lazyWithRetry(() => import("@/pages/DashboardBIPage"));
+const TelaBIPage = lazyWithRetry(() => import("@/pages/TelaBIPage"));
+const DashboardAnaliticoPage = lazyWithRetry(() => import("@/pages/DashboardAnaliticoPage"));
 const TelaListagemPage = lazyWithRetry(() => import("@/pages/TelaListagemPage"));
 const TelaFormularioPage = lazyWithRetry(() => import("@/pages/TelaFormularioPage"));
 const PaginaAutenticacaoPage = lazyWithRetry(() => import("@/pages/PaginaAutenticacaoPage"));
@@ -52,8 +58,19 @@ const PlanejaBIPage = lazyWithRetry(() => import("@/pages/modelos-bi/PlanejaPage
 const MPIBIPage = lazyWithRetry(() => import("@/pages/modelos-bi/MPIPage"));
 const GestaoPessoasBIPage = lazyWithRetry(() => import("@/pages/modelos-bi/GestaoPessoasPage"));
 const RadarEstrategicoHubPage = lazyWithRetry(() => import("@/pages/modelos-bi/RadarEstrategicoHubPage"));
+const FigmaBridgePage = lazyWithRetry(() => import("@/pages/FigmaBridgePage"));
+const SchemasPage = lazyWithRetry(() => import("@/pages/SchemasPage"));
+const ValidatorPage = lazyWithRetry(() => import("@/pages/ValidatorPage"));
+const PowerBIMappingPage = lazyWithRetry(() => import("@/pages/PowerBIMappingPage"));
+
+
+const HeaderDegradeDocsPage = lazyWithRetry(() => import("@/pages/HeaderDegradeDocsPage"));
+
+const HeaderPlaygroundPage = lazyWithRetry(() => import("@/pages/HeaderPlaygroundPage"));
 
 const queryClient = new QueryClient();
+
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -64,6 +81,8 @@ const App = () => (
             {/* Standalone template page (sem DSLayout) */}
             <Route path="/templates/dashboard-institucional" element={<DashboardInstitucionalPage />} />
             <Route path="/templates/dashboard-bi" element={<DashboardBIPage />} />
+            <Route path="/templates/dashboard-analitico" element={<DashboardAnaliticoPage />} />
+            <Route path="/templates/tela-bi" element={<TelaBIPage />} />
             <Route path="/templates/tela-listagem" element={<TelaListagemPage />} />
             <Route path="/templates/tela-formulario" element={<TelaFormularioPage />} />
             <Route path="/templates/pagina-autenticacao" element={<PaginaAutenticacaoPage />} />
@@ -96,9 +115,29 @@ const App = () => (
                     <Route path="/modelos-bi" element={<ModelosBIPage />} />
                     <Route path="/modelos-bi/radar-estrategico" element={<RadarEstrategicoHubPage />} />
                     <Route path="/modelos-bi/radar-estrategico/docs" element={<RadarEstrategicoDocsPage />} />
+                    <Route path="/modelos-bi/mapeamento" element={<PowerBIMappingPage />} />
+                    <Route path="/componentes/header-degrade/docs" element={<HeaderDegradeDocsPage />} />
+                    <Route path="/componentes/header-degrade/playground" element={<HeaderPlaygroundPage />} />
+                    <Route path="/graficos" element={<GraficosIndexPage />} />
+                    <Route path="/graficos/barras" element={<GraficosCategoriaPage categoria="barras" />} />
+                    <Route path="/graficos/linhas" element={<GraficosCategoriaPage categoria="linhas" />} />
+                    <Route path="/graficos/proporcao" element={<GraficosCategoriaPage categoria="proporcao" />} />
+                    <Route path="/graficos/distribuicao" element={<GraficosCategoriaPage categoria="distribuicao" />} />
+                    <Route path="/graficos/relacoes" element={<GraficosCategoriaPage categoria="relacoes" />} />
+                    <Route path="/graficos/kpi" element={<GraficosCategoriaPage categoria="kpi" />} />
+                    <Route path="/graficos/mapas" element={<GraficosCategoriaPage categoria="mapas" />} />
+                    <Route path="/graficos/playground" element={<GraficosPlaygroundPage />} />
+                    <Route path="/graficos/downloads" element={<GraficosDownloadsPage />} />
+
+
+
+
                     <Route path="/marca" element={<MarcaPage />} />
                     <Route path="/conteudo" element={<ConteudoPage />} />
                     <Route path="/acessibilidade" element={<AcessibilidadePage />} />
+                    <Route path="/design-system/figma" element={<FigmaBridgePage />} />
+                    <Route path="/design-system/schemas" element={<SchemasPage />} />
+                    <Route path="/design-system/validator" element={<ValidatorPage />} />
                     <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Suspense>

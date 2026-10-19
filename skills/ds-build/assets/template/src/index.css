@@ -209,7 +209,25 @@
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* === Header Degradê Novo __BRAND_SHORT__ Tokens === */
+    --brand-header-grad-start: #053665;
+    --brand-header-grad-end: #05549e;
+    --brand-header-height: 135px;
+    --brand-header-px: var(--space-8);
+    --brand-header-py: var(--space-5);
+    --brand-header-gap: var(--space-6);
+    --brand-header-divider: rgba(255, 255, 255, 0.4);
+    --brand-header-title-fs: 1.6875rem; /* 27px */
+    --brand-header-label-fs: var(--text-xs);
+    --brand-header-value-fs: var(--text-sm);
+    --brand-header-label-color: rgba(255, 255, 255, 0.75);
+    --brand-header-title-color: rgba(255, 255, 255, 0.92);
+    --brand-header-logo-h: 57.5px;
+    --brand-header-divider-h: 60px;
+
   }
+
 
   /* ===== DARK MODE ===== */
   .dark {
@@ -315,7 +333,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', system-ui, 'Helvetica Neue', Arial, sans-serif;
+    font-family: '__FONT_SYSTEM__', '__FONT_PRIMARY__', system-ui, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;

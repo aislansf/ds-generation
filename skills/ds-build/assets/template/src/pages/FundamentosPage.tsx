@@ -226,24 +226,26 @@ export default function FundamentosPage() {
       <SectionHeader
         id="tipografia"
         title="Tipografia"
-        description="O Design System __BRAND_NAME__ adota o trio tipográfico alinhado ao portal __ORG_ROOT_DOMAIN__: __FONT_PRIMARY__ (primária, corpo/UI), __FONT_DISPLAY__ (secundária, display proprietária) e __FONT_SYSTEM__ (sistêmica, apoio institucional)."
+        description="O Design System __BRAND_NAME__ adota a dupla tipográfica alinhada ao portal __ORG_ROOT_DOMAIN__: __FONT_PRIMARY__ (primária, corpo/UI) e __FONT_SYSTEM__ (secundária, display/heading e apoio institucional)."
       />
 
       {/* Famílias oficiais — grid responsivo com alturas equalizadas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 w-full items-stretch lg:auto-rows-fr">
         {/* Sistêmica — __FONT_SYSTEM__ */}
         <FontFamilyCard
-          badge="Fonte Sistêmica"
+          badge="Fonte Secundária"
           badgeClass="bg-accent text-accent-foreground"
           source="Google Fonts · Open Source"
           name="__FONT_SYSTEM__"
           fontStack="'__FONT_SYSTEM__', system-ui, sans-serif"
-          summary="Sans-serif humanista de apoio, alinhada ao portal __ORG_ROOT_DOMAIN__. Usada em microcopy institucional, legendas e contextos sistêmicos de leitura."
+          summary="Sans-serif humanista alinhada ao portal __ORG_ROOT_DOMAIN__. Assume o papel de display/heading (títulos H1–H6, hero e KPIs) e também o de apoio institucional em microcopy, legendas e leitura prolongada."
           weights={[
             { v: 300, name: "Light" }, { v: 400, name: "Regular" },
             { v: 700, name: "Bold" }, { v: 900, name: "Black" },
           ]}
           bestFor={[
+            "Títulos H1–H6, hero e capas de relatórios",
+            "Números de destaque em dashboards (KPIs principais)",
             "Legendas, captions e notas de rodapé em relatórios",
             "Microcopy institucional, avisos legais e termos",
             "Tabelas densas e listagens longas no Power BI",
@@ -251,14 +253,14 @@ export default function FundamentosPage() {
           ]}
           avoidFor={[
             "Botões e CTAs (use __FONT_PRIMARY__ para coerência da UI)",
-            "Títulos de impacto (use __FONT_DISPLAY__)",
+            "Corpo de texto longo e formulários (use __FONT_PRIMARY__)",
           ]}
           powerBi="Excelente para rótulos de eixos, legendas de gráficos, fontes de dados e notas de rodapé em dashboards. Disponível nativamente no Power BI sem importação."
-          cssVar="--font-system"
-          tailwindClass="font-system · font-lato"
-          cssSnippet={`/* CSS puro */\n.legenda,\n.caption,\n.nota-rodape {\n  font-family: '__FONT_SYSTEM__', system-ui, sans-serif;\n  font-weight: 400;\n  font-size: 0.75rem;\n  line-height: 1.4;\n}`}
+          cssVar="--font-display · --font-heading · --font-system"
+          tailwindClass="font-heading · font-display · font-system · font-lato"
+          cssSnippet={`/* CSS puro */\n.titulo-hero {\n  font-family: '__FONT_SYSTEM__', '__FONT_PRIMARY__', sans-serif;\n  font-weight: 700;\n  line-height: 1.1;\n}\n\n.legenda,\n.caption,\n.nota-rodape {\n  font-family: '__FONT_SYSTEM__', system-ui, sans-serif;\n  font-weight: 400;\n  font-size: 0.75rem;\n  line-height: 1.4;\n}`}
           htmlSnippet={`<!-- HTML standalone -->\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=__FONT_SYSTEM__:wght@300;400;700;900&display=swap" rel="stylesheet">\n\n<small style="font-family: '__FONT_SYSTEM__', sans-serif; font-weight: 400;">\n  Fonte: __BRAND_NAME__ · Dados de 2024\n</small>`}
-          tokenSnippet={`/* tokens.css */\n:root {\n  --font-system: '__FONT_SYSTEM__', '__FONT_PRIMARY__', system-ui, sans-serif;\n  --font-lato: '__FONT_SYSTEM__', system-ui, sans-serif;\n}`}
+          tokenSnippet={`/* tokens.css */\n:root {\n  --font-display: '__FONT_SYSTEM__', '__FONT_PRIMARY__', sans-serif;\n  --font-heading: '__FONT_SYSTEM__', '__FONT_PRIMARY__', sans-serif;\n  --font-system: '__FONT_SYSTEM__', '__FONT_PRIMARY__', system-ui, sans-serif;\n  --font-lato: '__FONT_SYSTEM__', system-ui, sans-serif;\n}`}
           downloads={[
             { label: "Google Fonts — página oficial (download .zip com TTF)", url: "https://fonts.google.com/specimen/__FONT_SYSTEM__", note: "Inclui pesos 100–900 + itálicos. Licença SIL Open Font 1.1." },
             { label: "CSS hospedado (CDN Google Fonts)", url: "https://fonts.googleapis.com/css2?family=__FONT_SYSTEM__:wght@300;400;700;900&display=swap", note: "Pronto para <link rel=\"stylesheet\">." },
@@ -282,10 +284,10 @@ export default function FundamentosPage() {
             "Sistemas web (desktop, tablet, mobile) — UI, formulários, tabelas",
             "Corpo de texto longo, parágrafos institucionais e e-mails",
             "Botões, navegação, labels e microcopy funcional",
-            "Títulos H1 e H3 quando __FONT_DISPLAY__ não estiver disponível",
+            "Títulos H1 e H3 quando __FONT_SYSTEM__ não estiver disponível",
           ]}
           avoidFor={[
-            "Hero/banners de impacto (use __FONT_DISPLAY__)",
+            "Hero/banners de impacto (use __FONT_SYSTEM__)",
             "Manchetes editoriais ou números de destaque em dashboards",
           ]}
           powerBi="Usar como fonte padrão dos visuais (Texto, Eixos, Rótulos). No Power BI Desktop: Arquivo → Opções → Atual → Fontes globais → __FONT_PRIMARY__."
@@ -298,39 +300,6 @@ export default function FundamentosPage() {
             { label: "Google Fonts — página oficial (download .zip com TTF)", url: "https://fonts.google.com/specimen/__FONT_PRIMARY__", note: "Inclui todos os pesos (300–900) e licença SIL Open Font 1.1." },
             { label: "CSS hospedado (CDN Google Fonts)", url: "https://fonts.googleapis.com/css2?family=__FONT_PRIMARY__:wght@300;400;500;600;700;800;900&display=swap", note: "Pronto para <link rel=\"stylesheet\">." },
             { label: "Repositório oficial no GitHub (fontes-fonte TTF/OTF)", url: "https://github.com/erinmclaughlin/__FONT_PRIMARY__", note: "Arquivos brutos para Power BI Desktop, Word e PowerPoint." },
-          ]}
-        />
-
-        {/* Secundária — __FONT_DISPLAY__ */}
-        <FontFamilyCard
-          badge="Fonte Secundária"
-          badgeClass="bg-secondary text-secondary-foreground"
-          source="Proprietária __BRAND_SHORT__ · CDN da marca"
-          name="__FONT_DISPLAY__"
-          fontStack="'__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif"
-          summary="Sans-serif de display com personalidade institucional. Reservada para títulos de impacto, hero e números em destaque."
-          weights={[{ v: 700, name: "Bold" }]}
-          bestFor={[
-            "H2 e títulos de impacto em landing pages institucionais",
-            "Hero, banners e capas de relatórios",
-            "Números de destaque em dashboards (KPIs principais)",
-            "Apresentações e materiais editoriais __BRAND_SHORT__",
-          ]}
-          avoidFor={[
-            "Corpo de texto e parágrafos longos (use __FONT_PRIMARY__)",
-            "UI funcional, formulários, labels e tooltips",
-            "Textos pequenos < 18px (perde legibilidade)",
-          ]}
-          powerBi="Aplicar apenas em títulos de cartões KPI e cabeçalhos de páginas. Para o restante mantenha __FONT_PRIMARY__. Caso o ambiente Power BI não carregue __FONT_DISPLAY__, o fallback automático é __FONT_PRIMARY__."
-          cssVar="--font-display"
-          tailwindClass="font-heading · font-display"
-          cssSnippet={`/* CSS puro */\n@font-face {\n  font-family: '__FONT_DISPLAY__';\n  src: url('/fonts/display-bold.woff2') format('woff2');\n  font-weight: 700;\n  font-display: swap;\n}\n\n.titulo-hero {\n  font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n  font-weight: 700;\n  line-height: 1.1;\n}`}
-          htmlSnippet={`<!-- HTML standalone com fallback -->\n<style>\n  @font-face {\n    font-family: '__FONT_DISPLAY__';\n    src: url('__FONT_DISPLAY_URL__') format('woff2');\n    font-weight: 700;\n    font-display: swap;\n  }\n</style>\n\n<h1 style="font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif; font-weight: 700;">\n  Conectando pessoas\n</h1>`}
-          tokenSnippet={`/* tokens.css */\n:root {\n  --font-display: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n  --font-heading: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;\n}`}
-          footnote="__FONT_DISPLAY__ é proprietária da __BRAND_SHORT__. Enquanto o arquivo oficial não estiver em /public/fonts/display-bold.woff2, o sistema usa __FONT_PRIMARY__ como fallback automático."
-          downloads={[
-            { label: "__FONT_DISPLAY__ Bold (WOFF2) — CDN oficial da marca", url: "__FONT_DISPLAY_URL__", note: "Arquivo usado em __ORG_ROOT_DOMAIN__. Hospedar localmente em /public/fonts/display-bold.woff2 para produção." },
-            { label: "Solicitação interna — Marca __BRAND_SHORT__", url: "mailto:marca@__ORG_ROOT_DOMAIN__?subject=Solicitação%20da%20fonte%20display%20(TTF/OTF)", note: "Para receber o pacote completo (TTF/OTF) com todos os pesos — uso em Power BI, PowerPoint e impressos." },
           ]}
         />
       </div>
@@ -404,7 +373,7 @@ export default function FundamentosPage() {
           </h4>
           <div className="hidden sm:flex items-center gap-3 text-[10px] font-mono">
             <span className="flex items-center gap-1.5">
-              <span className="inline-block w-2 h-2 rounded-full bg-secondary" /> __FONT_DISPLAY__
+              <span className="inline-block w-2 h-2 rounded-full bg-secondary" /> __FONT_SYSTEM__
             </span>
             <span className="flex items-center gap-1.5">
               <span className="inline-block w-2 h-2 rounded-full bg-primary" /> __FONT_PRIMARY__
@@ -415,14 +384,14 @@ export default function FundamentosPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8">
           {/* Coluna principal — amostras */}
           <div className="space-y-6">
-            {/* Headings H1-H6 (__FONT_DISPLAY__) */}
+            {/* Headings H1-H6 (__FONT_SYSTEM__) */}
             {[
-              { tag: "h1", cls: "text-5xl font-black", sample: "__BRAND_SLOGAN__", spec: "__FONT_DISPLAY__ Bold · 48px / 1.1" },
-              { tag: "h2", cls: "text-4xl font-bold",  sample: "Conheça o Design System __BRAND_SHORT__",          spec: "__FONT_DISPLAY__ Bold · 36px / 1.15" },
-              { tag: "h3", cls: "text-3xl font-bold",  sample: "Componentes, tokens e padrões",           spec: "__FONT_DISPLAY__ Bold · 30px / 1.2" },
-              { tag: "h4", cls: "text-2xl font-semibold", sample: "Diretrizes de uso da marca",           spec: "__FONT_DISPLAY__ SemiBold · 24px / 1.25" },
-              { tag: "h5", cls: "text-xl font-semibold",  sample: "Aplicações em produtos digitais",      spec: "__FONT_DISPLAY__ SemiBold · 20px / 1.3" },
-              { tag: "h6", cls: "text-lg font-semibold",  sample: "Sessão de apoio e detalhes",           spec: "__FONT_DISPLAY__ SemiBold · 18px / 1.35" },
+              { tag: "h1", cls: "text-5xl font-black", sample: "__BRAND_SLOGAN__", spec: "__FONT_SYSTEM__ Bold · 48px / 1.1" },
+              { tag: "h2", cls: "text-4xl font-bold",  sample: "Conheça o Design System __BRAND_SHORT__",          spec: "__FONT_SYSTEM__ Bold · 36px / 1.15" },
+              { tag: "h3", cls: "text-3xl font-bold",  sample: "Componentes, tokens e padrões",           spec: "__FONT_SYSTEM__ Bold · 30px / 1.2" },
+              { tag: "h4", cls: "text-2xl font-semibold", sample: "Diretrizes de uso da marca",           spec: "__FONT_SYSTEM__ SemiBold · 24px / 1.25" },
+              { tag: "h5", cls: "text-xl font-semibold",  sample: "Aplicações em produtos digitais",      spec: "__FONT_SYSTEM__ SemiBold · 20px / 1.3" },
+              { tag: "h6", cls: "text-lg font-semibold",  sample: "Sessão de apoio e detalhes",           spec: "__FONT_SYSTEM__ SemiBold · 18px / 1.35" },
             ].map(h => (
               <div key={h.tag} className="flex flex-col sm:flex-row sm:items-baseline gap-3 sm:gap-6 pb-4 border-b border-border last:border-0">
                 <div className="w-16 shrink-0">
@@ -567,12 +536,12 @@ export default function FundamentosPage() {
               </thead>
               <tbody className="font-mono">
                 {[
-                  { el: "H1", fam: "__FONT_DISPLAY__",  size: "--text-5xl (3rem)",     lh: "--leading-5xl (3.375rem)", w: "--font-bold (700)",   ls: "-0.025em",                sp: "--space-6 (1.5rem)", cls: "text-5xl font-bold font-heading mb-6" },
-                  { el: "H2", fam: "__FONT_DISPLAY__",  size: "--text-4xl (2.25rem)",  lh: "--leading-4xl (2.625rem)", w: "--font-bold (700)",   ls: "-0.022em",                sp: "--space-5 (1.25rem)",cls: "text-4xl font-bold font-heading mb-5" },
-                  { el: "H3", fam: "__FONT_DISPLAY__",  size: "--text-3xl (1.875rem)", lh: "--leading-3xl (2.25rem)",  w: "--font-bold (700)",   ls: "-0.02em",                 sp: "--space-4 (1rem)",   cls: "text-3xl font-bold font-heading mb-4" },
-                  { el: "H4", fam: "__FONT_DISPLAY__",  size: "--text-2xl (1.5rem)",   lh: "--leading-2xl (2rem)",     w: "--font-semibold (600)",ls: "--tracking-tight",        sp: "--space-3 (0.75rem)",cls: "text-2xl font-semibold font-heading mb-3" },
-                  { el: "H5", fam: "__FONT_DISPLAY__",  size: "--text-xl (1.25rem)",   lh: "--leading-xl (1.875rem)",  w: "--font-semibold (600)",ls: "-0.01em",                 sp: "--space-3 (0.75rem)",cls: "text-xl font-semibold font-heading mb-3" },
-                  { el: "H6", fam: "__FONT_DISPLAY__",  size: "--text-lg (1.125rem)",  lh: "--leading-lg (1.75rem)",   w: "--font-semibold (600)",ls: "-0.005em",                sp: "--space-2 (0.5rem)", cls: "text-lg font-semibold font-heading mb-2" },
+                  { el: "H1", fam: "__FONT_SYSTEM__",     size: "--text-5xl (3rem)",     lh: "--leading-5xl (3.375rem)", w: "--font-bold (700)",   ls: "-0.025em",                sp: "--space-6 (1.5rem)", cls: "text-5xl font-bold font-heading mb-6" },
+                  { el: "H2", fam: "__FONT_SYSTEM__",     size: "--text-4xl (2.25rem)",  lh: "--leading-4xl (2.625rem)", w: "--font-bold (700)",   ls: "-0.022em",                sp: "--space-5 (1.25rem)",cls: "text-4xl font-bold font-heading mb-5" },
+                  { el: "H3", fam: "__FONT_SYSTEM__",     size: "--text-3xl (1.875rem)", lh: "--leading-3xl (2.25rem)",  w: "--font-bold (700)",   ls: "-0.02em",                 sp: "--space-4 (1rem)",   cls: "text-3xl font-bold font-heading mb-4" },
+                  { el: "H4", fam: "__FONT_SYSTEM__",     size: "--text-2xl (1.5rem)",   lh: "--leading-2xl (2rem)",     w: "--font-semibold (600)",ls: "--tracking-tight",        sp: "--space-3 (0.75rem)",cls: "text-2xl font-semibold font-heading mb-3" },
+                  { el: "H5", fam: "__FONT_SYSTEM__",     size: "--text-xl (1.25rem)",   lh: "--leading-xl (1.875rem)",  w: "--font-semibold (600)",ls: "-0.01em",                 sp: "--space-3 (0.75rem)",cls: "text-xl font-semibold font-heading mb-3" },
+                  { el: "H6", fam: "__FONT_SYSTEM__",     size: "--text-lg (1.125rem)",  lh: "--leading-lg (1.75rem)",   w: "--font-semibold (600)",ls: "-0.005em",                sp: "--space-2 (0.5rem)", cls: "text-lg font-semibold font-heading mb-2" },
                   { el: "Lead",     fam: "__FONT_PRIMARY__", size: "--text-lg (1.125rem)",  lh: "--leading-relaxed (1.65)",w: "--font-medium (500)",  ls: "--tracking-normal",       sp: "--space-4 (1rem)",   cls: "text-lg font-medium leading-relaxed mb-4" },
                   { el: "Body",     fam: "__FONT_PRIMARY__", size: "--text-base (1rem)",    lh: "--leading-relaxed (1.65)",w: "--font-regular (400)", ls: "--tracking-normal",       sp: "--space-4 (1rem)",   cls: "text-base leading-relaxed mb-4" },
                   { el: "Small",    fam: "__FONT_PRIMARY__", size: "--text-sm (0.875rem)",  lh: "--leading-sm (1.25rem)",  w: "--font-regular (400)", ls: "0.01em",                  sp: "--space-2 (0.5rem)", cls: "text-sm mb-2" },
@@ -690,7 +659,7 @@ export default function FundamentosPage() {
               <div key={s.label} className="border border-border rounded-lg p-3">
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-1">{s.label}</p>
                 <p className={`text-sm ${s.cls}`}>
-                  O __BRAND_SHORT__ apoia o empreendedor cearense.
+                  O __BRAND_SHORT__ apoia o empreendedor local.
                 </p>
                 <code className="text-[10px] font-mono text-muted-foreground block mt-1">{s.token}</code>
               </div>
@@ -703,7 +672,7 @@ export default function FundamentosPage() {
           <h5 className="text-xs font-bold uppercase tracking-wider mb-3 text-foreground">Famílias</h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="border border-border rounded-lg p-4">
-              <p className="font-heading text-3xl font-bold leading-tight">Aa — __FONT_DISPLAY__</p>
+              <p className="font-heading text-3xl font-bold leading-tight">Aa — __FONT_SYSTEM__</p>
               <p className="font-heading text-sm text-muted-foreground mt-2">Títulos e display · pesos 600/700/900</p>
               <code className="text-[10px] font-mono text-muted-foreground block mt-2">font-heading</code>
             </div>
@@ -780,25 +749,20 @@ export default function FundamentosPage() {
         code={`/* __FONT_PRIMARY__ (primária) — Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=__FONT_PRIMARY__:wght@300;400;500;600;700;800;900&display=swap');
 
-/* __FONT_DISPLAY__ (secundária) — fonte proprietária __BRAND_SHORT__ */
-@font-face {
-  font-family: '__FONT_DISPLAY__';
-  src: url('/fonts/display-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
+/* __FONT_SYSTEM__ (secundária) — Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=__FONT_SYSTEM__:wght@300;400;700;900&display=swap');
 
 body {
   font-family: '__FONT_PRIMARY__', system-ui, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: '__FONT_DISPLAY__', '__FONT_PRIMARY__', sans-serif;
+  font-family: '__FONT_SYSTEM__', '__FONT_PRIMARY__', sans-serif;
 }
 
 /* Utilitários Tailwind disponíveis */
 /* font-sans     → __FONT_PRIMARY__ (primária)        */
-/* font-heading  → __FONT_DISPLAY__ → __FONT_PRIMARY__ (display) */
+/* font-heading  → __FONT_SYSTEM__ → __FONT_PRIMARY__ (display)   */
 /* font-display  → alias de heading           */
 
 /* Tokens de tipografia (funcionam em ambos os temas) */

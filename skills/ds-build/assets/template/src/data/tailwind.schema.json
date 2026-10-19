@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://__DS_DOMAIN__/schemas/tailwind.schema.json",
+  "title": "__BRAND_SHORT__ DS - Tailwind Config Subset",
+  "type": "object",
+  "required": ["darkMode", "theme"],
+  "properties": {
+    "darkMode": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
+    },
+    "theme": {
+      "type": "object",
+      "required": ["extend"],
+      "properties": {
+        "extend": {
+          "type": "object",
+          "required": ["fontFamily", "colors", "spacing", "fontSize", "borderRadius"],
+          "properties": {
+            "fontFamily": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 },
+                "minItems": 1
+              }
+            },
+            "colors": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^hsl\\(var\\(--[a-z0-9-]+\\)\\)$"
+              }
+            },
+            "spacing": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^var\\(--[a-z0-9-]+\\)$"
+              }
+            },
+            "fontSize": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^var\\(--[a-z0-9-]+\\)$"
+              }
+            },
+            "borderRadius": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^var\\(--[a-z0-9-]+\\)$"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,8 @@ Skill **`ds-build`** (comando `/ds-build`): gera um Design System completo para 
 
 - tokens em light e dark;
 - cerca de 50 componentes;
-- templates de tela (login, 2FA, listagem, formulário, dashboards, erro…);
+- biblioteca de gráficos Apache ECharts: 74 presets em 7 categorias, tema derivado dos tokens, playground e downloads;
+- templates de tela (login, 2FA, listagem, formulário, dashboards, Tela BI, erro…);
 - páginas de marca, webwriting e acessibilidade;
 - validadores de build e testes.
 

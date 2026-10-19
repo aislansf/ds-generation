@@ -1,7 +1,7 @@
 import { PageHeader, SectionHeader, CodeBlock } from "@/components/DSComponents";
 import { SEO } from "@/components/SEO";
 import TokenExplorer from "@/components/TokenExplorer";
-import { tokenGroups, motionTokens } from "@/data/tokenGroups";
+import { tokenGroups, motionTokens, type ColorToken, type ScalarToken } from "@/data/tokenGroups";
 
 export default function TokensPage() {
   return (
@@ -58,7 +58,7 @@ export default function TokensPage() {
 
       {tokenGroups.map(group => (
         <div key={group.id}>
-          <SectionHeader id={group.id} title={group.title} description={'description' in group ? (group as any).description : undefined} />
+          <SectionHeader id={group.id} title={group.title} description={group.description} />
           <div className="brand-card mb-8">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -77,12 +77,12 @@ export default function TokensPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {group.tokens.map((t: any) => (
+                  {(group.tokens as Array<ColorToken | ScalarToken>).map((t) => (
                     <tr key={t.name} className="border-b border-border last:border-0">
                       <td className="py-2 pr-4">
                         <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{t.name}</code>
                       </td>
-                      {t.lightValue ? (
+                      {"lightValue" in t ? (
                         <>
                           <td className="py-2 pr-4 text-muted-foreground text-xs">{t.lightValue}</td>
                           <td className="py-2 pr-4 text-muted-foreground text-xs">{t.darkValue}</td>

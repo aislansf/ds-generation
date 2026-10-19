@@ -22,7 +22,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { residualMatchers } from "./lib/regras-extracao.mjs";
+import { residualMatchers, termoPermitido } from "./lib/regras-extracao.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SKILL = path.join(ROOT, "skills", "ds-build");
@@ -75,7 +75,8 @@ const verde = path.join(OUT, "verde");
 }
 
 {
-  const matchers = residualMatchers(JSON.parse(fs.readFileSync(ORIGEM, "utf8")));
+  const origem = JSON.parse(fs.readFileSync(ORIGEM, "utf8"));
+  const matchers = residualMatchers(origem);
   const hits = [];
   (function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -84,7 +85,8 @@ const verde = path.join(OUT, "verde");
       if (entry.isDirectory()) { walk(full); continue; }
       if (!/\.(tsx?|jsx?|mjs|css|html?|json|md|txt|xml|svg)$/i.test(entry.name) || entry.name === "package-lock.json") continue;
       const text = fs.readFileSync(full, "utf8");
-      for (const m of matchers) if (m.re.test(text)) hits.push(`${path.relative(verde, full)} [${m.termo}]`);
+      const rel = path.relative(verde, full).split(path.sep).join("/");
+      for (const m of matchers) if (m.re.test(text) && !termoPermitido(origem, rel, m.termo)) hits.push(`${rel} [${m.termo}]`);
     }
   })(verde);
   check("Nenhum termo da origem no DS gerado", hits.length === 0, hits.slice(0, 5).join(", "));

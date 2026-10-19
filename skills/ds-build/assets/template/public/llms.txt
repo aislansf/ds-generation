@@ -4,6 +4,10 @@
 
 O portal documenta fundamentos visuais, sistema de cores e tipografia, biblioteca de componentes, templates de telas e dashboards inspirados em Power BI.
 
+## Documentação técnica completa
+
+- [DESIGN-SYSTEM.md](/DESIGN-SYSTEM.md): documentação técnica única do Design System __BRAND_NAME__, gerada a partir do código — tabelas completas dos 194 design tokens (light e dark), componentes, 13 templates, modelos de BI, os 74 presets de gráficos ECharts, marca, webwriting, acessibilidade, automações de qualidade e mapa de rotas. Fonte de verdade recomendada para agentes de IA.
+
 ## Fundamentos
 
 - [Início](/): Visão geral do Design System __BRAND_SHORT__ e índice de seções.
@@ -20,12 +24,28 @@ O portal documenta fundamentos visuais, sistema de cores e tipografia, bibliotec
 - [Tela de Listagem](/templates/tela-listagem): Modelo de página com filtros, tabela e paginação.
 - [Tela de Formulário](/templates/tela-formulario): Modelo de página de formulário institucional.
 - [Página com Filtros e Tabela](/templates/pagina-filtros-tabela): Layout com sidebar de filtros e tabela.
-- [Página de Autenticação](/templates/pagina-autenticacao): Fluxo de login único (SSO).
+- [Página de Autenticação](/templates/pagina-autenticacao): Fluxo de login institucional __BRAND_NAME__.
 - [Dashboard Institucional](/templates/dashboard-institucional): Painel consolidado de programas e indicadores.
 - [Dashboard BI](/templates/dashboard-bi): Painel analítico no padrão BI.
+
+## Gráficos ECharts
+
+- [Gráficos ECharts](/graficos): Biblioteca de visualização de dados com tema oficial brand-light/brand-dark, em 6 categorias.
+- [Barras e Colunas](/graficos/barras): Comparação de valores entre categorias discretas.
+- [Linhas e Áreas](/graficos/linhas): Evolução de indicadores ao longo do tempo.
+- [Proporção](/graficos/proporcao): Rosca, pizza, funil, treemap e sunburst.
+- [Distribuição](/graficos/distribuicao): Dispersão, boxplot, histograma e heatmaps.
+- [Relações e Fluxos](/graficos/relacoes): Sankey, grafos, árvores e theme river.
+- [KPI e Indicadores](/graficos/kpi): Gauges, sparkline, barra de meta e pictorial bar.
+- [Playground](/graficos/playground): Editor do option em JSON com pré-visualização ao vivo.
+- [Downloads](/graficos/downloads): Biblioteca em .zip, tema isolado e manifesto index.json.
 
 ## Modelos de BI
 
 - [Modelos de BI](/modelos-bi): Hub de painéis analíticos do __BRAND_NAME__.
 - [Radar Estratégico — BI](/modelos-bi/radar-estrategico/bi): Painel BI do Radar Estratégico.
 - [Radar Estratégico — Docs](/modelos-bi/radar-estrategico/docs): Documentação técnica e integração com Power BI.
+- [Dashboard Analítico](/templates/dashboard-analitico): Painel analítico com gráficos ECharts, filtros e exportação CSV.
+- [Tela BI](/templates/tela-bi): Shell de inteligência comercial com filtros globais, oito seções e importação de planilha.
+- [Gestão de Pessoas — BI](/modelos-bi/gestao-pessoas): Painel de indicadores de pessoas.
+- [Mapeamento Power BI](/modelos-bi/mapeamento): Guia de uso dos tokens e componentes no visual HTML Content.

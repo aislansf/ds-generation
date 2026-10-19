@@ -1,0 +1,40 @@
+{
+  "name": "__BRAND_NAME__ Design System",
+  "version": "latest",
+  "generatedAt": "2026-09-01T19:01:51.509Z",
+  "source": "https://__DS_DOMAIN__",
+  "usage": {
+    "figmaTokensStudio": "Import -> URL -> /design-system/tokens.json",
+    "tailwind": "Consuma /design-system/tailwind.config.json ou copie tokens.css",
+    "componentes": "/design-system/components.json aponta cada componente para a URL de referencia"
+  },
+  "endpoints": {
+    "tokens": "/design-system/tokens.json",
+    "tokensCss": "/design-system/tokens.css",
+    "tailwind": "/design-system/tailwind.config.json",
+    "components": "/design-system/components.json",
+    "bridge": "/design-system/figma"
+  },
+  "files": [
+    {
+      "file": "tokens.json",
+      "bytes": 29308,
+      "sha256": "1c47476e886dc73fa1ad0f452a095e9f638537a212c0941e67443f2c2f978a18"
+    },
+    {
+      "file": "tailwind.config.json",
+      "bytes": 6296,
+      "sha256": "3688fa4c5fa54f0fb5b407f0dadcf4f28d311610ca54a44a85daa9ada319c6fc"
+    },
+    {
+      "file": "components.json",
+      "bytes": 7402,
+      "sha256": "ecbed512c156e6dfb8b244eff85f7cfd47b487e7876415c20caa44a5952a09b4"
+    },
+    {
+      "file": "tokens.css",
+      "bytes": 7735,
+      "sha256": "75a1e5881f204d57900bc16ca08177f814c4ca69b724acd90aadf69113ef2869"
+    }
+  ]
+}

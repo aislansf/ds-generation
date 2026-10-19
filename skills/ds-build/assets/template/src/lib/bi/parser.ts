@@ -2,9 +2,9 @@ import * as XLSX from "xlsx";
 import { RegistroAtendimento, EmpresaAgregada, StatusComercial } from "./types";
 import {
   classificarObservacao,
-  detectarCompressor,
-  detectarContrato,
-  detectarSecador,
+  detectarCnpjAtivo,
+  detectarConsultoriaVigente,
+  detectarParticipacaoPrograma,
   inferirPorte,
   inferirPotencial,
   inferirSegmento,
@@ -47,6 +47,8 @@ const COL_ALIASES: Record<string, string[]> = {
   emails: ["E-MAILS", "E-MAIL", "EMAIL", "Emails"],
   sites: ["SITES", "SITE", "Site"],
   observacoes: ["OBSERVAÇÕES", "OBSERVACOES", "Observações", "Obs"],
+  responsavel: ["RESPONSÁVEL", "RESPONSAVEL", "Responsável", "ESCRITÓRIO", "ESCRITORIO"],
+  segmento: ["SEGMENTO", "Segmento", "SETOR", "Setor"],
 };
 
 function pick(row: RawRow, key: keyof typeof COL_ALIASES): unknown {
@@ -88,14 +90,14 @@ export function parseRows(rows: RawRow[]): RegistroAtendimento[] {
       statusSugerido: status,
       status,
       potencial: inferirPotencial(obs),
-      segmento: inferirSegmento(obs),
+      segmento: norm(pick(row, "segmento")) ?? inferirSegmento(`${obs ?? ""} ${empresa ?? ""}`),
       porte: inferirPorte(empresa),
-      responsavel: "Equipe Comercial",
+      responsavel: norm(pick(row, "responsavel")) ?? "Equipe de Atendimento __BRAND_NAME__",
       proximaAcao: status === "Cadastro solicitado" ? "Enviar dados cadastrais" : null,
       prazoProximaAcao: null,
-      possuiCompressor: detectarCompressor(obs),
-      possuiSecador: detectarSecador(obs),
-      contratoManutencao: detectarContrato(obs),
+      participouPrograma: detectarParticipacaoPrograma(obs),
+      possuiCnpjAtivo: detectarCnpjAtivo(obs) || Boolean(cnpj),
+      consultoriaVigente: detectarConsultoriaVigente(obs),
     };
     result.push(reg);
   });

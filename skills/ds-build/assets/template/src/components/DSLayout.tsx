@@ -4,7 +4,7 @@ import {
   Home, Palette, Code2, Component, LayoutTemplate, Stamp,
   FileText, Accessibility, ChevronDown, ChevronRight, Search,
   Menu, X, PanelLeftClose, PanelLeftOpen, Sun, Moon,
-  SearchX, Users, BarChart3
+  SearchX, Users, BarChart3, LineChart
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { brandCor as logoBrandCompleta2 } from "@/assets/brand";
@@ -51,6 +51,9 @@ const navItems: NavItem[] = [
       { label: "Sombras", path: "/tokens#sombras" },
       { label: "Z-index", path: "/tokens#zindex" },
       { label: "Breakpoints", path: "/tokens#breakpoints" },
+      { label: "Ponte para Figma", path: "/design-system/figma", title: "Endpoints públicos consumidos pelo Figma" },
+      { label: "Schemas dos artefatos", path: "/design-system/schemas", title: "JSON Schemas de tokens, components e tailwind" },
+      { label: "Validador de artefatos", path: "/design-system/validator", title: "Cole JSON e valide em tempo real com Ajv" },
     ],
   },
   {
@@ -89,9 +92,34 @@ const navItems: NavItem[] = [
     ],
   },
   {
+    label: "Gráficos ECharts", path: "/graficos", icon: <LineChart size={18} />,
+    children: [
+      { label: "Visão geral", path: "/graficos" },
+      { label: "Barras e Colunas", path: "/graficos/barras" },
+      { label: "Linhas e Áreas", path: "/graficos/linhas" },
+      { label: "Proporção", path: "/graficos/proporcao" },
+      { label: "Distribuição", path: "/graficos/distribuicao" },
+      { label: "Relações e Fluxos", path: "/graficos/relacoes" },
+      { label: "KPI e Indicadores", path: "/graficos/kpi" },
+      { label: "Mapas", path: "/graficos/mapas" },
+      { label: "Playground", path: "/graficos/playground" },
+      { label: "Downloads", path: "/graficos/downloads" },
+    ],
+  },
+  {
     label: "Templates", path: "/templates", icon: <LayoutTemplate size={18} />,
     children: [
-      { label: "Header __BRAND_NAME__", path: "/templates#header" },
+      { 
+        label: "Header __BRAND_NAME__", 
+        path: "/templates#header",
+        children: [
+          { label: "Variantes", path: "/templates#header" },
+          { label: "Playground", path: "/componentes/header-degrade/playground" },
+          { label: "Docs: Degradê Novo", path: "/componentes/header-degrade/docs" },
+        ]
+
+      },
+
       { label: "Footer Institucional", path: "/templates#footer" },
       { label: "Menu Lateral", path: "/templates#menu-lateral" },
       { label: "Modelos de Login", path: "/templates#modelos-login" },
@@ -120,6 +148,8 @@ const navItems: NavItem[] = [
             path: "/modelos-bi/radar-estrategico/docs",
             children: [
               { label: "v1.0", path: "/modelos-bi/radar-estrategico/docs" },
+              { label: "Mapeamento Power BI", path: "/modelos-bi/mapeamento" },
+
             ],
           },
         ],
@@ -484,7 +514,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
 
         {/* Main */}
         <main className="flex-1 min-w-0 flex flex-col">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex-1">
+          <div className="max-w-5xl w-full min-w-0 mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex-1">
             {children}
           </div>
           <footer className="border-t border-border bg-muted/30 py-6 px-4 sm:px-6 lg:px-8">

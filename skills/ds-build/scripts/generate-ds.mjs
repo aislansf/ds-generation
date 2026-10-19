@@ -412,7 +412,7 @@ if (fs.existsSync(P("index.html"))) {
 // ---------- 6. Módulos opcionais ----------
 const removidos = [];
 if (brief.modulos?.modelos_bi === false) {
-  const BI = /\/modelos-bi|ModelosBIPage|PlanejaBIPage|MPIBIPage|GestaoPessoasBIPage|RadarEstrategicoHubPage|RadarEstrategicoDocsPage/;
+  const BI = /\/modelos-bi|ModelosBIPage|PlanejaBIPage|MPIBIPage|GestaoPessoasBIPage|RadarEstrategicoHubPage|RadarEstrategicoDocsPage|PowerBIMappingPage/;
   for (const rel of ["src/App.tsx", "src/utils/prefetchRoutes.ts", "public/llms.txt", "public/sitemap.xml"]) {
     if (!fs.existsSync(P(rel))) continue;
     const lines = read(rel).split("\n");
@@ -439,7 +439,14 @@ if (brief.modulos?.modelos_bi === false) {
       removidos.push(`${NAV}: item "Modelos de BI" do menu`);
     }
   }
-  for (const rel of ["src/pages/ModelosBIPage.tsx", "src/pages/modelos-bi", "src/pages/RadarEstrategicoDocsPage.tsx"]) {
+  // Link para o guia de Power BI na Central de Downloads dos gráficos
+  const DL = "src/pages/graficos/GraficosDownloadsPage.tsx";
+  if (fs.existsSync(P(DL))) {
+    const src = read(DL);
+    const sem = src.replace(/\s*Veja o guia\s+em <Link to="\/modelos-bi\/[^"]*"[^>]*>[^<]*<\/Link>\./, "");
+    if (sem !== src) { write(DL, sem); removidos.push(`${DL}: link para o Mapeamento Power BI`); }
+  }
+  for (const rel of ["src/pages/ModelosBIPage.tsx", "src/pages/modelos-bi", "src/pages/RadarEstrategicoDocsPage.tsx", "src/pages/PowerBIMappingPage.tsx"]) {
     if (fs.existsSync(P(rel))) { fs.rmSync(P(rel), { recursive: true, force: true }); removidos.push(rel); }
   }
 }

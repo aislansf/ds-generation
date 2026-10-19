@@ -1,0 +1,373 @@
+{
+  "meta": {
+    "name": "__BRAND_NAME__ DS - Components",
+    "baseUrl": "https://__DS_DOMAIN__",
+    "description": "Manifesto de componentes com variantes, estados e tokens usados."
+  },
+  "primitives": [
+    {
+      "id": "button",
+      "name": "Button",
+      "ref": "/componentes#botao",
+      "variants": [
+        "primary",
+        "secondary",
+        "diversificado",
+        "ghost",
+        "link",
+        "loading",
+        "icon"
+      ],
+      "colors": [
+        "default",
+        "azul",
+        "laranja",
+        "verde",
+        "escuro"
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "active",
+        "disabled"
+      ],
+      "tokens": [
+        "--primary",
+        "--primary-foreground",
+        "--secondary",
+        "--radius-md",
+        "--shadow-sm"
+      ]
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "ref": "/componentes#input",
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "error",
+        "disabled"
+      ],
+      "tokens": [
+        "--border",
+        "--input",
+        "--ring",
+        "--foreground",
+        "--muted-foreground"
+      ]
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "ref": "/componentes#select",
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "open",
+        "disabled"
+      ]
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "ref": "/componentes#checkbox",
+      "states": [
+        "default",
+        "hover",
+        "checked",
+        "disabled"
+      ]
+    },
+    {
+      "id": "radio",
+      "name": "Radio",
+      "ref": "/componentes#checkbox",
+      "states": [
+        "default",
+        "hover",
+        "checked",
+        "disabled"
+      ]
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "ref": "/componentes#switch",
+      "states": [
+        "off",
+        "on",
+        "disabled"
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "ref": "/componentes#badge",
+      "variants": [
+        "default",
+        "outline",
+        "success",
+        "warning",
+        "error",
+        "info"
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "ref": "/componentes#alert",
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "ref": "/componentes#card",
+      "tokens": [
+        "--card",
+        "--card-foreground",
+        "--border",
+        "--shadow-sm",
+        "--shadow-lg"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "ref": "/componentes#tabela",
+      "variants": [
+        "default",
+        "striped",
+        "compact"
+      ]
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "ref": "/componentes#accordion",
+      "states": [
+        "collapsed",
+        "expanded"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "ref": "/componentes#tabs",
+      "states": [
+        "default",
+        "active",
+        "hover",
+        "disabled"
+      ]
+    },
+    {
+      "id": "modal",
+      "name": "Modal / Dialog",
+      "ref": "/componentes#modal",
+      "tokens": [
+        "--card",
+        "--z-modal",
+        "--shadow-xl"
+      ]
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "ref": "/componentes#toast",
+      "variants": [
+        "default",
+        "success",
+        "warning",
+        "error"
+      ],
+      "tokens": [
+        "--z-toast",
+        "--shadow-lg"
+      ]
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "ref": "/componentes#breadcrumb"
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "ref": "/componentes#paginacao",
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ]
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "ref": "/componentes#tooltip",
+      "tokens": [
+        "--popover",
+        "--z-overlay"
+      ]
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "ref": "/componentes#skeleton"
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "ref": "/componentes#spinner"
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty State",
+      "ref": "/componentes#empty-state"
+    },
+    {
+      "id": "dropdown",
+      "name": "Dropdown Menu",
+      "ref": "/componentes#dropdown",
+      "tokens": [
+        "--popover",
+        "--z-dropdown"
+      ]
+    },
+    {
+      "id": "datepicker",
+      "name": "DatePicker (DD/MM/AAAA)",
+      "ref": "/componentes#datepicker"
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "ref": "/componentes#steps",
+      "states": [
+        "pending",
+        "current",
+        "done"
+      ]
+    },
+    {
+      "id": "kpi",
+      "name": "Big Numbers / KPI",
+      "ref": "/componentes#big-numbers"
+    }
+  ],
+  "composed": [
+    {
+      "id": "header-institucional",
+      "name": "Header Institucional",
+      "ref": "/templates#header",
+      "height": "56px",
+      "tokens": [
+        "--header-surface",
+        "--header-surface-foreground",
+        "--header-surface-border"
+      ]
+    },
+    {
+      "id": "header-negocios",
+      "name": "Header - Composicao visual (negocios)",
+      "ref": "/templates#header",
+      "bannerHeight": "36-52px"
+    },
+    {
+      "id": "sidebar",
+      "name": "Menu Lateral",
+      "ref": "/templates#menu-lateral",
+      "states": [
+        "expanded",
+        "collapsed",
+        "mobile"
+      ],
+      "tokens": [
+        "--sidebar-background",
+        "--sidebar-foreground",
+        "--sidebar-accent",
+        "--sidebar-primary",
+        "--sidebar-border"
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer Institucional",
+      "ref": "/templates#footer",
+      "variants": [
+        "claro",
+        "escuro",
+        "compacto"
+      ]
+    },
+    {
+      "id": "auth-login",
+      "name": "Pagina de Autenticacao",
+      "ref": "/templates/pagina-autenticacao"
+    },
+    {
+      "id": "auth-signup",
+      "name": "Cadastro",
+      "ref": "/templates/cadastro"
+    },
+    {
+      "id": "auth-2fa",
+      "name": "Autenticacao 2FA",
+      "ref": "/templates/autenticacao-2fa"
+    },
+    {
+      "id": "modal-acesso",
+      "name": "Modal de Acesso",
+      "ref": "/templates/modal-acesso"
+    },
+    {
+      "id": "error-404",
+      "name": "Pagina de Erro (404)",
+      "ref": "/templates/pagina-erro"
+    },
+    {
+      "id": "dashboard-institucional",
+      "name": "Dashboard Institucional",
+      "ref": "/templates/dashboard-institucional"
+    },
+    {
+      "id": "dashboard-bi",
+      "name": "Dashboard BI",
+      "ref": "/templates/dashboard-bi"
+    },
+    {
+      "id": "radar-estrategico",
+      "name": "Radar Estrategico (BI)",
+      "ref": "/modelos-bi/radar-estrategico"
+    },
+    {
+      "id": "listagem",
+      "name": "Tela de Listagem",
+      "ref": "/templates/tela-listagem"
+    },
+    {
+      "id": "formulario",
+      "name": "Tela de Formulario",
+      "ref": "/templates/tela-formulario"
+    },
+    {
+      "id": "filtros-tabela",
+      "name": "Pagina com Filtros e Tabela",
+      "ref": "/templates/pagina-filtros-tabela"
+    },
+    {
+      "id": "hub-paineis",
+      "name": "Hub de Paineis",
+      "ref": "/templates#hub-paineis"
+    }
+  ]
+}

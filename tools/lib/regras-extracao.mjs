@@ -26,6 +26,8 @@ export function buildExtractionRules(src) {
   for (const [from, to] of Object.entries(o.substituicoes_conteudo ?? {})) add(literal(from), to, "conteudo");
   // 0b. Padrões (identificadores e variações de caixa): [regex, substituição]
   for (const [re, to] of o.substituicoes_regex ?? []) add(new RegExp(re, "g"), to, "conteudo-regex");
+  // 0c. Lugares (municípios e regiões da origem → nomes fictícios), com e sem acento, os mais longos primeiro
+  for (const [from, to] of formasLugares(o)) add(literal(from), to, "lugar");
 
   // 1. URLs e domínios (do mais específico para o mais genérico)
   for (const url of o.urls_manual ?? []) add(new RegExp(esc(url), "g"), PLACEHOLDERS.BRAND_MANUAL_URL, "manual");
@@ -78,6 +80,28 @@ export function buildPathRules(src) {
   ];
 }
 
+const semAcento = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").normalize("NFC");
+
+/** [forma na origem, nome fictício]: cada lugar com e sem acento, dos nomes mais longos para os mais curtos. */
+function formasLugares(o) {
+  const formas = new Map();
+  for (const [from, to] of Object.entries(o.substituicoes_lugares ?? {})) {
+    formas.set(from, to);
+    formas.set(semAcento(from), to);
+  }
+  return [...formas].sort(([a], [b]) => b.length - a.length);
+}
+
+/** Regras de um arquivo específico (aplicadas antes de todas as outras): [regex, substituição], com flags "gm". */
+export function buildFileRules(src, rel) {
+  return (src.origem.substituicoes_por_arquivo?.[rel] ?? []).map(([re, rep]) => ({ re: new RegExp(re, "gm"), rep, label: "por-arquivo" }));
+}
+
+/** Termos que um arquivo pode manter (ex.: o nome de uma UF no GeoJSON do Brasil). */
+export function termoPermitido(src, rel, termo) {
+  return (src.origem.remanescentes_permitidos?.[rel] ?? []).includes(termo);
+}
+
 export function applyRules(text, rules, stats) {
   let out = text;
   for (const r of rules) {
@@ -97,6 +121,7 @@ export function residualMatchers(src) {
   const o = src.origem;
   const subs = [o.prefixo_codigo, ...(o.termos_proibidos_template ?? [])].filter(Boolean);
   const matchers = subs.map((t) => ({ termo: t, re: new RegExp(esc(t), "i") }));
-  for (const t of o.termos_especificos ?? []) matchers.push({ termo: t, re: new RegExp(literal(t).source, "u") });
+  const especificos = new Set([...(o.termos_especificos ?? []), ...formasLugares(o).map(([from]) => from)]);
+  for (const t of especificos) matchers.push({ termo: t, re: new RegExp(literal(t).source, "u") });
   return matchers;
 }

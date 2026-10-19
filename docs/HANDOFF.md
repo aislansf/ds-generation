@@ -18,7 +18,9 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
    | Ordem | Regra | Exemplo |
    |---|---|---|
    | 0 | `substituicoes_conteudo` (literal, com borda de palavra) | `Empretec` → `Empreender`, endereço/CNPJ reais → fictícios, `Fundo Nacional…` → `__BRAND_FULL_NAME__` |
-   | 0b | `substituicoes_regex` | `Farol` → `Radar`, `marcaGov` → `marcaParceiro` |
+   | −1 | `substituicoes_por_arquivo` (só naquele arquivo) | tira os mapas do Ceará do `registry.ts` e do `DESIGN-SYSTEM.md`, o script de rastreamento do `index.html` |
+   | 0b | `substituicoes_regex` | `Farol` → `Radar`, `marcaGov` → `marcaParceiro`, `SEBRAE_PALETTE` → `BRAND_PALETTE` |
+   | 0c | `substituicoes_lugares` (com e sem acento) | `Fortaleza` → `Porto Central`, `Cariri` → `Vale do Sul` |
    | 1 | URLs de manual, imagem OG e domínios | `<domínio do DS>` → `__DS_DOMAIN__` |
    | 2 | Slogan, nome completo e variantes do nome | `<nome e variantes>` → `__BRAND_NAME__` |
    | 3 | Fontes | `Figtree` → `__FONT_PRIMARY__` |
@@ -26,9 +28,9 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
    | 5 | Nome curto como palavra | → `__BRAND_SHORT__` |
    | 6 | Identificadores | `<prefixo>-card` → `brand-card`, `<Prefixo>Logo` → `BrandLogo` |
 
-   Nomes de arquivo passam por `substituicoes_caminho` e pela regra 6. Os `.asset.json` (ponteiros para o CDN do projeto de origem) viram ponteiros locais neutros. Por fim, `origem/overrides/` é copiado por cima: logos "Sua Marca", favicon, selo "marca parceira", imagem de login e miniaturas.
+   Arquivos de `copiar_sem_regras` (o GeoJSON do Brasil) vão sem regra nenhuma. Nomes de arquivo passam por `substituicoes_caminho` e pela regra 6. Os `.asset.json` (ponteiros para o CDN do projeto de origem) viram ponteiros locais neutros. O `package.json` perde as `remover_dependencias` (Supabase, Drizzle) e ganha as `dependencias_dev`; se a origem não versionar `package-lock.json` (hoje só tem o do bun), a extração gera um com `npm install --package-lock-only`. Por fim, `origem/overrides/` é copiado por cima: logos "Sua Marca", favicon, selo "marca parceira", imagem de login, miniaturas e as versões neutras de `HomePage`, `MarcaPage`, `regioes.ts`, `mapas.ts` e `mapa-brasil-ufs.ts`.
 
-   A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) ou de `termos_especificos` (palavra inteira), ou qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`.
+   A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) de `termos_especificos` ou de `substituicoes_lugares` (palavra inteira), ou qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`.
 
 2. **Imagens** (`tools/imagens-neutras.mjs`): escreve os logos neutros, rasteriza favicon/selo/imagem de login com o Chromium do Playwright e captura as miniaturas da página Templates a partir de um DS gerado com `tools/marca-neutra.json` (cinza-azulado, "Sua Marca").
 
@@ -51,6 +53,10 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 - **Cor da marca onde ela aparece como "a cor da marca".** O deslocamento de matiz preserva as relações entre os tons do template, mas o H1, os validadores e a "cor primária" da ColorSection precisam mostrar a cor exata do briefing. Essas cores são declaradas como âncoras ou referências em `origem/ds-sebrae.json`.
 - **Dependências que a origem não declara** (`origem.dependencias_dev`): o DS gerado instala com `--legacy-peer-deps`, que não instala peers. A extração acrescenta essas dependências ao `package.json` e ao `package-lock.json` do template.
 - **Contraste só é corrigido quando piora** em relação ao template.
+- **Gráficos ECharts sem cor fixa.** O tema (`brandTheme.ts`) lê os tokens do CSS em tempo de execução, então a recoloração chega aos 74 presets sem regra nova. A fonte do tema, que na origem era `Poppins` fixo, vira `__FONT_PRIMARY__`.
+- **Só o mapa do Brasil.** Os dois mapas do Ceará por município saem na extração (preset, GeoJSON e documentação): um GeoJSON municipal tem nomes reais de lugares e não serve para outra marca. No mapa do Brasil, o Ceará continua como UF (`remanescentes_permitidos`) e o destaque passa para uma UF de exemplo marcada com `MODELO:`.
+- **Lugares fictícios.** Municípios, macrorregiões e bairros do Ceará dos dados de exemplo (presets, Tela BI, Dashboard Analítico, seed de empresas) viram nomes fictícios consistentes entre si; a checagem de remanescentes procura os nomes originais.
+- **Nada da infraestrutura da origem.** `.env`, `supabase/`, `src/integrations/`, `drizzle/`, `.lovable/` e `.github/` ficam fora do template, assim como o `pixel-script` do Supabase que o `index.html` carregava (estava no template anterior também).
 
 ## Verificação
 
@@ -68,6 +74,14 @@ npm run verificar -- --source <ds-sebrae>/frontend --node-modules <ds-sebrae>/fr
 | Marca verde: H1 (light e dark), validadores, ColorSection, textos de fonte e dependências | seguem o briefing |
 | Marca verde: `npm run build` | passou |
 | Marca verde: `vitest run` | 96 testes |
+
+Na versão com gráficos, o teste `HeaderVariants.bannerHeight` falhava já na origem (a barra do header perdeu o `maxHeight: 52px`). Uma regra em `substituicoes_por_arquivo` devolve o valor no template; quando a origem corrigir, a regra deixa de casar e pode sair.
+
+Os heatmaps `heatmap-matriz` e `heatmap-matriz-anual` têm versões próprias em `origem/overrides/`: na origem, os rótulos das células saíam em branco com contorno (ilegíveis nas células claras) ou com `--foreground` fixo (ilegíveis nas escuras). Nas versões do template, `src/lib/echarts/rotulos.ts` escolhe, célula a célula, entre `--foreground` e `--primary-foreground` a cor com mais contraste. Vale levar a correção para a origem e apagar os overrides.
+
+Os gauges com ponteiro (`gauge-simples`, `gauge-grau`, `gauge-estagios`) também têm versões próprias: na origem, o valor ficava no centro e o ponteiro o riscava; no Gauge por Estágios o ponteiro era uma cunha invertida e os rótulos nunca apareciam (caíam em 12,5/37,5 com marcas a cada 20). Nas versões do template, valor e título ficam abaixo do pivô, os rótulos dos estágios ficam tangenciais no meio de cada faixa e o ponteiro não os alcança.
+
+As miniaturas da página Templates são capturadas com o Chromium do Playwright instalado no `node_modules` informado; se o download dele falhar, passe um já baixado com `--chromium <exe>`.
 
 ## Manutenção
 
