@@ -17,7 +17,8 @@ export const option: EChartsOption = {
       max: 100,
       radius: "88%",
       center: ["50%", "62%"],
-      splitNumber: 5,
+      // 8 divisões: os rótulos caem no meio de cada um dos 4 estágios (12,5; 37,5; …)
+      splitNumber: 8,
       progress: { show: false },
       axisLine: {
         lineStyle: {
@@ -30,18 +31,13 @@ export const option: EChartsOption = {
           ],
         },
       },
-      pointer: {
-        icon: "path://M2 0 L4 0 L3 40 Z",
-        length: "58%",
-        width: 10,
-        offsetCenter: [0, "6%"],
-        itemStyle: { color: readToken("--foreground") },
-      },
+      pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "48%" },
       anchor: { show: true, size: 12, itemStyle: { color: readToken("--foreground") } },
-      axisTick: { distance: -20, length: 5, lineStyle: { color: readToken("--card"), width: 1 } },
-      splitLine: { distance: -20, length: 20, lineStyle: { color: readToken("--card"), width: 2 } },
+      axisTick: { show: false },
+      splitLine: { show: false },
       axisLabel: {
-        distance: -12,
+        distance: 26,
+        rotate: "tangential",
         fontSize: 10,
         color: readToken("--muted-foreground"),
         formatter: (v: number) => {
@@ -52,9 +48,10 @@ export const option: EChartsOption = {
           return "";
         },
       },
-      title: { offsetCenter: [0, "26%"], fontSize: 12, color: readToken("--muted-foreground") },
+      title: { offsetCenter: [0, "56%"], fontSize: 12, color: readToken("--muted-foreground") },
       detail: {
-        offsetCenter: [0, "-2%"],
+        // Abaixo do pivô: no centro, o ponteiro risca o número
+        offsetCenter: [0, "32%"],
         fontSize: 28,
         fontWeight: "bold",
         color: readToken("--foreground"),
@@ -75,7 +72,7 @@ const option: EChartsOption = {
     name: "Índice de maturidade",
     type: "gauge",
     startAngle: 200, endAngle: -20, min: 0, max: 100, radius: "88%", center: ["50%", "62%"],
-    splitNumber: 5,
+    splitNumber: 8,
     axisLine: {
       lineStyle: {
         width: 20,
@@ -87,12 +84,15 @@ const option: EChartsOption = {
         ],
       },
     },
-    pointer: { icon: "path://M2 0 L4 0 L3 40 Z", length: "58%", width: 10, itemStyle: { color: readToken("--foreground") } },
+    pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "48%" },
+    anchor: { show: true, size: 12, itemStyle: { color: readToken("--foreground") } },
+    axisTick: { show: false },
+    splitLine: { show: false },
     axisLabel: {
-      distance: -12, fontSize: 10,
+      distance: 26, rotate: "tangential", fontSize: 10,
       formatter: (v: number) => ({ 12.5: "Inicial", 37.5: "Básico", 62.5: "Intermediário", 87.5: "Avançado" }[v] ?? ""),
     },
-    detail: { offsetCenter: [0, "-2%"], fontSize: 28, fontWeight: "bold", formatter: (v: number) => formatarPercentual(v, 0) },
+    detail: { offsetCenter: [0, "32%"], fontSize: 28, fontWeight: "bold", formatter: (v: number) => formatarPercentual(v, 0) },
     data: [{ value: 72, name: "Estágio: Intermediário" }],
   }],
 };

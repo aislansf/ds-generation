@@ -14,7 +14,8 @@ export const option: EChartsOption = {
       type: "gauge",
       min: 0,
       max: 5,
-      splitNumber: 5,
+      // 10 divisões: os rótulos caem no meio de cada um dos 5 estágios (0,5; 1,5; …)
+      splitNumber: 10,
       startAngle: 200,
       endAngle: -20,
       radius: "92%",
@@ -31,25 +32,28 @@ export const option: EChartsOption = {
           ],
         },
       },
-      pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "60%" },
+      pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "48%" },
       anchor: { show: true, size: 12, itemStyle: { color: readToken("--foreground") } },
-      axisTick: { splitNumber: 1, distance: -20, length: 6, lineStyle: { color: readToken("--card"), width: 2 } },
-      splitLine: { distance: -20, length: 16, lineStyle: { color: readToken("--card"), width: 2 } },
+      axisTick: { show: false },
+      splitLine: { show: false },
       axisLabel: {
-        distance: 22,
+        distance: 26,
+        rotate: "tangential",
         color: readToken("--muted-foreground"),
         fontSize: 10,
-        formatter: (v: number) => (v >= 1 && v <= 5 ? estagios[v - 1] : ""),
+        formatter: (v: number) => (v % 1 === 0.5 ? estagios[Math.floor(v)] : ""),
       },
-      title: { offsetCenter: [0, "30%"], color: readToken("--muted-foreground"), fontSize: 12 },
+      title: { offsetCenter: [0, "58%"], color: readToken("--muted-foreground"), fontSize: 12 },
       detail: {
         formatter: () => "Crescimento",
         color: readToken("--foreground"),
         fontSize: 20,
         fontWeight: 600,
-        offsetCenter: [0, "4%"],
+        // Abaixo do pivô: no centro, o ponteiro risca o texto
+        offsetCenter: [0, "36%"],
       },
-      data: [{ value: 4, name: "Estágio 4 de 5" }],
+      // 3,5 = meio da 4ª faixa (Crescimento)
+      data: [{ value: 3.5, name: "Estágio 4 de 5" }],
     },
   ],
 };
@@ -65,7 +69,7 @@ const option: EChartsOption = {
   series: [{
     name: "Maturidade do negócio",
     type: "gauge",
-    min: 0, max: 5, splitNumber: 5, startAngle: 200, endAngle: -20,
+    min: 0, max: 5, splitNumber: 10, startAngle: 200, endAngle: -20,
     radius: "92%", center: ["50%", "60%"],
     axisLine: {
       lineStyle: {
@@ -76,14 +80,14 @@ const option: EChartsOption = {
         ],
       },
     },
-    pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "60%" },
+    pointer: { itemStyle: { color: readToken("--foreground") }, width: 5, length: "48%" },
     anchor: { show: true, size: 12, itemStyle: { color: readToken("--foreground") } },
-    axisTick: { splitNumber: 1, distance: -20, length: 6, lineStyle: { color: readToken("--card"), width: 2 } },
-    splitLine: { distance: -20, length: 16, lineStyle: { color: readToken("--card"), width: 2 } },
-    axisLabel: { distance: 22, color: readToken("--muted-foreground"), fontSize: 10, formatter: (v: number) => (v >= 1 && v <= 5 ? estagios[v - 1] : "") },
-    title: { offsetCenter: [0, "30%"], color: readToken("--muted-foreground"), fontSize: 12 },
-    detail: { formatter: () => "Crescimento", color: readToken("--foreground"), fontSize: 20, fontWeight: 600, offsetCenter: [0, "4%"] },
-    data: [{ value: 4, name: "Estágio 4 de 5" }],
+    axisTick: { show: false },
+    splitLine: { show: false },
+    axisLabel: { distance: 26, rotate: "tangential", color: readToken("--muted-foreground"), fontSize: 10, formatter: (v: number) => (v % 1 === 0.5 ? estagios[Math.floor(v)] : "") },
+    title: { offsetCenter: [0, "58%"], color: readToken("--muted-foreground"), fontSize: 12 },
+    detail: { formatter: () => "Crescimento", color: readToken("--foreground"), fontSize: 20, fontWeight: 600, offsetCenter: [0, "36%"] },
+    data: [{ value: 3.5, name: "Estágio 4 de 5" }],
   }],
 };
 

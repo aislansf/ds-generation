@@ -690,7 +690,10 @@
       "src/lib/echarts/mapas.ts": "e1bebed2c0932669",
       "src/data/echarts/presets/mapas/mapa-brasil-ufs.ts": "e14e4c5fdc6f48ba",
       "src/data/echarts/presets/distribuicao/heatmap-matriz.ts": "5050206cef56a2f9",
-      "src/data/echarts/presets/distribuicao/heatmap-matriz-anual.ts": "2ee970b10580aeb8"
+      "src/data/echarts/presets/distribuicao/heatmap-matriz-anual.ts": "2ee970b10580aeb8",
+      "src/data/echarts/presets/kpi/gauge-simples.ts": "5374b798aace6ef4",
+      "src/data/echarts/presets/kpi/gauge-grau.ts": "5d70c064dd4311c6",
+      "src/data/echarts/presets/kpi/gauge-estagios.ts": "fa67e3090901365a"
     },
     "$dependencias_dev": "devDependencies acrescentadas ao package.json do template (e ao package-lock.json). O DS gerado instala com --legacy-peer-deps, que não instala peers: @testing-library/react precisa do @testing-library/dom declarado.",
     "dependencias_dev": {

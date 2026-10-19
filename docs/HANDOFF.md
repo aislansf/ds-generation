@@ -79,6 +79,8 @@ Na versão com gráficos, o teste `HeaderVariants.bannerHeight` falhava já na o
 
 Os heatmaps `heatmap-matriz` e `heatmap-matriz-anual` têm versões próprias em `origem/overrides/`: na origem, os rótulos das células saíam em branco com contorno (ilegíveis nas células claras) ou com `--foreground` fixo (ilegíveis nas escuras). Nas versões do template, `src/lib/echarts/rotulos.ts` escolhe, célula a célula, entre `--foreground` e `--primary-foreground` a cor com mais contraste. Vale levar a correção para a origem e apagar os overrides.
 
+Os gauges com ponteiro (`gauge-simples`, `gauge-grau`, `gauge-estagios`) também têm versões próprias: na origem, o valor ficava no centro e o ponteiro o riscava; no Gauge por Estágios o ponteiro era uma cunha invertida e os rótulos nunca apareciam (caíam em 12,5/37,5 com marcas a cada 20). Nas versões do template, valor e título ficam abaixo do pivô, os rótulos dos estágios ficam tangenciais no meio de cada faixa e o ponteiro não os alcança.
+
 As miniaturas da página Templates são capturadas com o Chromium do Playwright instalado no `node_modules` informado; se o download dele falhar, passe um já baixado com `--chromium <exe>`.
 
 ## Manutenção
