@@ -2,6 +2,7 @@ import type { EChartsOption } from "echarts";
 import type { ChartPreset } from "@/data/echarts/types";
 import { readToken, BRAND_SCALE_SEQUENCIAL } from "@/lib/echarts/brandTheme";
 import { formatarNumero } from "@/lib/echarts/format";
+import { rotuloSobreEscala } from "@/lib/echarts/rotulos";
 
 export const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 export const programas = ["Empreender", "AGI", "Programa Inova", "Visita Técnica", "Empreender Mais"];
@@ -51,7 +52,7 @@ export const option: EChartsOption = {
       name: "Atendimentos por programa e mês",
       type: "heatmap",
       data: dados,
-      label: { show: true, fontSize: 9, color: readToken("--foreground"), formatter: (p) => formatarNumero((p.value as number[])[2]) },
+      label: rotuloSobreEscala(BRAND_SCALE_SEQUENCIAL, 0, maximo, { fontSize: 9 }),
       itemStyle: { borderColor: readToken("--card"), borderWidth: 1 },
       emphasis: { itemStyle: { borderColor: readToken("--foreground"), borderWidth: 1.5 } },
     },
@@ -62,6 +63,7 @@ const codigoReact = `import type { EChartsOption } from "echarts";
 import { BrandChart } from "@/components/charts/BrandChart";
 import { readToken, BRAND_SCALE_SEQUENCIAL } from "@/lib/echarts/brandTheme";
 import { formatarNumero } from "@/lib/echarts/format";
+import { rotuloSobreEscala } from "@/lib/echarts/rotulos";
 
 const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"];
 const programas = ["Empreender", "AGI", "Programa Inova"];
@@ -80,7 +82,7 @@ const option: EChartsOption = {
     name: "Atendimentos por programa e mês",
     type: "heatmap",
     data: dados,
-    label: { show: true, formatter: (p) => formatarNumero((p.value as number[])[2]) },
+    label: rotuloSobreEscala(BRAND_SCALE_SEQUENCIAL, 0, 110),
     itemStyle: { borderColor: readToken("--card"), borderWidth: 1 },
   }],
 };

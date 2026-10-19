@@ -688,7 +688,9 @@
       "src/pages/HomePage.tsx": "db1bb794c0bc713d",
       "src/lib/bi/regioes.ts": "f528f52886294ebb",
       "src/lib/echarts/mapas.ts": "e1bebed2c0932669",
-      "src/data/echarts/presets/mapas/mapa-brasil-ufs.ts": "e14e4c5fdc6f48ba"
+      "src/data/echarts/presets/mapas/mapa-brasil-ufs.ts": "e14e4c5fdc6f48ba",
+      "src/data/echarts/presets/distribuicao/heatmap-matriz.ts": "5050206cef56a2f9",
+      "src/data/echarts/presets/distribuicao/heatmap-matriz-anual.ts": "2ee970b10580aeb8"
     },
     "$dependencias_dev": "devDependencies acrescentadas ao package.json do template (e ao package-lock.json). O DS gerado instala com --legacy-peer-deps, que não instala peers: @testing-library/react precisa do @testing-library/dom declarado.",
     "dependencias_dev": {

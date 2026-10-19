@@ -2,6 +2,7 @@ import type { EChartsOption } from "echarts";
 import type { ChartPreset } from "@/data/echarts/types";
 import { readToken } from "@/lib/echarts/brandTheme";
 import { formatarNumero } from "@/lib/echarts/format";
+import { rotuloSobreEscala } from "@/lib/echarts/rotulos";
 
 export const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 export const programas = ["Empreender", "AGI", "Programa Inova", "Visita Técnica", "Empreender Mais"];
@@ -13,6 +14,9 @@ const matriz: number[][] = [
   [180, 190, 176, 205, 220, 214, 232, 245, 238, 250, 268, 195],
   [48, 52, 60, 58, 66, 72, 78, 84, 80, 90, 98, 70],
 ];
+
+/** Escala da matriz: usada no visualMap e no cálculo da cor de cada rótulo. */
+const escala = [readToken("--primary", 0.12), readToken("--primary", 0.5), readToken("--primary"), readToken("--brand-comp-indigo")];
 
 /** [x = mês, y = programa, valor] */
 export const dados: number[][] = matriz.flatMap((linha, p) =>
@@ -42,16 +46,14 @@ export const option: EChartsOption = {
     itemHeight: 140,
     text: ["Maior volume", "Menor volume"],
     textStyle: { color: readToken("--muted-foreground"), fontSize: 11 },
-    inRange: {
-      color: [readToken("--primary", 0.12), readToken("--primary", 0.5), readToken("--primary"), readToken("--brand-comp-indigo")],
-    },
+    inRange: { color: escala },
   },
   series: [
     {
       name: "Atendimentos por programa e mês",
       type: "heatmap",
       data: dados,
-      label: { show: true, fontSize: 10, formatter: (p) => formatarNumero((p.value as number[])[2]) },
+      label: rotuloSobreEscala(escala, 48, 268),
       itemStyle: { borderColor: readToken("--card"), borderWidth: 1 },
       emphasis: { itemStyle: { borderColor: readToken("--foreground"), borderWidth: 1 } },
     },
@@ -62,6 +64,7 @@ const codigoReact = `import type { EChartsOption } from "echarts";
 import { BrandChart } from "@/components/charts/BrandChart";
 import { readToken } from "@/lib/echarts/brandTheme";
 import { formatarNumero } from "@/lib/echarts/format";
+import { rotuloSobreEscala } from "@/lib/echarts/rotulos";
 
 const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 const programas = ["Empreender", "AGI", "Programa Inova", "Visita Técnica", "Empreender Mais"];
@@ -73,6 +76,7 @@ const matriz = [
   [48, 52, 60, 58, 66, 72, 78, 84, 80, 90, 98, 70],
 ];
 const dados = matriz.flatMap((linha, p) => linha.map((valor, m) => [m, p, valor]));
+const escala = [readToken("--primary", 0.12), readToken("--primary", 0.5), readToken("--primary"), readToken("--brand-comp-indigo")];
 
 const option: EChartsOption = {
   tooltip: {
@@ -89,13 +93,13 @@ const option: EChartsOption = {
     type: "continuous", min: 48, max: 268, calculable: true,
     orient: "horizontal", left: "center", top: 0, itemWidth: 12, itemHeight: 140,
     text: ["Maior volume", "Menor volume"],
-    inRange: { color: [readToken("--primary", 0.12), readToken("--primary", 0.5), readToken("--primary"), readToken("--brand-comp-indigo")] },
+    inRange: { color: escala },
   },
   series: [{
     name: "Atendimentos por programa e mês",
     type: "heatmap",
     data: dados,
-    label: { show: true, fontSize: 10, formatter: (p) => formatarNumero((p.value as number[])[2]) },
+    label: rotuloSobreEscala(escala, 48, 268),
     itemStyle: { borderColor: readToken("--card"), borderWidth: 1 },
   }],
 };

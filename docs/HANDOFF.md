@@ -77,6 +77,8 @@ npm run verificar -- --source <ds-sebrae>/frontend --node-modules <ds-sebrae>/fr
 
 Na versão com gráficos, o teste `HeaderVariants.bannerHeight` falhava já na origem (a barra do header perdeu o `maxHeight: 52px`). Uma regra em `substituicoes_por_arquivo` devolve o valor no template; quando a origem corrigir, a regra deixa de casar e pode sair.
 
+Os heatmaps `heatmap-matriz` e `heatmap-matriz-anual` têm versões próprias em `origem/overrides/`: na origem, os rótulos das células saíam em branco com contorno (ilegíveis nas células claras) ou com `--foreground` fixo (ilegíveis nas escuras). Nas versões do template, `src/lib/echarts/rotulos.ts` escolhe, célula a célula, entre `--foreground` e `--primary-foreground` a cor com mais contraste. Vale levar a correção para a origem e apagar os overrides.
+
 As miniaturas da página Templates são capturadas com o Chromium do Playwright instalado no `node_modules` informado; se o download dele falhar, passe um já baixado com `--chromium <exe>`.
 
 ## Manutenção
