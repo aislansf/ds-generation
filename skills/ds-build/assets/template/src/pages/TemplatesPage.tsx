@@ -13,6 +13,8 @@ import thumbDashboardInstitucionalAsset from "@/assets/thumb-dashboard-instituci
 const thumbDashboardInstitucional = thumbDashboardInstitucionalAsset.url;
 import thumbDashboardBIAsset from "@/assets/thumb-dashboard-bi.jpg.asset.json";
 const thumbDashboardBI = thumbDashboardBIAsset.url;
+import thumbDashboardAnalitico from "@/assets/thumb-dashboard-analitico.jpg";
+import thumbTelaBI from "@/assets/thumb-tela-bi.jpg";
 import thumbFiltrosTabelaAsset from "@/assets/thumb-pagina-filtros-tabela.jpg.asset.json";
 const thumbFiltrosTabela = thumbFiltrosTabelaAsset.url;
 import thumbTelaListagem from "@/assets/thumb-tela-listagem.jpg";
@@ -30,10 +32,13 @@ import DashboardTemplatesSection from "@/components/templates/DashboardTemplates
 import FooterTemplateSection from "@/components/templates/FooterTemplate";
 import HubPaineisSection, { HubPaineisImageSection } from "@/components/templates/HubPaineisTemplate";
 import brandLogoAsset from "@/assets/brand-logo-cor.png.asset.json";
-import brandLogoWhite from "@/assets/brand-logo-white.svg";
+import brandLogoWhiteAsset from "@/assets/brand-white-v2.svg.asset.json";
+const brandLogoWhite = brandLogoWhiteAsset.url;
 import headerBusinessBgAsset from "@/assets/header-business-bg.png.asset.json";
+import headerGradientBrandAsset from "@/assets/dashboard-header.png.asset.json";
 const brandLogo = brandLogoAsset.url;
 const headerBusinessBg = headerBusinessBgAsset.url;
+const headerGradientBrand = headerGradientBrandAsset.url;
 const brandLogoCompleta = brandLogo;
 const brandLogoReduzida = brandLogo;
 const brandLogoCompleta2 = brandLogoWhite;
@@ -76,6 +81,8 @@ export const headerVariants: HeaderVariant[] = [
   // Composição visual (negócios)
   { id: "int-visual-business", title: "Composição visual (negócios)", description: "Header institucional com faixa visual de 112px acima — composição para campanhas e portais de negócios.", audience: "interno", brandStyle: "completa", menuPosition: "esquerda", visualBanner: { src: headerBusinessBg, alt: "Clareza que o mercado exige para o futuro dos negócios", height: 112 } },
   { id: "int-visual-business-clean", title: "Composição visual (negócios) · Sem título", description: "Header institucional com faixa visual de 112px — sem SIGLA e sem nome do sistema.", audience: "interno", brandStyle: "completa", menuPosition: "esquerda", visualBanner: { src: headerBusinessBg, alt: "Clareza que o mercado exige para o futuro dos negócios", height: 112 }, showTitle: false },
+  // Degradê Novo __BRAND_SHORT__
+  { id: "int-visual-gradient-brand", title: "Degradê Novo __BRAND_SHORT__", description: "Header institucional com faixa visual de 112px em degradê azul — ideal para dashboards executivos.", audience: "interno", brandStyle: "completa", menuPosition: "sem", visualBanner: { src: headerGradientBrand, alt: "Degradê Novo __BRAND_SHORT__", height: 112 }, showTitle: false },
 ];
 
 function getHeaderBg(audience: string) {
@@ -211,7 +218,7 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
   return (
     <div className="rounded-lg overflow-hidden border border-border">
       {/* Visual banner (112px) */}
-      {variant.visualBanner && (
+      {variant.visualBanner && variant.id !== "int-visual-gradient-brand" && (
         <div
           role="img"
           aria-label={variant.visualBanner.alt}
@@ -229,7 +236,16 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
         className={`${variant.visualBanner ? "" : `${bg} min-h-[56px]`} ${variant.id === "ext-red-left" ? "" : "text-white"} flex items-center px-4 gap-3`}
         style={
           variant.visualBanner
-            ? { height: "36px", minHeight: "36px", maxHeight: "52px", backgroundColor: "#123148" }
+            ? { 
+                height: variant.id === "int-visual-gradient-brand" ? "auto" : "36px", 
+                minHeight: variant.id === "int-visual-gradient-brand" ? "var(--brand-header-height)" : "36px", 
+                maxHeight: variant.id === "int-visual-gradient-brand" ? undefined : "52px",
+                backgroundColor: variant.id === "int-visual-gradient-brand" ? "transparent" : "#123148",
+                backgroundImage: variant.id === "int-visual-gradient-brand" ? "linear-gradient(90deg, var(--brand-header-grad-start) 0%, var(--brand-header-grad-end) 100%)" : "none",
+                padding: variant.id === "int-visual-gradient-brand" ? "var(--brand-header-py) var(--brand-header-px)" : "0 1rem"
+
+
+              }
             : variant.id === "ext-full-left"
             ? { backgroundImage: "linear-gradient(90deg, #005EB8 0%, #40BBFF 100%)" }
             : variant.id === "ext-full-right"
@@ -250,7 +266,44 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
         {/* Logo area */}
         <div className="flex items-center gap-2 flex-1 min-w-0">
           {variant.visualBanner ? (
-            variant.showTitle === false ? null : (
+            variant.id === "int-visual-gradient-brand" ? (
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-[var(--brand-header-gap)] w-full py-4 md:py-0">
+                <div className="flex items-center gap-4 md:gap-[var(--brand-header-gap)]">
+                  <img src={brandLogoWhite} alt="__BRAND_SHORT__" className="h-[40px] md:h-[var(--brand-header-logo-h)] w-auto shrink-0" />
+                  <div className="w-px h-[40px] md:h-[var(--brand-header-divider-h)] bg-[var(--brand-header-divider)] shrink-0" />
+                  <h1 className="text-xl md:text-[var(--brand-header-title-fs)] font-light text-[var(--brand-header-title-color)] tracking-[0.2px] line-clamp-2 md:truncate">Gestão de Pessoas - Unidades</h1>
+
+                </div>
+                
+                <div className="md:ml-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-[var(--brand-header-gap)] w-full md:w-auto mt-2 md:mt-0">
+                  <div className="flex items-center gap-2.5">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/90 shrink-0">
+                      <rect x="3" y="4" width="18" height="18" rx="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] md:text-[var(--brand-header-label-fs)] font-semibold text-[var(--brand-header-label-color)] uppercase tracking-[0.5px] leading-tight">Última atualização</span>
+                      <span className="text-xs md:text-[var(--brand-header-value-fs)] font-bold text-white leading-tight">14/07/2026 08:00</span>
+                    </div>
+                  </div>
+                  <div className="hidden sm:block w-px h-[40px] md:h-[var(--brand-header-divider-h)] bg-[var(--brand-header-divider)] shrink-0" />
+                  <div className="flex items-center gap-2.5">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/90 shrink-0">
+                      <circle cx="12" cy="12" r="9"/>
+                      <polyline points="12 7 12 12 15 14"/>
+                    </svg>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] md:text-[var(--brand-header-label-fs)] font-semibold text-[var(--brand-header-label-color)] uppercase tracking-[0.5px] leading-tight">Próxima atualização</span>
+                      <span className="text-xs md:text-[var(--brand-header-value-fs)] font-bold text-white leading-tight">Amanhã, às 07:00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            ) : variant.showTitle === false ? null : (
               <>
                 <span className="font-semibold text-sm">{sigla}</span>
                 <span className="text-sm text-white/80 truncate">{systemName}</span>
@@ -270,10 +323,12 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
           )}
         </div>
 
-        {/* Theme toggle */}
-        <button className="p-1.5 hover:bg-white/10 rounded transition-colors" aria-label="Alternar tema">
-          <Sun size={16} className={variant.id === "ext-red-left" ? "" : "text-white/80"} style={variant.id === "ext-red-left" ? { color: "#16329C", opacity: 0.85 } : undefined} />
-        </button>
+        {/* Theme toggle - Hidden for new gradient header */}
+        {variant.id !== "int-visual-gradient-brand" && (
+          <button className="p-1.5 hover:bg-white/10 rounded transition-colors" aria-label="Alternar tema">
+            <Sun size={16} className={variant.id === "ext-red-left" ? "" : "text-white/80"} style={variant.id === "ext-red-left" ? { color: "#16329C", opacity: 0.85 } : undefined} />
+          </button>
+        )}
 
         {/* Menu hamburger (right) */}
         {variant.menuPosition === "direita" && (
@@ -370,6 +425,64 @@ function generateHeaderCode(variant: HeaderVariant): string {
   const menuLeft = variant.menuPosition === "esquerda";
   const menuRight = variant.menuPosition === "direita";
   const effectiveBgHex = variant.visualBanner ? "#123148" : bgHex;
+  
+  if (variant.id === "int-visual-gradient-brand") {
+    return `<!-- Header __BRAND_NAME__: Degradê Novo __BRAND_SHORT__ -->
+<header class="brand-header" style="min-height: var(--brand-header-height); background: linear-gradient(90deg, var(--brand-header-grad-start) 0%, var(--brand-header-grad-end) 100%); display: flex; flex-direction: column; justify-content: center; padding: var(--brand-header-py) var(--brand-header-px); box-sizing: border-box; color: #fff; font-family: 'Montserrat', sans-serif;">
+  <div class="brand-header__top" style="display: flex; align-items: center; gap: var(--brand-header-gap); flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: var(--brand-header-gap);">
+      <img src="/assets/brand-white.svg" alt="__BRAND_SHORT__" style="height: var(--brand-header-logo-h); width: auto;" />
+      <div style="width: 1px; height: var(--brand-header-divider-h); background: var(--brand-header-divider);"></div>
+
+      <h1 style="font-weight: 300; font-size: var(--brand-header-title-fs); color: var(--brand-header-title-color); letter-spacing: 0.2px; margin: 0;">Gestão de Pessoas - Unidades</h1>
+    </div>
+  </div>
+
+
+  <div class="brand-header__bottom" style="display: flex; align-items: center; gap: var(--brand-header-gap); margin-top: var(--brand-header-py); flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.9;">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      <div>
+        <p style="font-size: var(--brand-header-label-fs); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--brand-header-label-color); margin: 0 0 2px 0;">Última atualização</p>
+        <p style="font-size: var(--brand-header-value-fs); font-weight: 700; color: #fff; margin: 0;">14/07/2026 08:00</p>
+      </div>
+    </div>
+
+    <div class="brand-header__divider" style="width: 1px; height: var(--brand-header-divider-h); background: var(--brand-header-divider);"></div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.9;">
+        <circle cx="12" cy="12" r="9"/>
+        <polyline points="12 7 12 12 15 14"/>
+      </svg>
+      <div>
+        <p style="font-size: var(--brand-header-label-fs); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--brand-header-label-color); margin: 0 0 2px 0;">Próxima atualização</p>
+        <p style="font-size: var(--brand-header-value-fs); font-weight: 700; color: #fff; margin: 0;">Amanhã, às 07:00</p>
+      </div>
+    </div>
+  </div>
+
+</header>
+<style>
+.brand-header { color: #fff; font-family: 'Poppins', sans-serif; }
+@media (max-width: 768px) {
+  .brand-header { padding: 16px !important; }
+  .brand-header h1 { font-size: 20px !important; }
+  .brand-header img { height: 40px !important; }
+  .brand-header__divider { display: none; }
+  .brand-header__bottom { margin-top: 16px !important; gap: 16px !important; }
+}
+</style>
+<style>
+.brand-header { color: #fff; font-family: 'Poppins', sans-serif; }
+</style>`;
+  }
+
   const logoHtml = variant.visualBanner
     ? ""
     : variant.brandStyle === "completa"
@@ -385,8 +498,8 @@ ${menuLeft ? `    <button class="brand-header__menu" aria-label="Abrir menu">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
 ` : ""}${logoHtml ? `    ${logoHtml}
-    <span class="brand-header__separator">|</span>
-` : ""}    <span class="brand-header__sigla">SIGLA</span>
+` : ""}    <span class="brand-header__separator">|</span>
+    <span class="brand-header__sigla">SIGLA</span>
     <span class="brand-header__name">Nome do sistema</span>
 ${menuRight ? `    <button class="brand-header__menu brand-header__menu--right" aria-label="Abrir menu">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -468,7 +581,9 @@ export default function TemplatesPage() {
     try {
       const saved = localStorage.getItem("custom-thumb-dashboard-institucional");
       if (saved) setCustomDashboardThumb(saved);
-    } catch {}
+    } catch {
+      // localStorage pode falhar (modo privado ou quota); a miniatura e opcional.
+    }
   }, []);
 
   const ALLOWED_THUMB_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -512,7 +627,11 @@ export default function TemplatesPage() {
 
   const resetCustomThumb = () => {
     setCustomDashboardThumb(null);
-    try { localStorage.removeItem("custom-thumb-dashboard-institucional"); } catch {}
+    try {
+      localStorage.removeItem("custom-thumb-dashboard-institucional");
+    } catch {
+      // localStorage pode falhar (modo privado ou quota); nada a fazer aqui.
+    }
   };
 
   const componentTabs = [
@@ -525,6 +644,8 @@ export default function TemplatesPage() {
   const templates = [
     { title: "Dashboard Institucional", desc: "Painel com indicadores, gráficos e resumos executivos.", preview: "bg-brand-primary-50" },
     { title: "Dashboard BI", desc: "Painel executivo com análise profunda de dados, indicadores de performance (KPIs) e gráficos avançados.", preview: "bg-brand-secondary-50" },
+    { title: "Tela BI", desc: "Painel de inteligência comercial com filtros globais, empresas atendidas, oportunidades, macrorregiões, qualidade dos dados e importação de planilha.", preview: "bg-brand-primary-50" },
+    { title: "Dashboard Analítico", desc: "Painel analítico com KPIs, distribuição territorial por macrorregião, comparativo trimestral, tendência e sazonalidade — gráficos em ECharts.", preview: "bg-brand-primary-50" },
     { title: "Tela de Listagem", desc: "Tabela com filtros dinâmicos, busca, cards estatísticos avançados, tabela aninhada (nesting) e paginação.", preview: "bg-brand-secondary-50" },
     { title: "Tela de Formulário", desc: "Formulário com validação, steps e feedback.", preview: "bg-brand-primary-50" },
     { title: "Fluxo de Autenticação Completo", desc: "Login, Cadastro e 2FA com branding __BRAND_NAME__ e login único.", preview: "bg-brand-primary-50" },
@@ -1002,6 +1123,8 @@ export default function TemplatesPage() {
         {templates.map(t => {
           const isDashboard = t.title === "Dashboard Institucional";
           const isDashboardBI = t.title === "Dashboard BI";
+          const isDashboardAnalitico = t.title === "Dashboard Analítico";
+          const isTelaBI = t.title === "Tela BI";
           const isListagem = t.title === "Tela de Listagem";
           const isFormulario = t.title === "Tela de Formulário";
           const isAutenticacao = t.title === "Fluxo de Autenticação Completo";
@@ -1009,9 +1132,13 @@ export default function TemplatesPage() {
           const isModalAcesso = t.title === "Modal de Acesso";
           const isRadar = t.title === "Radar Estratégico";
           const isFiltrosTabela = t.title === "Página com Filtros e Tabela";
-          const isInteractive = isDashboard || isDashboardBI || isListagem || isFormulario || isAutenticacao || isErro || isRadar || isModalAcesso || isFiltrosTabela;
+          const isInteractive = isDashboard || isDashboardBI || isDashboardAnalitico || isTelaBI || isListagem || isFormulario || isAutenticacao || isErro || isRadar || isModalAcesso || isFiltrosTabela;
           const route = isDashboard
             ? "/templates/dashboard-institucional"
+            : isTelaBI
+              ? "/templates/tela-bi"
+            : isDashboardAnalitico
+              ? "/templates/dashboard-analitico"
             : isDashboardBI
               ? "/templates/dashboard-bi"
               : isListagem
@@ -1029,6 +1156,10 @@ export default function TemplatesPage() {
                           : "/templates/pagina-autenticacao";
           const thumbSrc = isDashboard 
             ? (customDashboardThumb || thumbDashboardInstitucional)
+            : isTelaBI
+              ? thumbTelaBI
+            : isDashboardAnalitico
+              ? thumbDashboardAnalitico
             : isDashboardBI
               ? thumbDashboardBI
               : isRadar
@@ -1046,6 +1177,10 @@ export default function TemplatesPage() {
                         : thumbPaginaAutenticacao;
           const thumbAlt = isDashboard
             ? "Thumbnail do Dashboard Institucional com KPIs, gráfico donut e barras"
+            : isDashboardAnalitico
+              ? "Thumbnail do Dashboard Analítico com KPIs, barras por macrorregião e gráficos de tendência"
+            : isTelaBI
+              ? "Thumbnail da Tela BI com menu lateral, KPIs, gráficos e tabela de empresas atendidas"
             : isDashboardBI
               ? "Thumbnail do Dashboard BI com indicadores de performance e gráficos executivos"
               : isRadar

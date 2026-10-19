@@ -1,80 +1,193 @@
 import { useMemo, useState } from "react";
+import type { EChartsOption } from "echarts";
 import { useBI } from "@/context/BIDataContext";
-import { aplicarFiltros, contarPorCampo, distribuicaoStatus, evolucaoTemporal, funilComercial, indicadores, qualidadeDados } from "@/lib/bi/aggregations";
+import {
+  aplicarFiltros,
+  contarPorCampo,
+  distribuicaoStatus,
+  evolucaoTemporal,
+  funilComercial,
+  indicadores,
+  qualidadeDados,
+} from "@/lib/bi/aggregations";
 import IndicatorCard from "../IndicatorCard";
-import { Building2, PhoneCall, Users, Mail, MapPin, Target, AlertCircle, Sparkles } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend } from "recharts";
+import { KPIGridSkeleton, ChartCardSkeleton } from "../BISkeletons";
+import BrandChart from "@/components/charts/BrandChart";
+import { BRAND_PALETTE } from "@/lib/echarts/brandTheme";
+import { formatarNumero } from "@/lib/echarts/format";
+import {
+  Building2,
+  PhoneCall,
+  Users,
+  Mail,
+  MapPin,
+  Target,
+  AlertCircle,
+  Sparkles,
+} from "lucide-react";
 
-const STATUS_COLORS = [
-  "hsl(var(--primary))",
-  "hsl(var(--primary) / 0.7)",
-  "hsl(var(--secondary))",
-  "hsl(var(--warning))",
-  "hsl(var(--warning) / 0.6)",
-  "hsl(var(--success))",
-  "hsl(var(--accent-foreground))",
-  "hsl(var(--primary) / 0.5)",
-  "hsl(var(--destructive))",
-  "hsl(var(--muted-foreground))",
-];
+/** Divide a base em dois períodos de igual duração para calcular deltas reais. */
+function deltasPorPeriodo(dados: ReturnType<typeof aplicarFiltros>) {
+  const datas = dados.map((d) => d.data).filter(Boolean).sort() as string[];
+  if (datas.length < 4) return null;
+  const inicio = new Date(datas[0]);
+  const fim = new Date(datas[datas.length - 1]);
+  const meio = new Date((+inicio + +fim) / 2).toISOString().slice(0, 10);
+  const atual = dados.filter((d) => d.data && d.data >= meio);
+  const anterior = dados.filter((d) => d.data && d.data < meio);
+  if (!atual.length || !anterior.length) return null;
+  const a = indicadores(atual);
+  const b = indicadores(anterior);
+  const pct = (novo: number, velho: number) =>
+    velho === 0 ? null : Math.round(((novo - velho) / velho) * 1000) / 10;
+  return {
+    empresasUnicas: pct(a.empresasUnicas, b.empresasUnicas),
+    atendimentos: pct(a.atendimentos, b.atendimentos),
+    contatos: pct(a.contatos, b.contatos),
+    comEmail: pct(a.comEmail, b.comEmail),
+    cidades: pct(a.cidades, b.cidades),
+    oportunidades: pct(a.oportunidades, b.oportunidades),
+    semRetorno: pct(a.semRetorno, b.semRetorno),
+    taxaQualificacao: pct(a.taxaQualificacao, b.taxaQualificacao),
+  };
+}
 
-export default function VisaoGeral() {
+export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
   const { registros, filtros } = useBI();
   const dados = useMemo(() => aplicarFiltros(registros, filtros), [registros, filtros]);
-  const [granularidade, setGranularidade] = useState<"dia" | "semana" | "mes">("dia");
+  const [granularidade, setGranularidade] = useState<"dia" | "semana" | "mes">("mes");
 
   const kpis = indicadores(dados);
+  const deltas = useMemo(() => deltasPorPeriodo(dados), [dados]);
+  const d = (k: keyof NonNullable<typeof deltas>) => (deltas ? deltas[k] : null);
+
   const porCidade = contarPorCampo(dados, "cidade").slice(0, 8);
   const porStatus = distribuicaoStatus(dados).filter((s) => s.value > 0);
   const evolucao = evolucaoTemporal(dados, granularidade);
   const funil = funilComercial(dados);
   const qualidade = qualidadeDados(dados);
 
+  const optCidades: EChartsOption = useMemo(() => {
+    const ord = [...porCidade].sort((a, b) => a.value - b.value);
+    return {
+      grid: { left: 8, right: 40, top: 12, bottom: 8, containLabel: true },
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" } },
+      xAxis: { type: "value", axisLabel: { show: false }, splitNumber: 3 },
+      yAxis: { type: "category", data: ord.map((c) => c.name) },
+      series: [
+        {
+          type: "bar",
+          name: "Empresas atendidas",
+          data: ord.map((c) => c.value),
+          barMaxWidth: 18,
+          itemStyle: { color: BRAND_PALETTE[0], borderRadius: [0, 4, 4, 0] },
+          label: {
+            show: true,
+            position: "right",
+            formatter: (p: { value: unknown }) => formatarNumero(Number(p.value)),
+          },
+        },
+      ],
+    };
+  }, [porCidade]);
+
+  const optStatus: EChartsOption = useMemo(
+    () => ({
+      tooltip: { trigger: "item" },
+      legend: { bottom: 0, type: "scroll" },
+      series: [
+        {
+          type: "pie",
+          radius: ["45%", "70%"],
+          center: ["50%", "44%"],
+          avoidLabelOverlap: true,
+          itemStyle: { borderWidth: 2 },
+          label: { show: false },
+          data: porStatus.map((s, i) => ({
+            name: s.name,
+            value: s.value,
+            itemStyle: { color: BRAND_PALETTE[i % BRAND_PALETTE.length] },
+          })),
+        },
+      ],
+    }),
+    [porStatus],
+  );
+
+  const optEvolucao: EChartsOption = useMemo(
+    () => ({
+      grid: { left: 8, right: 16, top: 20, bottom: 8, containLabel: true },
+      tooltip: { trigger: "axis" },
+      xAxis: { type: "category", data: evolucao.map((e) => e.name), boundaryGap: false },
+      yAxis: { type: "value", axisLabel: { formatter: (v: number) => formatarNumero(v) } },
+      series: [
+        {
+          type: "line",
+          name: "Atendimentos",
+          smooth: true,
+          data: evolucao.map((e) => e.value),
+          showSymbol: evolucao.length < 30,
+          lineStyle: { width: 2, color: BRAND_PALETTE[1] },
+          itemStyle: { color: BRAND_PALETTE[1] },
+          areaStyle: { opacity: 0.12, color: BRAND_PALETTE[1] },
+        },
+      ],
+    }),
+    [evolucao],
+  );
+
+  if (loading) {
+    return (
+      <div className="space-y-6" aria-busy="true">
+        <KPIGridSkeleton count={8} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <ChartCardSkeleton height={260} />
+          <ChartCardSkeleton height={260} />
+          <ChartCardSkeleton height={260} />
+          <ChartCardSkeleton height={260} />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Painel de Prospecção e Atendimento Comercial</h1>
+        <h2 className="text-2xl font-bold text-foreground">
+          Painel de Atendimento e Inteligência Comercial
+        </h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Acompanhe empresas prospectadas, contatos realizados, oportunidades identificadas e qualidade da base comercial.
+          Acompanhe empresas atendidas, atendimentos realizados, oportunidades identificadas e a
+          qualidade da base de empreendedores do __BRAND_NAME__.
         </p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <IndicatorCard title="Empresas únicas" value={kpis.empresasUnicas} icon={Building2} tooltip="Empresas distintas identificadas pelo CNPJ." delta={null} />
-        <IndicatorCard title="Atendimentos" value={kpis.atendimentos} icon={PhoneCall} tooltip="Registros de interação comercial." delta={null} />
-        <IndicatorCard title="Contatos" value={kpis.contatos} icon={Users} tooltip="Registros com contato nominal identificado." delta={null} />
-        <IndicatorCard title="Com e-mail" value={kpis.comEmail} icon={Mail} tooltip="Empresas com pelo menos um e-mail cadastrado." delta={null} />
-        <IndicatorCard title="Cidades atendidas" value={kpis.cidades} icon={MapPin} tooltip="Cidades únicas com registros." delta={null} />
-        <IndicatorCard title="Oportunidades" value={kpis.oportunidades} icon={Target} tooltip="Empresas em estágio de oportunidade, cadastro ou proposta." delta={null} />
-        <IndicatorCard title="Sem retorno" value={kpis.semRetorno} icon={AlertCircle} tooltip="Tentativas sem resposta ou aguardando retorno." delta={null} />
-        <IndicatorCard title="Taxa de qualificação" value={`${kpis.taxaQualificacao}%`} icon={Sparkles} tooltip="Percentual de registros com potencial médio ou alto." delta={null} />
+        <IndicatorCard title="Empresas atendidas" value={kpis.empresasUnicas} icon={Building2} tooltip="Empresas distintas identificadas pelo CNPJ." delta={d("empresasUnicas")} />
+        <IndicatorCard title="Atendimentos" value={kpis.atendimentos} icon={PhoneCall} tooltip="Registros de atendimento ao empreendedor." delta={d("atendimentos")} />
+        <IndicatorCard title="Contatos" value={kpis.contatos} icon={Users} tooltip="Registros com contato nominal identificado." delta={d("contatos")} />
+        <IndicatorCard title="Com e-mail" value={kpis.comEmail} icon={Mail} tooltip="Empresas com pelo menos um e-mail cadastrado." delta={d("comEmail")} />
+        <IndicatorCard title="Municípios atendidos" value={kpis.cidades} icon={MapPin} tooltip="Municípios com registros de atendimento." delta={d("cidades")} />
+        <IndicatorCard title="Oportunidades" value={kpis.oportunidades} icon={Target} tooltip="Empresas em estágio de oportunidade, cadastro ou proposta." delta={d("oportunidades")} />
+        <IndicatorCard title="Sem retorno" value={kpis.semRetorno} icon={AlertCircle} tooltip="Tentativas sem resposta ou aguardando retorno." delta={d("semRetorno")} />
+        <IndicatorCard title="Taxa de qualificação" value={`${kpis.taxaQualificacao}%`} icon={Sparkles} tooltip="Percentual de registros com potencial médio ou alto." delta={d("taxaQualificacao")} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <ChartCard title="Empresas por cidade">
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={porCidade} layout="vertical" margin={{ left: 24 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis type="number" tick={{ fontSize: 11 }} />
-              <YAxis dataKey="name" type="category" tick={{ fontSize: 11 }} width={110} />
-              <Tooltip />
-              <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+        <ChartCard title="Empresas por município">
+          <BrandChart
+            option={optCidades}
+            height={260}
+            ariaLabel={`Gráfico de barras horizontais com as ${porCidade.length} cidades com mais empresas atendidas.`}
+          />
         </ChartCard>
 
         <ChartCard title="Empresas por status">
-          <ResponsiveContainer width="100%" height={260}>
-            <PieChart>
-              <Pie data={porStatus} dataKey="value" nameKey="name" innerRadius={55} outerRadius={90} paddingAngle={2}>
-                {porStatus.map((_, i) => (
-                  <Cell key={i} fill={STATUS_COLORS[i % STATUS_COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-            </PieChart>
-          </ResponsiveContainer>
+          <BrandChart
+            option={optStatus}
+            height={260}
+            ariaLabel="Gráfico de rosca com a distribuição das empresas por status de atendimento."
+          />
         </ChartCard>
 
         <ChartCard
@@ -85,6 +198,7 @@ export default function VisaoGeral() {
                 <button
                   key={g}
                   onClick={() => setGranularidade(g)}
+                  aria-pressed={granularidade === g}
                   className={`px-2 py-1 text-[10px] rounded ${granularidade === g ? "bg-primary text-primary-foreground" : "bg-muted text-foreground/70"}`}
                 >
                   {g === "dia" ? "Diário" : g === "semana" ? "Semanal" : "Mensal"}
@@ -93,18 +207,14 @@ export default function VisaoGeral() {
             </div>
           }
         >
-          <ResponsiveContainer width="100%" height={260}>
-            <LineChart data={evolucao}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
-              <Tooltip />
-              <Line type="monotone" dataKey="value" stroke="hsl(var(--secondary))" strokeWidth={2} dot={{ r: 3 }} />
-            </LineChart>
-          </ResponsiveContainer>
+          <BrandChart
+            option={optEvolucao}
+            height={260}
+            ariaLabel={`Gráfico de linha com a evolução ${granularidade === "dia" ? "diária" : granularidade === "semana" ? "semanal" : "mensal"} dos atendimentos realizados.`}
+          />
         </ChartCard>
 
-        <ChartCard title="Funil comercial">
+        <ChartCard title="Funil de atendimento">
           <div className="space-y-2 py-2">
             {funil.map((etapa, i) => {
               const max = funil[0].value || 1;
@@ -116,11 +226,11 @@ export default function VisaoGeral() {
                     <div
                       className="h-full flex items-center justify-end pr-2 text-[10px] font-semibold text-primary-foreground"
                       style={{
-                        width: `${Math.max(pct, 4)}%`,
+                        width: `${Math.max(pct, 6)}%`,
                         background: `linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.7) ${50 + i * 5}%)`,
                       }}
                     >
-                      {etapa.value}
+                      {formatarNumero(etapa.value)}
                     </div>
                   </div>
                 </div>
@@ -160,10 +270,18 @@ export default function VisaoGeral() {
   );
 }
 
-function ChartCard({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
+function ChartCard({
+  title,
+  children,
+  action,
+}: {
+  title: string;
+  children: React.ReactNode;
+  action?: React.ReactNode;
+}) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-      <div className="flex items-center justify-between mb-3">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
+      <div className="flex items-center justify-between mb-3 gap-2">
         <h3 className="text-sm font-semibold text-foreground">{title}</h3>
         {action}
       </div>

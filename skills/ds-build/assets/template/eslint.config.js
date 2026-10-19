@@ -27,4 +27,16 @@ export default tseslint.config(
       "@typescript-eslint/no-dupe-class-members": "error",
     },
   },
+  // Componentes gerados pelo shadcn/ui: sao vendorizados e substituidos quando
+  // um componente e re-adicionado pelo CLI. Cobra-los pelo mesmo padrao do
+  // codigo autoral obrigaria a reescrever, a cada atualizacao, algo que nao
+  // e nosso. As regras seguem valendo em todo o resto do projeto.
+  {
+    files: ["src/components/ui/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-redeclare": "off",
+    },
+  },
 );

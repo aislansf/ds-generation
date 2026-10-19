@@ -3,7 +3,7 @@
  * imagens-neutras.mjs — produz as imagens genéricas do template em origem/overrides/.
  *
  * Uso:
- *   node tools/imagens-neutras.mjs --source <ds-origem>/frontend --node-modules <pasta node_modules com vite e playwright>
+ *   node tools/imagens-neutras.mjs --source <ds-origem>/frontend --node-modules <pasta node_modules com vite e playwright> [--chromium <exe>]
  *
  * 1. Vetores: logo neutro ("Sua Marca") em cor/branco/preto e placeholder.svg.
  * 2. Rasters (Chromium do Playwright): favicon.png, marca-parceiro.png e a imagem lateral de login.
@@ -98,7 +98,8 @@ const login = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1084 1224" w
   <rect y="1170" width="1084" height="54" fill="#1E293B"/>
 </svg>`;
 
-const browser = await chromium.launch();
+// --chromium <exe>: usa um Chromium já baixado quando o da versão instalada do Playwright não estiver disponível
+const browser = await chromium.launch(args.chromium ? { executablePath: path.resolve(args.chromium) } : {});
 try {
   console.log("Rasters:");
   async function raster(svg, w, h, type) {
@@ -139,6 +140,8 @@ try {
       ["thumb-radar-estrategico.jpg", "/templates/radar-estrategico", 800],
       ["thumb-pagina-erro.jpg", "/templates/pagina-erro", 800],
       ["thumb-modal-acesso.jpg", "/templates/modal-acesso", 800],
+      ["thumb-dashboard-analitico.jpg", "/templates/dashboard-analitico", 800],
+      ["thumb-tela-bi.jpg", "/templates/tela-bi", 800],
     ];
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, colorScheme: "light" });
     for (const [file, route, h] of shots) {

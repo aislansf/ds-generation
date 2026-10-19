@@ -18,11 +18,18 @@ Se o briefing não tiver a informação (ex.: área de proteção do logo), **pe
 
 ## Prioridade média: dados de exemplo
 
-O `GERACAO.md` lista em "Conteúdo de exemplo genérico" onde aparecem os programas e unidades fictícios do template (Empreender, AGI, Programa Inova, DIROP, DIAFI…). Troque por exemplos plausíveis do universo da nova marca, mantendo tamanho e estrutura (o layout foi desenhado para aqueles comprimentos). Arquivos típicos: `ComponentesPage`, `TelaListagemPage`, `TelaFormularioPage`, `PaginaFiltrosTabelaPage`, `DashboardInstitucionalPage`, `DashboardBIPage`, `SidebarMenuPreview`, `HubPaineisTemplate`, `ChartsSection`, `data/radarEstrategico.ts`.
+O `GERACAO.md` lista em "Conteúdo de exemplo genérico" onde aparecem os programas e unidades fictícios do template (Empreender, AGI, Programa Inova, DIROP, DIAFI…). Troque por exemplos plausíveis do universo da nova marca, mantendo tamanho e estrutura (o layout foi desenhado para aqueles comprimentos). Arquivos típicos: `ComponentesPage`, `TelaListagemPage`, `TelaFormularioPage`, `PaginaFiltrosTabelaPage`, `DashboardInstitucionalPage`, `DashboardBIPage`, `DashboardAnaliticoPage`, `SidebarMenuPreview`, `HubPaineisTemplate`, `ChartsSection`, `data/radarEstrategico.ts`.
+
+Os **lugares** também são fictícios: regiões (Região Metropolitana, Vale do Sul, Serra Alta, Planalto Oeste…) e municípios (Porto Central, Nova Esperança, Lagoa Azul…). Aparecem nos presets de gráfico, na Tela BI e no Dashboard Analítico. Troque pela divisão territorial em que a marca atua, nos mesmos arquivos:
+
+- `src/data/echarts/presets/**`: dados e textos (`ariaLabel`, `descricao`, `quandoUsar`) de cada gráfico. O `ariaLabel` cita os números do gráfico; se mudar os dados, reescreva o texto;
+- `src/data/prospeccao-seed.json` (empresas de exemplo da Tela BI) e `src/lib/bi/regioes.ts` (município → região; marcado com `MODELO:`). As chaves do `regioes.ts` precisam bater com o campo `CIDADE` do seed;
+- `src/data/echarts/presets/mapas/mapa-brasil-ufs.ts` (marcado com `MODELO:`): destaque a UF de atuação da marca e ajuste os textos. Marca nacional: tire o destaque.
 
 ## Prioridade média: metadados
 
-- `index.html`: `<title>`, description, JSON-LD (`name`, `alternateName`, `url`, `logo`), `og:image`, `twitter:site` (hoje `@Lovable`).
+- `index.html`: `<title>`, description, JSON-LD (`name`, `alternateName`, `url`, `logo`), `og:image` e, se a marca tiver, `twitter:site`.
+- `DESIGN-SYSTEM.md`: documentação técnica escrita à mão. O nome, as cores e as fontes já saem trocados; revise a data de geração, a visão geral (seção 1) e o changelog (seção 15), que descrevem o DS de referência.
 - `public/llms.txt`, `public/sitemap.xml`, `public/robots.txt`: domínio e descrições.
 - `README.md`: acrescente contatos e o processo de contribuição da nova marca.
 

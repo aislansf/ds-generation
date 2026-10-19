@@ -45,8 +45,7 @@ export default function PaginaAutenticacaoPage() {
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-16 w-auto brightness-0 invert" />
               <div className="mt-12 space-y-6 max-w-lg">
                 <h1 className="text-4xl font-bold text-white leading-tight text-balance">
-                  <span className="block">Conectando pessoas</span>
-                  <span className="block">por meio da tecnologia.</span>
+                  __BRAND_SLOGAN__.
                 </h1>
               </div>
             </div>
@@ -68,8 +67,7 @@ export default function PaginaAutenticacaoPage() {
             <div className="relative z-10 flex flex-col items-center text-center gap-4 max-w-md mx-auto">
               <img src={brandLogoCompleta} alt="__BRAND_NAME__" className="h-10 sm:h-12 w-auto brightness-0 invert" />
               <h1 className="text-lg sm:text-xl font-bold text-white leading-snug text-balance">
-                <span className="inline sm:block">Conectando pessoas </span>
-                <span className="inline sm:block">por meio da tecnologia.</span>
+                __BRAND_SLOGAN__.
               </h1>
             </div>
           </div>

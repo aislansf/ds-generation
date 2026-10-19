@@ -30,6 +30,12 @@ const url =
 const PRIMARY_HEX = "#005EB8";
 const PRIMARY_RGB = "rgb(0, 94, 184)";
 
+// Titulos sobre superficie de marca (hero azul, cards invertidos) usam
+// propositalmente texto claro. O DS permite branco APENAS quando o
+// heading esta sobre um fundo escuro — a checagem abaixo resolve o
+// background efetivo subindo pelos ancestrais do elemento.
+const INVERTED_RGB = new Set(["rgb(255, 255, 255)"]);
+
 function fail(msg) {
   console.error(`✗ Homepage H1 computed-color FAIL: ${msg}`);
   process.exit(1);
@@ -77,10 +83,25 @@ async function checkViewport(vp) {
 
   for (const tag of ["h1", "h2", "h3"]) {
     const items = await page.$$eval(tag, (els) =>
-      els.map((el) => ({
-        text: (el.textContent || "").trim().slice(0, 80),
-        color: getComputedStyle(el).color,
-      })),
+      els.map((el) => {
+        // Primeiro background opaco subindo pela arvore de ancestrais.
+        let bg = null;
+        for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+          const c = getComputedStyle(n).backgroundColor;
+          if (!c || !c.startsWith("rgb")) continue;
+          const nums = c.slice(c.indexOf("(") + 1, c.indexOf(")")).split(",").map(Number);
+          if (nums.length > 3 && nums[3] === 0) continue;
+          bg = nums;
+          break;
+        }
+        // Luminancia relativa aproximada: < 0.5 => superficie escura.
+        const lum = bg ? (0.2126 * bg[0] + 0.7152 * bg[1] + 0.0722 * bg[2]) / 255 : 1;
+        return {
+          text: (el.textContent || "").trim().slice(0, 80),
+          color: getComputedStyle(el).color,
+          onDarkSurface: lum < 0.5,
+        };
+      }),
     );
     if (tag === "h1" && items.length === 0) {
       fail("nenhum <h1> encontrado na Homepage.");
@@ -88,7 +109,7 @@ async function checkViewport(vp) {
     total += items.length;
     const allowed = allowedByTag[tag];
     for (const it of items) {
-      if (!allowed.has(it.color)) {
+      if (!allowed.has(it.color) && !(it.onDarkSurface && INVERTED_RGB.has(it.color))) {
         errors.push(
           `<${tag}> "${it.text}" → ${it.color} (permitido: ${[...allowed].join(" ou ")})`,
         );

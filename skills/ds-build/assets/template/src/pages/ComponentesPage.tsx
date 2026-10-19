@@ -245,23 +245,40 @@ function ButtonSection() {
           whenToUse={["CTA principal do fluxo", "Confirmações de formulários", "Ação mais importante do contexto"]}
           whenNotToUse={["Ações secundárias (use Secundário)", "Mais de um primário no mesmo bloco"]}
           accessibility={["Contraste mínimo AA entre texto e fundo", "Foco visível com ring de 2px", "Estado disabled com opacity reduzida e pointer-events-none"]}
-          code={`{/* Variações renderizadas (Tailwind utilities) */}
-{/* Padrão */}
-<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-primary text-primary-foreground">Primário</button>
-{/* Azul */}
-<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#0D3857] text-white">Primário</button>
-{/* Laranja */}
-<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#D98217] text-white">Primário</button>
-{/* Verde */}
-<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#1F8A4C] text-white">Primário</button>
-{/* Escuro */}
-<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-foreground text-background">Primário</button>
+          code={`{/* ============================================================
+   Botão Primário — todas as variações × estados
+   Estados: Normal · Hover · Focus · Disabled
+   ============================================================ */}
 
-{/* Estados (exemplo: Padrão) */}
-<button className="px-4 py-2 rounded text-sm font-bold bg-primary text-primary-foreground">Normal</button>
-<button className="px-4 py-2 rounded text-sm font-bold bg-primary/90 text-primary-foreground">Hover</button>
-<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-primary bg-primary text-primary-foreground">Focus</button>
-<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-primary text-primary-foreground" disabled>Disabled</button>
+{/* — Padrão — */}
+<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-primary text-primary-foreground">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold bg-primary/90 text-primary-foreground">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-primary bg-primary text-primary-foreground">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-primary text-primary-foreground" disabled>Primário</button>
+
+{/* — Azul (#0D3857) — */}
+<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#0D3857] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold bg-[#0A2B45] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-[#0D3857] bg-[#0D3857] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-[#0D3857] text-white" disabled>Primário</button>
+
+{/* — Laranja (#D98217) — */}
+<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#D98217] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold bg-[#B86A0F] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-[#D98217] bg-[#D98217] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-[#D98217] text-white" disabled>Primário</button>
+
+{/* — Verde (#1F8A4C) — */}
+<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#1F8A4C] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold bg-[#176B3B] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-[#1F8A4C] bg-[#1F8A4C] text-white">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-[#1F8A4C] text-white" disabled>Primário</button>
+
+{/* — Escuro — */}
+<button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-foreground text-background">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold bg-foreground/90 text-background">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ring-foreground bg-foreground text-background">Primário</button>
+<button className="px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed bg-foreground text-background" disabled>Primário</button>
 
 {/* Exemplos de uso em contexto */}
 <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
@@ -366,25 +383,46 @@ function ButtonSection() {
           whenToUse={["Ações complementares ao CTA principal", "Alternativas neutras a uma ação primária"]}
           whenNotToUse={["Ação principal do fluxo (use Primário)", "Ações destrutivas (use Destrutivo)"]}
           accessibility={["Contraste mínimo AA entre texto e fundo", "Foco visível com ring de 2px", "Estado disabled com opacity reduzida e pointer-events-none"]}
-          code={`{/* Variações renderizadas (Tailwind utilities) */}
-{/* Neutro */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-secondary text-secondary-foreground">Secundário</button>
-{/* Azul */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#2A4FDA] text-white">Secundário</button>
-{/* Laranja */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#D98217] text-white">Secundário</button>
-{/* Verde */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#1F8A4C] text-white">Secundário</button>
-{/* Contorno */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors border border-primary bg-transparent text-primary">Secundário</button>
-{/* Suave */}
-<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-primary/10 text-primary">Secundário</button>
+          code={`{/* ============================================================
+   Botão Secundário — todas as variações × estados
+   Estados: Normal · Hover · Focus · Disabled
+   ============================================================ */}
 
-{/* Estados (exemplo: Neutro) */}
-<button className="px-4 py-2 rounded text-sm font-medium bg-secondary text-secondary-foreground">Normal</button>
-<button className="px-4 py-2 rounded text-sm font-medium bg-secondary/80 text-secondary-foreground">Hover</button>
-<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-primary bg-secondary text-secondary-foreground">Focus</button>
-<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-secondary text-secondary-foreground" disabled>Disabled</button>`}
+{/* — Neutro — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-secondary text-secondary-foreground">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium bg-secondary/80 text-secondary-foreground">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-primary bg-secondary text-secondary-foreground">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-secondary text-secondary-foreground" disabled>Secundário</button>
+
+{/* — Azul (#2A4FDA) — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#2A4FDA] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium bg-[#1644DC] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-[#2A4FDA] bg-[#2A4FDA] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-[#2A4FDA] text-white" disabled>Secundário</button>
+
+{/* — Laranja (#D98217) — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#D98217] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium bg-[#B86A0F] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-[#D98217] bg-[#D98217] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-[#D98217] text-white" disabled>Secundário</button>
+
+{/* — Verde (#1F8A4C) — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-[#1F8A4C] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium bg-[#176B3B] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-[#1F8A4C] bg-[#1F8A4C] text-white">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-[#1F8A4C] text-white" disabled>Secundário</button>
+
+{/* — Contorno — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors border border-primary bg-transparent text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium border border-primary bg-primary/10 text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-primary border border-primary bg-transparent text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed border border-primary bg-transparent text-primary" disabled>Secundário</button>
+
+{/* — Suave — */}
+<button className="px-4 py-2 rounded text-sm font-medium transition-colors bg-primary/10 text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium bg-primary/20 text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ring-primary bg-primary/10 text-primary">Secundário</button>
+<button className="px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed bg-primary/10 text-primary" disabled>Secundário</button>`}
         >
           <div className="space-y-6">
             {[

@@ -61,7 +61,7 @@ export default function ImportarPlanilha() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Importar Planilha</h1>
+        <h2 className="text-2xl font-bold text-foreground">Importar Planilha</h2>
         <p className="text-sm text-muted-foreground">Fluxo de 4 etapas para envio, mapeamento e validação de novos registros.</p>
       </div>
 

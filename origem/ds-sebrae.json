@@ -150,6 +150,7 @@
     ],
     "$substituicoes_conteudo": "Aplicadas antes de todas as outras regras, sobre o texto original. Chaves literais, com borda de palavra quando começam/terminam em letra ou número. A ordem importa: frases longas antes das palavras que elas contêm.",
     "substituicoes_conteudo": {
+      "Sebraetec: [": "\"Programa Inova\": [",
       "(~204°)": "(~__BRAND_PRIMARY_HUE__°)",
       "Transformando vidas por meio da educação financeira": "__BRAND_SLOGAN__",
       "Transformando vidas por meio da educação": "__BRAND_SLOGAN__",
@@ -270,7 +271,32 @@
       "login com gov.br": "login único (SSO)",
       "assinatura Gov.br": "assinatura de parceiro",
       "e Gov.br": "e login único",
-      "Governo do Brasil": "Marca parceira"
+      "Governo do Brasil": "Marca parceira",
+      "macrorregiões de planejamento do Ceará": "macrorregiões de planejamento",
+      "macrorregiões do Ceará": "macrorregiões",
+      "macrorregião do Ceará": "macrorregião",
+      "Municípios do Ceará": "Municípios",
+      "municípios do Ceará": "municípios",
+      "município do Ceará": "município",
+      "empresas fictícias do Ceará": "empresas fictícias",
+      "macrorregiões cearenses": "macrorregiões de exemplo",
+      "municípios cearenses": "municípios de exemplo",
+      "município cearense": "município",
+      "empreendedores cearenses": "empreendedores atendidos",
+      "empreendedor cearense": "empreendedor local",
+      "Ceará consolidado": "Estado consolidado",
+      "\"UF\": \"CE\"": "\"UF\": \"SP\"",
+      "Salão Beleza CE": "Salão Beleza Centro",
+      "(empretec|\\bali\\b|sebraetec|": "(empreender|\\bagi\\b|programa inova|",
+      "empretec|ali|sebraetec": "empreender|agi|programa inova",
+      "empretec|sebraetec|": "empreender|programa inova|",
+      "\"sebraetec\"": "\"programa-inova\"",
+      "SEBRAETEC": "Programa Inova",
+      "EMPRETEC": "Empreender",
+      "<SelectItem value=\"cariri\">": "<SelectItem value=\"vale-do-sul\">",
+      "Escritório Regional Sertão Central": "Escritório Regional Central",
+      "Turismo Jeri": "Turismo Litoral",
+      "MEI em Dia": "MEI Regular"
     },
     "$substituicoes_regex": "Padrões aplicados logo depois de substituicoes_conteudo: [regex, substituição]. Pegam identificadores e rotas (FarolEstrategicoPage, /farol-estrategico, marcaGov…).",
     "substituicoes_regex": [
@@ -301,8 +327,180 @@
       [
         "__gov\\b",
         "__parceiro"
+      ],
+      [
+        "\\bSEBRAE_",
+        "BRAND_"
+      ],
+      [
+        "MACRORREGIOES_CE\\b",
+        "MACRORREGIOES"
+      ],
+      [
+        "MacrorregiaoCE\\b",
+        "Macrorregiao"
+      ],
+      [
+        "\\bempretec\\b",
+        "empreender"
       ]
     ],
+    "$substituicoes_lugares": "Municípios e regiões da origem → nomes fictícios. Aplicadas logo depois de substituicoes_regex, com e sem acento (palavra inteira, com caixa); também entram na checagem de remanescentes. Os nomes fictícios vão para conteudo_exemplo.",
+    "substituicoes_lugares": {
+      "Metropolitano de Fortaleza": "Região Metropolitana",
+      "Sertão de Crateús": "Sertão Oeste",
+      "Sertão Central": "Região Central",
+      "Cariri": "Vale do Sul",
+      "Inhamuns": "Planalto Oeste",
+      "Jaguaribe": "Vale Claro",
+      "Fortaleza": "Porto Central",
+      "Sobral": "Serra Alta",
+      "Juazeiro do Norte": "Nova Esperança",
+      "Caucaia": "Lagoa Azul",
+      "Crateús": "Cachoeira Alta",
+      "Crato": "Bom Retiro",
+      "Quixadá": "Monte Claro",
+      "Maracanaú": "Vila Nova",
+      "Iguatu": "Rio Verde",
+      "Aracati": "Praia Mansa",
+      "Itapipoca": "Campo Alegre",
+      "Camocim": "Barra Grande",
+      "Tauá": "Alto Bonito",
+      "Russas": "Santa Rita",
+      "Limoeiro do Norte": "Vale Formoso",
+      "Maranguape": "Serra Verde",
+      "Quixeramobim": "Boa Vista",
+      "Barbalha": "Fonte Nova",
+      "Icó": "Ponte Alta",
+      "Beberibe": "Areia Branca",
+      "Canindé": "São Bento",
+      "Iracema": "Lagoa Seca",
+      "Acaraú": "Porto do Norte",
+      "Tianguá": "Mirante da Serra",
+      "Aquiraz": "Costa Dourada",
+      "Eusébio": "Jardim das Flores",
+      "Pacatuba": "Recanto Verde",
+      "Morada Nova": "Morada do Sol",
+      "Novo Oriente": "Novo Horizonte",
+      "Santa Quitéria": "Santa Helena",
+      "Senador Pompeu": "Senador Almeida",
+      "Amontada": "Morro Alto",
+      "Missão Velha": "Missão Nova",
+      "Aldeota": "Jardim América",
+      "Montese": "Vila Operária",
+      "Alto da Brasília": "Alto da Colina",
+      "Parque Antônio Vieira": "Parque das Árvores",
+      "Serra Grande": "Serra Azul"
+    },
+    "$substituicoes_por_arquivo": "Regras de um arquivo só, aplicadas antes de todas as outras: [regex com flags gm, substituição]. Tiram da origem o que não vai para o template (mapas do Ceará, script de rastreamento do projeto de origem).",
+    "substituicoes_por_arquivo": {
+      "index.html": [
+        [
+          "^[ \\t]*<script async src=\"https://[a-z0-9]+\\.supabase\\.co/functions/v1/pixel-script[^\"]*\"></script>\\n",
+          ""
+        ],
+        [
+          "^[ \\t]*<meta name=\"twitter:site\" content=\"@Lovable\" />\\n",
+          ""
+        ],
+        [
+          "<meta name=\"author\" content=\"Lovable\" />",
+          "<meta name=\"author\" content=\"__BRAND_NAME__\" />"
+        ]
+      ],
+      "src/data/echarts/registry.ts": [
+        [
+          "^.*mapaCeara.*\\n",
+          ""
+        ],
+        [
+          "por município do Ceará e por unidade da federação",
+          "por unidade da federação"
+        ]
+      ],
+      "src/lib/echarts/buildLibraryZip.ts": [
+        [
+          "Os nomes usados são\\n\\\\`ceara-municipios\\\\` e \\\\`brasil-ufs\\\\`, e os GeoJSON devem ser servidos pelo seu",
+          "O nome usado é\n\\`brasil-ufs\\`, e o GeoJSON deve ser servido pelo seu"
+        ],
+        [
+          "ceara-municipios",
+          "brasil-ufs"
+        ],
+        [
+          "próprio domínio e carregados sob demanda",
+          "próprio domínio e carregado sob demanda"
+        ]
+      ],
+      "DESIGN-SYSTEM.md": [
+        [
+          "^\\| 74 \\| `mapa-ceara-municipios`.*\\n",
+          ""
+        ],
+        [
+          "^\\| 76 \\| `mapa-ceara-bolhas`.*\\n",
+          ""
+        ],
+        [
+          "^\\| 75 \\| `mapa-brasil-ufs` \\|(.*) com o Ceará destacado por borda e rótulo\\.",
+          "| 74 | `mapa-brasil-ufs` |$1 com a UF de destaque marcada por borda e rótulo."
+        ],
+        [
+          "^\\| `MAPA_CEARA` .*\\n",
+          ""
+        ],
+        [
+          "^\\| `registrarMapaCeara` .*\\n",
+          ""
+        ],
+        [
+          "Os GeoJSON ficam em `public/geo/ceara-municipios.json` \\(594 kB\\) e\\n`public/geo/brasil-ufs.json` \\(3,4 MB\\), servidos",
+          "O GeoJSON fica em `public/geo/brasil-ufs.json` (3,4 MB), servido"
+        ],
+        [
+          "^- \\*\\*Terminologia institucional\\*\\*.*\\n",
+          ""
+        ],
+        [
+          " \\(Ceará por município e Brasil por UF\\)",
+          " (Brasil por UF)"
+        ],
+        [
+          "\\b76 presets\\b",
+          "74 presets"
+        ],
+        [
+          "\\*\\*76 presets\\*\\*",
+          "**74 presets**"
+        ],
+        [
+          "\\| 76 em 7 categorias \\|",
+          "| 74 em 7 categorias |"
+        ]
+      ],
+      "public/llms.txt": [
+        [
+          "os 76 presets",
+          "os 74 presets"
+        ],
+        [
+          "Power BI\\.- \\[",
+          "Power BI.\n- ["
+        ]
+      ],
+      "src/lib/echarts/sebraeTheme.ts": [
+        [
+          "\"Poppins, system-ui, sans-serif\"",
+          "\"__FONT_PRIMARY__, system-ui, sans-serif\""
+        ]
+      ],
+      "src/pages/TemplatesPage.tsx": [
+        [
+          "(?<=minHeight: variant\\.id === \"int-visual-gradient-sebrae\" \\? \"var\\(--sebrae-header-height\\)\" : \"36px\",[ \\t]*\\r?\\n)",
+          "                maxHeight: variant.id === \"int-visual-gradient-sebrae\" ? undefined : \"52px\",\n"
+        ]
+      ]
+    },
     "$substituicoes_caminho": "Renomeação de arquivos e pastas: [regex, substituição].",
     "substituicoes_caminho": [
       [
@@ -383,7 +581,15 @@
       "letra S",
       "Facilitadores",
       "Céu Brasileiro",
-      "AEM"
+      "AEM",
+      "EMPRETEC",
+      "SEBRAETEC",
+      "empretec",
+      "sebraetec",
+      "cearense",
+      "cearenses",
+      "Jeri",
+      "Jericoacoara"
     ],
     "$termos_proibidos_template": "Substrings proibidas em qualquer lugar do template, sem distinção de caixa (além do prefixo_codigo).",
     "termos_proibidos_template": [
@@ -392,6 +598,15 @@
       "campuni",
       "casademarcas"
     ],
+    "$remanescentes_permitidos": "Termos da checagem de remanescentes que um arquivo pode manter: o Ceará é uma UF no mapa do Brasil.",
+    "remanescentes_permitidos": {
+      "public/geo/brasil-ufs.json": [
+        "Ceará"
+      ],
+      "src/data/echarts/presets/mapas/mapa-brasil-ufs.ts": [
+        "Ceará"
+      ]
+    },
     "$conteudo_exemplo": "Nomes fictícios que entram no lugar dos da origem. Vão para o manifesto e o GERACAO.md lista onde aparecem, para o agente trocar pelo universo da marca nova.",
     "conteudo_exemplo": [
       "Empreender",
@@ -417,7 +632,46 @@
       "UCAP",
       "UINOV",
       "UNEG",
-      "UMEP"
+      "UMEP",
+      "Região Metropolitana",
+      "Sertão Oeste",
+      "Região Central",
+      "Vale do Sul",
+      "Planalto Oeste",
+      "Vale Claro",
+      "Porto Central",
+      "Serra Alta",
+      "Nova Esperança",
+      "Lagoa Azul",
+      "Cachoeira Alta",
+      "Bom Retiro",
+      "Monte Claro",
+      "Vila Nova",
+      "Rio Verde",
+      "Praia Mansa",
+      "Campo Alegre",
+      "Barra Grande",
+      "Alto Bonito",
+      "Santa Rita",
+      "Vale Formoso",
+      "Serra Verde",
+      "Boa Vista",
+      "Fonte Nova",
+      "Ponte Alta",
+      "Areia Branca",
+      "São Bento",
+      "Lagoa Seca",
+      "Porto do Norte",
+      "Mirante da Serra",
+      "Costa Dourada",
+      "Jardim das Flores",
+      "Recanto Verde",
+      "Morada do Sol",
+      "Novo Horizonte",
+      "Santa Helena",
+      "Senador Almeida",
+      "Morro Alto",
+      "Missão Nova"
     ],
     "$imagens_revisadas": "Imagens da origem conferidas uma a uma e copiadas como estão (sem logo, fachada ou texto de marca). Qualquer outra imagem precisa de versão genérica em origem/overrides/, ou a extração falha.",
     "imagens_revisadas": [
@@ -430,13 +684,23 @@
     ],
     "$overrides_de_codigo": "Arquivos de código substituídos inteiros por versões neutras em origem/overrides/, com o hash (sha256, 16 primeiros caracteres) do arquivo da origem em que a versão neutra se baseia. Se a origem mudar, a extração falha até alguém revisar.",
     "overrides_de_codigo": {
-      "src/pages/MarcaPage.tsx": "44564e6a2ee90e02",
-      "src/pages/HomePage.tsx": "026ccf211ccea4e6"
+      "src/pages/MarcaPage.tsx": "6d36e8a00d3a1267",
+      "src/pages/HomePage.tsx": "db1bb794c0bc713d",
+      "src/lib/bi/regioes.ts": "f528f52886294ebb",
+      "src/lib/echarts/mapas.ts": "e1bebed2c0932669",
+      "src/data/echarts/presets/mapas/mapa-brasil-ufs.ts": "e14e4c5fdc6f48ba"
     },
     "$dependencias_dev": "devDependencies acrescentadas ao package.json do template (e ao package-lock.json). O DS gerado instala com --legacy-peer-deps, que não instala peers: @testing-library/react precisa do @testing-library/dom declarado.",
     "dependencias_dev": {
       "@testing-library/dom": "^10.4.1"
     },
+    "$remover_dependencias": "Dependências da origem que o template não leva (integração Supabase/Drizzle do projeto de origem, excluída junto com as pastas).",
+    "remover_dependencias": [
+      "@supabase/supabase-js",
+      "drizzle-kit",
+      "drizzle-orm",
+      "postgres"
+    ],
     "excluir": [
       "node_modules",
       "dist",
@@ -445,7 +709,20 @@
       "README.md",
       "reports/fnde-report.txt",
       "reports/legacy-typography-report.txt",
-      "public/images/fnde-*"
+      "public/images/fnde-*",
+      ".env",
+      ".github",
+      ".lovable",
+      "null",
+      "supabase",
+      "drizzle",
+      "src/integrations",
+      "public/geo/ceara-municipios.json",
+      "src/data/echarts/presets/mapas/mapa-ceara-*"
+    ],
+    "$copiar_sem_regras": "Arquivos copiados sem nenhuma regra de texto (globs). O GeoJSON do Brasil traz nomes reais de UFs.",
+    "copiar_sem_regras": [
+      "public/geo/*.json"
     ]
   }
 }

@@ -3,8 +3,10 @@ import { useBI } from "@/context/BIDataContext";
 import { Button } from "@/components/ui/button";
 import IndicatorCard from "../IndicatorCard";
 import { ShieldCheck, AlertTriangle, FileWarning, Copy } from "lucide-react";
+import { KPIGridSkeleton, TableSkeleton } from "../BISkeletons";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-export default function Qualidade() {
+export default function Qualidade({ loading = false }: { loading?: boolean }) {
   const { registros } = useBI();
 
   const cnpjMap = useMemo(() => {
@@ -28,10 +30,19 @@ export default function Qualidade() {
     return p;
   });
 
+  if (loading) {
+    return (
+      <div className="space-y-6" aria-busy="true">
+        <KPIGridSkeleton count={4} />
+        <TableSkeleton cols={5} />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Qualidade dos Dados</h1>
+        <h2 className="text-2xl font-bold text-foreground">Qualidade dos Dados</h2>
         <p className="text-sm text-muted-foreground">Diagnóstico da consistência e completude da base.</p>
       </div>
 
@@ -45,33 +56,33 @@ export default function Qualidade() {
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <h3 className="text-sm font-semibold mb-3">Pendências de cadastro</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="text-xs text-muted-foreground uppercase border-b border-border">
-              <tr>
-                <th className="text-left py-2 px-2">Empresa</th>
-                <th className="text-left py-2 px-2">Campo</th>
-                <th className="text-left py-2 px-2">Tipo</th>
-                <th className="text-left py-2 px-2">Prioridade</th>
-                <th className="text-right py-2 px-2">Ação</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Empresa</TableHead>
+                <TableHead>Campo</TableHead>
+                <TableHead>Tipo</TableHead>
+                <TableHead>Prioridade</TableHead>
+                <TableHead className="text-right">Ação</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {pendencias.slice(0, 20).map((p, i) => (
-                <tr key={i} className="border-b border-border/40">
-                  <td className="py-2 px-2">{p.empresa}</td>
-                  <td className="py-2 px-2">{p.campo}</td>
-                  <td className="py-2 px-2 text-xs">{p.tipo}</td>
-                  <td className="py-2 px-2">
-                    <span className={`text-[10px] px-2 py-0.5 rounded ${p.prioridade === "Alta" ? "bg-rose-100 text-rose-700" : "bg-amber-100 text-amber-700"}`}>{p.prioridade}</span>
-                  </td>
-                  <td className="py-2 px-2 text-right"><Button variant="outline" size="sm">Corrigir cadastro</Button></td>
-                </tr>
+                <TableRow key={i}>
+                  <TableCell>{p.empresa}</TableCell>
+                  <TableCell>{p.campo}</TableCell>
+                  <TableCell className="text-xs">{p.tipo}</TableCell>
+                  <TableCell>
+                    <span className={`text-[10px] px-2 py-0.5 rounded ${p.prioridade === "Alta" ? "bg-destructive/15 text-destructive" : "bg-warning/20 text-warning-foreground"}`}>{p.prioridade}</span>
+                  </TableCell>
+                  <TableCell className="text-right"><Button variant="outline" size="sm">Corrigir cadastro</Button></TableCell>
+                </TableRow>
               ))}
               {pendencias.length === 0 && (
-                <tr><td colSpan={5} className="py-8 text-center text-muted-foreground text-sm">Nenhuma pendência identificada.</td></tr>
+                <TableRow><TableCell colSpan={5} className="py-8 text-center text-muted-foreground text-sm">Nenhuma pendência identificada.</TableCell></TableRow>
               )}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>

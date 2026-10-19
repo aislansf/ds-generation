@@ -5,20 +5,23 @@ import { agruparPorEmpresa } from "@/lib/bi/parser";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { TableSkeleton } from "../BISkeletons";
 import { Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { EmpresaAgregada, StatusComercial } from "@/lib/bi/types";
 import * as XLSX from "xlsx";
 
 const STATUS_BADGE: Record<StatusComercial, string> = {
   "Não iniciado": "bg-muted text-foreground",
-  "Tentativa de contato": "bg-amber-100 text-amber-800",
-  "Contato realizado": "bg-sky-100 text-sky-800",
-  "Aguardando retorno": "bg-yellow-100 text-yellow-800",
-  "Oportunidade identificada": "bg-emerald-100 text-emerald-800",
-  "Cadastro solicitado": "bg-blue-100 text-blue-800",
-  "Proposta enviada": "bg-indigo-100 text-indigo-800",
+  "Tentativa de contato": "bg-warning/20 text-warning-foreground",
+  "Contato realizado": "bg-primary/15 text-primary",
+  "Aguardando retorno": "bg-warning/15 text-warning-foreground",
+  "Oportunidade identificada": "bg-success/20 text-success-foreground",
+  "Cadastro solicitado": "bg-primary/10 text-primary",
+  "Proposta enviada": "bg-secondary/20 text-secondary-foreground",
   Convertido: "bg-success text-success-foreground",
-  "Sem aderência": "bg-rose-100 text-rose-800",
+  "Sem aderência": "bg-destructive/15 text-destructive",
   Encerrado: "bg-muted text-muted-foreground",
 };
 
@@ -28,7 +31,7 @@ const POTENCIAL_BADGE = {
   Baixo: "bg-muted text-muted-foreground",
 };
 
-export default function Empresas() {
+export default function Empresas({ loading = false }: { loading?: boolean }) {
   const { registros, filtros } = useBI();
   const empresas = useMemo(() => agruparPorEmpresa(aplicarFiltros(registros, filtros)), [registros, filtros]);
 
@@ -71,12 +74,20 @@ export default function Empresas() {
     XLSX.writeFile(wb, "empresas.xlsx");
   }
 
+  if (loading) {
+    return (
+      <div className="space-y-4" aria-busy="true">
+        <TableSkeleton rows={6} cols={8} />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Empresas</h1>
-          <p className="text-sm text-muted-foreground">{total} empresas únicas com base nos filtros aplicados.</p>
+          <h2 className="text-2xl font-bold text-foreground">Empresas atendidas</h2>
+          <p className="text-sm text-muted-foreground">{total} empresas atendidas com base nos filtros aplicados.</p>
         </div>
         <Button variant="outline" size="sm" onClick={exportarCSV}>
           <Download className="h-3.5 w-3.5" /> Exportar XLSX
@@ -97,63 +108,64 @@ export default function Empresas() {
               className="pl-9 h-9"
             />
           </div>
-          <select
-            className="h-9 rounded-md border border-input bg-background px-2 text-xs"
-            value={porPagina}
-            onChange={(e) => setPorPagina(Number(e.target.value))}
-          >
-            {[10, 25, 50].map((n) => (
-              <option key={n} value={n}>
-                {n} / página
-              </option>
-            ))}
-          </select>
+          <Select value={String(porPagina)} onValueChange={(v) => { setPorPagina(Number(v)); setPagina(1); }}>
+            <SelectTrigger className="h-9 w-[130px] text-xs" aria-label="Registros por página">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {[10, 25, 50].map((n) => (
+                <SelectItem key={n} value={String(n)} className="text-xs">
+                  {n} / página
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="border-b border-border text-left text-xs text-muted-foreground uppercase">
-              <tr>
-                <th className="py-2 px-2 font-medium">Empresa</th>
-                <th className="py-2 px-2 font-medium">CNPJ</th>
-                <th className="py-2 px-2 font-medium">Cidade/UF</th>
-                <th className="py-2 px-2 font-medium">Contatos</th>
-                <th className="py-2 px-2 font-medium">Status</th>
-                <th className="py-2 px-2 font-medium">Potencial</th>
-                <th className="py-2 px-2 font-medium">Último atendimento</th>
-                <th className="py-2 px-2 font-medium text-right">Ações</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Empresa</TableHead>
+                <TableHead>CNPJ</TableHead>
+                <TableHead>Município/UF</TableHead>
+                <TableHead>Contatos</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Potencial</TableHead>
+                <TableHead>Último atendimento</TableHead>
+                <TableHead className="text-right">Ações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {visiveis.map((e) => (
-                <tr key={e.cnpj + e.empresa} className="border-b border-border/60 hover:bg-muted/30">
-                  <td className="py-2.5 px-2 font-medium text-foreground">{e.empresa}</td>
-                  <td className="py-2.5 px-2 text-xs text-muted-foreground tabular-nums">{e.cnpj}</td>
-                  <td className="py-2.5 px-2 text-xs">{e.cidade ? `${e.cidade}/${e.uf ?? "—"}` : "—"}</td>
-                  <td className="py-2.5 px-2 text-xs">{e.contatos}</td>
-                  <td className="py-2.5 px-2">
+                <TableRow key={e.cnpj + e.empresa}>
+                  <TableCell className="font-medium text-foreground">{e.empresa}</TableCell>
+                  <TableCell className="text-xs text-muted-foreground tabular-nums">{e.cnpj}</TableCell>
+                  <TableCell className="text-xs">{e.cidade ? `${e.cidade}/${e.uf ?? "—"}` : "—"}</TableCell>
+                  <TableCell className="text-xs">{e.contatos}</TableCell>
+                  <TableCell>
                     <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${STATUS_BADGE[e.status]}`}>{e.status}</span>
-                  </td>
-                  <td className="py-2.5 px-2">
+                  </TableCell>
+                  <TableCell>
                     <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${POTENCIAL_BADGE[e.potencial]}`}>{e.potencial}</span>
-                  </td>
-                  <td className="py-2.5 px-2 text-xs">{e.ultimoAtendimento ?? "—"}</td>
-                  <td className="py-2.5 px-2 text-right">
+                  </TableCell>
+                  <TableCell className="text-xs">{e.ultimoAtendimento ?? "—"}</TableCell>
+                  <TableCell className="text-right">
                     <Button variant="ghost" size="sm" onClick={() => setSelecionada(e)}>
                       Ver detalhes
                     </Button>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
               {visiveis.length === 0 && (
-                <tr>
-                  <td colSpan={8} className="py-10 text-center text-sm text-muted-foreground">
+                <TableRow>
+                  <TableCell colSpan={8} className="py-10 text-center text-sm text-muted-foreground">
                     Nenhuma empresa encontrada.
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               )}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
 
         <div className="flex items-center justify-between mt-3 text-xs text-muted-foreground">
@@ -206,10 +218,10 @@ export default function Empresas() {
                   <Item label="Responsável" value={selecionada.registros[0]?.responsavel} />
                   <Item label="Último contato" value={selecionada.ultimoAtendimento} />
                 </Section>
-                <Section title="Informações técnicas (sugeridas)">
-                  <Item label="Possui compressor" value={selecionada.registros.some((r) => r.possuiCompressor) ? "Sim" : "Não detectado"} />
-                  <Item label="Possui secador" value={selecionada.registros.some((r) => r.possuiSecador) ? "Sim" : "Não detectado"} />
-                  <Item label="Contrato de manutenção" value={selecionada.registros.some((r) => r.contratoManutencao) ? "Sim" : "Não detectado"} />
+                <Section title="Perfil do negócio (sugerido)">
+                  <Item label="Participou de programa" value={selecionada.registros.some((r) => r.participouPrograma) ? "Sim" : "Não detectado"} />
+                  <Item label="CNPJ ativo" value={selecionada.registros.some((r) => r.possuiCnpjAtivo) ? "Sim" : "Não detectado"} />
+                  <Item label="Consultoria vigente" value={selecionada.registros.some((r) => r.consultoriaVigente) ? "Sim" : "Não detectado"} />
                 </Section>
                 <Section title="Histórico de atendimentos">
                   <ol className="relative border-l border-border ml-2 space-y-3">

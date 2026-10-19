@@ -1,6 +1,6 @@
 ---
 name: ds-build
-description: Gera um Design System completo (site de documentação React/Vite/Tailwind/shadcn com tokens, componentes, templates de tela, páginas de marca, acessibilidade e validadores) para qualquer marca, a partir de um template neutro e de um briefing respondido pelo usuário. Use quando o usuário digitar /ds-build ou pedir para "criar um design system para a marca X", "gerar um DS", "montar o DS do cliente Y" ou "fazer um design system com a nossa identidade visual".
+description: Gera um Design System completo (site de documentação React/Vite/Tailwind/shadcn com tokens, componentes, gráficos Apache ECharts, templates de tela, páginas de marca, acessibilidade e validadores) para qualquer marca, a partir de um template neutro e de um briefing respondido pelo usuário. Use quando o usuário digitar /ds-build ou pedir para "criar um design system para a marca X", "gerar um DS", "montar o DS do cliente Y" ou "fazer um design system com a nossa identidade visual".
 argument-hint: "[nome da marca | caminho/do/briefing.json]"
 ---
 
@@ -14,7 +14,7 @@ Comando: `/ds-build`. Argumentos recebidos: `$ARGUMENTS`
 
 Depois de gerar, o comando `/ds-run` (skill `ds-run`) sobe o DS com `npm run dev` para o usuário ver o projeto rodando.
 
-Gera um Design System completo para uma marca: troca **nome, cores, fontes, logos e textos** de um template neutro e mantém a arquitetura, os tokens, os ~50 componentes, os templates de tela e os validadores.
+Gera um Design System completo para uma marca: troca **nome, cores, fontes, logos e textos** de um template neutro e mantém a arquitetura, os tokens, os ~50 componentes, a biblioteca de gráficos ECharts (74 presets), os templates de tela e os validadores.
 
 O trabalho tem três partes:
 
@@ -132,7 +132,8 @@ Siga `references/reescrita-semantica.md`. Os trechos genéricos estão marcados 
 - `src/pages/HomePage.tsx`: seção-modelo "Voz da marca" (personalidade, 4 pilares, diretrizes), princípios e texto do hero;
 - `src/pages/ConteudoPage.tsx`: tom de voz (`conteudo.tom_de_voz`);
 - dados de exemplo listados em "Conteúdo de exemplo genérico" no `GERACAO.md` (Empreender, Programa Inova, DIROP…): troque por exemplos do universo da nova marca;
-- `public/llms.txt`, `index.html` (title, description, JSON-LD).
+- lugares fictícios (Porto Central, Vale do Sul, Serra Alta…) nos presets de gráfico (`src/data/echarts/presets/`), na Tela BI e no Dashboard Analítico: troque pela região em que a marca atua, incluindo `src/lib/bi/regioes.ts` e o destaque do mapa do Brasil (`mapa-brasil-ufs.ts`), os dois marcados com `MODELO:`;
+- `public/llms.txt`, `index.html` (title, description, JSON-LD) e `DESIGN-SYSTEM.md` (data, visão geral e changelog).
 
 Se faltar informação para reescrever (ex.: área de proteção do logo), pergunte ao usuário. Não invente regras de marca.
 
@@ -140,7 +141,7 @@ Não troque cores fixas à mão: se um tom ficou errado, ajuste o briefing ou as
 
 ### 6. Revisão visual
 
-Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o mesmo que o `/ds-run` faz) e pegue o endereço da linha `Local:` do Vite: porta 8080 ou a próxima livre. Confira no navegador, em light e dark: `/`, `/fundamentos`, `/tokens`, `/componentes`, `/templates`, `/marca`. Procure:
+Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o mesmo que o `/ds-run` faz) e pegue o endereço da linha `Local:` do Vite: porta 8080 ou a próxima livre. Confira no navegador, em light e dark: `/`, `/fundamentos`, `/tokens`, `/componentes`, `/graficos` (e uma ou duas categorias, como `/graficos/barras` e `/graficos/mapas`), `/templates`, `/marca`. Procure:
 
 - texto ilegível sobre a primária (botões, sidebar, header);
 - tons "estranhos" em ilustrações e gráficos (sinal de uma cor fora das janelas de família);
@@ -157,4 +158,5 @@ Informe ao usuário: a pasta gerada, o resultado de build e testes, as pendênci
 
 - **Imagens:** o template traz fotos genéricas, um selo "marca parceira" e miniaturas com a marca neutra. Os `.asset.json` viram placeholders abstratos em `public/placeholders/`.
 - **Recoloração:** preserva a luminosidade e move a matiz. Marcas muito claras (amarelo, verde-limão) como primária podem precisar de `--primary-foreground` escuro; o gerador ajusta isso sozinho só quando a nova marca fica pior que o template.
+- **Mapas:** a categoria Mapas traz só o Brasil por UF. Mapa estadual ou municipal exige o GeoJSON da região (`references/arquitetura.md`, seção Gráficos ECharts).
 - **Idioma:** o template é pt-BR.

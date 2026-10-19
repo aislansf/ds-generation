@@ -3,8 +3,10 @@ import { useBI } from "@/context/BIDataContext";
 import { aplicarFiltros, contarPorCampo } from "@/lib/bi/aggregations";
 import IndicatorCard from "../IndicatorCard";
 import { PhoneCall, MailX, Clock, AlertCircle } from "lucide-react";
+import { KPIGridSkeleton, TableSkeleton } from "../BISkeletons";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-export default function Atendimentos() {
+export default function Atendimentos({ loading = false }: { loading?: boolean }) {
   const { registros, filtros } = useBI();
   const dados = useMemo(() => aplicarFiltros(registros, filtros), [registros, filtros]);
 
@@ -13,11 +15,20 @@ export default function Atendimentos() {
   const aguardando = dados.filter((d) => d.status === "Aguardando retorno").length;
   const porResp = contarPorCampo(dados, "responsavel");
 
+  if (loading) {
+    return (
+      <div className="space-y-6" aria-busy="true">
+        <KPIGridSkeleton count={4} />
+        <TableSkeleton cols={2} />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Atendimentos</h1>
-        <p className="text-sm text-muted-foreground">Acompanhamento das interações comerciais.</p>
+        <h2 className="text-2xl font-bold text-foreground">Atendimentos</h2>
+        <p className="text-sm text-muted-foreground">Acompanhamento dos atendimentos aos empreendedores atendidos.</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <IndicatorCard title="Atendimentos realizados" value={realizados} icon={PhoneCall} delta={null} />
@@ -27,23 +38,23 @@ export default function Atendimentos() {
       </div>
 
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-        <h3 className="text-sm font-semibold mb-3">Atendimentos por responsável</h3>
-        <table className="w-full text-sm">
-          <thead className="text-xs text-muted-foreground uppercase border-b border-border">
-            <tr>
-              <th className="text-left py-2 px-2">Responsável</th>
-              <th className="text-right py-2 px-2">Atendimentos</th>
-            </tr>
-          </thead>
-          <tbody>
+        <h3 className="text-sm font-semibold mb-3">Atendimentos por escritório regional</h3>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Escritório regional</TableHead>
+              <TableHead className="text-right">Atendimentos</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {porResp.map((r) => (
-              <tr key={r.name} className="border-b border-border/40">
-                <td className="py-2 px-2">{r.name}</td>
-                <td className="py-2 px-2 text-right font-medium">{r.value}</td>
-              </tr>
+              <TableRow key={r.name}>
+                <TableCell>{r.name}</TableCell>
+                <TableCell className="text-right font-medium tabular-nums">{r.value}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

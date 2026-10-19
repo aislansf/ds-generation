@@ -9,11 +9,13 @@
  * O que faz:
  *   1. Copia a pasta de origem (sem node_modules, dist, lockfiles bun e itens de "origem.excluir").
  *   2. Renomeia arquivos (prefixo da marca → brand, "origem.substituicoes_caminho").
- *   3. Aplica as regras de texto (conteúdo da origem, domínios, nomes, fontes, identificadores) → placeholders __X__.
+ *   3. Aplica as regras de texto (por arquivo, conteúdo e lugares da origem, domínios, nomes, fontes, identificadores)
+ *      → placeholders __X__. Arquivos de "origem.copiar_sem_regras" (ex.: GeoJSON) vão como estão.
  *   4. Troca o cabeçalho de fontes do index.css pelo marcador de imports.
  *   5. Reescreve os .asset.json (ponteiros para o CDN do projeto de origem) como ponteiros locais neutros.
- *   6. Aplica origem/overrides/ por cima (logos neutros, imagens genéricas, README…) e grava template.manifest.json.
- *   7. Falha (exit 1) se sobrar qualquer termo da origem (nome, marcas proibidas, termos_especificos).
+ *   6. Ajusta o package.json (dependências removidas e acrescentadas) e gera o package-lock.json se a origem não tiver.
+ *   7. Aplica origem/overrides/ por cima (logos neutros, imagens genéricas, README…) e grava template.manifest.json.
+ *   8. Falha (exit 1) se sobrar qualquer termo da origem (nome, marcas proibidas, termos_especificos, lugares).
  *
  * As cores NÃO viram placeholder: o template guarda as cores de origem e o gerador
  * recolore por família de matiz (ver skills/ds-build/scripts/lib/color.mjs).
@@ -24,7 +26,7 @@ import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { PLACEHOLDERS } from "../skills/ds-build/scripts/lib/rules.mjs";
-import { buildExtractionRules, buildPathRules, applyRules, residualMatchers } from "./lib/regras-extracao.mjs";
+import { buildExtractionRules, buildPathRules, buildFileRules, applyRules, residualMatchers, termoPermitido } from "./lib/regras-extracao.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SKILL = path.join(ROOT, "skills", "ds-build");
@@ -52,8 +54,12 @@ const SKIP_TEXT_RULES = (rel) =>
   rel.endsWith(".asset.json") || rel === "package-lock.json" || /(^|\/)marca\/[^/]+\.svg$/.test(rel) || /logo[^/]*\.svg$/.test(rel);
 
 // Globs simples de exclusão: "public/images/marca-antiga-*" ou nomes de pasta/arquivo
-const excl = (brief.origem.excluir ?? []).map((g) => new RegExp("^" + g.split("*").map((s) => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join("[^/]*") + "(/|$)"));
+const glob = (g, fim) => new RegExp("^" + g.split("*").map((s) => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&")).join("[^/]*") + fim);
+const excl = (brief.origem.excluir ?? []).map((g) => glob(g, "(/|$)"));
 const isExcluded = (rel) => excl.some((re) => re.test(rel) || re.test(path.basename(rel)));
+// Dados copiados sem nenhuma regra de texto (ex.: GeoJSON com nomes reais de lugares)
+const semRegras = (brief.origem.copiar_sem_regras ?? []).map((g) => glob(g, "$"));
+const copiarSemRegras = (rel) => semRegras.some((re) => re.test(rel));
 
 const textRules = buildExtractionRules(brief);
 const pathRules = buildPathRules(brief);
@@ -86,8 +92,8 @@ for (const rel of files) {
     const base = path.basename(newRel).replace(/\.asset\.json$/, "");
     const neutral = { version: 1, url: `/placeholders/${base.replace(/\.[a-z0-9]+$/i, "")}.svg`, original_filename: base, content_type: meta.content_type ?? "image/svg+xml" };
     fs.writeFileSync(dest, JSON.stringify(neutral, null, 2) + "\n");
-  } else if (TEXT_EXT.test(rel) && !SKIP_TEXT_RULES(rel)) {
-    let text = fs.readFileSync(path.join(SOURCE, rel), "utf8");
+  } else if (TEXT_EXT.test(rel) && !SKIP_TEXT_RULES(rel) && !copiarSemRegras(rel)) {
+    let text = applyRules(fs.readFileSync(path.join(SOURCE, rel), "utf8"), buildFileRules(brief, rel), stats);
     if (rel === "src/index.css") {
       // Cabeçalho de fontes (comentário + @import + @font-face) → marcador único
       const idx = text.indexOf("@tailwind base;");
@@ -98,6 +104,15 @@ for (const rel of files) {
   } else {
     fs.copyFileSync(path.join(SOURCE, rel), dest);
   }
+}
+
+// Dependências da origem que o template não leva (ex.: integrações com a infraestrutura da origem)
+const semDeps = brief.origem.remover_dependencias ?? [];
+if (semDeps.length) {
+  const pkgPath = path.join(OUT, "package.json");
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+  for (const sec of ["dependencies", "devDependencies"]) for (const d of semDeps) delete pkg[sec]?.[d];
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 }
 
 // Dependências que a origem não declara mas o DS gerado precisa (ex.: peers que --legacy-peer-deps não instala)
@@ -142,6 +157,13 @@ if (devExtras.length) {
   }
 }
 
+// A origem pode versionar só o lockfile do bun. O DS gerado instala com npm, então o template leva um
+// package-lock.json resolvido a partir do package.json já ajustado (precisa de rede, mas não instala nada).
+if (!fs.existsSync(path.join(OUT, "package-lock.json"))) {
+  console.log("Gerando package-lock.json (npm install --package-lock-only)…");
+  execSync("npm install --package-lock-only --legacy-peer-deps --ignore-scripts --no-audit --no-fund", { cwd: OUT, stdio: "inherit" });
+}
+
 // Overrides: arquivos do template que precisam de versão própria (logos neutros, imagens genéricas, README…)
 const overridden = new Set();
 if (fs.existsSync(OVERRIDES)) {
@@ -163,7 +185,8 @@ const overrides = overridden.size;
 const codeOverrideDrift = [];
 for (const [rel, hash] of Object.entries(brief.origem.overrides_de_codigo ?? {})) {
   const src = path.join(SOURCE, rel);
-  const atual = fs.existsSync(src) ? createHash("sha256").update(fs.readFileSync(src)).digest("hex").slice(0, 16) : "ausente";
+  // Quebras de linha normalizadas: um checkout com CRLF não conta como mudança
+  const atual = fs.existsSync(src) ? createHash("sha256").update(fs.readFileSync(src, "utf8").replace(/\r\n/g, "\n")).digest("hex").slice(0, 16) : "ausente";
   if (!overridden.has(rel)) codeOverrideDrift.push(`${rel}: falta a versão neutra em origem/overrides/${rel}`);
   else if (atual !== hash) {
     codeOverrideDrift.push(`${rel}: mudou na origem (hash ${atual}, registrado ${hash}). Leve a mudança para origem/overrides/${rel} e atualize "overrides_de_codigo"`);
@@ -206,7 +229,7 @@ const leftovers = [...codeOverrideDrift];
     }
     if (!TEXT_EXT.test(rel) || rel === "package-lock.json") continue;
     fs.readFileSync(full, "utf8").split("\n").forEach((line, i) => {
-      for (const m of matchers) if (m.re.test(line)) leftovers.push(`${rel}:${i + 1}: [${m.termo}] ${line.trim().slice(0, 120)}`);
+      for (const m of matchers) if (m.re.test(line) && !termoPermitido(brief, rel, m.termo)) leftovers.push(`${rel}:${i + 1}: [${m.termo}] ${line.trim().slice(0, 120)}`);
     });
   }
 })(OUT);

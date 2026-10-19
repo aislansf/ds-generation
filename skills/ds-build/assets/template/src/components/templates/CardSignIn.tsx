@@ -102,7 +102,7 @@ function CardSignInPreview() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#163F5F] to-white/0" />
         <div className="absolute bottom-6 left-6 right-6">
-          <p className="text-white text-2xl font-semibold leading-tight" style={{ fontFamily: "'__FONT_DISPLAY__', 'Poppins', sans-serif" }}>
+          <p className="text-white text-2xl font-semibold leading-tight" style={{ fontFamily: "'__FONT_SYSTEM__', '__FONT_PRIMARY__', sans-serif" }}>
             Estimulamos o empreendedorismo
           </p>
         </div>

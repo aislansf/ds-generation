@@ -445,6 +445,17 @@ export default function ChartsSection() {
         description="Biblioteca de gráficos para dashboards e relatórios. Utiliza Recharts. Cada exemplo inclui código pronto para copiar."
       />
 
+      <div className="rounded-lg border border-info/30 bg-info/10 p-4 mb-6 text-sm text-foreground">
+        <strong>Esta biblioteca usa Recharts</strong> e segue recomendada para gráficos simples
+        embutidos em telas de sistema. Para painéis analíticos, BI e exportação do{" "}
+        <code className="text-xs">option</code> para outras stacks, use a biblioteca{" "}
+        <a href="/graficos" className="text-primary font-medium hover:underline">
+          Gráficos ECharts
+        </a>
+        . As duas coexistem no Design System — nenhuma está depreciada.
+      </div>
+
+
       {/* 1. Basic Area */}
       <ComponentPreview
         title="Gráfico de Área Básico"

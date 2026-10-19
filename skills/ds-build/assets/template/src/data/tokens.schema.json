@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://__DS_DOMAIN__/schemas/tokens.schema.json",
+  "title": "__BRAND_SHORT__ DS - DTCG Tokens",
+  "type": "object",
+  "required": ["$schema", "brand"],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri" },
+    "brand": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/definitions/tokenNode" }
+    }
+  },
+  "definitions": {
+    "tokenLeaf": {
+      "type": "object",
+      "required": ["$type", "$value"],
+      "properties": {
+        "$type": {
+          "type": "string",
+          "enum": [
+            "color",
+            "dimension",
+            "shadow",
+            "duration",
+            "cubicBezier",
+            "fontWeight",
+            "number",
+            "string"
+          ]
+        },
+        "$value": { "type": ["string", "number"] },
+        "$description": { "type": "string" },
+        "$extensions": { "type": "object" }
+      }
+    },
+    "tokenNode": {
+      "type": "object",
+      "if": { "required": ["$type"] },
+      "then": { "$ref": "#/definitions/tokenLeaf" },
+      "else": {
+        "minProperties": 1,
+        "additionalProperties": { "$ref": "#/definitions/tokenNode" }
+      }
+    }
+  }
+}

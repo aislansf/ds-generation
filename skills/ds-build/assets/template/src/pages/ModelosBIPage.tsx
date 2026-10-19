@@ -22,9 +22,9 @@ const panels = [
   },
   {
     label: "Gestão de Pessoas - BI",
-    description: "Painel de gestão de pessoas (em construção).",
+    description: "Painel executivo de gestão de pessoas com indicadores de quadro, saúde e capacitação.",
     path: "/modelos-bi/gestao-pessoas",
-    available: false,
+    available: true,
   },
 ];
 
