@@ -1,0 +1,6 @@
+/* Estilo visual: Orgânico / Natural.
+ * Blobs atrás do hero e do login, divisórias em onda e imagens de marca com cantos orgânicos. */
+
+[data-surface="marca"][data-marca="hero"] img {
+  border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+}

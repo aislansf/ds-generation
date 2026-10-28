@@ -1,0 +1,21 @@
+/* Estilo visual: Ilustrativo / Hand-drawn.
+ * Espaços de ilustração gerados (public/estilo/ilustracoes/, placeholders nas cores da marca) no hero,
+ * no painel de login e nos estados vazios. As ilustrações reais entram como pendência do GERACAO.md:
+ * troque os SVGs mantendo os nomes. */
+
+[data-surface="marca"][data-marca="painel"]::after {
+  background-image: url("/estilo/ilustracoes/login.svg");
+}
+
+[data-surface="marca"][data-marca="vazio"]::before {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  background: url("/estilo/ilustracoes/vazio.svg") center / contain no-repeat;
+}
+
+[data-surface="marca"][data-marca="vazio"] > svg:first-child {
+  display: none;
+}

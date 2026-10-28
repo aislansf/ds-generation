@@ -80,7 +80,7 @@ export default function ModalAcessoTemplatePage() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm p-4"
         >
           <div data-ds="card" className="w-full max-w-md bg-card rounded-2xl shadow-2xl border border-border overflow-hidden animate-in fade-in zoom-in-95">
-            <div className="bg-primary text-primary-foreground p-6 flex flex-col items-center gap-2">
+            <div data-surface="marca" data-marca="painel" className="bg-primary text-primary-foreground p-6 flex flex-col items-center gap-2">
               <div className="w-12 h-12 rounded-full bg-primary-foreground/15 flex items-center justify-center">
                 <Lock size={22} />
               </div>

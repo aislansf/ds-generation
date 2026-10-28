@@ -2589,7 +2589,7 @@ function EmptyStateSection() {
       whenToUse={["Listas vazias", "Resultados de busca sem retorno", "Primeiro uso de funcionalidade"]}
       code={`import { Inbox, Search } from "lucide-react";
 
-<div className="text-center py-12 border border-dashed border-border rounded-lg">
+<div data-surface="marca" data-marca="vazio" className="text-center py-12 border border-dashed border-border rounded-lg">
   <Inbox size={48} className="mx-auto text-muted-foreground/50 mb-4" />
   <h4 className="font-semibold mb-1">Nenhum resultado encontrado</h4>
   <p className="text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
@@ -2600,7 +2600,7 @@ function EmptyStateSection() {
   </button>
 </div>`}
     >
-      <div className="text-center py-12 border border-dashed border-border rounded-lg">
+      <div data-surface="marca" data-marca="vazio" className="text-center py-12 border border-dashed border-border rounded-lg">
         <Inbox size={48} className="mx-auto text-muted-foreground/50 mb-4" />
         <h4 className="font-semibold mb-1">Nenhum resultado encontrado</h4>
         <p className="text-sm text-muted-foreground mb-4 max-w-sm mx-auto">

@@ -1,0 +1,10 @@
+/* Estilo visual: Grunge.
+ * Papel com grão (≤ 6% de opacidade), bordas rasgadas por máscara no hero e no painel de login e "adesivos"
+ * levemente tortos. A textura nunca fica atrás de texto longo; a rotação some com movimento reduzido. */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-surface="marca"] [data-ds="badge"],
+  [data-surface="marca"][data-marca="hero"] img {
+    transform: rotate(-1deg);
+  }
+}

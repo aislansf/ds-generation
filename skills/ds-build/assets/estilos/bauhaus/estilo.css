@@ -1,0 +1,8 @@
+/* Estilo visual: Bauhaus.
+ * Retângulos retos e círculos: contêineres de ícone e avatares viram círculos; composição de círculo,
+ * quadrado e triângulo nas superfícies de marca. */
+
+.bg-card-icon,
+[data-ds="badge"] {
+  border-radius: var(--radius-full);
+}

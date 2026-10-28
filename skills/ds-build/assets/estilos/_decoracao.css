@@ -1,0 +1,109 @@
+/* Decoração gerada (estilos de nível 3). Entra antes da camada do estilo em src/styles/estilo.css.
+ *
+ * Toda regra daqui fica em [data-surface="marca"]: tabelas, formulários, dashboards e documentação nunca
+ * recebem decoração. Os tokens --deco-* apontam para os SVGs de public/estilo/ (gerados nas cores da marca)
+ * e valem "none" quando o estilo não usa aquele slot.
+ *
+ * Onde cada papel recebe a decoração (data-marca):
+ *   hero, capa  arte à direita; o hero abre espaço para ela (some abaixo de 1024px)
+ *   painel      arte no canto superior direito, entre a foto e o texto (login, cadastro, 2FA, modal de acesso)
+ *   erro        padrão e textura no fundo da página; o card do erro fica liso por cima
+ *   header      faixa na borda de baixo
+ *   rodape      faixa na borda de cima
+ *   vazio       faixa em cima e embaixo do estado vazio
+ * Texto nunca fica sobre padrão: a arte ocupa a área livre da superfície, e as faixas são finas.
+ */
+
+[data-surface="marca"]:is([data-marca="hero"], [data-marca="capa"]) {
+  background-image: var(--deco-hero), var(--deco-texture);
+  background-repeat: no-repeat, repeat;
+  background-position: right 1.5rem center, 0 0;
+  background-size: 24% auto, 200px 200px;
+}
+
+[data-surface="marca"][data-marca="capa"] {
+  background-size: auto 100%, 200px 200px;
+  background-position: right center, 0 0;
+}
+
+[data-surface="marca"][data-marca="painel"] {
+  position: relative;
+  isolation: isolate;
+}
+
+[data-surface="marca"][data-marca="painel"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38%;
+  height: 38%;
+  background-image: var(--deco-hero);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* O conteúdo do painel fica acima da arte; a foto e as camadas absolutas continuam onde estão */
+[data-surface="marca"][data-marca="painel"] > :not(img):not(.absolute) {
+  position: relative;
+  z-index: 2;
+}
+
+[data-surface="marca"][data-marca="erro"] {
+  background-image: var(--deco-texture), var(--deco-pattern);
+  background-repeat: repeat, repeat;
+  background-size: 200px 200px, auto;
+}
+
+[data-surface="marca"][data-marca="header"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background-image: var(--deco-divider);
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  pointer-events: none;
+}
+
+[data-surface="marca"][data-marca="rodape"] {
+  background-image: var(--deco-divider);
+  background-repeat: repeat-x;
+  background-position: left top;
+  background-size: auto 6px;
+}
+
+[data-surface="marca"][data-marca="vazio"] {
+  background-image: var(--deco-divider), var(--deco-divider);
+  background-repeat: repeat-x, repeat-x;
+  background-position: left top, left bottom;
+  background-size: auto 8px, auto 8px;
+}
+
+/* Borda irregular (grunge, colagem): só onde há máscara */
+[data-surface="marca"]:is([data-marca="hero"], [data-marca="painel"]) {
+  -webkit-mask-image: var(--deco-mask);
+  mask-image: var(--deco-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* O texto do hero não passa por baixo da arte */
+@media (min-width: 1024px) {
+  [data-surface="marca"][data-marca="hero"] {
+    padding-right: calc(24% + 3rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  [data-surface="marca"]:is([data-marca="hero"], [data-marca="capa"]) {
+    background-image: none, var(--deco-texture);
+  }
+}

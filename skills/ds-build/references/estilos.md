@@ -18,12 +18,21 @@ Só os estilos desta tabela existem em `assets/estilos/`. Ofereça ao usuário a
 | | `escandinavo` | Escandinavo / Nórdico | Neutros quentes, formas suaves, sombras leves | light |
 | Ousados | `brutalista` | Brutalista | Preto e branco, bordas grossas, sem raio, sem sombra, sem animação | light |
 | | `neobrutalismo` | Neobrutalismo | Contorno preto grosso, sombra dura deslocada, hover que "levanta" | light |
+| | `maximalista` | Maximalista | Muitas cores, padrões e camadas nas superfícies de marca | light |
+| | `grunge` | Grunge | Papel com grão, bordas rasgadas e "adesivos", estética de zine | light |
+| Inspirados em épocas | `art-nouveau` | Art Nouveau | Curvas "chicote", folhas e molduras em creme | light |
+| | `bauhaus` | Bauhaus | Retângulos retos, círculos e composição geométrica assimétrica | light |
+| | `construtivismo` | Construtivismo russo | Diagonais, títulos em caixa alta e tom de cartaz | light |
+| | `retro` | Retrô / Vintage | Anos 70: cores desbotadas, raios de sol e grão leve | light |
 | Digitais e de interface | `neumorfismo` | Neumorfismo | Relevo na mesma cor do fundo; campos afundados | light |
 | | `glassmorfismo` | Glassmorfismo | Vidro fosco sobre a malha de cores da marca | light |
 | | `claymorfismo` | Claymorfismo | 3D macio, como massinha, com a cor da marca na sombra | light |
 | | `cyberpunk` | Dark mode / Cyberpunk | Fundo escuro, neon da marca, cantos cortados | **dark** |
+| Orgânicos e artesanais | `organico` | Orgânico / Natural | Tons terrosos, blobs e ondas | light |
+| | `ilustrativo` | Ilustrativo / Hand-drawn | Espaços de ilustração no hero, no login, nos estados vazios e nos erros | light |
+| | `colagem` | Colagem | Recortes de papel, retícula e fita adesiva | light |
 
-Ainda não disponíveis (dependem de decoração gerada ou de layout próprio, fases 4 e 5 do `docs/PLANO-ESTILOS.md` do repositório): maximalista, grunge, art nouveau, bauhaus, construtivismo russo, retrô, orgânico, ilustrativo, colagem e bento grid. Se o usuário pedir um deles, diga que ainda não existe e ofereça de 2 a 4 estilos próximos do catálogo (ex.: bauhaus → suíço ou neobrutalismo; orgânico → escandinavo ou claymorfismo; bento → material ou flat).
+Ainda não disponível (depende de layout próprio, fase 5 do `docs/PLANO-ESTILOS.md` do repositório): bento grid. Se o usuário pedir, diga que ainda não existe e ofereça material ou flat.
 
 Fora do escopo: Art Déco, Memphis, Y2K e Skeuomorfismo.
 
@@ -36,6 +45,7 @@ O gerador aplica o preset depois de recolorir a marca e antes dos ajustes de con
 3. copia a **camada CSS** do estilo para `src/styles/estilo.css` (vazia no `corporativo`);
 4. grava `src/config/estilo.ts` (id, nome, tema padrão, layout) e o tema padrão no script do `index.html`;
 5. sem degradê no estilo: o header degradê vira cor sólida;
+5a. estilos de nível 3 (decoração): gera os SVGs do estilo em `public/estilo/`, nas cores da marca e com o slug como semente (mesma marca, mesma decoração), aponta os tokens `--deco-*` para eles e põe a camada comum `assets/estilos/_decoracao.css` antes da camada do estilo. A decoração só aparece em superfícies de marca (`[data-surface="marca"]`) e soma no máximo 200 KB;
 5b. se o estilo define `--input`, os campos de formulário passam a seguir o estilo: `--control-border` = `--input`, `--control-border-hover` = `--ring`, placeholder = `--muted-foreground`, texto = `--foreground` (o preset pode fixar qualquer `--control-*` ele mesmo);
 6. confere os **mínimos de contraste do estilo** e ajusta só tokens do próprio estilo.
 
@@ -58,6 +68,7 @@ Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos est
 | `--font-light…black` | `300…900` | `font-*` |
 | `--tracking-*`, `--duration-*`, `--ease-*` | escala atual | `tracking-*`, `duration-*`, `transition` |
 | `--icon-stroke` | `2` | Traço dos ícones Lucide |
+| `--deco-hero`, `--deco-divider`, `--deco-pattern`, `--deco-texture`, `--deco-mask` | `none` | Decoração do nível 3, só em superfícies de marca: arte do hero/painel/capa, faixa do header/rodapé/estado vazio, padrão e textura da página de erro, borda irregular |
 | `--chart-line-width`, `--chart-bar-radius`, `--chart-smooth`, `--chart-tooltip-radius` | `2`, `0`, `0`, `8` | Tema ECharts (`brandTheme.ts`) |
 | `--heading-transform`, `--deco-*` | `none` | Reservados para os estilos com decoração |
 
@@ -67,7 +78,7 @@ Para "sem sombra" use `0 0 #0000`, não `none`: as sombras dos componentes entra
 
 - `[data-ds="button|card|input|textarea|select-trigger|checkbox|radio|switch|badge|alert|dialog|popover|dropdown|tabs-list|tabs-trigger|table|toast|tooltip|sidebar|header"]`
 - `[data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|destructive|diversificado"]`
-- `[data-surface="marca"]`: superfícies de marca (hoje, o header do DS). Decoração só entra nelas.
+- `[data-surface="marca"][data-marca="header|hero|painel|capa|erro|rodape|vazio"]`: superfícies de marca (header do DS, hero da Home, painel visual de login, cadastro, 2FA e modal de acesso, capa do Hub de painéis, páginas de erro, rodapé e estado vazio). Decoração só entra nelas.
 
 Ao mexer em `box-shadow` de um elemento focável na camada CSS, componha com o anel de foco: `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);`. Propriedades estruturais (`position`) vão dentro de `:where(...)` para não vencer as classes das páginas.
 
@@ -76,7 +87,7 @@ Ao mexer em `box-shadow` de um elemento focável na camada CSS, componha com o a
 1. **Marca define cor; estilo define forma.** Um preset nunca altera `--primary`, `--secondary`, a escala da marca (`--brand-*`) nem as cores semânticas (`success`, `warning`, `error`, `info`, `destructive`). O `_schema.json` e o gerador recusam o preset.
 2. **A fonte da marca vence.** O estilo tem fontes sugeridas (mostre na pergunta de fontes), mas não troca a fonte escolhida. Se o usuário não adotar a sugestão, o `GERACAO.md` registra como pendência informativa.
 3. **Acessibilidade não é negociável.** Mínimos de todo estilo: texto sobre `--background`, `--card`, `--muted`, menu lateral e header com 4.5:1; borda de campo (`--input`) e anel de foco (`--ring`) com 3:1 sobre o fundo. Quando falha, o gerador ajusta a luminosidade do token que o estilo definiu e registra em "Ajustes de contraste do estilo"; se não conseguir, registra um aviso.
-4. **Movimento e transparência reduzidos.** Estilos com deslocamento ou aumento no hover (neobrutalismo, claymorfismo) desligam o efeito com `prefers-reduced-motion`. O glassmorfismo volta a superfícies opacas sem `backdrop-filter` ou com `prefers-reduced-transparency`.
+4. **Movimento e transparência reduzidos.** Estilos com deslocamento ou aumento no hover (neobrutalismo, claymorfismo) desligam o efeito com `prefers-reduced-motion`; animações e rotações (glitch do cyberpunk, "adesivos" do grunge, título inclinado do construtivismo, recortes da colagem) só existem em `@media (prefers-reduced-motion: no-preference)`. O glassmorfismo volta a superfícies opacas sem `backdrop-filter` ou com `prefers-reduced-transparency`.
 5. **Determinístico.** Não ajuste raio, sombra ou borda à mão no DS gerado. Mude o preset e gere de novo.
 
 ## Especificação por estilo
@@ -93,11 +104,22 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **neumorfismo:** fundo, cards e popovers na mesma cor; relevo com luz e sombra; campos, checkbox, switch e abas afundados; salvaguardas: borda de 3:1 em todo controle e anel de foco sólido; sem degradê.
 - **glassmorfismo:** malha de `radial-gradient` com as cores da marca no fundo; cards, header, menus e modais em vidro (55% de opacidade no light, 35% no dark, desfoque de 16px); cards com tabela ou formulário a 85%.
 - **claymorfismo:** fundo tingido da primária; cards 1.5rem e controles em pílula, sem borda; sombra colorida por fora e realce por dentro; hover com aumento de 2%; gráficos com curvas suaves e barras arredondadas.
-- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards em repouso (somem em hover e foco, para o brilho e o anel não serem cortados); rótulos em mono com caixa alta. No light, alto contraste: estrutura em neutro escuro sobre fundo frio e o neon escurecido no anel de foco. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
+- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards em repouso (somem em hover e foco, para o brilho e o anel não serem cortados); rótulos em mono com caixa alta; efeito "glitch" em rajadas curtas no título do hero (sem ele com movimento reduzido). No light, alto contraste: estrutura em neutro escuro sobre fundo frio e o neon escurecido no anel de foco. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
+
+- **maximalista:** cards 1.25rem e controles em pílula; bordas de 2px; sombras coloridas em camadas (secundária e primária); camadas de bolinhas, listras e zigue-zague ao lado do texto do hero; faixa com as quatro cores no header, no rodapé e nos estados vazios; título do hero maior.
+- **grunge:** fundo de papel e texto quase preto; raio mínimo; sombras de "tinta"; recortes com fita no hero; grão de papel (≤ 6%), bordas rasgadas por máscara no hero e no painel de login; badges de marca levemente tortos; sem degradê.
+- **art-nouveau:** fundo creme; cards com cantos assimétricos; sombras quentes e suaves; curva "chicote" com folhas no hero, divisória ornamental, moldura de linha dupla no painel de login; animações lentas.
+- **bauhaus:** todos os raios 0, exceto círculos (contêineres de ícone, avatares, badges); bordas de 2px quase pretas; sem sombra; composição de círculo, quadrado e triângulo no hero; faixa de três cores; sem degradê.
+- **construtivismo:** raios 0; fundo de cartaz; bordas de 3px; títulos em caixa alta; faixas diagonais, seta e barra no hero, só com a primária e o preto; título do hero inclinado; sem degradê.
+- **retro:** fundo e cards creme; bordas marrons de 2px; raio 1rem; sombras deslocadas quentes; raios de sol e listras arredondadas com as cores da marca desbotadas (−15% de saturação); grão leve; sem degradê.
+- **organico:** fundo areia e texto tingido da primária; cards 1.5rem sem borda, com sombras suaves; gráficos com curvas suaves; blobs dessaturados no hero e no login, divisórias em onda; logo do hero com recorte orgânico.
+- **ilustrativo:** raio 0.75rem, bordas de 1.5px, ícones com traço 1.75; placeholders de ilustração gerados (`public/estilo/ilustracoes/`: hero, login, vazio, erro-404, erro-500) com moldura tracejada e cena simples nas cores da marca. As ilustrações reais ficam como pendência do `GERACAO.md`.
+- **colagem:** raios 0; fundo de papel; sombra de papel; recortes coloridos com fita adesiva no hero, retícula na página de erro, grão e bordas rasgadas; logo do hero levemente torto; sem degradê.
 
 ## Criar ou ajustar um preset
 
 1. Copie a pasta de um estilo parecido em `assets/estilos/` e troque `id` (igual ao nome da pasta), `nome`, `ordem` e `descricao`.
 2. Em `tokens`, liste só o que muda. Valores aceitam `{primaria.h}`, `{primaria}` (triplet HSL), `{secundaria…}`, `{destaque…}`, `{realce…}` e `{neon}`.
 3. Se precisar de CSS (`css: "estilo.css"`), use os ganchos acima e componha sombras com o anel de foco.
+3b. Decoração (nível 3): `decoracao: "decoracao.json"` com `slots` (`hero`, `divisoria`, `padrao`, `textura`, `mascara`), cada um com um `gerador` de `scripts/lib/decoracao.mjs` e seus parâmetros, e `dessaturar` opcional. Decoração e animação só em `[data-surface="marca"]` e dentro de `@media (prefers-reduced-motion: no-preference)` (os testes do repositório conferem).
 4. Rode `node tools/matriz-estilos.mjs --node-modules <pasta> --estilos <id> --capturas` no repositório da skill: gera, compila, testa e captura o estilo em light e dark.

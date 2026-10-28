@@ -1,0 +1,57 @@
+{
+  "$schema": "../_schema.json",
+  "id": "construtivismo",
+  "nome": "Construtivismo russo",
+  "grupo": "epocas",
+  "nivel": 3,
+  "ordem": 12,
+  "descricao": "Diagonais fortes e tom de cartaz: poucas cores, títulos em caixa alta e faixas inclinadas.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Oswald"
+    ],
+    "display": [
+      "Anton"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0",
+      "--radius-card": "0",
+      "--radius-control": "0",
+      "--radius-control-brand": "0",
+      "--radius-xl": "0",
+      "--radius-2xl": "0",
+      "--radius-3xl": "0",
+      "--background": "40 30% 93%",
+      "--card": "40 30% 96%",
+      "--popover": "40 30% 96%",
+      "--muted": "40 20% 88%",
+      "--border-width": "3px",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--heading-transform": "uppercase",
+      "--font-extrabold": "900"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use só a primária, o preto e o fundo claro nas superfícies de marca",
+    "Dê peso máximo aos títulos"
+  ],
+  "evite": [
+    "Corpo de texto em caixa alta",
+    "Inclinação fora do hero"
+  ]
+}

@@ -1,0 +1,9 @@
+/* Estilo visual: Maximalista.
+ * "Mais é mais" só nas superfícies de marca: camadas de padrões ao lado do texto do hero, faixa de cores no
+ * header e no rodapé. Texto nunca fica direto sobre o padrão. */
+
+[data-surface="marca"][data-marca="hero"] h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: var(--font-extrabold);
+  line-height: 1.1;
+}

@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 3 e rodada R1–R4 implementadas (padrão + 11 estilos); revisão humana da galeria e Fases 4 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: Fases 0 a 4 e rodada R1–R4 implementadas (padrão + 20 estilos); revisão humana da galeria e Fases 5 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -10,7 +10,7 @@
 | 1. Tokenizar o esqueleto | Feita: `tools/lib/tokenizar.mjs` (aplicado ao template e rodado no fim da extração) |
 | 2. Motor de presets e pergunta | Feita: `scripts/lib/estilos.mjs`, `assets/estilos/`, pergunta 13, `--estilo`, `references/estilos.md` |
 | 3. Camada CSS | Feita: brutalista, neobrutalismo, material (camada de estado), neumorfismo, glassmorfismo, claymorfismo, cyberpunk; mínimos de contraste por estilo |
-| 4. Decoração | Pendente (maximalista, grunge, art nouveau, bauhaus, construtivismo, retrô, orgânico, ilustrativo, colagem) |
+| 4. Decoração | Feita: `scripts/lib/decoracao.mjs`, `assets/estilos/_decoracao.css`, 9 estilos de nível 3, `data-surface="marca"` nas superfícies de marca, glitch do cyberpunk; falta a revisão humana da galeria |
 | 5. Layout bento | Pendente |
 | 6. Documentação e catálogo | Parcial: `SKILL.md`, referências, README e HANDOFF atualizados; faltam `catalogo-estilos.mjs`, a seção "Estilo visual" na `FundamentosPage` e as miniaturas por estilo |
 | 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), rodada com duas marcas; testes unitários do motor de estilos e do codemod (`npm test`); falta a revisão humana da galeria |
@@ -27,7 +27,9 @@ Onde a implementação diverge do texto abaixo:
 - **Tokens com padrão diferente da tabela 5.2, para manter a identidade:** `--chart-bar-radius` é `0` (o tema ECharts atual não arredonda barras), `--shadow-ui-xs` é `0 0 #0000` (o Tailwind 3 não tem `shadow-xs`), e há `--duration-default` (`150ms`, o `transition` padrão do Tailwind) e `--chart-tooltip-radius` (`8`). O `--brand-gradient` não foi criado: os degradês que são decoração usam os tokens do header (`--brand-header-grad-*`), e os demais são documentação de paleta ou overlays de foto, registrados como intencionais.
 - **"Sem sombra" é `0 0 #0000`, não `none`**, porque as sombras de componente entram numa lista com o anel de foco. O gerador converte `none` nesses tokens.
 - **`--heading-transform` sem regra global.** Uma regra em `h1–h4` quebraria a herança de `text-transform` dos contêineres; os estilos que usam caixa alta aplicam na própria camada CSS.
-- **`data-surface="marca"`** está só no header do DS; as demais superfícies de marca entram com a decoração (Fase 4). O efeito "glitch" do cyberpunk também fica para essa fase.
+- **Superfícies de marca com papel.** Além de `data-surface="marca"`, cada superfície tem `data-marca` (`header`, `hero`, `painel`, `capa`, `erro`, `rodape`, `vazio`), que escolhe onde a decoração entra. A "capa" do Hub de painéis é o header do template (o Hub não tem capa própria). Os estados vazios marcados são o da vitrine de `/componentes`.
+- **Decoração em arquivos, não em data URI** (`public/estilo/*.svg`, referenciados por `url("/estilo/…")`), e um token a mais, `--deco-mask`, para a borda irregular de grunge e colagem. Raios assimétricos do art nouveau ficam na camada CSS (`--radius-card` com dois valores quebraria a exportação DTCG).
+- **Título do hero do construtivismo inclinado em −3°, não −6°:** a −6° ele subia sobre o logo do hero.
 - **Cinco tokens de campo, não três (R2).** O DS de referência usa dois cinzas de placeholder (`#96A1C0` nos campos crus, `#98A2C1` no texto e no placeholder do Input/Textarea): `--control-placeholder`, `--control-foreground` e `--control-placeholder-input` preservam o pixel. São HEX, e não triplets HSL, para a recoloração da marca dar o mesmo valor que dava nas classes.
 - **Resumo do estilo em `public/design-system/estilo.json` (R4)**, onde a seção "Estilo visual" da Fase 6 vai ler.
 - **Estilos com tokens de cor sem alpha.** Tokens de cor listados em `/tokens` (`--border`, `--card`…) precisam ser triplets HSL puros; borda translúcida do vidro e borda neon com alpha ficam na camada CSS.
@@ -102,6 +104,16 @@ Um commit por item, nesta ordem. A identidade foi conferida a cada passo com `ve
 - Ficam para as Fases 4 e 6: o glitch do h1 do cyberpunk e as miniaturas da página Templates.
 
 **Acompanhamento:** a lista de revisão do R1 (regras novas em `ganchos.mjs`, por exemplo para botões cujo fundo muda com o estado ativo) e a revisão humana da galeria.
+
+## Resultado da Fase 4 (28/10/2026)
+
+- **Decoração gerada:** `scripts/lib/decoracao.mjs` com 14 geradores determinísticos (semente = slug): padrões, camadas, ruído (≤ 6%), borda irregular, ornamento, geométrico, diagonais, raios de sol, blobs, onda, faixa, retícula, recortes e placeholder de ilustração. Nenhum SVG tem texto. Total por estilo nas duas marcas de exemplo: 0,7 KB (construtivismo) a 6,0 KB (colagem), limite de 200 KB.
+- **Superfícies de marca:** `data-surface="marca"` e `data-marca` pela tokenização no header do DS, hero da Home, painéis de login, cadastro, 2FA e modal de acesso, páginas de erro e 404, rodapé, header do Hub e estado vazio. Toda regra de decoração fica nelas (teste estático em `tools/testes/decoracao.test.mjs` e conferência na matriz).
+- **Nove estilos de nível 3** no catálogo e na pergunta 13, depois de passarem na matriz.
+- **Glitch do cyberpunk** em rajadas curtas no título do hero, só com `prefers-reduced-motion: no-preference`.
+- **Correção de contraste (bug das Fases 2 e 3):** um estilo que só troca `--background` não arrasta mais o fundo por pares que já eram fracos no template, e o `.dark` não é mais "corrigido" por tokens só de `:root`. Nas matrizes do PR #9, flat e claymorfismo saíam com o fundo do light em 76% e 60% e o do dark entre 40% e 52%; agora ficam com o valor do preset.
+- **Verificação:** `corporativo` idêntico ao PR #9 (capturas, 8 rotas, light e dark, duas marcas; só ruído em `/fundamentos` e `/templates`). Matriz com `exemplo-verde` e `exemplo-neobrutalismo`: 21 estilos × 2 marcas com build e 137 testes; decoração só em superfícies de marca (7 ou 8 elementos decorados por estilo, 0 fora); animação e rotação desligadas com movimento reduzido (glitch, adesivos do grunge, título do construtivismo, recortes da colagem). `npm test`: 47 testes.
+- **Pendente:** revisão humana da galeria (os 21 estilos, light e dark, com a página de erro). As ilustrações reais do `ilustrativo` ficam como pendência do `GERACAO.md` de cada DS (seção 12, decisão 9).
 
 ## 1. Objetivo
 

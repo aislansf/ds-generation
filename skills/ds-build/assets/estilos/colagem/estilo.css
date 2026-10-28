@@ -1,0 +1,9 @@
+/* Estilo visual: Colagem.
+ * Recortes com fita adesiva, retícula e papel nas superfícies de marca; a imagem do hero levemente torta.
+ * Nada rotacionado em superfícies de sistema; a rotação some com movimento reduzido. */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-surface="marca"][data-marca="hero"] img {
+    transform: rotate(-1.5deg);
+  }
+}

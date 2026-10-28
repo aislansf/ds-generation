@@ -1,0 +1,55 @@
+{
+  "$schema": "../_schema.json",
+  "id": "retro",
+  "nome": "Retrô / Vintage",
+  "grupo": "epocas",
+  "nivel": 3,
+  "ordem": 13,
+  "descricao": "Anos 70: cores desbotadas, formas arredondadas, raios de sol e grão leve.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [],
+    "display": [
+      "DM Serif Display",
+      "Fraunces"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--background": "38 45% 94%",
+      "--card": "38 50% 97%",
+      "--popover": "38 50% 97%",
+      "--border": "25 30% 40%",
+      "--input": "25 30% 40%",
+      "--border-width": "2px",
+      "--radius": "1rem",
+      "--shadow-ui-sm": "3px 3px 0 hsl(25 40% 30% / 0.35)",
+      "--shadow-ui": "3px 3px 0 hsl(25 40% 30% / 0.35)",
+      "--shadow-ui-md": "3px 3px 0 hsl(25 40% 30% / 0.35)",
+      "--shadow-ui-lg": "3px 3px 0 hsl(25 40% 30% / 0.35)",
+      "--shadow-ui-xl": "3px 3px 0 hsl(25 40% 30% / 0.35)",
+      "--shadow-hover": "4px 4px 0 hsl(25 40% 30% / 0.35)"
+    },
+    ".dark": {
+      "--border": "25 25% 60%",
+      "--input": "25 25% 60%",
+      "--shadow-ui-sm": "3px 3px 0 hsl(0 0% 0% / 0.5)",
+      "--shadow-ui": "3px 3px 0 hsl(0 0% 0% / 0.5)",
+      "--shadow-ui-md": "3px 3px 0 hsl(0 0% 0% / 0.5)",
+      "--shadow-ui-lg": "3px 3px 0 hsl(0 0% 0% / 0.5)",
+      "--shadow-ui-xl": "3px 3px 0 hsl(0 0% 0% / 0.5)",
+      "--shadow-hover": "4px 4px 0 hsl(0 0% 0% / 0.5)"
+    }
+  },
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use as cores da marca desbotadas nas superfícies de marca",
+    "Prefira formas arredondadas"
+  ],
+  "evite": [
+    "Neon e cores saturadas",
+    "Grão atrás de texto longo"
+  ]
+}

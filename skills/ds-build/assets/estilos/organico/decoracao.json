@@ -1,0 +1,19 @@
+{
+  "dessaturar": 20,
+  "slots": {
+    "hero": {
+      "gerador": "blobs"
+    },
+    "divisoria": {
+      "gerador": "onda",
+      "amplitude": 6
+    },
+    "padrao": {
+      "gerador": "padrao",
+      "tipo": "bolinhas",
+      "tamanho": 44,
+      "cor": "primaria",
+      "opacidade": 0.12
+    }
+  }
+}

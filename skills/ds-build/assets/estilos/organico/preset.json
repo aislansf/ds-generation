@@ -1,0 +1,46 @@
+{
+  "$schema": "../_schema.json",
+  "id": "organico",
+  "nome": "Orgânico / Natural",
+  "grupo": "organicos",
+  "nivel": 3,
+  "ordem": 19,
+  "descricao": "Formas fluidas, tons terrosos e sensação natural: blobs e ondas nas superfícies de marca.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Outfit",
+      "Nunito"
+    ],
+    "display": [
+      "Fraunces",
+      "Lora"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--background": "40 25% 96%",
+      "--foreground": "{primaria.h} 25% 15%",
+      "--card": "40 30% 98%",
+      "--popover": "40 30% 98%",
+      "--radius-card": "1.5rem",
+      "--card-border-width": "0px",
+      "--shadow-ui-md": "0 8px 24px hsl({primaria.h} 20% 20% / 0.08)",
+      "--shadow-ui-lg": "0 12px 32px hsl({primaria.h} 20% 20% / 0.10)",
+      "--chart-smooth": "1",
+      "--duration-normal": "300ms"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use tons terrosos e as cores da marca dessaturadas",
+    "Prefira curvas a ângulos"
+  ],
+  "evite": [
+    "Bordas duras em cards",
+    "Cores saturadas em grandes áreas"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "../_schema.json",
+  "id": "maximalista",
+  "nome": "Maximalista",
+  "grupo": "ousados",
+  "nivel": 3,
+  "ordem": 8,
+  "descricao": "Muitas cores, padrões e camadas nas superfícies de marca; telas de sistema continuam lisas.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Bricolage Grotesque"
+    ],
+    "display": [
+      "Fraunces"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--radius-card": "1.25rem",
+      "--radius-control": "9999px",
+      "--border-width": "2px",
+      "--shadow-ui-sm": "4px 4px 0 hsl({secundaria}), 8px 8px 0 hsl({primaria} / 0.4)",
+      "--shadow-ui": "4px 4px 0 hsl({secundaria}), 8px 8px 0 hsl({primaria} / 0.4)",
+      "--shadow-ui-md": "4px 4px 0 hsl({secundaria}), 8px 8px 0 hsl({primaria} / 0.4)",
+      "--shadow-ui-lg": "4px 4px 0 hsl({secundaria}), 8px 8px 0 hsl({primaria} / 0.4)",
+      "--shadow-ui-xl": "4px 4px 0 hsl({secundaria}), 8px 8px 0 hsl({primaria} / 0.4)",
+      "--shadow-hover": "6px 6px 0 hsl({secundaria}), 12px 12px 0 hsl({primaria} / 0.4)",
+      "--font-extrabold": "900",
+      "--ease-emphasis": "cubic-bezier(0.34, 1.56, 0.64, 1)"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use a paleta inteira da marca nas superfícies de marca",
+    "Mantenha tabelas e formulários lisos"
+  ],
+  "evite": [
+    "Texto direto sobre padrão",
+    "Padrões dentro de componentes de sistema"
+  ]
+}

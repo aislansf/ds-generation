@@ -161,6 +161,7 @@ Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o m
 - tons "estranhos" em ilustrações e gráficos (sinal de uma cor fora das janelas de família);
 - logos provisórios (quando o usuário respondeu `false`);
 - miniaturas da página Templates, que mostram a marca neutra "Sua Marca" no estilo padrão: recapture com o DS novo rodando;
+- com estilo de nível 3 (decoração): confira a decoração no hero da Home, no login (`/templates/pagina-autenticacao`), na página de erro e no rodapé, e, no `ilustrativo`, troque os placeholders de `public/estilo/ilustracoes/` pelas ilustrações da marca (mesmos nomes);
 - com estilo diferente do `corporativo`: confira se o estilo "pegou" em botões, cards, campos, abas, menus e no header (`/componentes` mostra quase tudo), se o foco por teclado continua visível (Tab pela página) e, nos estilos com tema padrão `dark` (cyberpunk), se o DS abre em dark sem "piscar".
 
 Depois rode `node <skill>/scripts/validar-contraste.mjs src/index.css` e confirme que nenhum par **piorou** em relação ao template.

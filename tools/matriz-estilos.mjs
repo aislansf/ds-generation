@@ -14,7 +14,12 @@
  * Com --capturas, os estilos cuja camada CSS responde a movimento ou transparência reduzidos também são conferidos
  * com essas preferências ligadas: o hover que desloca ou aumenta (neobrutalismo, claymorfismo) precisa sumir com
  * prefers-reduced-motion, e o vidro (glassmorfismo) precisa ficar opaco com prefers-reduced-transparency.
- * As capturas dessas preferências entram na galeria.
+ * As capturas dessas preferências entram na galeria. Os seletores de @media (prefers-reduced-motion: no-preference)
+ * (glitch do cyberpunk, rotações da decoração) também são conferidos: animam sem a preferência e param com ela.
+ *
+ * Estilos com decoração (nível 3): a soma dos SVGs fica em até 200 KB, os arquivos chegam ao dist e, nas páginas
+ * conferidas, todo elemento com fundo ou máscara de public/estilo/ está dentro de [data-surface="marca"].
+ * A galeria ganha a página de erro (rota inexistente).
  *
  * --saida: pasta das saídas (padrão: <tmp>/ds-generation-matriz). Pastas diferentes permitem rodar duas marcas ao mesmo tempo.
  * Sai uma tabela-resumo e o código 1 se algum estilo falhar.
@@ -62,6 +67,9 @@ for (const id of ESTILOS) {
     const resumo = JSON.parse(fs.readFileSync(path.join(dir, "public/design-system/estilo.json"), "utf8"));
     linha.ajustes = resumo.ajustes_contraste.length;
     linha.avisos = resumo.avisos.length;
+    // Decoração (nível 3): limite de 200 KB por DS (seção 7 do plano)
+    linha.decoracao = resumo.decoracao;
+    if (resumo.decoracao && resumo.decoracao.bytes > 200 * 1024) linha.erro = `decoração com ${Math.round(resumo.decoracao.bytes / 1024)} KB, acima de 200 KB`;
     if (!args["sem-build"]) {
       const b = run("npm", ["run", "build"], dir);
       linha.build = b.ok;
@@ -74,7 +82,8 @@ for (const id of ESTILOS) {
   }
   linhas.push(linha);
   const st = (v) => (v === null ? "—" : v ? "ok" : "FALHOU");
-  console.log(`${linha.gerar && linha.build !== false && !/falha/.test(linha.testes ?? "") ? "✅" : "❌"} ${id.padEnd(14)} gerar=${st(linha.gerar)} build=${st(linha.build)} testes=${linha.testes ?? "—"} ajustes=${linha.ajustes} avisos=${linha.avisos}${linha.erro ? ` — ${linha.erro.slice(0, 200)}` : ""}`);
+  const deco = linha.decoracao ? ` decoração=${(linha.decoracao.bytes / 1024).toFixed(1)}KB` : "";
+  console.log(`${linha.gerar && linha.build !== false && !/falha/.test(linha.testes ?? "") && !/decoração/.test(linha.erro) ? "✅" : "❌"} ${id.padEnd(14)} gerar=${st(linha.gerar)} build=${st(linha.build)} testes=${linha.testes ?? "—"} ajustes=${linha.ajustes} avisos=${linha.avisos}${deco}${linha.erro ? ` — ${linha.erro.slice(0, 200)}` : ""}`);
 }
 
 // ---------- Galeria ----------
@@ -139,6 +148,47 @@ if (args.capturas && !args["sem-build"]) {
     await ctx.close();
     return { ...r, shot };
   }
+  // Decoração só em superfícies de marca: todo elemento (ou ::before/::after) cujo fundo ou máscara vem de
+  // public/estilo/ precisa estar dentro de [data-surface="marca"]
+  async function decoracaoNaPagina(base, rota) {
+    const { ctx, page } = await abrir(base, rota);
+    const r = await page.evaluate(() => {
+      const deco = (v) => !!v && v.includes("/estilo/");
+      let dentro = 0;
+      const fora = [];
+      for (const el of document.querySelectorAll("body *")) {
+        for (const pseudo of [null, "::before", "::after"]) {
+          const cs = getComputedStyle(el, pseudo);
+          if (!deco(cs.backgroundImage) && !deco(cs.maskImage) && !deco(cs.webkitMaskImage)) continue;
+          if (el.closest('[data-surface="marca"]')) dentro++;
+          else fora.push(`${el.tagName.toLowerCase()}${pseudo ?? ""}${typeof el.className === "string" && el.className ? `.${el.className.split(/\s+/)[0]}` : ""}`);
+        }
+      }
+      return { dentro, fora };
+    });
+    await ctx.close();
+    return r;
+  }
+  // Animação e rotação dos seletores de @media (prefers-reduced-motion: no-preference): presentes sem a
+  // preferência e ausentes com ela
+  async function movimentoDosSeletores(base, seletores) {
+    const resultado = [];
+    for (const movimento of ["no-preference", "reduce"]) {
+      for (const rota of ["/", "/componentes"]) {
+        const { ctx, page } = await abrir(base, rota, { movimento });
+        const r = await page.evaluate((sels) => sels.map((s) => {
+          let el = null;
+          try { el = document.querySelector(s); } catch {}
+          if (!el) return null;
+          const cs = getComputedStyle(el);
+          return { transform: cs.transform, animacao: cs.animationName };
+        }), seletores);
+        r.forEach((v, i) => { if (v) (resultado[i] ??= {})[movimento] ??= v; });
+        await ctx.close();
+      }
+    }
+    return seletores.map((s, i) => ({ seletor: s, ...resultado[i] }));
+  }
   // rgb(…) ou rgba(…, 1) / color(… / 1): sem transparência
   const opaco = (cor) => !!cor && !/(,\s*|\/\s*)0?\.\d+\)$/.test(cor);
   try {
@@ -154,10 +204,13 @@ if (args.capturas && !args["sem-build"]) {
       await new Promise((r) => srv.listen(0, "127.0.0.1", r));
       const base = `http://127.0.0.1:${srv.address().port}`;
       const imgs = [];
+      const preset = carregarEstilo(id);
+      // Estilos com decoração: também a página de erro (superfície de marca com padrão de fundo)
+      const rotas = preset.decoracao ? [...ROTAS_GALERIA, "/pagina-que-nao-existe"] : ROTAS_GALERIA;
       for (const tema of ["light", "dark"]) {
         const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
         await ctx.addInitScript((t) => { try { localStorage.setItem("brand-ds-theme", t); } catch {} }, tema);
-        for (const rota of ROTAS_GALERIA) {
+        for (const rota of rotas) {
           const page = await ctx.newPage();
           await page.goto(base + rota, { waitUntil: "networkidle", timeout: 120000 });
           await page.waitForTimeout(1200);
@@ -168,10 +221,33 @@ if (args.capturas && !args["sem-build"]) {
         }
         await ctx.close();
       }
+      // Decoração: arquivos no dist e só dentro de superfícies de marca
+      const linha = linhas.find((l) => l.id === id);
+      if (preset.decoracao) {
+        const faltando = (linha.decoracao?.arquivos ?? []).filter((a) => !fs.existsSync(path.join(dist, a.replace(/^public\//, ""))));
+        let dentro = 0;
+        const fora = [];
+        for (const rota of ["/", "/componentes", "/templates/pagina-autenticacao", "/pagina-que-nao-existe"]) {
+          const r = await decoracaoNaPagina(base, rota);
+          dentro += r.dentro;
+          fora.push(...r.fora.map((f) => `${rota} ${f}`));
+        }
+        const ok = !faltando.length && !fora.length && dentro > 0;
+        reduzidos.push({ id, pref: "decoração só em superfícies de marca", ok, detalhe: `${dentro} elemento(s) decorado(s) em superfícies de marca, ${fora.length} fora${fora.length ? ` (${fora.slice(0, 4).join(", ")})` : ""}${faltando.length ? `; faltam no dist: ${faltando.join(", ")}` : ""}` });
+      }
       // Movimento e transparência reduzidos, só nos estilos cuja camada responde a eles
-      const preset = carregarEstilo(id);
-      const camada = preset.css ? fs.readFileSync(path.join(ROOT, "skills/ds-build/assets/estilos", id, preset.css), "utf8") : "";
-      if (camada.includes("prefers-reduced-motion")) {
+      const camada = [preset.decoracao && fs.readFileSync(path.join(ROOT, "skills/ds-build/assets/estilos/_decoracao.css"), "utf8"), preset.css && fs.readFileSync(path.join(ROOT, "skills/ds-build/assets/estilos", id, preset.css), "utf8")].filter(Boolean).join("\n");
+      const semPreferencia = [...camada.matchAll(/@media\s*\(prefers-reduced-motion:\s*no-preference\)\s*\{([\s\S]*?)\n\}/g)]
+        .flatMap((m) => [...m[1].matchAll(/([^{}]+)\{[^}]*\}/g)].map((r) => r[1]))
+        .flatMap((s) => s.split(/,(?![^(]*\))/).map((x) => x.trim()).filter(Boolean));
+      if (semPreferencia.length) {
+        const r = await movimentoDosSeletores(base, semPreferencia);
+        const conferidos = r.filter((x) => x["no-preference"] && x.reduce);
+        const anima = (v) => v.transform !== "none" || v.animacao !== "none";
+        const ok = conferidos.length > 0 && conferidos.every((x) => anima(x["no-preference"]) && !anima(x.reduce));
+        reduzidos.push({ id, pref: "prefers-reduced-motion (animação e rotação)", ok, detalhe: r.map((x) => (x["no-preference"] && x.reduce ? `${x.seletor}: ${x["no-preference"].animacao !== "none" ? x["no-preference"].animacao : x["no-preference"].transform} → ${x.reduce.animacao !== "none" ? x.reduce.animacao : x.reduce.transform}` : `${x.seletor}: sem elemento em / e /componentes`)).join("; ") });
+      }
+      if (/:hover[^{]*\{[^}]*transform/.test(camada)) {
         const normal = await transformNoHover(base, "no-preference");
         const reduzido = await transformNoHover(base, "reduce");
         const ok = !!normal.shot && normal.transform !== "none" && reduzido.transform === "none";
@@ -213,6 +289,6 @@ if (args.capturas && !args["sem-build"]) {
   console.log(`\nGaleria: ${path.join(OUT, "galeria.html")}`);
 }
 
-const falhas = linhas.filter((l) => !l.gerar || l.build === false || /falha/.test(l.testes ?? "") || l.reduzido === false);
+const falhas = linhas.filter((l) => !l.gerar || l.build === false || /falha/.test(l.testes ?? "") || l.reduzido === false || /^decoração com/.test(l.erro));
 console.log(falhas.length ? `\n${falhas.length} estilo(s) falharam: ${falhas.map((l) => l.id).join(", ")}` : `\n${linhas.length} estilo(s) passaram. Saídas em ${OUT}`);
 process.exit(falhas.length ? 1 : 0);

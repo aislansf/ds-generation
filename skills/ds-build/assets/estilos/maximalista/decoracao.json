@@ -1,0 +1,23 @@
+{
+  "slots": {
+    "hero": {
+      "gerador": "camadas"
+    },
+    "padrao": {
+      "gerador": "padrao",
+      "tipo": "listras",
+      "tamanho": 28,
+      "cor": "secundaria",
+      "opacidade": 0.25
+    },
+    "divisoria": {
+      "gerador": "faixa",
+      "cores": [
+        "primaria",
+        "secundaria",
+        "destaque",
+        "realce"
+      ]
+    }
+  }
+}
