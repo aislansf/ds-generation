@@ -7,7 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import {
   listarEstilos, carregarEstilo, validarPreset, corNeon, resolverValor, definirVar, lerVar,
-  aplicarEstilo, contrasteDoEstilo, ESTILO_PADRAO,
+  aplicarEstilo, contrasteDoEstilo, ESTILO_PADRAO, CAMPOS_DO_ESTILO,
 } from "../../skills/ds-build/scripts/lib/estilos.mjs";
 import { contrastRatio, hslToRgb, parseTriplet } from "../../skills/ds-build/scripts/lib/color.mjs";
 
@@ -151,7 +151,9 @@ test("aplicarEstilo grava tokens em :root e .dark, a camada CSS e o tema padrão
   try {
     const res = aplicarEstilo(f.dir, carregarEstilo("cyberpunk"), CORES);
     assert.equal(res.camada, true);
-    assert.equal(res.tokens[":root"], Object.keys(carregarEstilo("cyberpunk").tokens[":root"]).length);
+    // Os tokens do preset mais os 5 de campo (o cyberpunk define --input)
+    assert.equal(res.tokens[":root"], Object.keys(carregarEstilo("cyberpunk").tokens[":root"]).length + CAMPOS_DO_ESTILO.length);
+    assert.equal(res.campos, true);
     const css = f.ler("src/index.css");
     assert.equal(lerVar(css, ".dark", "--ring"), "40 90% 60%");
     assert.equal(lerVar(css, ":root", "--border"), "40 70% 30%");
@@ -215,6 +217,35 @@ test("cyberpunk com marca sem cor saturada avisa que o neon foi forçado", () =>
     const res = aplicarEstilo(f.dir, carregarEstilo("cyberpunk"), cinza);
     assert.equal(res.avisos.length, 1);
     assert.match(res.avisos[0], /neon/);
+  } finally { f.limpar(); }
+});
+
+test("campos seguem os tokens semânticos quando o estilo define --input", () => {
+  const f = fixture();
+  try {
+    const res = aplicarEstilo(f.dir, preset({ tokens: { ".dark": { "--input": "0 0% 92%" } } }), CORES);
+    const css = f.ler("src/index.css");
+    assert.equal(res.campos, true);
+    assert.equal(lerVar(css, ":root", "--control-border"), "hsl(var(--input))");
+    assert.equal(lerVar(css, ":root", "--control-border-hover"), "hsl(var(--ring))");
+    assert.equal(lerVar(css, ":root", "--control-placeholder"), "hsl(var(--muted-foreground))");
+    assert.equal(lerVar(css, ":root", "--control-foreground"), "hsl(var(--foreground))");
+    // Só em :root: as referências resolvem em cada tema
+    assert.equal(lerVar(css, ".dark", "--control-border"), null);
+  } finally { f.limpar(); }
+});
+
+test("campos mantêm as cores da marca quando o estilo não define --input, e o preset pode fixar um token de campo", () => {
+  const f = fixture();
+  try {
+    const res = aplicarEstilo(f.dir, preset({ tokens: { ":root": { "--radius": "0" } } }), CORES);
+    assert.equal(res.campos, false);
+    assert.equal(lerVar(f.ler("src/index.css"), ":root", "--control-border"), null);
+    const g = fixture();
+    aplicarEstilo(g.dir, preset({ tokens: { ":root": { "--input": "0 0% 7%", "--control-border-hover": "hsl(var(--primary))" } } }), CORES);
+    assert.equal(lerVar(g.ler("src/index.css"), ":root", "--control-border-hover"), "hsl(var(--primary))");
+    assert.equal(lerVar(g.ler("src/index.css"), ":root", "--control-border"), "hsl(var(--input))");
+    g.limpar();
   } finally { f.limpar(); }
 });
 

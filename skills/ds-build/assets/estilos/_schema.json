@@ -69,6 +69,7 @@
           ]
         },
         { "pattern": "^--sidebar-[a-z-]+$" },
+        { "pattern": "^--control-[a-z-]+$" },
         { "pattern": "^--shadow-ui(-[a-z0-9]+)?$" },
         { "pattern": "^--font-(light|regular|medium|semibold|bold|extrabold|black)$" },
         { "pattern": "^--tracking-[a-z]+$" },

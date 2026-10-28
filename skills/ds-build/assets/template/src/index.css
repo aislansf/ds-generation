@@ -249,6 +249,12 @@
     --chart-bar-radius: 0;
     --chart-smooth: 0;
     --chart-tooltip-radius: 8;
+    /* Campos de formulário: borda, hover e foco, placeholder e texto do Input/Textarea */
+    --control-border: #95ADFF;
+    --control-border-hover: #2A4FDA;
+    --control-placeholder: #96A1C0;
+    --control-foreground: #98A2C1;
+    --control-placeholder-input: #98A2C1;
     
     /* === Header Degradê Novo __BRAND_SHORT__ Tokens === */
     --brand-header-grad-start: #053665;
@@ -390,34 +396,34 @@
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
   }
 
-  /* Form fields — default border #95ADFF, hover #2A4FDA, placeholder #96A1C0 */
+  /* Form fields — borda (--control-border), hover (--control-border-hover) e placeholder (--control-placeholder) */
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
   select,
   textarea {
-    border-color: #95ADFF;
+    border-color: var(--control-border);
     transition: border-color 0.15s ease;
   }
   input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):hover,
   select:hover,
   textarea:hover {
-    border-color: #2A4FDA;
+    border-color: var(--control-border-hover);
   }
   input::placeholder,
   textarea::placeholder,
   select {
-    color: #96A1C0;
+    color: var(--control-placeholder);
   }
 
   /* Checkbox e Radio — mesmas cores de linha do Select/Input */
   input[type="checkbox"],
   input[type="radio"] {
-    border: 1px solid #95ADFF;
-    accent-color: #2A4FDA;
+    border: 1px solid var(--control-border);
+    accent-color: var(--control-border-hover);
     transition: border-color 0.15s ease;
   }
   input[type="checkbox"]:hover,
   input[type="radio"]:hover {
-    border-color: #2A4FDA;
+    border-color: var(--control-border-hover);
   }
 }
 

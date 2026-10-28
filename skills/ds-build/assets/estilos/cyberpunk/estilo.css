@@ -20,12 +20,6 @@ h6,
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-hover);
 }
 
-.dark [data-ds="input"],
-.dark [data-ds="textarea"],
-.dark [data-ds="select-trigger"] {
-  border-color: hsl(var(--input));
-}
-
 :is(a, button, input, select, textarea, [role="button"], [role="tab"], [tabindex]):focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;

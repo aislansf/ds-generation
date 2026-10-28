@@ -49,6 +49,93 @@ export const TOKENS_PELE = [
   ["--chart-tooltip-radius", "8"],
 ];
 
+/**
+ * Cores dos campos de formulário (R2 do plano). O DS de referência fixa a borda, o hover/foco e o placeholder
+ * dos campos em HEX no CSS base e no Input/Textarea; viram tokens com os mesmos valores. São HEX, e não
+ * triplets HSL, para a recoloração da marca dar o mesmo pixel que dava nas classes. Os estilos que definem
+ * --input fazem os campos seguirem os tokens semânticos (scripts/lib/estilos.mjs).
+ */
+export const TOKENS_CAMPOS = [
+  ["--control-border", "#95ADFF"],
+  ["--control-border-hover", "#2A4FDA"],
+  ["--control-placeholder", "#96A1C0"],
+  // Input/Textarea do DS: texto e placeholder no mesmo cinza, um tom diferente do placeholder dos campos crus
+  ["--control-foreground", "#98A2C1"],
+  ["--control-placeholder-input", "#98A2C1"],
+];
+
+const CSS_CAMPOS_ANCORA = "    --chart-tooltip-radius: 8;\n";
+const CSS_CAMPOS = `${CSS_CAMPOS_ANCORA}    /* Campos de formulário: borda, hover e foco, placeholder e texto do Input/Textarea */
+${TOKENS_CAMPOS.map(([k, v]) => `    ${k}: ${v};`).join("\n")}
+`;
+const TG_CAMPOS_ANCORA = '      { name: "--chart-tooltip-radius", value: "8" },\n';
+const TG_CAMPOS = `${TG_CAMPOS_ANCORA}${TOKENS_CAMPOS.map(([k, v]) => `      { name: "${k}", value: "${v}" },`).join("\n")}\n`;
+
+const CSS_BASE_CAMPOS_ANTES = `  /* Form fields — default border #95ADFF, hover #2A4FDA, placeholder #96A1C0 */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    border-color: #95ADFF;
+    transition: border-color 0.15s ease;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):hover,
+  select:hover,
+  textarea:hover {
+    border-color: #2A4FDA;
+  }
+  input::placeholder,
+  textarea::placeholder,
+  select {
+    color: #96A1C0;
+  }
+
+  /* Checkbox e Radio — mesmas cores de linha do Select/Input */
+  input[type="checkbox"],
+  input[type="radio"] {
+    border: 1px solid #95ADFF;
+    accent-color: #2A4FDA;
+    transition: border-color 0.15s ease;
+  }
+  input[type="checkbox"]:hover,
+  input[type="radio"]:hover {
+    border-color: #2A4FDA;
+  }`;
+const CSS_BASE_CAMPOS_DEPOIS = `  /* Form fields — borda (--control-border), hover (--control-border-hover) e placeholder (--control-placeholder) */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    border-color: var(--control-border);
+    transition: border-color 0.15s ease;
+  }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--control-border-hover);
+  }
+  input::placeholder,
+  textarea::placeholder,
+  select {
+    color: var(--control-placeholder);
+  }
+
+  /* Checkbox e Radio — mesmas cores de linha do Select/Input */
+  input[type="checkbox"],
+  input[type="radio"] {
+    border: 1px solid var(--control-border);
+    accent-color: var(--control-border-hover);
+    transition: border-color 0.15s ease;
+  }
+  input[type="checkbox"]:hover,
+  input[type="radio"]:hover {
+    border-color: var(--control-border-hover);
+  }`;
+
+// Classes de cor do Input e do Textarea (iguais nos dois)
+const CAMPO_CORES_ANTES = "border-[#95ADFF] bg-background px-3 py-2 text-base text-[#98A2C1] ring-offset-background transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-[#98A2C1] hover:border-[#95ADFF] focus:border-[#2A4FDA] focus-visible:border-[#2A4FDA] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2A4FDA]";
+const CAMPO_CORES_DEPOIS = "border-[color:var(--control-border)] bg-background px-3 py-2 text-base text-[color:var(--control-foreground)] ring-offset-background transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-[color:var(--control-placeholder-input)] hover:border-[color:var(--control-border)] focus:border-[color:var(--control-border-hover)] focus-visible:border-[color:var(--control-border-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--control-border-hover)]";
+const TEXTAREA_CORES_ANTES = CAMPO_CORES_ANTES.replace(" text-base text-[#98A2C1]", " text-sm text-[#98A2C1]").replace(" file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground", "");
+const TEXTAREA_CORES_DEPOIS = CAMPO_CORES_DEPOIS.replace(" text-base text-[color:", " text-sm text-[color:").replace(" file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground", "");
+
 const TAILWIND_RADIUS_ANTES = `      borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -231,7 +318,11 @@ const GANCHOS = [
   ["src/components/ui/tooltip.tsx", '"z-50 overflow-hidden rounded-md border bg-popover', "tooltip"],
 ];
 
-/** Trocas literais por arquivo: [arquivo, antes, depois]. */
+/**
+ * Trocas literais por arquivo: [arquivo, antes, depois, marca?]. A troca conta como aplicada quando o arquivo
+ * já tem o "depois" ou, se houver, a "marca": blocos que trocas seguintes completam (tokens de campo dentro
+ * do bloco de tokens de pele) deixam de ser iguais ao "depois", mas não podem entrar de novo.
+ */
 const TROCAS = [
   // Card, botões e campos: raio e borda pelos tokens (mesmos valores de antes no corporativo)
   ["src/components/ui/card.tsx", '"rounded-lg border bg-card', '"rounded-[var(--radius-card)] border-[length:var(--card-border-width)] bg-card'],
@@ -262,7 +353,12 @@ const TROCAS = [
   ["src/main.tsx", 'import "./index.css";\n', 'import "./index.css";\nimport "./styles/estilo.css";\n'],
   ["tailwind.config.ts", TAILWIND_RADIUS_ANTES, TAILWIND_RADIUS_DEPOIS],
   ["tailwind.config.ts", 'black:    "900",', 'black:    "var(--font-black)",'],
-  ["src/index.css", CSS_ANCORA, CSS_TOKENS],
+  ["src/index.css", CSS_ANCORA, CSS_TOKENS, "/* === Estilo visual: tokens de pele ==="],
+  // Cores de campo: tokens logo depois dos tokens de pele (âncora que só existe depois da troca acima)
+  ["src/index.css", CSS_CAMPOS_ANCORA, CSS_CAMPOS],
+  ["src/index.css", CSS_BASE_CAMPOS_ANTES, CSS_BASE_CAMPOS_DEPOIS],
+  ["src/components/ui/input.tsx", CAMPO_CORES_ANTES, CAMPO_CORES_DEPOIS],
+  ["src/components/ui/textarea.tsx", TEXTAREA_CORES_ANTES, TEXTAREA_CORES_DEPOIS],
   ["index.html", "\n</head>", `\n${INDEX_HTML_TEMA}</head>`],
   // Gráficos: linha, barra e tooltip seguem o estilo
   ["src/lib/echarts/brandTheme.ts", "export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {\n",
@@ -300,7 +396,8 @@ ${TOKENS_PELE.filter(([k]) => !k.startsWith("--deco-")).map(([k, v]) => `      {
     ],
   },
   {
-    id: "zindex",`],
+    id: "zindex",`, 'id: "estilo",'],
+  ["src/data/tokenGroups.ts", TG_CAMPOS_ANCORA, TG_CAMPOS],
   // Figma (DTCG): espessuras e blur como dimensão, alpha e traço como número; manifesto com o estilo
   ["scripts/build-figma-tokens.mjs", 'const isDim = (n) => /^(space|text|radius|bp)-/.test(n) || n === "radius";',
     'const isDim = (n) => /^(space|text|radius|bp)-/.test(n) || n === "radius" || /border-width/.test(n) || n === "surface-blur";\nconst isNum = (n) => n === "card-alpha" || n === "icon-stroke" || n.startsWith("chart-");'],
@@ -340,12 +437,12 @@ export function tokenizar(dir) {
   // Arquivos com CRLF: as âncoras são escritas com \n
   const eol = (text) => (text.includes("\r\n") ? "\r\n" : "\n");
 
-  for (const [rel, antes, depois] of TROCAS) {
+  for (const [rel, antes, depois, marca] of TROCAS) {
     let text = ler(rel);
     if (text === null) { res.faltando.push(`${rel}: arquivo não existe`); continue; }
     const nl = eol(text);
     const a = antes.split("\n").join(nl), d = depois.split("\n").join(nl);
-    if (text.includes(d)) { res.jaAplicadas++; continue; }
+    if (text.includes(d) || (marca && text.includes(marca))) { res.jaAplicadas++; continue; }
     if (!text.includes(a)) { res.faltando.push(`${rel}: âncora não encontrada (${antes.split("\n")[0].slice(0, 70)})`); continue; }
     cache.set(rel, text.replace(a, d));
     res.aplicadas.push(rel);
@@ -382,6 +479,7 @@ export function tokenizar(dir) {
     cache.set(rel, conteudo);
     res.aplicadas.push(`${rel} (novo)`);
   }
+
 
   for (const [rel, text] of cache) {
     if (text === null) continue;

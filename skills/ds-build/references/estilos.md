@@ -36,6 +36,7 @@ O gerador aplica o preset depois de recolorir a marca e antes dos ajustes de con
 3. copia a **camada CSS** do estilo para `src/styles/estilo.css` (vazia no `corporativo`);
 4. grava `src/config/estilo.ts` (id, nome, tema padrão, layout) e o tema padrão no script do `index.html`;
 5. sem degradê no estilo: o header degradê vira cor sólida;
+5b. se o estilo define `--input`, os campos de formulário passam a seguir o estilo: `--control-border` = `--input`, `--control-border-hover` = `--ring`, placeholder = `--muted-foreground`, texto = `--foreground` (o preset pode fixar qualquer `--control-*` ele mesmo);
 6. confere os **mínimos de contraste do estilo** e ajusta só tokens do próprio estilo.
 
 O DS gerado mostra o estilo no grupo "Estilo visual" de `/tokens`, em `public/design-system/manifest.json` (`estilo: { id, nome }`) e nos tokens DTCG do Figma.
@@ -53,6 +54,7 @@ Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos est
 | `--shadow-ui`, `--shadow-ui-xs…2xl`, `--shadow-ui-inner` | sombras do Tailwind 3 | `shadow-*` dos componentes |
 | `--shadow-inset`, `--shadow-hover`, `--shadow-brand` | `none`, `var(--shadow-ui-md)`, sombra tingida da primária | Campos afundados, hover, CTA de marca |
 | `--card-alpha`, `--surface-blur`, `--surface-pattern` | `1`, `0px`, `none` | Vidro (glassmorfismo) |
+| `--control-border`, `--control-border-hover`, `--control-placeholder`, `--control-foreground`, `--control-placeholder-input` | cores fixas dos campos do DS de referência, recoloridas pela marca | Borda, hover/foco, placeholder dos campos crus; texto e placeholder do Input/Textarea |
 | `--font-light…black` | `300…900` | `font-*` |
 | `--tracking-*`, `--duration-*`, `--ease-*` | escala atual | `tracking-*`, `duration-*`, `transition` |
 | `--icon-stroke` | `2` | Traço dos ícones Lucide |

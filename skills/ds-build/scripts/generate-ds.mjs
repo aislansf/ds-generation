@@ -565,6 +565,7 @@ Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest
 
 - Tokens alterados: ${estiloRes.tokens[":root"]} (:root), ${estiloRes.tokens[".dark"]} (.dark)
 - Camada CSS: ${estiloRes.camada ? "src/styles/estilo.css" : "(nenhuma)"}
+- Campos de formulário: ${estiloRes.campos ? "seguem o estilo (borda --input, hover e foco --ring, placeholder --muted-foreground, texto --foreground)" : "cores da marca (--control-*)"}
 - Decoração gerada: (nenhuma)
 - Degradê do header: ${estilo.degrade === false ? "desligado (cor sólida)" : "mantido"}
 - Tema padrão: ${estilo.tema_padrao}

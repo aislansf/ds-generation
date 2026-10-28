@@ -29,12 +29,6 @@ button[data-ds="card"]:hover {
   box-shadow: var(--shadow-hover);
 }
 
-[data-ds="input"],
-[data-ds="textarea"],
-[data-ds="select-trigger"] {
-  border-color: hsl(var(--input));
-}
-
 @media (prefers-reduced-motion: reduce) {
   [data-ds="button"],
   [data-ds="card"] {

@@ -54,6 +54,7 @@ Tailwind: `bg-primary`, `text-muted-foreground`, `bg-success-bg`, `text-header-f
 | Sombras de componente | `--shadow-ui`, `--shadow-ui-xs` … `--shadow-ui-2xl`, `--shadow-ui-inner` (padrão do Tailwind) | `shadow-*` |
 | Raio | `--radius` (0.375rem), `--radius-sm` … `--radius-full`, `--radius-3xl`; `--radius-card`, `--radius-control`, `--radius-control-brand` | `rounded-lg/md/sm` derivam de `--radius`; `rounded-xl/2xl/3xl/full` usam os seus |
 | Borda | `--border-width` (1px), `--border-width-strong` (2px), `--card-border-width`, `--control-border-width` | `border`, `border-2` |
+| Campos | `--control-border`, `--control-border-hover` (hover e foco), `--control-placeholder`, `--control-foreground`, `--control-placeholder-input` (HEX recoloridos pela marca) | CSS base dos campos, `Input`, `Textarea` |
 | Camadas | `--z-dropdown` 100 … `--z-toast` 500 | |
 | Motion | `--duration-*` (inclui `--duration-default`, 150ms), `--ease-*` | `transition`, `duration-100/200/300/500` |
 | Estilo visual | `--card-alpha`, `--surface-blur`, `--surface-pattern`, `--icon-stroke`, `--chart-*`, `--heading-transform`, `--deco-*` | camada `src/styles/estilo.css` e tema ECharts |
