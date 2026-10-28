@@ -18,7 +18,7 @@ function FooterPreview({ projectName, version, variant }: FooterModelProps) {
   const wrapperHeight = isCompact ? "h-10" : "h-12";
 
   return (
-    <footer className={`${bgClass} border-t ${borderClass} ${wrapperHeight} flex items-center justify-between px-4 sm:px-6 rounded-b-lg`}>
+    <footer data-surface="marca" data-marca="rodape" className={`${bgClass} border-t ${borderClass} ${wrapperHeight} flex items-center justify-between px-4 sm:px-6 rounded-b-lg`}>
       <div className="flex items-center gap-2 min-w-0">
         <img src={logoSrc} alt="__BRAND_NAME__" className={`${logoHeight} w-auto opacity-90`} />
         <span className={`${isDark ? "text-white/40" : "text-muted-foreground/50"} text-xs hidden sm:inline`}>|</span>

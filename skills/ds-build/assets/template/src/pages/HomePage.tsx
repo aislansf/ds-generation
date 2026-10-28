@@ -93,7 +93,7 @@ export default function HomePage() {
       />
 
       {/* Hero */}
-      <div className="rounded-xl bg-primary text-primary-foreground p-8 md:p-10 mb-10">
+      <div data-surface="marca" data-marca="hero" className="rounded-xl bg-primary text-primary-foreground p-8 md:p-10 mb-10">
         <img
           src={brandLogo}
           alt="Marca __BRAND_NAME__"

@@ -1,0 +1,27 @@
+{
+  "dessaturar": 15,
+  "slots": {
+    "hero": {
+      "gerador": "raiosDeSol"
+    },
+    "textura": {
+      "gerador": "ruido",
+      "opacidade": 0.04
+    },
+    "divisoria": {
+      "gerador": "faixa",
+      "cores": [
+        "primaria",
+        "secundaria",
+        "destaque"
+      ]
+    },
+    "padrao": {
+      "gerador": "padrao",
+      "tipo": "listras",
+      "tamanho": 36,
+      "cor": "destaque",
+      "opacidade": 0.3
+    }
+  }
+}

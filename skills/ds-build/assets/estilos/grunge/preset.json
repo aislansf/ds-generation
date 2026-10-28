@@ -1,0 +1,55 @@
+{
+  "$schema": "../_schema.json",
+  "id": "grunge",
+  "nome": "Grunge",
+  "grupo": "ousados",
+  "nivel": 3,
+  "ordem": 9,
+  "descricao": "Papel, tinta e recorte: textura suja e bordas rasgadas nas superfícies de marca, estética de zine.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [],
+    "display": [
+      "Bebas Neue",
+      "Special Elite"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--background": "40 15% 93%",
+      "--foreground": "30 15% 10%",
+      "--card": "40 18% 96%",
+      "--popover": "40 18% 96%",
+      "--muted": "40 12% 88%",
+      "--radius": "0.125rem",
+      "--radius-card": "0.125rem",
+      "--shadow-ui-sm": "2px 3px 0 hsl(30 15% 10% / 0.8)",
+      "--shadow-ui": "2px 3px 0 hsl(30 15% 10% / 0.8)",
+      "--shadow-ui-md": "2px 3px 0 hsl(30 15% 10% / 0.8)",
+      "--shadow-ui-lg": "2px 3px 0 hsl(30 15% 10% / 0.8)",
+      "--shadow-ui-xl": "2px 3px 0 hsl(30 15% 10% / 0.8)",
+      "--shadow-hover": "3px 4px 0 hsl(30 15% 10% / 0.8)",
+      "--font-bold": "800"
+    },
+    ".dark": {
+      "--shadow-ui-sm": "2px 3px 0 hsl(0 0% 0% / 0.8)",
+      "--shadow-ui": "2px 3px 0 hsl(0 0% 0% / 0.8)",
+      "--shadow-ui-md": "2px 3px 0 hsl(0 0% 0% / 0.8)",
+      "--shadow-ui-lg": "2px 3px 0 hsl(0 0% 0% / 0.8)",
+      "--shadow-ui-xl": "2px 3px 0 hsl(0 0% 0% / 0.8)",
+      "--shadow-hover": "3px 4px 0 hsl(0 0% 0% / 0.8)"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use a textura e o recorte só nas superfícies de marca",
+    "Mantenha o corpo de texto em fundo liso"
+  ],
+  "evite": [
+    "Textura atrás de parágrafos",
+    "Rotação em telas de sistema"
+  ]
+}

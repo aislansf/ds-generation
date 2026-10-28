@@ -33,7 +33,7 @@ export default function PaginaAutenticacaoPage() {
 
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {/* Lado Esquerdo: Marca e Imagem (Visível apenas em desktop) */}
-        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-muted">
+        <div data-surface="marca" data-marca="painel" className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-muted">
           <img
             src={exemploImg}
             alt="Empreendedora atendida pelo __BRAND_SHORT__"

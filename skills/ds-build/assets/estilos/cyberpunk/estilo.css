@@ -37,3 +37,30 @@ h6,
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
+
+/* Efeito "glitch" só no título do hero (superfície de marca), em rajadas curtas: o texto fica legível quase
+ * o tempo todo. Desligado com movimento reduzido (a regra só existe sem essa preferência). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-surface="marca"][data-marca="hero"] h2 {
+    animation: ds-glitch 6s steps(1, end) infinite;
+  }
+}
+
+@keyframes ds-glitch {
+  0%, 90%, 100% {
+    text-shadow: none;
+    transform: none;
+  }
+  91% {
+    text-shadow: -2px 0 hsl(var(--ring)), 2px 0 hsl(var(--secondary));
+    transform: translateX(1px);
+  }
+  93% {
+    text-shadow: 2px 0 hsl(var(--ring)), -2px 0 hsl(var(--secondary));
+    transform: translateX(-1px);
+  }
+  95% {
+    text-shadow: -1px 0 hsl(var(--ring));
+    transform: none;
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "../_schema.json",
+  "id": "bauhaus",
+  "nome": "Bauhaus",
+  "grupo": "epocas",
+  "nivel": 3,
+  "ordem": 11,
+  "descricao": "Formas básicas, função acima da forma: retângulos retos, círculos e composição assimétrica.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Jost",
+      "League Spartan",
+      "Josefin Sans"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0",
+      "--radius-card": "0",
+      "--radius-control": "0",
+      "--radius-control-brand": "0",
+      "--radius-xl": "0",
+      "--radius-2xl": "0",
+      "--radius-3xl": "0",
+      "--border-width": "2px",
+      "--border": "0 0% 8%",
+      "--input": "0 0% 8%",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000"
+    },
+    ".dark": {
+      "--border": "0 0% 85%",
+      "--input": "0 0% 85%"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Use primária, secundária e realce em blocos chapados",
+    "Alinhe a composição em grid assimétrico"
+  ],
+  "evite": [
+    "Sombras e degradês",
+    "Cantos arredondados em retângulos"
+  ]
+}

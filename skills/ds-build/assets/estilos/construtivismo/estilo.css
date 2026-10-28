@@ -1,0 +1,15 @@
+/* Estilo visual: Construtivismo russo.
+ * Títulos em caixa alta (o corpo de texto nunca), faixas diagonais no hero e título do hero inclinado.
+ * A inclinação fica só no hero e some com movimento reduzido. */
+
+:is(h1, h2, h3, h4) {
+  text-transform: var(--heading-transform);
+  letter-spacing: 0.01em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-surface="marca"][data-marca="hero"] h2 {
+    transform: rotate(-3deg);
+    transform-origin: left bottom;
+  }
+}

@@ -237,7 +237,7 @@ const coresFinais = {
   destaque: targets.destaque,
   realce: targets.realce ?? (familiaRealce ? { h: familiaRealce.hsl[0], s: familiaRealce.hsl[1], l: familiaRealce.hsl[2] } : null),
 };
-const estiloRes = aplicarEstilo(OUT, estilo, coresFinais);
+const estiloRes = aplicarEstilo(OUT, estilo, coresFinais, { semente: brief.slug });
 warnings.push(...estiloRes.avisos);
 
 // ---------- 3. Contraste: texto sobre a primária ----------
@@ -566,13 +566,14 @@ Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest
 - Tokens alterados: ${estiloRes.tokens[":root"]} (:root), ${estiloRes.tokens[".dark"]} (.dark)
 - Camada CSS: ${estiloRes.camada ? "src/styles/estilo.css" : "(nenhuma)"}
 - Campos de formulário: ${estiloRes.campos ? "seguem o estilo (borda --input, hover e foco --ring, placeholder --muted-foreground, texto --foreground)" : "cores da marca (--control-*)"}
-- Decoração gerada: (nenhuma)
+- Decoração gerada: ${estiloRes.decoracao ? `${estiloRes.decoracao.arquivos.length} arquivo(s) em public/estilo/ (${(estiloRes.decoracao.bytes / 1024).toFixed(1)} KB), só em superfícies de marca` : "(nenhuma)"}
 - Degradê do header: ${estilo.degrade === false ? "desligado (cor sólida)" : "mantido"}
 - Tema padrão: ${estilo.tema_padrao}
 - Ajustes de contraste do estilo: ${estiloContraste.ajustes.length ? `\n${estiloContraste.ajustes.map((a) => `  - ${a}`).join("\n")}` : "(nenhum)"}
 - Pendências do estilo: ${(() => {
     const p = [];
     if (estilo.id !== ESTILO_PADRAO) p.push("miniaturas da página Templates (capturadas no estilo padrão)");
+    if (estiloRes.decoracao?.arquivos.some((a) => a.includes("/ilustracoes/"))) p.push("ilustrações reais em public/estilo/ilustracoes/ (hoje são placeholders nas cores da marca)");
     const sug = estilo.fontes_sugeridas?.primaria ?? [];
     if (sug.length && !sug.includes(brief.fontes.primaria.nome)) p.push(`fontes sugeridas não adotadas (${sug.join(", ")})`);
     return p.length ? p.join("; ") : "(nenhuma)";
@@ -632,6 +633,7 @@ write("public/design-system/estilo.json", JSON.stringify({
   layout: estilo.layout,
   tokens_alterados: estiloRes.tokens,
   camada_css: estiloRes.camada,
+  decoracao: estiloRes.decoracao,
   campos_seguem_estilo: estiloRes.campos,
   degrade: estilo.degrade !== false,
   ajustes_contraste: estiloContraste.ajustes,

@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { blockBodies } from "./contrast.mjs";
 import { parseTriplet, hslToRgb, contrastRatio } from "./color.mjs";
+import { gerarDecoracao, SLOTS, GERADORES, LIMITE_BYTES } from "./decoracao.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ESTILOS_DIR = path.resolve(HERE, "../../assets/estilos");
@@ -59,6 +60,18 @@ export function validarPreset(p, id = p?.id) {
     }
   }
   if (p.css && !fs.existsSync(path.join(ESTILOS_DIR, p.id, p.css))) erros.push(`css "${p.css}" não existe na pasta do preset`);
+  if (p.decoracao) {
+    const arq = path.join(ESTILOS_DIR, p.id, p.decoracao);
+    if (!fs.existsSync(arq)) erros.push(`decoracao "${p.decoracao}" não existe na pasta do preset`);
+    else {
+      const cfg = JSON.parse(fs.readFileSync(arq, "utf8"));
+      for (const [slot, o] of Object.entries(cfg.slots ?? {})) {
+        if (!SLOTS[slot]) erros.push(`decoração: slot desconhecido "${slot}"`);
+        if (!GERADORES[o?.gerador]) erros.push(`decoração: gerador desconhecido "${o?.gerador}" no slot ${slot}`);
+      }
+    }
+  }
+  if ((p.nivel === 3) !== !!p.decoracao) erros.push("nível 3 é o nível com decoração: só ele (e todo ele) declara \"decoracao\"");
   for (const par of p.contraste?.pares_extras ?? []) {
     if (!Array.isArray(par) || par.length !== 3 || typeof par[2] !== "number") erros.push(`par de contraste inválido: ${JSON.stringify(par)}`);
   }
@@ -135,9 +148,10 @@ export const CAMPOS_DO_ESTILO = [
  * @param {string} out    pasta do DS gerado
  * @param {object} preset preset carregado
  * @param {object} cores  { primaria, secundaria, destaque, realce } em { h, s, l } (cores finais)
- * @returns relatório { tokens: { ":root": n, ".dark": n }, alterados: Set, camada, campos, avisos }
+ * @param {object} [opcoes] { semente }: semente da decoração (o slug da marca)
+ * @returns relatório { tokens: { ":root": n, ".dark": n }, alterados: Set, camada, campos, decoracao, avisos }
  */
-export function aplicarEstilo(out, preset, cores) {
+export function aplicarEstilo(out, preset, cores, { semente = "ds" } = {}) {
   const P = (rel) => path.join(out, rel);
   const avisos = [];
   const alterados = new Set();
@@ -166,6 +180,23 @@ export function aplicarEstilo(out, preset, cores) {
       contagem[":root"]++;
     }
   }
+  // 4d. Decoração gerada (nível 3): SVGs em public/estilo/ e os tokens --deco-* apontando para eles
+  let decoracao = null;
+  if (preset.decoracao) {
+    const cfg = JSON.parse(fs.readFileSync(path.join(ESTILOS_DIR, preset.id, preset.decoracao), "utf8"));
+    const d = gerarDecoracao(cfg, cores, semente);
+    for (const [rel, conteudo] of d.arquivos) {
+      fs.mkdirSync(path.dirname(P(rel)), { recursive: true });
+      fs.writeFileSync(P(rel), conteudo);
+    }
+    for (const [nome, valor] of Object.entries(d.tokens)) {
+      css = definirVar(css, ":root", nome, valor);
+      alterados.add(nome);
+      contagem[":root"]++;
+    }
+    decoracao = { arquivos: [...d.arquivos.keys()], bytes: d.bytes };
+    if (d.bytes > LIMITE_BYTES) avisos.push(`Decoração com ${Math.round(d.bytes / 1024)} KB, acima do limite de ${LIMITE_BYTES / 1024} KB.`);
+  }
   // 4f. Sem degradê: o header degradê vira cor sólida (a cor inicial)
   if (preset.degrade === false) {
     const inicio = lerVar(css, ":root", "--brand-header-grad-start");
@@ -174,9 +205,13 @@ export function aplicarEstilo(out, preset, cores) {
   fs.writeFileSync(P("src/index.css"), css);
 
   // 4c. Camada CSS do estilo
+  // Estilos com decoração levam antes a camada comum de posicionamento (assets/estilos/_decoracao.css)
   let camada = null;
-  if (preset.css) {
-    camada = fs.readFileSync(path.join(ESTILOS_DIR, preset.id, preset.css), "utf8");
+  if (preset.css || preset.decoracao) {
+    const partes = [];
+    if (preset.decoracao) partes.push(fs.readFileSync(path.join(ESTILOS_DIR, "_decoracao.css"), "utf8"));
+    if (preset.css) partes.push(fs.readFileSync(path.join(ESTILOS_DIR, preset.id, preset.css), "utf8"));
+    camada = partes.join("\n");
     fs.writeFileSync(P("src/styles/estilo.css"), camada.replace(EXPRESSAO, (m) => resolverValor(m, cores)));
   }
 
@@ -194,7 +229,7 @@ export function aplicarEstilo(out, preset, cores) {
   if (preset.id === "cyberpunk" && corNeon(cores).fraca) {
     avisos.push("Nenhuma cor da marca é saturada o bastante para o neon do cyberpunk (S < 50%): o neon foi saturado a 80% a partir da cor mais viva, e pode destoar da marca.");
   }
-  return { tokens: contagem, alterados, camada: !!camada, campos, avisos };
+  return { tokens: contagem, alterados, camada: !!camada, campos, decoracao, avisos };
 }
 
 /** Superfícies que um ajuste de contraste leva junto quando o preset as declara na mesma família de cor. */

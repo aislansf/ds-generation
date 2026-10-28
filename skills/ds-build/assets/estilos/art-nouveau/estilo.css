@@ -1,0 +1,12 @@
+/* Estilo visual: Art Nouveau.
+ * Cantos assimétricos nos cards, curva "chicote" e folhas nas superfícies de marca, moldura de linha dupla
+ * no painel de login. Ornamento só em divisórias e molduras, nunca dentro de componentes. */
+
+[data-ds="card"] {
+  border-radius: 1.5rem 0.375rem;
+}
+
+[data-surface="marca"][data-marca="painel"] {
+  outline: 3px double hsl(var(--primary-foreground) / 0.55);
+  outline-offset: -18px;
+}

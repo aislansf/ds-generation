@@ -41,7 +41,7 @@ export default function CadastroPage() {
 
       <div className="flex-1 flex overflow-hidden">
         {/* Lado Esquerdo: Marca e Imagem (Desktop) */}
-        <div className="hidden lg:flex lg:w-1/2 relative bg-[#2A4FDA] overflow-hidden">
+        <div data-surface="marca" data-marca="painel" className="hidden lg:flex lg:w-1/2 relative bg-[#2A4FDA] overflow-hidden">
           <img
             src={exemploImg}
             alt="Edifício __BRAND_NAME__"

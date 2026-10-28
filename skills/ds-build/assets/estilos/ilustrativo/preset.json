@@ -1,0 +1,41 @@
+{
+  "$schema": "../_schema.json",
+  "id": "ilustrativo",
+  "nome": "Ilustrativo / Hand-drawn",
+  "grupo": "organicos",
+  "nivel": 3,
+  "ordem": 20,
+  "descricao": "Ilustrações autorais como protagonistas: espaços de ilustração no hero, no login, nos estados vazios e nos erros.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Nunito",
+      "Fredoka"
+    ],
+    "display": [
+      "Baloo 2"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--radius": "0.75rem",
+      "--border-width": "1.5px",
+      "--shadow-ui-md": "0 6px 16px hsl({primaria.h} 25% 25% / 0.10)",
+      "--shadow-ui-lg": "0 10px 24px hsl({primaria.h} 25% 25% / 0.12)",
+      "--font-bold": "600",
+      "--icon-stroke": "1.75"
+    }
+  },
+  "css": "estilo.css",
+  "decoracao": "decoracao.json",
+  "faca": [
+    "Troque os placeholders por ilustrações da marca",
+    "Use o traço e a paleta da marca nas ilustrações"
+  ],
+  "evite": [
+    "Ilustração em telas de sistema",
+    "Ilustrações com texto embutido"
+  ]
+}

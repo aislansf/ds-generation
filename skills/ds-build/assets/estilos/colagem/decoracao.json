@@ -1,0 +1,27 @@
+{
+  "slots": {
+    "hero": {
+      "gerador": "recortes"
+    },
+    "textura": {
+      "gerador": "ruido",
+      "opacidade": 0.05
+    },
+    "padrao": {
+      "gerador": "reticula",
+      "cor": "primaria",
+      "opacidade": 0.25
+    },
+    "mascara": {
+      "gerador": "bordaIrregular",
+      "amplitude": 10
+    },
+    "divisoria": {
+      "gerador": "faixa",
+      "cores": [
+        "primaria",
+        "destaque"
+      ]
+    }
+  }
+}

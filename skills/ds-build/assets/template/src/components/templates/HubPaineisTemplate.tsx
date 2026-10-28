@@ -258,7 +258,7 @@ function HubPaineisPreview() {
     <div className={`rounded-xl border border-border overflow-hidden ${darkMode ? "dark bg-[#1a1a2e]" : "bg-background"}`}>
       {/* Header — Marca completa · Classificação de conteúdo */}
       <div className="font-sans">
-        <header className="bg-[#2A4FDA] text-white">
+        <header data-surface="marca" data-marca="capa" className="bg-[#2A4FDA] text-white">
           <div className="flex items-center gap-3 px-4 py-2.5 min-h-[44px]">
             <button className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
               <Menu size={18} />
@@ -343,7 +343,7 @@ function HubPaineisImagePreview() {
     <div className={`rounded-xl border border-border overflow-hidden ${darkMode ? "dark bg-[#1a1a2e]" : "bg-background"}`}>
       {/* Header — Marca completa · Classificação de conteúdo */}
       <div className="font-sans">
-        <header className="bg-[#2A4FDA] text-white">
+        <header data-surface="marca" data-marca="capa" className="bg-[#2A4FDA] text-white">
           <div className="flex items-center gap-3 px-4 py-2.5 min-h-[44px]">
             <button className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
               <Menu size={18} />

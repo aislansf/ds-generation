@@ -1,0 +1,22 @@
+{
+  "slots": {
+    "hero": {
+      "gerador": "geometrico"
+    },
+    "divisoria": {
+      "gerador": "faixa",
+      "cores": [
+        "primaria",
+        "secundaria",
+        "realce"
+      ]
+    },
+    "padrao": {
+      "gerador": "padrao",
+      "tipo": "bolinhas",
+      "tamanho": 48,
+      "cor": "primaria",
+      "opacidade": 0.18
+    }
+  }
+}

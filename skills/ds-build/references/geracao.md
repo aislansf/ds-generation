@@ -70,6 +70,7 @@ Entre a recoloração e os ajustes de contraste, o gerador aplica o estilo do br
 3. a camada CSS do preset vai para `src/styles/estilo.css`;
 4. `src/config/estilo.ts` e o script de tema do `index.html` recebem id, nome, tema padrão e layout;
 5. `degrade: false` faz `--brand-header-grad-end` igual a `--brand-header-grad-start` (header sólido);
+5a. nível 3: a decoração do `decoracao.json` vira SVGs em `public/estilo/` (semente = slug, cores finais da marca, até 200 KB), os tokens `--deco-*` apontam para eles e a camada comum `_decoracao.css` entra antes da camada do estilo;
 5b. se o estilo define `--input`, os tokens de campo (`--control-*`) passam a seguir `--input`, `--ring`, `--muted-foreground` e `--foreground`;
 6. depois das correções da marca, os mínimos do estilo (`estilos.md`, regra 3) ajustam só tokens que o próprio estilo definiu; quando o ajuste é numa superfície (`--background`, `--card`, `--popover`, `--muted`), as outras superfícies do preset na mesma matiz e saturação andam o mesmo passo;
 7. o espelho de `tokenGroups.ts` passa a incluir os valores escalares (raio, peso, duração, tokens de pele), para o validador de tokens continuar verde.

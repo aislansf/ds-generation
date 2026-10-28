@@ -33,6 +33,7 @@
       }
     },
     "css": { "type": "string", "description": "Camada CSS do estilo, relativa à pasta do preset (vai para src/styles/estilo.css)" },
+    "decoracao": { "type": "string", "description": "Nível 3: decoracao.json do preset (geradores por slot de scripts/lib/decoracao.mjs); a camada leva antes assets/estilos/_decoracao.css" },
     "contraste": {
       "type": "object",
       "additionalProperties": false,

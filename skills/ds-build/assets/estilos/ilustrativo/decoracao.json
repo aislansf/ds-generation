@@ -1,0 +1,25 @@
+{
+  "slots": {
+    "hero": {
+      "gerador": "placeholderIlustracao",
+      "tema": "hero"
+    },
+    "divisoria": {
+      "gerador": "onda",
+      "amplitude": 5
+    },
+    "padrao": {
+      "gerador": "padrao",
+      "tipo": "bolinhas",
+      "tamanho": 40,
+      "cor": "destaque",
+      "opacidade": 0.25
+    }
+  },
+  "ilustracoes": [
+    "login",
+    "vazio",
+    "erro-404",
+    "erro-500"
+  ]
+}

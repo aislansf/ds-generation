@@ -345,7 +345,7 @@ const TROCAS = [
   ["src/pages/FundamentosPage.tsx", "text-xs font-bold shadow-lg shadow-primary/20", "text-xs font-bold shadow-[var(--shadow-brand)]"],
   ["src/pages/ErrorPageTemplate.tsx", "transition-all shadow-lg shadow-primary/20", "transition-all shadow-[var(--shadow-brand)]"],
   // Casca do DS: header (superfície de marca) e menu lateral
-  ["src/components/DSLayout.tsx", '<header className="h-[92px]', '<header data-ds="header" data-surface="marca" className="h-[92px]'],
+  ["src/components/DSLayout.tsx", '<header className="h-[92px]', '<header data-ds="header" data-surface="marca" className="h-[92px]', 'data-ds="header"'],
   ["src/components/DSLayout.tsx", '<aside id="mobile-sidebar" ', '<aside id="mobile-sidebar" data-ds="sidebar" '],
   ["src/components/DSLayout.tsx", '<aside id="desktop-sidebar" ', '<aside id="desktop-sidebar" data-ds="sidebar" '],
   // Tema: padrão vem do estilo, a escolha salva vence
@@ -415,6 +415,26 @@ const manifest = {
 ];
 
 /** Arquivos novos (não sobrescreve se já existirem). */
+/**
+ * Superfícies de marca (seção 5.4 do plano; Fase 4): [arquivo, âncora que começa em "<tag", papel].
+ * Recebem data-surface="marca" e data-marca="<papel>", em todas as ocorrências da âncora. A decoração gerada
+ * (nível 3) só aparece nelas, e o papel escolhe onde ela entra: arte à direita do hero, do painel e da capa;
+ * faixa no header, no rodapé e nos estados vazios; padrão de fundo nas páginas de erro.
+ */
+const SUPERFICIES_MARCA = [
+  ["src/components/DSLayout.tsx", '<header data-ds="header" data-surface="marca" className="h-[92px]', "header"],
+  ["src/pages/HomePage.tsx", '<div className="rounded-xl bg-primary text-primary-foreground p-8 md:p-10 mb-10">', "hero"],
+  ["src/pages/PaginaAutenticacaoPage.tsx", '<div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-muted">', "painel"],
+  ["src/pages/CadastroPage.tsx", '<div className="hidden lg:flex lg:w-1/2 relative bg-[#2A4FDA] overflow-hidden">', "painel"],
+  ["src/pages/TwoFactorPage.tsx", '<div className="hidden lg:flex lg:w-1/2 relative bg-[#2A4FDA] overflow-hidden">', "painel"],
+  ["src/pages/ModalAcessoTemplatePage.tsx", '<div className="bg-primary text-primary-foreground p-6 flex flex-col items-center gap-2">', "painel"],
+  ["src/pages/ErrorPageTemplate.tsx", '<div className="min-h-screen bg-brand-primary-50 flex flex-col items-center justify-center p-4">', "erro"],
+  ["src/pages/NotFound.tsx", '<div className="min-h-screen bg-muted/30 flex flex-col items-center justify-center p-4', "erro"],
+  ["src/components/templates/FooterTemplate.tsx", "<footer className={`${bgClass} border-t", "rodape"],
+  ["src/components/templates/HubPaineisTemplate.tsx", '<header className="bg-[#2A4FDA] text-white">', "capa"],
+  ["src/pages/ComponentesPage.tsx", '<div className="text-center py-12 border border-dashed border-border rounded-lg">', "vazio"],
+];
+
 const NOVOS = [
   ["src/styles/estilo.css", ESTILO_CSS],
   ["src/config/estilo.ts", ESTILO_TS],
@@ -495,6 +515,20 @@ export function tokenizar(dir) {
     if (fs.existsSync(P(rel))) { res.jaAplicadas++; continue; }
     cache.set(rel, conteudo);
     res.aplicadas.push(`${rel} (novo)`);
+  }
+
+  // Superfícies de marca: data-surface e data-marca em todas as ocorrências da âncora
+  for (const [rel, ancora, papel] of SUPERFICIES_MARCA) {
+    let text = ler(rel);
+    if (text === null) { res.faltando.push(`${rel}: arquivo não existe`); continue; }
+    const tag = /^<([A-Za-z]+)/.exec(ancora)[1];
+    const marcado = `<${tag} data-surface="marca" data-marca="${papel}"`;
+    const semMarca = ancora.replace(` data-surface="marca"`, "");
+    const ancoraMarcada = semMarca.replace(`<${tag}`, marcado);
+    if (!text.includes(ancora) && !text.includes(ancoraMarcada)) { res.faltando.push(`${rel}: superfície de marca "${papel}" não encontrada`); continue; }
+    if (!text.includes(ancora)) { res.jaAplicadas++; continue; }
+    cache.set(rel, text.split(ancora).join(ancoraMarcada));
+    res.aplicadas.push(`${rel} [data-marca="${papel}"]`);
   }
 
   // Ganchos nos elementos montados à mão (R1): <button>, campos e cards das páginas e templates
