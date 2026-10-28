@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { ESTILO } from "@/config/estilo";
 
 type Theme = "light" | "dark";
 
@@ -8,9 +9,9 @@ export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-      return stored === "dark" ? "dark" : "light";
+      return stored === "dark" || stored === "light" ? stored : ESTILO.temaPadrao;
     }
-    return "light";
+    return ESTILO.temaPadrao;
   });
 
   useEffect(() => {

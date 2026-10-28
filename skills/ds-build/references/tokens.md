@@ -49,11 +49,16 @@ Tailwind: `bg-primary`, `text-muted-foreground`, `bg-success-bg`, `text-header-f
 | Tamanho de fonte | `--text-xs` (13px) … `--text-7xl` (76px): escala ampliada em +1–2pt | `text-sm`… |
 | Entrelinha | `--leading-xs` … `--leading-7xl`, `--leading-tight` … `--leading-loose` | pareada com `text-*` |
 | Tracking | `--tracking-tighter` … `--tracking-widest` | `tracking-*` |
-| Peso | `--font-light` … `--font-extrabold` | `font-*` |
-| Sombras | `--shadow-xs` … `--shadow-xl` (tinta da primária no light, preto no dark) | via CSS |
-| Raio | `--radius` (0.375rem) e `--radius-sm` … `--radius-full` | `rounded-lg/md/sm` derivam de `--radius` |
+| Peso | `--font-light` … `--font-extrabold`, `--font-black` | `font-*` |
+| Sombras de marca | `--shadow-xs` … `--shadow-xl` (tinta da primária no light, preto no dark) | via CSS (`.brand-card`) |
+| Sombras de componente | `--shadow-ui`, `--shadow-ui-xs` … `--shadow-ui-2xl`, `--shadow-ui-inner` (padrão do Tailwind) | `shadow-*` |
+| Raio | `--radius` (0.375rem), `--radius-sm` … `--radius-full`, `--radius-3xl`; `--radius-card`, `--radius-control`, `--radius-control-brand` | `rounded-lg/md/sm` derivam de `--radius`; `rounded-xl/2xl/3xl/full` usam os seus |
+| Borda | `--border-width` (1px), `--border-width-strong` (2px), `--card-border-width`, `--control-border-width` | `border`, `border-2` |
 | Camadas | `--z-dropdown` 100 … `--z-toast` 500 | |
-| Motion | `--duration-*`, `--ease-*` | |
+| Motion | `--duration-*` (inclui `--duration-default`, 150ms), `--ease-*` | `transition`, `duration-100/200/300/500` |
+| Estilo visual | `--card-alpha`, `--surface-blur`, `--surface-pattern`, `--icon-stroke`, `--chart-*`, `--heading-transform`, `--deco-*` | camada `src/styles/estilo.css` e tema ECharts |
+
+Os tokens de raio, borda, sombra de componente, peso e motion são os **tokens de pele**: o estilo visual escolhido no briefing troca os seus valores (ver `estilos.md`). Com o estilo `corporativo` eles reproduzem o visual de sempre. Aparecem no grupo "Estilo visual" de `/tokens`.
 
 ## Tipografia semântica
 
@@ -71,7 +76,7 @@ Há ~500 cores fixas (`#hex` e triplets) espalhadas em páginas e templates, her
 
 ## Regras ao alterar tokens
 
-1. Altere `src/index.css` (`:root` e `.dark`).
-2. Atualize a entrada correspondente em `src/data/tokenGroups.ts`, incluindo `lightHex`/`darkHex`.
+1. Altere `src/index.css` (`:root` e `.dark`). Para mudar forma, profundidade ou ritmo do DS inteiro, prefira trocar o estilo visual (ou o preset dele) e gerar de novo.
+2. Atualize a entrada correspondente em `src/data/tokenGroups.ts`, incluindo `lightHex`/`darkHex`. Tokens de cor listados ali precisam ser triplets HSL sem alpha (`H S% L%`).
 3. `npx vitest run src/data/__tests__/tokenGroups.validator.test.ts`.
 4. `node <skill>/scripts/validar-contraste.mjs src/index.css`.

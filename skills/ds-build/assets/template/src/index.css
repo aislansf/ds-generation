@@ -209,6 +209,46 @@
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* === Estilo visual: tokens de pele ===
+     * Forma, profundidade, peso e ritmo do DS. Os valores abaixo são os do estilo "corporativo"
+     * (o visual padrão); o ds-build troca os que o estilo escolhido define. A marca continua
+     * definindo as cores: nenhum estilo altera a escala da marca nem as cores semânticas. */
+    --border-width: 1px;
+    --border-width-strong: 2px;
+    --card-border-width: var(--border-width);
+    --control-border-width: var(--border-width);
+    --radius-3xl: 1.5rem;
+    --radius-card: var(--radius);
+    --radius-control: calc(var(--radius) - 2px);
+    --radius-control-brand: var(--radius);
+    --shadow-ui: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-ui-xs: 0 0 #0000;
+    --shadow-ui-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-ui-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-ui-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-ui-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-ui-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-ui-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+    --shadow-inset: none;
+    --shadow-hover: var(--shadow-ui-md);
+    --shadow-brand: 0 10px 15px -3px hsl(var(--primary) / 0.2), 0 4px 6px -4px hsl(var(--primary) / 0.2);
+    --card-alpha: 1;
+    --surface-blur: 0px;
+    --surface-pattern: none;
+    --font-black: 900;
+    --heading-transform: none;
+    --icon-stroke: 2;
+    --duration-default: 150ms;
+    --ease-emphasis: cubic-bezier(0.4, 0, 0.2, 1);
+    --deco-hero: none;
+    --deco-divider: none;
+    --deco-pattern: none;
+    --deco-texture: none;
+    --chart-line-width: 2;
+    --chart-bar-radius: 0;
+    --chart-smooth: 0;
+    --chart-tooltip-radius: 8;
     
     /* === Header Degradê Novo __BRAND_SHORT__ Tokens === */
     --brand-header-grad-start: #053665;
@@ -622,5 +662,14 @@
     font-size: var(--ds-body-small-font-size);
     line-height: var(--ds-body-small-line-height);
     font-weight: var(--ds-body-small-font-weight);
+  }
+}
+
+/* === Estilo visual: ganchos ===
+ * Traço dos ícones Lucide pelo token (só os que usam o traço padrão, 2). A camada do estilo
+ * fica em src/styles/estilo.css, importada depois deste arquivo em src/main.tsx. */
+@layer base {
+  svg.lucide[stroke-width="2"] {
+    stroke-width: var(--icon-stroke);
   }
 }

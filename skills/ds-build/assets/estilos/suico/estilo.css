@@ -1,0 +1,25 @@
+/* Estilo visual: Suíço / Tipográfico Internacional.
+ * A tipografia carrega a hierarquia: títulos com tracking fechado, rótulos em caixa alta espaçada,
+ * números tabulares e um fio forte no topo dos cards. */
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+}
+
+h5,
+h6,
+[data-ds="badge"] {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+[data-ds="table"],
+[data-ds="card"] {
+  font-variant-numeric: tabular-nums;
+}
+
+[data-ds="card"] {
+  border-top: 2px solid hsl(var(--foreground));
+}

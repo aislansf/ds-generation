@@ -1,0 +1,35 @@
+/* Estilo visual: Brutalista.
+ * Estrutura à mostra: links sempre sublinhados, ghost/link como link do navegador,
+ * hover que inverte as cores, foco grosso e rótulos em fonte mono do sistema. */
+
+:is(p, li, td, dd, label) a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-ds="button"]:is([data-variant="link"], [data-variant="ghost"]) {
+  color: #0000ee;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dark [data-ds="button"]:is([data-variant="link"], [data-variant="ghost"]) {
+  color: #9e9eff;
+}
+
+[data-ds="button"]:is([data-variant="outline"], [data-variant="secondary"]):hover,
+[data-ds="tabs-trigger"]:hover {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+:is(a, button, input, select, textarea, [role="button"], [role="tab"], [tabindex]):focus-visible {
+  outline: 3px solid hsl(var(--foreground));
+  outline-offset: 3px;
+}
+
+label,
+th,
+[data-ds="badge"] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}

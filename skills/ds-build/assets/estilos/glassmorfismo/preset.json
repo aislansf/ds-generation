@@ -1,0 +1,45 @@
+{
+  "$schema": "../_schema.json",
+  "id": "glassmorfismo",
+  "nome": "Glassmorfismo",
+  "grupo": "digitais",
+  "nivel": 2,
+  "ordem": 15,
+  "descricao": "Vidro fosco sobre um fundo colorido com as cores da marca: cards translúcidos com desfoque.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Inter",
+      "Outfit"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--surface-pattern": "radial-gradient(at 0% 0%, hsl({primaria} / 0.28) 0, transparent 55%), radial-gradient(at 100% 0%, hsl({secundaria} / 0.24) 0, transparent 50%), radial-gradient(at 100% 100%, hsl({destaque} / 0.4) 0, transparent 55%), radial-gradient(at 0% 100%, hsl({secundaria} / 0.18) 0, transparent 50%)",
+      "--card-alpha": "0.55",
+      "--surface-blur": "16px",
+      "--radius-card": "1rem",
+      "--shadow-ui-sm": "0 2px 8px hsl({primaria.h} 40% 20% / 0.08)",
+      "--shadow-ui": "0 4px 16px hsl({primaria.h} 40% 20% / 0.1)",
+      "--shadow-ui-md": "0 8px 24px hsl({primaria.h} 40% 20% / 0.12)",
+      "--shadow-ui-lg": "0 12px 32px hsl({primaria.h} 40% 20% / 0.14)",
+      "--shadow-ui-xl": "0 20px 48px hsl({primaria.h} 40% 20% / 0.16)",
+      "--shadow-ui-2xl": "0 28px 64px hsl({primaria.h} 40% 20% / 0.2)"
+    },
+    ".dark": {
+      "--card-alpha": "0.35",
+      "--surface-pattern": "radial-gradient(at 0% 0%, hsl({primaria} / 0.22) 0, transparent 55%), radial-gradient(at 100% 0%, hsl({secundaria} / 0.18) 0, transparent 50%), radial-gradient(at 100% 100%, hsl({primaria} / 0.16) 0, transparent 55%)"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Use o vidro em cards, header, menus e modais; tabelas e formulários ficam mais opacos",
+    "Teste a leitura sobre a parte mais clara e a mais escura do fundo"
+  ],
+  "evite": [
+    "Texto longo sobre vidro muito transparente",
+    "Vidro sobre vidro"
+  ]
+}

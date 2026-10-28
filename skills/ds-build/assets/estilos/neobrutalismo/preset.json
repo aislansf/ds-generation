@@ -1,0 +1,65 @@
+{
+  "$schema": "../_schema.json",
+  "id": "neobrutalismo",
+  "nome": "Neobrutalismo",
+  "grupo": "ousados",
+  "nivel": 2,
+  "ordem": 7,
+  "descricao": "Contornos grossos, sombras duras sem desfoque e cores saturadas da marca.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Space Grotesk",
+      "Lexend"
+    ],
+    "display": [
+      "Archivo Black"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--background": "{destaque.h} 60% 96%",
+      "--border": "0 0% 7%",
+      "--input": "0 0% 7%",
+      "--border-width": "2px",
+      "--border-width-strong": "3px",
+      "--radius": "0.5rem",
+      "--shadow-ui-xs": "1px 1px 0 0 hsl(var(--border))",
+      "--shadow-ui-sm": "2px 2px 0 0 hsl(var(--border))",
+      "--shadow-ui": "3px 3px 0 0 hsl(var(--border))",
+      "--shadow-ui-md": "4px 4px 0 0 hsl(var(--border))",
+      "--shadow-ui-lg": "6px 6px 0 0 hsl(var(--border))",
+      "--shadow-ui-xl": "8px 8px 0 0 hsl(var(--border))",
+      "--shadow-ui-2xl": "10px 10px 0 0 hsl(var(--border))",
+      "--shadow-hover": "6px 6px 0 0 hsl(var(--border))",
+      "--font-semibold": "700",
+      "--font-bold": "800",
+      "--icon-stroke": "2.5",
+      "--duration-normal": "120ms"
+    },
+    ".dark": {
+      "--border": "0 0% 92%",
+      "--input": "0 0% 92%"
+    }
+  },
+  "css": "estilo.css",
+  "contraste": {
+    "pares_extras": [
+      [
+        "--border",
+        "--background",
+        3
+      ]
+    ]
+  },
+  "faca": [
+    "Use as cores de apoio da marca para preencher cards e badges",
+    "Dê contorno a tudo que é clicável"
+  ],
+  "evite": [
+    "Sombras com desfoque",
+    "Mais de três cores de preenchimento na mesma tela"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "../_schema.json",
+  "id": "flat",
+  "nome": "Flat design",
+  "grupo": "limpos",
+  "nivel": 1,
+  "ordem": 3,
+  "descricao": "Cores chapadas e saturadas, sem volume: cards separados por cor, não por borda ou sombra.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Open Sans",
+      "Nunito Sans"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0.25rem",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--card-border-width": "0px",
+      "--background": "0 0% 100%",
+      "--card": "{primaria.h} 20% 97%",
+      "--popover": "0 0% 100%"
+    },
+    ".dark": {
+      "--card": "{primaria.h} 15% 14%"
+    }
+  },
+  "faca": [
+    "Separe blocos por cor de fundo",
+    "Use a secundária cheia em botões de apoio e badges sólidos"
+  ],
+  "evite": [
+    "Sombras, degradês e texturas",
+    "Bordas para separar cards"
+  ]
+}

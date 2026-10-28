@@ -1,7 +1,7 @@
 ---
 name: ds-build
-description: Gera um Design System completo (site de documentação React/Vite/Tailwind/shadcn com tokens, componentes, gráficos Apache ECharts, templates de tela, páginas de marca, acessibilidade e validadores) para qualquer marca, a partir de um template neutro e de um briefing respondido pelo usuário. Use quando o usuário digitar /ds-build ou pedir para "criar um design system para a marca X", "gerar um DS", "montar o DS do cliente Y" ou "fazer um design system com a nossa identidade visual".
-argument-hint: "[nome da marca | caminho/do/briefing.json]"
+description: Gera um Design System completo (site de documentação React/Vite/Tailwind/shadcn com tokens, componentes, gráficos Apache ECharts, templates de tela, páginas de marca, acessibilidade e validadores) para qualquer marca e num estilo visual à escolha (corporativo, minimalista, neobrutalismo, glassmorfismo…), a partir de um template neutro e de um briefing respondido pelo usuário. Use quando o usuário digitar /ds-build ou pedir para "criar um design system para a marca X", "gerar um DS", "montar o DS do cliente Y" ou "fazer um design system com a nossa identidade visual".
+argument-hint: "[nome da marca | caminho/do/briefing.json] [--estilo <id>]"
 ---
 
 # ds-build
@@ -10,16 +10,19 @@ Comando: `/ds-build`. Argumentos recebidos: `$ARGUMENTS`
 
 - **Caminho de um `.json`:** é o briefing. Rode `scripts/validar-briefing.mjs <briefing>` e pergunte só o que estiver pendente, uma pergunta por vez. Mesmo que nada falte, mostre o resumo das respostas e peça confirmação antes de gerar.
 - **Texto:** é a resposta da pergunta `nome`. Copie o modelo de briefing, grave o nome e siga com as demais perguntas, uma por vez.
+- **`--estilo <id>`** em qualquer um dos casos acima (ex.: `/ds-build Agência Horizonte --estilo neobrutalismo`): é a resposta da pergunta `estilo`. Grave no briefing e não pergunte de novo.
 - **Vazio** (ou `$ARGUMENTS` aparecendo literalmente acima, quando a skill foi acionada por um pedido em linguagem natural): comece o questionário pela primeira pergunta, aproveitando o que o usuário já disse no pedido como proposta a confirmar.
 
 Depois de gerar, o comando `/ds-run` (skill `ds-run`) sobe o DS com `npm run dev` para o usuário ver o projeto rodando.
 
 Gera um Design System completo para uma marca: troca **nome, cores, fontes, logos e textos** de um template neutro e mantém a arquitetura, os tokens, os ~50 componentes, a biblioteca de gráficos ECharts (74 presets), os templates de tela e os validadores.
 
+O DS também segue um **estilo visual** escolhido pelo usuário (minimalista, suíço, neobrutalismo, glassmorfismo…). A marca define cor, fonte, logo e voz; o estilo define forma, profundidade, peso e ritmo. Sem estilo informado, o DS sai no estilo `corporativo`, o visual de sempre. Catálogo e regras em `references/estilos.md`.
+
 O trabalho tem três partes:
 
 1. **Questionário (você e o usuário, obrigatório):** todas as perguntas do briefing respondidas pelo usuário e confirmadas por ele.
-2. **Mecânica (scripts, determinística):** placeholders, recoloração por família de matiz, fontes, logos, remoção de módulos e ajustes de contraste.
+2. **Mecânica (scripts, determinística):** placeholders, recoloração por família de matiz, fontes, estilo visual, logos, remoção de módulos e ajustes de contraste.
 3. **Semântica (você):** reescrever os textos que descrevem a marca (manual de marca, paleta estendida, tom de voz, exemplos de conteúdo) e revisar o resultado visualmente.
 
 Não pule nenhuma. O gerador **se recusa a rodar** com o briefing incompleto, e o DS sai com textos genéricos até você fazer a parte semântica.
@@ -29,7 +32,9 @@ Não pule nenhuma. O gerador **se recusa a rodar** com o briefing incompleto, e 
 | Caminho | Para quê |
 |---|---|
 | `assets/brand-brief.template.json` | Modelo do briefing: toda pergunta começa como `PREENCHER` |
-| `assets/examples/exemplo-verde.json` | Briefing completo de uma marca fictícia (referência de formato) |
+| `assets/examples/exemplo-verde.json` | Briefing completo de uma marca fictícia, sem `estilo` (sai no padrão) |
+| `assets/examples/exemplo-neobrutalismo.json` | Briefing com o estilo informado |
+| `assets/estilos/` | Presets dos estilos visuais (`<id>/preset.json` + `estilo.css`) e o `_schema.json` |
 | `assets/template/` | Template neutro (marca "Sua Marca", dados fictícios). Não editar à mão |
 | `scripts/validar-briefing.mjs` | Lista as perguntas sem resposta válida (exit 1 enquanto houver) |
 | `scripts/generate-ds.mjs` | Gera o DS para um briefing completo |
@@ -37,7 +42,7 @@ Não pule nenhuma. O gerador **se recusa a rodar** com o briefing incompleto, e 
 | `scripts/gerar-escala.mjs` | Escala 50–700 (light/dark) a partir de um HEX |
 | `references/` | Contrato de tokens, arquitetura, geração, reescrita semântica e checklist |
 
-Leia `references/tokens.md` antes de mexer em qualquer cor ou token, e `references/reescrita-semantica.md` antes da etapa 5.
+Leia `references/tokens.md` antes de mexer em qualquer cor ou token, `references/estilos.md` antes da pergunta 13 e `references/reescrita-semantica.md` antes da etapa 5.
 
 ## Fluxo
 
@@ -59,33 +64,40 @@ Copie `assets/brand-brief.template.json` para a pasta de trabalho do usuário (e
 | 10 | `dominios.org_raiz` | Domínio do portal principal, se for outro | domínio ou `false` |
 | 11 | `manual_marca_url` | URL do manual de marca | URL ou `false` |
 | 12 | `og_image_url` | Imagem de compartilhamento | URL ou `false` |
-| 13 | `cores.primaria` | Cor primária | `#RRGGBB` |
-| 14 | `cores.secundaria` | Cor secundária | `#RRGGBB` ou `"derivar"` |
-| 15 | `cores.destaque` | Cor de destaque sobre a primária | `#RRGGBB` ou `"derivar"` |
-| 16 | `cores.realce` | Cor de chamadas pontuais | `#RRGGBB` ou `"manter"` |
-| 17 | `fontes.primaria` | Fonte primária; é do Google Fonts? | `{ "nome", "google": true }` ou `{ "nome", "google": false, "url_woff2" }` |
-| 18 | `fontes.display` | Fonte de títulos de impacto | fonte ou `false` (usa a primária) |
-| 19 | `fontes.sistema` | Fonte de legendas e leitura longa | fonte ou `false` (usa a primária) |
-| 20–22 | `logos.cor`, `logos.branco`, `logos.preto` | Arquivos do logo | caminho existente ou `false` (logotipo provisório) |
-| 23 | `favicon` | Arquivo do favicon | caminho `.png`/`.svg` ou `false` (monograma) |
-| 24 | `termos_proibidos` | Marcas ou nomes antigos que não podem aparecer | lista ou `[]` |
-| 25 | `conteudo.tom_de_voz` | Como a marca fala | texto |
-| 26 | `conteudo.publico` | Quem usa os produtos digitais | texto |
-| 27 | `conteudo.paleta_estendida` | Cores de apoio do manual | lista de `{ "nome", "hex", "uso" }` ou `[]` |
-| 28 | `conteudo.regras_de_marca` | Regras de uso do logo | lista ou `[]` |
-| 29 | `modulos.modelos_bi` | Manter a seção Modelos de BI? | `true` ou `false` |
-| 30 | `confirmado_pelo_usuario` | O usuário confirmou o resumo? | `true`, só depois da confirmação |
+| 13 | `estilo` | Estilo visual do DS | id de um estilo (`minimalista`, `neobrutalismo`…) ou `"corporativo"`. **Sem resposta = `"corporativo"`** |
+| 14 | `cores.primaria` | Cor primária | `#RRGGBB` |
+| 15 | `cores.secundaria` | Cor secundária | `#RRGGBB` ou `"derivar"` |
+| 16 | `cores.destaque` | Cor de destaque sobre a primária | `#RRGGBB` ou `"derivar"` |
+| 17 | `cores.realce` | Cor de chamadas pontuais | `#RRGGBB` ou `"manter"` |
+| 18 | `fontes.primaria` | Fonte primária; é do Google Fonts? | `{ "nome", "google": true }` ou `{ "nome", "google": false, "url_woff2" }` |
+| 19 | `fontes.display` | Fonte de títulos de impacto | fonte ou `false` (usa a primária) |
+| 20 | `fontes.sistema` | Fonte de legendas e leitura longa | fonte ou `false` (usa a primária) |
+| 21–23 | `logos.cor`, `logos.branco`, `logos.preto` | Arquivos do logo | caminho existente ou `false` (logotipo provisório) |
+| 24 | `favicon` | Arquivo do favicon | caminho `.png`/`.svg` ou `false` (monograma) |
+| 25 | `termos_proibidos` | Marcas ou nomes antigos que não podem aparecer | lista ou `[]` |
+| 26 | `conteudo.tom_de_voz` | Como a marca fala | texto |
+| 27 | `conteudo.publico` | Quem usa os produtos digitais | texto |
+| 28 | `conteudo.paleta_estendida` | Cores de apoio do manual | lista de `{ "nome", "hex", "uso" }` ou `[]` |
+| 29 | `conteudo.regras_de_marca` | Regras de uso do logo | lista ou `[]` |
+| 30 | `modulos.modelos_bi` | Manter a seção Modelos de BI? | `true` ou `false` |
+| 31 | `confirmado_pelo_usuario` | O usuário confirmou o resumo? | `true`, só depois da confirmação |
 
 Regras do questionário:
 
 - **Pergunte tudo ao usuário.** Não avance para a etapa 3 com perguntas abertas.
 - **Uma pergunta por vez.** Se o usuário não entregou todas as respostas de uma só vez (briefing completo ou uma mensagem que cobre todos os campos), faça as pendentes uma a uma: cada mensagem sua traz **uma única pergunta**, e a próxima só vem depois da resposta. Não junte perguntas numa lista nem em rodadas, mesmo as curtas.
   - Siga a ordem da tabela, pulando o que já foi respondido.
-  - Comece cada pergunta com o progresso (ex.: "Pergunta 7 de 30") e diga, quando houver, quais são as opções de "não se aplica".
+  - Comece cada pergunta com o progresso (ex.: "Pergunta 7 de 31") e diga, quando houver, quais são as opções de "não se aplica".
   - Para opções fechadas (gênero, `"derivar"`, `"manter"`, `false`, módulos), use a ferramenta de perguntas (ex.: AskUserQuestion) com **uma** pergunta por chamada. O restante, peça em texto.
   - Se o usuário responder mais de uma pergunta na mesma mensagem, grave todas as respostas e siga para a próxima pendente.
-  - Os itens 20–22 (logos) podem ser uma pergunta só, porque são respondidos juntos com os arquivos.
+  - Os itens 21–23 (logos) podem ser uma pergunta só, porque são respondidos juntos com os arquivos.
 - **Nunca invente nem assuma respostas.** As opções de "não se aplica" (`false`, `"derivar"`, `"manter"`, `[]`) existem para o usuário escolher, não para você preencher em silêncio. Se o usuário disser "tanto faz" ou "não sei", explique o efeito de cada opção e peça que ele escolha.
+- **Exceção, só para `estilo`:** se o usuário disser "tanto faz", "não sei", "pode seguir" ou pular a pergunta, grave `"estilo": "corporativo"` e informe: "Vou manter o estilo atual (corporativo)." Um briefing sem o campo também sai em `corporativo` (o validador avisa, mas não é pendência). Um id que não existe é pendência: pergunte de novo.
+- **Como perguntar o estilo (pergunta 13):** ela vem antes das cores porque o estilo influencia o que você propõe nelas (ex.: o neobrutalismo pede uma secundária saturada) e nas fontes (cada estilo tem fontes sugeridas, mas a fonte escolhida pelo usuário sempre vence).
+  1. Use a ferramenta de perguntas com uma pergunta e três opções: "Manter o estilo atual (Recomendado)" (corporativo flat, o visual de hoje), "Escolher outro estilo" e "Ver a comparação antes de escolher".
+  2. Se ele quiser escolher ou comparar, mostre a lista agrupada de `references/estilos.md` (nome e uma linha de descrição) e peça a resposta pelo nome. Para comparar de verdade, gere um DS rápido em cada estilo candidato (`--estilo`) e mostre lado a lado.
+  3. Resposta vaga ("algo moderno", "mais divertido"): ofereça de 2 a 4 estilos compatíveis numa nova pergunta.
+  - O resumo final sempre mostra o estilo, mesmo quando é o padrão.
 - **Pode extrair do material do usuário.** Se ele enviar um manual de marca em PDF, leia-o para propor cores, fontes, regras do logo e tom de voz. Mesmo assim, apresente o que encontrou e peça confirmação de cada item.
 - **Confira os arquivos.** Caminhos de logo e favicon são relativos ao JSON e precisam existir. Se o usuário não tiver os arquivos, pergunte se prefere enviá-los ou responder `false`.
 - **Confirme antes de gerar.** Mostre um resumo com todas as respostas e só grave `"confirmado_pelo_usuario": true` depois de o usuário aprovar. Se ele mudar algo, atualize e confirme de novo.
@@ -108,9 +120,11 @@ Antes de gerar, confirme com o usuário o que vai ficar provisório por escolha 
 node scripts/generate-ds.mjs --brief <briefing.json> --out <pasta-destino>
 ```
 
-Opções: `--force` sobrescreve a pasta; `--node-modules <pasta>` cria uma junction para um `node_modules` existente (útil para testar sem `npm install`).
+Opções: `--estilo <id>` sobrescreve o estilo do briefing; `--force` sobrescreve a pasta; `--node-modules <pasta>` cria uma junction para um `node_modules` existente (útil para testar sem `npm install`).
 
-Se o briefing estiver incompleto, o script para sem gerar nada e lista as perguntas pendentes: volte à etapa 1. Com sucesso, imprime um resumo e grava `<pasta-destino>/GERACAO.md`, com os ajustes de contraste, os avisos, as pendências e a tabela WCAG.
+Se o briefing estiver incompleto, o script para sem gerar nada e lista as perguntas pendentes: volte à etapa 1. Com sucesso, imprime um resumo e grava `<pasta-destino>/GERACAO.md`, com o estilo visual aplicado (tokens alterados, camada CSS, tema padrão, ajustes de contraste do estilo), os ajustes de contraste da marca, os avisos, as pendências e a tabela WCAG.
+
+O estilo é aplicado por script, a partir do preset: não ajuste raios, sombras ou bordas à mão. Se o resultado de um estilo não agradar, troque de estilo ou ajuste o preset em `assets/estilos/<id>/` e gere de novo.
 
 ### 4. Instalar e validar
 
@@ -146,7 +160,8 @@ Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o m
 - texto ilegível sobre a primária (botões, sidebar, header);
 - tons "estranhos" em ilustrações e gráficos (sinal de uma cor fora das janelas de família);
 - logos provisórios (quando o usuário respondeu `false`);
-- miniaturas da página Templates, que mostram a marca neutra "Sua Marca": recapture com o DS novo rodando.
+- miniaturas da página Templates, que mostram a marca neutra "Sua Marca" no estilo padrão: recapture com o DS novo rodando;
+- com estilo diferente do `corporativo`: confira se o estilo "pegou" em botões, cards, campos, abas, menus e no header (`/componentes` mostra quase tudo), se o foco por teclado continua visível (Tab pela página) e, nos estilos com tema padrão `dark` (cyberpunk), se o DS abre em dark sem "piscar".
 
 Depois rode `node <skill>/scripts/validar-contraste.mjs src/index.css` e confirme que nenhum par **piorou** em relação ao template.
 

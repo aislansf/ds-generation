@@ -1,6 +1,30 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: proposta · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation` e origem `aislansf/ds-sebrae`
+> Status: Fases 0 a 3 implementadas (padrão + 11 estilos); Fases 4 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
+
+## Andamento
+
+| Fase | Situação |
+|---|---|
+| 0. Linha de base | Feita: `tools/verificar-identidade.mjs` |
+| 1. Tokenizar o esqueleto | Feita: `tools/lib/tokenizar.mjs` (aplicado ao template e rodado no fim da extração) |
+| 2. Motor de presets e pergunta | Feita: `scripts/lib/estilos.mjs`, `assets/estilos/`, pergunta 13, `--estilo`, `references/estilos.md` |
+| 3. Camada CSS | Feita: brutalista, neobrutalismo, material (camada de estado), neumorfismo, glassmorfismo, claymorfismo, cyberpunk; mínimos de contraste por estilo |
+| 4. Decoração | Pendente (maximalista, grunge, art nouveau, bauhaus, construtivismo, retrô, orgânico, ilustrativo, colagem) |
+| 5. Layout bento | Pendente |
+| 6. Documentação e catálogo | Parcial: `SKILL.md`, referências, README e HANDOFF atualizados; faltam `catalogo-estilos.mjs`, a seção "Estilo visual" na `FundamentosPage` e as miniaturas por estilo |
+| 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa e monta a galeria); falta a revisão humana da galeria |
+
+Onde a implementação diverge do texto abaixo:
+
+- **Fase 1 neste repositório, não na origem.** As mudanças da seção 9.1 entram como um patch idempotente aplicado no fim da extração (`tools/lib/tokenizar.mjs`). Assim a skill não depende de mudar o DS de referência; quando a origem tiver os tokens, as âncoras deixam de casar e o patch sai.
+- **Uma mudança visual intencional na Fase 1.** O script que aplica o tema antes da primeira pintura (seção 5.7) muda o primeiro carregamento em dark de páginas com gráficos: antes, os gráficos do Dashboard Analítico saíam com as cores do tema claro ao recarregar a página em dark; agora saem com as do escuro. Nas demais rotas comparadas, light e dark, as capturas são idênticas (as diferenças restantes eram ruído de captura, que também aparece comparando a base com ela mesma).
+- **Linha de base sem binários.** Em vez de `tools/golden/`, o verificador gera o DS com uma versão anterior da skill tirada do git (`--base <ref>`) e compara arquivos e capturas pixel a pixel.
+- **Tokens com padrão diferente da tabela 5.2, para manter a identidade:** `--chart-bar-radius` é `0` (o tema ECharts atual não arredonda barras), `--shadow-ui-xs` é `0 0 #0000` (o Tailwind 3 não tem `shadow-xs`), e há `--duration-default` (`150ms`, o `transition` padrão do Tailwind) e `--chart-tooltip-radius` (`8`). O `--brand-gradient` não foi criado: os degradês que são decoração usam os tokens do header (`--brand-header-grad-*`), e os demais são documentação de paleta ou overlays de foto, registrados como intencionais.
+- **"Sem sombra" é `0 0 #0000`, não `none`**, porque as sombras de componente entram numa lista com o anel de foco. O gerador converte `none` nesses tokens.
+- **`--heading-transform` sem regra global.** Uma regra em `h1–h4` quebraria a herança de `text-transform` dos contêineres; os estilos que usam caixa alta aplicam na própria camada CSS.
+- **`data-surface="marca"`** está só no header do DS; as demais superfícies de marca entram com a decoração (Fase 4). O efeito "glitch" do cyberpunk também fica para essa fase.
+- **Estilos com tokens de cor sem alpha.** Tokens de cor listados em `/tokens` (`--border`, `--card`…) precisam ser triplets HSL puros; borda translúcida do vidro e borda neon com alpha ficam na camada CSS.
 
 ## 1. Objetivo
 

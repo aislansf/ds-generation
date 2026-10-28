@@ -61,6 +61,20 @@ Depois da recoloração, o gerador:
 
 Âncoras e referências só valem quando a cor do briefing difere da de referência: gerar a origem com ela mesma não altera nenhuma cor.
 
+## Estilo visual
+
+Entre a recoloração e os ajustes de contraste, o gerador aplica o estilo do briefing (`estilo`, ou `--estilo <id>` na linha de comando; sem resposta, `corporativo`). O preset (`assets/estilos/<id>/preset.json`) é aplicado por script, sem interpretação:
+
+1. as expressões dos valores viram as cores **finais** da marca (`{primaria.h}`, `{secundaria}`, `{neon}`…);
+2. os tokens de pele vão para `:root` e `.dark` de `src/index.css` (token ausente no bloco é acrescentado);
+3. a camada CSS do preset vai para `src/styles/estilo.css`;
+4. `src/config/estilo.ts` e o script de tema do `index.html` recebem id, nome, tema padrão e layout;
+5. `degrade: false` faz `--brand-header-grad-end` igual a `--brand-header-grad-start` (header sólido);
+6. depois das correções da marca, os mínimos do estilo (`estilos.md`, regra 3) ajustam só tokens que o próprio estilo definiu;
+7. o espelho de `tokenGroups.ts` passa a incluir os valores escalares (raio, peso, duração, tokens de pele), para o validador de tokens continuar verde.
+
+O `corporativo` tem `tokens: {}` e nenhuma camada CSS: gerar sem estilo e com `corporativo` dá o mesmo DS, byte a byte. A seção "Estilo visual" do `GERACAO.md` lista tokens alterados, camada, tema padrão, ajustes de contraste do estilo e pendências (miniaturas capturadas no estilo padrão, fontes sugeridas não adotadas).
+
 ### Ajustando
 
 - Um tom não foi recolorido e deveria: amplie a `janela` da família em `assets/template/template.manifest.json` e gere de novo.

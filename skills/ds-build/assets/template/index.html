@@ -75,6 +75,17 @@
   <meta name="twitter:title" content="Design System __BRAND_SHORT__">
   <meta property="og:description" content="Este Design System estabelece padrões de UI e implementação para os produtos digitais do __BRAND_SHORT__.">
   <meta name="twitter:description" content="Este Design System estabelece padrões de UI e implementação para os produtos digitais do __BRAND_SHORT__.">
+  <script>
+    // Aplica o tema antes da primeira pintura (sem "piscar" quando o estilo abre em dark).
+    // O padrão vem do estilo visual (src/config/estilo.ts); a escolha salva pelo usuário vence.
+    (function () {
+      var padrao = "light";
+      try {
+        var salvo = localStorage.getItem("brand-ds-theme");
+        if ((salvo || padrao) === "dark") document.documentElement.classList.add("dark");
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
   <body>

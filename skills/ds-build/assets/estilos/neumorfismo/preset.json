@@ -1,0 +1,68 @@
+{
+  "$schema": "../_schema.json",
+  "id": "neumorfismo",
+  "nome": "Neumorfismo",
+  "grupo": "digitais",
+  "nivel": 2,
+  "ordem": 14,
+  "descricao": "Elementos que saltam do fundo, com luz e sombra suaves na mesma cor. Campos afundados, botões em relevo.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Nunito Sans",
+      "DM Sans"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--background": "{primaria.h} 15% 91%",
+      "--card": "{primaria.h} 15% 91%",
+      "--popover": "{primaria.h} 15% 91%",
+      "--muted": "{primaria.h} 15% 88%",
+      "--border": "{primaria.h} 15% 80%",
+      "--input": "{primaria.h} 15% 55%",
+      "--card-border-width": "0px",
+      "--control-border-width": "1px",
+      "--radius": "1rem",
+      "--shadow-ui-xs": "2px 2px 4px hsl({primaria.h} 15% 75%), -2px -2px 4px hsl(0 0% 100%)",
+      "--shadow-ui-sm": "3px 3px 6px hsl({primaria.h} 15% 75%), -3px -3px 6px hsl(0 0% 100%)",
+      "--shadow-ui": "4px 4px 8px hsl({primaria.h} 15% 75%), -4px -4px 8px hsl(0 0% 100%)",
+      "--shadow-ui-md": "6px 6px 12px hsl({primaria.h} 15% 75%), -6px -6px 12px hsl(0 0% 100%)",
+      "--shadow-ui-lg": "8px 8px 16px hsl({primaria.h} 15% 75%), -8px -8px 16px hsl(0 0% 100%)",
+      "--shadow-ui-xl": "12px 12px 24px hsl({primaria.h} 15% 75%), -12px -12px 24px hsl(0 0% 100%)",
+      "--shadow-ui-2xl": "16px 16px 32px hsl({primaria.h} 15% 75%), -16px -16px 32px hsl(0 0% 100%)",
+      "--shadow-ui-inner": "inset 3px 3px 6px hsl({primaria.h} 15% 75%), inset -3px -3px 6px hsl(0 0% 100%)",
+      "--shadow-inset": "inset 3px 3px 6px hsl({primaria.h} 15% 75%), inset -3px -3px 6px hsl(0 0% 100%)",
+      "--shadow-hover": "8px 8px 16px hsl({primaria.h} 15% 75%), -8px -8px 16px hsl(0 0% 100%)"
+    },
+    ".dark": {
+      "--background": "{primaria.h} 12% 18%",
+      "--card": "{primaria.h} 12% 18%",
+      "--popover": "{primaria.h} 12% 18%",
+      "--muted": "{primaria.h} 12% 21%",
+      "--border": "{primaria.h} 12% 28%",
+      "--input": "{primaria.h} 12% 50%",
+      "--shadow-ui-xs": "2px 2px 4px hsl({primaria.h} 12% 10%), -2px -2px 4px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-sm": "3px 3px 6px hsl({primaria.h} 12% 10%), -3px -3px 6px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui": "4px 4px 8px hsl({primaria.h} 12% 10%), -4px -4px 8px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-md": "6px 6px 12px hsl({primaria.h} 12% 10%), -6px -6px 12px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-lg": "8px 8px 16px hsl({primaria.h} 12% 10%), -8px -8px 16px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-xl": "12px 12px 24px hsl({primaria.h} 12% 10%), -12px -12px 24px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-2xl": "16px 16px 32px hsl({primaria.h} 12% 10%), -16px -16px 32px hsl({primaria.h} 12% 26%)",
+      "--shadow-ui-inner": "inset 3px 3px 6px hsl({primaria.h} 12% 10%), inset -3px -3px 6px hsl({primaria.h} 12% 26%)",
+      "--shadow-inset": "inset 3px 3px 6px hsl({primaria.h} 12% 10%), inset -3px -3px 6px hsl({primaria.h} 12% 26%)",
+      "--shadow-hover": "8px 8px 16px hsl({primaria.h} 12% 10%), -8px -8px 16px hsl({primaria.h} 12% 26%)"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Mantenha o botão primário com a primária cheia: é o CTA da tela",
+    "Dê a todo controle uma borda com 3:1 sobre o fundo"
+  ],
+  "evite": [
+    "Texto tingido com a cor do fundo",
+    "Usar só a sombra para indicar estado ou foco"
+  ]
+}

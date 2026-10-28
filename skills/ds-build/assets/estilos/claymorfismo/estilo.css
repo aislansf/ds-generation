@@ -1,0 +1,31 @@
+/* Estilo visual: Claymorfismo.
+ * Volume de massinha em cards e botões e um leve aumento no hover (desligado com movimento reduzido). */
+
+[data-ds="card"] {
+  box-shadow: var(--shadow-ui-md);
+}
+
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]) {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);
+  transition-property: transform, box-shadow, background-color, color;
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-emphasis);
+}
+
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):hover,
+a[data-ds="card"]:hover {
+  transform: scale(1.02);
+}
+
+[data-ds="input"],
+[data-ds="textarea"],
+[data-ds="select-trigger"] {
+  border-radius: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-ds="button"],
+  [data-ds="card"] {
+    transform: none !important;
+  }
+}

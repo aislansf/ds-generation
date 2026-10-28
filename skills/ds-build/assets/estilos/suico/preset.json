@@ -1,0 +1,54 @@
+{
+  "$schema": "../_schema.json",
+  "id": "suico",
+  "nome": "Suíço / Tipográfico Internacional",
+  "grupo": "limpos",
+  "nivel": 1,
+  "ordem": 2,
+  "descricao": "Grid rígido, tipografia como protagonista, hierarquia forte, cantos retos e um único acento.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Inter Tight",
+      "Archivo"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0rem",
+      "--radius-xl": "0rem",
+      "--radius-2xl": "0rem",
+      "--radius-3xl": "0rem",
+      "--radius-card": "0rem",
+      "--radius-control": "0rem",
+      "--radius-control-brand": "0rem",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--border": "{primaria.h} 8% 80%",
+      "--input": "{primaria.h} 8% 45%",
+      "--font-bold": "700",
+      "--font-extrabold": "800",
+      "--tracking-tight": "-0.03em",
+      "--tracking-tighter": "-0.04em",
+      "--tracking-widest": "0.16em"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Alinhe tudo ao grid e deixe a escala tipográfica criar a hierarquia",
+    "Use números tabulares em tabelas e indicadores"
+  ],
+  "evite": [
+    "Cantos arredondados e sombras",
+    "Mais de um acento de cor por tela"
+  ]
+}

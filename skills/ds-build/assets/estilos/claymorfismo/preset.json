@@ -1,0 +1,62 @@
+{
+  "$schema": "../_schema.json",
+  "id": "claymorfismo",
+  "nome": "Claymorfismo",
+  "grupo": "digitais",
+  "nivel": 2,
+  "ordem": 16,
+  "descricao": "3D macio, como massinha: cantos bem arredondados, sombra colorida por fora e realce por dentro.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Nunito",
+      "Fredoka"
+    ],
+    "display": [
+      "Baloo 2"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--background": "{primaria.h} 60% 96%",
+      "--radius": "1rem",
+      "--radius-card": "1.5rem",
+      "--radius-control": "9999px",
+      "--radius-control-brand": "9999px",
+      "--card-border-width": "0px",
+      "--shadow-ui-sm": "4px 4px 10px hsl({primaria} / 0.2), inset -2px -2px 4px hsl({primaria} / 0.12), inset 2px 2px 4px hsl(0 0% 100% / 0.8)",
+      "--shadow-ui": "6px 6px 14px hsl({primaria} / 0.22), inset -3px -3px 6px hsl({primaria} / 0.14), inset 3px 3px 6px hsl(0 0% 100% / 0.8)",
+      "--shadow-ui-md": "8px 8px 18px hsl({primaria} / 0.25), inset -4px -4px 8px hsl({primaria} / 0.15), inset 4px 4px 8px hsl(0 0% 100% / 0.8)",
+      "--shadow-ui-lg": "12px 12px 24px hsl({primaria} / 0.25), inset -4px -4px 8px hsl({primaria} / 0.15), inset 4px 4px 8px hsl(0 0% 100% / 0.8)",
+      "--shadow-ui-xl": "16px 16px 32px hsl({primaria} / 0.25), inset -5px -5px 10px hsl({primaria} / 0.15), inset 5px 5px 10px hsl(0 0% 100% / 0.8)",
+      "--shadow-ui-2xl": "20px 20px 40px hsl({primaria} / 0.28), inset -6px -6px 12px hsl({primaria} / 0.15), inset 6px 6px 12px hsl(0 0% 100% / 0.8)",
+      "--shadow-hover": "12px 12px 24px hsl({primaria} / 0.3), inset -4px -4px 8px hsl({primaria} / 0.15), inset 4px 4px 8px hsl(0 0% 100% / 0.8)",
+      "--ease-emphasis": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "--duration-normal": "250ms",
+      "--chart-smooth": "1",
+      "--chart-bar-radius": "8",
+      "--chart-tooltip-radius": "16"
+    },
+    ".dark": {
+      "--background": "{primaria.h} 25% 10%",
+      "--shadow-ui-sm": "4px 4px 10px hsl(0 0% 0% / 0.45), inset -2px -2px 4px hsl(0 0% 0% / 0.25), inset 2px 2px 4px hsl(0 0% 100% / 0.07)",
+      "--shadow-ui": "6px 6px 14px hsl(0 0% 0% / 0.48), inset -3px -3px 6px hsl(0 0% 0% / 0.28), inset 3px 3px 6px hsl(0 0% 100% / 0.07)",
+      "--shadow-ui-md": "8px 8px 18px hsl(0 0% 0% / 0.5), inset -4px -4px 8px hsl(0 0% 0% / 0.3), inset 4px 4px 8px hsl(0 0% 100% / 0.08)",
+      "--shadow-ui-lg": "12px 12px 24px hsl(0 0% 0% / 0.5), inset -4px -4px 8px hsl(0 0% 0% / 0.3), inset 4px 4px 8px hsl(0 0% 100% / 0.08)",
+      "--shadow-ui-xl": "16px 16px 32px hsl(0 0% 0% / 0.55), inset -5px -5px 10px hsl(0 0% 0% / 0.3), inset 5px 5px 10px hsl(0 0% 100% / 0.08)",
+      "--shadow-ui-2xl": "20px 20px 40px hsl(0 0% 0% / 0.6), inset -6px -6px 12px hsl(0 0% 0% / 0.3), inset 6px 6px 12px hsl(0 0% 100% / 0.08)",
+      "--shadow-hover": "12px 12px 24px hsl(0 0% 0% / 0.55), inset -4px -4px 8px hsl(0 0% 0% / 0.3), inset 4px 4px 8px hsl(0 0% 100% / 0.08)"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Use formas cheias e arredondadas, com a cor da marca na sombra",
+    "Anime o hover com leve aumento (desligado com movimento reduzido)"
+  ],
+  "evite": [
+    "Cantos retos e bordas finas",
+    "Sombras cinzas sem cor"
+  ]
+}

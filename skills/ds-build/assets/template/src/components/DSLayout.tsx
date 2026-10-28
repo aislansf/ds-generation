@@ -437,7 +437,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="h-[92px] flex items-center px-4 gap-3 fixed top-0 left-0 right-0 z-50 border-b border-header-border bg-header text-header-foreground transition-colors">
+      <header data-ds="header" data-surface="marca" className="h-[92px] flex items-center px-4 gap-3 fixed top-0 left-0 right-0 z-50 border-b border-header-border bg-header text-header-foreground transition-colors">
         <button
           className="lg:hidden p-1.5 rounded hover:bg-foreground/10 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -494,13 +494,13 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
         {mobileOpen && <div className="fixed inset-0 bg-foreground/30 z-30 lg:hidden" onClick={() => setMobileOpen(false)} aria-hidden="true" />}
 
         {/* Mobile sidebar */}
-        <aside id="mobile-sidebar" role="navigation" aria-label="Menu de navegação"
+        <aside id="mobile-sidebar" data-ds="sidebar" role="navigation" aria-label="Menu de navegação"
           className={`fixed top-[92px] bottom-0 left-0 w-64 bg-sidebar text-sidebar-foreground z-40 overflow-y-auto transition-transform duration-200 lg:hidden ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
           {renderNav(false)}
         </aside>
 
         {/* Desktop sidebar */}
-        <aside id="desktop-sidebar" role="navigation" aria-label="Menu de navegação"
+        <aside id="desktop-sidebar" data-ds="sidebar" role="navigation" aria-label="Menu de navegação"
           className={`hidden lg:flex lg:flex-col sticky top-[92px] h-[calc(100vh-92px)] bg-sidebar text-sidebar-foreground overflow-y-auto transition-all duration-200 ${collapsed ? "w-16" : "w-64"}`}>
           <div className="flex-1 overflow-y-auto">{renderNav(collapsed)}</div>
           <div className={`border-t border-sidebar-border p-2 ${collapsed ? "flex justify-center" : "px-3"}`}>
