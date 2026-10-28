@@ -149,6 +149,69 @@ const INDEX_HTML_TEMA = `  <script>
   </script>
 `;
 
+const USE_THEME_TEST = `import { describe, it, expect, beforeEach, vi } from "vitest";
+import { renderHook, act } from "@testing-library/react";
+
+// Estilo que abre em dark (ex.: cyberpunk). O tema salvo pelo usuário continua vencendo.
+vi.mock("@/config/estilo", () => ({
+  ESTILO: { id: "teste", nome: "Teste", temaPadrao: "dark", layout: "padrao" },
+}));
+
+import { useTheme } from "../useTheme";
+
+const KEY = "brand-ds-theme";
+
+describe("useTheme com o tema padrão do estilo em dark", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.classList.remove("dark");
+  });
+
+  it("abre em dark quando não há tema salvo", () => {
+    const { result } = renderHook(() => useTheme());
+    expect(result.current.theme).toBe("dark");
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(localStorage.getItem(KEY)).toBe("dark");
+  });
+
+  it("a escolha salva vence o padrão do estilo", () => {
+    localStorage.setItem(KEY, "light");
+    const { result } = renderHook(() => useTheme());
+    expect(result.current.theme).toBe("light");
+    expect(document.documentElement.classList.contains("dark")).toBe(false);
+  });
+
+  it("valor salvo inválido cai no padrão do estilo", () => {
+    localStorage.setItem(KEY, "sepia");
+    const { result } = renderHook(() => useTheme());
+    expect(result.current.theme).toBe("dark");
+  });
+
+  it("alternar grava a escolha", () => {
+    const { result } = renderHook(() => useTheme());
+    act(() => result.current.toggleTheme());
+    expect(result.current.theme).toBe("light");
+    expect(localStorage.getItem(KEY)).toBe("light");
+    expect(document.documentElement.classList.contains("dark")).toBe(false);
+  });
+});
+`;
+
+const ESTILO_TEST = `import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { ESTILO } from "../estilo";
+
+// O index.html aplica o tema antes da primeira pintura com o mesmo padrão do estilo: se os dois
+// divergirem, o DS "pisca" do tema do index.html para o do useTheme no primeiro carregamento.
+describe("estilo visual", () => {
+  it("o tema padrão do index.html é o do estilo", () => {
+    const html = readFileSync(resolve(__dirname, "../../../index.html"), "utf8");
+    expect(/var padrao = "(light|dark)";/.exec(html)?.[1]).toBe(ESTILO.temaPadrao);
+  });
+});
+`;
+
 /** [arquivo, âncora da string de classes, nome do gancho]: data-ds entra antes do className={cn( da âncora. */
 const GANCHOS = [
   ["src/components/ui/card.tsx", '"rounded-[var(--radius-card)] border-[length:var(--card-border-width)] bg-card', "card"],
@@ -257,6 +320,8 @@ const manifest = {
 const NOVOS = [
   ["src/styles/estilo.css", ESTILO_CSS],
   ["src/config/estilo.ts", ESTILO_TS],
+  ["src/hooks/__tests__/useTheme.test.ts", USE_THEME_TEST],
+  ["src/config/__tests__/estilo.test.ts", ESTILO_TEST],
 ];
 
 /**

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "verificar": "node tools/verificar.mjs",
+    "test": "node --test \"tools/testes/*.test.mjs\"",
     "gerar": "node skills/ds-build/scripts/generate-ds.mjs",
     "validar-briefing": "node skills/ds-build/scripts/validar-briefing.mjs",
     "extrair": "node tools/extract-template.mjs",

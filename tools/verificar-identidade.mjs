@@ -4,6 +4,7 @@
  *
  * Uso:
  *   node tools/verificar-identidade.mjs --node-modules <pasta> [--base <ref-git>] [--estilo <id>] [--sem-capturas] [--bytes]
+ *                                       [--marcas verde,neutra] [--rotas /,/componentes] [--tempo-rota <s>] [--tempos] [--saida <pasta>]
  *
  *   --base          versão de referência da skill (padrão: HEAD). É a linha de base: sai do git, não de binários versionados
  *   --node-modules  node_modules com vite e playwright (o mesmo do --node-modules do generate-ds.mjs)
@@ -11,6 +12,11 @@
  *   --sem-capturas  só compara os arquivos
  *   --bytes         falha se algum arquivo gerado diferir (sem a flag, a diferença de arquivos é só informativa)
  *   --chromium      executável do Chromium, se o da versão do Playwright não estiver baixado
+ *   --marcas        só estes briefings (verde, neutra); padrão: os dois
+ *   --rotas         só estas rotas, separadas por vírgula (ex.: /,/templates/dashboard-analitico); padrão: as 8 rotas-chave
+ *   --tempo-rota    tempo limite de cada captura, em segundos (padrão: 180); a rota que estoura falha como "sem captura"
+ *   --tempos        imprime quanto cada rota levou
+ *   --saida         pasta de trabalho (padrão: <tmp>/ds-generation-identidade); é apagada no início
  *
  * Para cada briefing (exemplo-verde e marca-neutra):
  *   1. gera o DS com a skill da base (git archive) e com a skill atual;
@@ -40,12 +46,20 @@ if (!args["node-modules"]) {
 }
 const NM = path.resolve(args["node-modules"]);
 const BASE_REF = args.base ?? "HEAD";
-const TMP = path.join(os.tmpdir(), "ds-generation-identidade");
+const TMP = path.resolve(typeof args.saida === "string" ? args.saida : path.join(os.tmpdir(), "ds-generation-identidade"));
+const lista = (v) => (typeof v === "string" ? v.split(",").map((x) => x.trim()).filter(Boolean) : null);
 const BRIEFS = [
   ["verde", path.join(ROOT, "skills/ds-build/assets/examples/exemplo-verde.json")],
   ["neutra", path.join(ROOT, "tools/marca-neutra.json")],
-];
-const ROTAS = ["/", "/fundamentos", "/componentes", "/templates", "/graficos/barras", "/templates/pagina-autenticacao", "/templates/tela-listagem", "/templates/dashboard-analitico"];
+].filter(([nome]) => !lista(args.marcas) || lista(args.marcas).includes(nome));
+const ROTAS = lista(args.rotas) ?? ["/", "/fundamentos", "/componentes", "/templates", "/graficos/barras", "/templates/pagina-autenticacao", "/templates/tela-listagem", "/templates/dashboard-analitico"];
+const TEMPO_ROTA = Number(args["tempo-rota"] ?? 180) * 1000;
+if (!BRIEFS.length || !ROTAS.every((r) => r.startsWith("/")) || !(TEMPO_ROTA > 0)) {
+  console.error("--marcas, --rotas ou --tempo-rota inválidos (marcas: verde, neutra; rotas começam com /; tempo em segundos).");
+  process.exit(1);
+}
+
+class TempoEsgotado extends Error {}
 
 let falhas = 0;
 function check(nome, ok, detalhe = "") {
@@ -77,7 +91,7 @@ fs.writeFileSync(tar, spawnSync("git", ["archive", BASE_REF, "skills/ds-build", 
 // Caminhos relativos: o tar do Git Bash lê "C:" como host remoto
 run("tar", ["-xf", path.basename(tar), "-C", path.basename(baseRoot)], TMP);
 const commit = run("git", ["rev-parse", "--short", BASE_REF]).trim();
-console.log(`Base: ${BASE_REF} (${commit})${args.estilo ? ` · atual com --estilo ${args.estilo}` : ""}\n`);
+console.log(`Base: ${BASE_REF} (${commit})${args.estilo ? ` · atual com --estilo ${args.estilo}` : ""} · marcas: ${BRIEFS.map(([n]) => n).join(", ")} · ${ROTAS.length} rota(s)\n`);
 
 // ---------- 2. Geração e comparação de arquivos ----------
 function listar(dir) {
@@ -134,14 +148,26 @@ if (!args["sem-capturas"]) {
       for (const dir of [baseOut, atualOut]) run("node", [vite, "build", "--logLevel", "error"], dir);
       const [sb, sa] = await Promise.all([servir(path.join(baseOut, "dist")), servir(path.join(atualOut, "dist"))]);
       const url = (s) => `http://127.0.0.1:${s.address().port}`;
-      const diferentes = [], instaveis = [];
+      const diferentes = [], instaveis = [], semCaptura = [];
       for (const tema of ["light", "dark"]) {
         const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, reducedMotion: "reduce" });
         // useTheme lê o tema salvo nessa chave (a mesma em todo DS gerado)
         await ctx.addInitScript((t) => { try { localStorage.setItem("brand-ds-theme", t); } catch {} }, tema);
+        // Cada captura tem tempo limite: uma página que nunca fica ociosa (imagem lazy, requisição pendurada)
+        // travava a execução inteira. Ao estourar, a página é fechada e a rota falha como "sem captura".
         const shot = async (base, rota) => {
           const page = await ctx.newPage();
-          await page.goto(base + rota, { waitUntil: "networkidle", timeout: 120000 });
+          let timer;
+          const limite = new Promise((_, rej) => { timer = setTimeout(() => rej(new TempoEsgotado()), TEMPO_ROTA); });
+          try {
+            return await Promise.race([capturar(page, base, rota), limite]);
+          } finally {
+            clearTimeout(timer);
+            await page.close().catch(() => {});
+          }
+        };
+        const capturar = async (page, base, rota) => {
+          await page.goto(base + rota, { waitUntil: "networkidle", timeout: TEMPO_ROTA });
           // Rola a página inteira para disparar as imagens lazy e espera todas carregarem
           await page.evaluate(async () => {
             for (let y = 0; y < document.body.scrollHeight; y += 600) {
@@ -156,9 +182,7 @@ if (!args["sem-capturas"]) {
           });
           await page.waitForLoadState("networkidle");
           await page.waitForTimeout(1500);
-          const buf = await page.screenshot({ fullPage: true, animations: "disabled" });
-          await page.close();
-          return buf;
+          return page.screenshot({ fullPage: true, animations: "disabled" });
         };
         // Conta os pixels diferentes num canvas (as duas imagens podem ter alturas diferentes)
         const contar = async (x, y) => {
@@ -182,12 +206,20 @@ if (!args["sem-capturas"]) {
         // falha se diferir nas 3 tentativas enquanto a base, capturada duas vezes, fica idêntica a si mesma.
         for (const rota of ROTAS) {
           let px = 0, ruido = 0, x, y;
-          for (let tentativa = 0; tentativa < 3; tentativa++) {
-            [x, y] = [await shot(url(sb), rota), await shot(url(sa), rota)];
-            px = await contar(x, y);
-            if (px === 0) break;
-            if ((await contar(x, await shot(url(sb), rota))) !== 0) ruido++;
+          const inicio = Date.now();
+          try {
+            for (let tentativa = 0; tentativa < 3; tentativa++) {
+              [x, y] = [await shot(url(sb), rota), await shot(url(sa), rota)];
+              px = await contar(x, y);
+              if (px === 0) break;
+              if ((await contar(x, await shot(url(sb), rota))) !== 0) ruido++;
+            }
+          } catch (e) {
+            if (!(e instanceof TempoEsgotado)) throw e;
+            semCaptura.push(`${tema} ${rota} (passou de ${TEMPO_ROTA / 1000} s)`);
+            continue;
           }
+          if (args.tempos) console.log(`   ${nome} ${tema} ${rota}: ${((Date.now() - inicio) / 1000).toFixed(1)} s`);
           if (px === 0) continue;
           const slug = `${nome}-${tema}${rota.replace(/\//g, "_")}`;
           fs.writeFileSync(path.join(TMP, `${slug}-base.png`), x);
@@ -200,6 +232,7 @@ if (!args["sem-capturas"]) {
       }
       sb.close(); sa.close();
       check(`Capturas (${nome}, ${ROTAS.length} rotas × light/dark)`, diferentes.length === 0, diferentes.join("; "));
+      if (semCaptura.length) check(`Rotas sem captura (${nome})`, false, semCaptura.join("; "));
       if (instaveis.length) console.log(`⚠️  Capturas instáveis (${nome}): a base também variou entre capturas, confira à mão — ${instaveis.join("; ")}`);
     }
   } finally {

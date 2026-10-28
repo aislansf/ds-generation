@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 3 implementadas (padrão + 11 estilos); Fases 4 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: Fases 0 a 3 implementadas (padrão + 11 estilos); próxima rodada (R1–R4) e Fases 4 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -25,6 +25,53 @@ Onde a implementação diverge do texto abaixo:
 - **`--heading-transform` sem regra global.** Uma regra em `h1–h4` quebraria a herança de `text-transform` dos contêineres; os estilos que usam caixa alta aplicam na própria camada CSS.
 - **`data-surface="marca"`** está só no header do DS; as demais superfícies de marca entram com a decoração (Fase 4). O efeito "glitch" do cyberpunk também fica para essa fase.
 - **Estilos com tokens de cor sem alpha.** Tokens de cor listados em `/tokens` (`--border`, `--card`…) precisam ser triplets HSL puros; borda translúcida do vidro e borda neon com alpha ficam na camada CSS.
+
+## Próxima rodada: o que ainda não está bom ou não foi testado
+
+Levantado ao fim das Fases 0–3 (PR #8). Vem **antes** das Fases 4 a 7: as fases seguintes dependem de os estilos alcançarem o DS inteiro e de a verificação ser confiável.
+
+### R1. A camada CSS só alcança os componentes shadcn (prioridade alta)
+
+Os ganchos `data-ds` estão nos componentes de `src/components/ui/`, mas as páginas e templates montam quase tudo à mão, com classes Tailwind:
+
+| Elemento | Componente (com gancho) | Montado à mão (sem gancho) |
+|---|---|---|
+| Botão | 24 `<Button>` | 466 `<button>` em 40 arquivos |
+| Campo | 4 `<Input>` | 125 `<input>` |
+| Card | 10 `<Card>` | ~154 `div` com `bg-card` |
+
+Os tokens de pele chegam a todos (raio, borda, peso e sombra vêm das classes do Tailwind), mas os efeitos da camada CSS não: contorno e sombra dura do neobrutalismo, relevo do neumorfismo, camada de estado do Material, vidro do glassmorfismo, cantos cortados do cyberpunk. Em `/componentes`, a vitrine de botões do neobrutalismo sai sem contorno.
+
+Plano:
+
+1. **Codemod no `tokenizar.mjs`** que acrescenta `data-ds` (e `data-variant` nos botões) aos elementos crus, por padrão de classe: `<button>` com `bg-primary` → `button`/`default`; com `border` e fundo neutro → `outline`; sem fundo → `ghost`; `div` com `bg-card` + `border` + `rounded-*` → `card`; `<input>`/`<textarea>`/`<select>` → `input`/`textarea`/`select-trigger`. Determinístico, idempotente e com relatório do que casou e do que ficou de fora.
+2. Elementos que não casam com nenhum padrão entram numa lista de revisão, não num chute.
+3. Medir a cobertura antes e depois (contagem acima) e registrar no HANDOFF.
+4. Critério de aceite: `verificar-identidade.mjs` sem mudança no `corporativo`; na galeria da matriz, `/componentes` e três templates mostrando o efeito de cada estilo de nível 2.
+
+### R2. Cores de campo fixas no CSS base
+
+`src/index.css` (camada `base`) e `input.tsx`/`textarea.tsx` usam `#95ADFF` (borda), `#2A4FDA` (hover e foco) e `#96A1C0`/`#98A2C1` (placeholder) fixos, recoloridos pela marca, mas fora do alcance dos estilos. Os estilos de nível 1 (minimalista, suíço, flat, escandinavo) mudam `--input`, mas os campos não acompanham. Plano: trocar por tokens próprios (`--control-border`, `--control-border-hover`, `--control-placeholder`) com os mesmos valores no `corporativo`, conferindo com `verificar-identidade.mjs` que a recoloração dá o mesmo pixel.
+
+### R3. Verificação que ainda não rodou de ponta a ponta
+
+- **`verificar-identidade.mjs` com o retry contra ruído** (recaptura até 3 vezes e só falha se a base for estável) foi escrito depois da última execução completa. Rodar contra `ffc7227` (antes da Fase 1) e confirmar que o único item estável é o Dashboard Analítico em dark.
+- **Tempo de execução:** cada marca leva ~10 min e a execução travou uma vez por 1h30 numa imagem lazy (corrigido com limite de 5 s). Acrescentar um tempo limite por rota e uma opção `--rotas` para rodar só parte.
+- **Matriz com uma segunda marca:** a matriz só rodou com `exemplo-verde`. Rodar também com `exemplo-neobrutalismo.json` (primária violeta, secundária laranja, destaque amarelo), que exercita outras matizes e o `{neon}`.
+- **Revisão humana da galeria** (`ds-generation-matriz/galeria.html`) dos 12 estilos, em light e dark, com uma lista do que corrigir por estilo.
+- **Movimento e transparência reduzidos:** capturas com `prefers-reduced-motion` (neobrutalismo, claymorfismo) e `prefers-reduced-transparency` (glassmorfismo) não foram feitas.
+- **Testes previstos na seção 10.4 que não existem:** unitários de `estilos.mjs` (expressões, `{neon}`, `definirVar` em `:root` e `.dark`, degradê desligado, conversão de `none`) e teste do `useTheme` com `temaPadrao: "dark"`. Hoje a cobertura vem só do `verificar.mjs` e da matriz.
+
+### R4. Ajustes de estilo observados
+
+- **Neumorfismo dark:** o ajuste de contraste mexe em `--background` e `--card` (17%), mas `--popover` e `--muted` ficam em 18% e 21%; o relevo pede a mesma cor. O ajuste deve levar junto os tokens que o preset declara iguais.
+- **Cyberpunk:** o light (versão de alto contraste) não foi revisado; o efeito "glitch" do h1 do hero ficou para a Fase 4; os cantos cortados (`clip-path`) também cortam o brilho e o anel de foco dos cards.
+- **Contagem de avisos da matriz:** a coluna de avisos lê o `GERACAO.md` por texto; trocar por um resumo estruturado (ex.: `estilo.json` com ajustes e avisos) gravado pelo gerador.
+- **Miniaturas da página Templates:** continuam capturadas no estilo padrão; o `capturar-miniaturas.mjs` da Fase 6 resolve.
+
+### Ordem sugerida
+
+R3 (rodar a verificação com retry e a matriz com a segunda marca) → R2 → R1 → R4 → Fases 4 a 7.
 
 ## 1. Objetivo
 
