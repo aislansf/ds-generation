@@ -219,19 +219,34 @@ const PARES_ESTILO = [
  * ajusta só esse token (luminosidade, afastando do outro) e registra; se não conseguir, só avisa.
  * Pares que o estilo não tocou ficam com a regra da marca ("só corrige o que piorou").
  */
-export function contrasteDoEstilo(css, preset, alterados, cores) {
+export function contrasteDoEstilo(css, preset, alterados, cores, { cssBase = null } = {}) {
   const ajustes = [], avisos = [];
   const pares = [...PARES_ESTILO, ...(preset.contraste?.pares_extras ?? [])];
+  // Um token é do estilo naquele tema se o preset o define no bloco, ou em :root sem o template redefinir no .dark
+  // (um --background só de :root não muda o fundo do dark, que o template declara).
+  const doEstilo = (sel, nome) => {
+    if (!alterados.has(nome)) return false;
+    if (!preset.tokens?.[":root"]?.[nome] && !preset.tokens?.[".dark"]?.[nome]) return true;
+    if (preset.tokens?.[sel]?.[nome] !== undefined) return true;
+    return sel === ".dark" && preset.tokens?.[":root"]?.[nome] !== undefined && lerVar(css, ".dark", nome) === null;
+  };
   for (const sel of [":root", ".dark"]) {
     const valor = (n) => lerVar(css, sel, n) ?? lerVar(css, ":root", n);
     for (const [fg, bg, min] of pares) {
-      if (!alterados.has(fg) && !alterados.has(bg)) continue;
+      if (!doEstilo(sel, fg) && !doEstilo(sel, bg)) continue;
       const a = parseTriplet(valor(fg) ?? ""), b = parseTriplet(valor(bg) ?? "");
       if (!a || !b) continue;
       const r = contrastRatio(hslToRgb(a), hslToRgb(b));
       if (r >= min) continue;
+      // O estilo só trocou a superfície e o par já ficava abaixo do mínimo no template (ex.: borda de campo clara
+      // sobre o branco): é decisão do template, e mover o fundo do estilo dezenas de pontos não é a correção certa
+      if (cssBase && !doEstilo(sel, fg)) {
+        const vb = (n) => lerVar(cssBase, sel, n) ?? lerVar(cssBase, ":root", n);
+        const ab = parseTriplet(vb(fg) ?? ""), bb = parseTriplet(vb(bg) ?? "");
+        if (ab && bb && contrastRatio(hslToRgb(ab), hslToRgb(bb)) < min) continue;
+      }
       // Ajusta o token do estilo; se os dois são do estilo, o de frente (texto, borda, foco)
-      const alvo = alterados.has(fg) ? fg : bg;
+      const alvo = doEstilo(sel, fg) ? fg : bg;
       const fixo = alvo === fg ? b : a;
       const mover = alvo === fg ? { ...a } : { ...b };
       const fixoL = (() => { const [r1, g1, b1] = Object.values(hslToRgb(fixo)); return (0.299 * r1 + 0.587 * g1 + 0.114 * b1) / 255; })();

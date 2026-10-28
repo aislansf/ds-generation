@@ -318,7 +318,7 @@ for (const selector of [":root", ".dark"]) {
   }
 }
 // Mínimos do estilo: só mexe em tokens que o próprio estilo definiu
-const estiloContraste = contrasteDoEstilo(css, estilo, estiloRes.alterados, coresFinais);
+const estiloContraste = contrasteDoEstilo(css, estilo, estiloRes.alterados, coresFinais, { cssBase: srcCss });
 css = estiloContraste.css;
 warnings.push(...estiloContraste.avisos);
 write(CSS_REL, css);

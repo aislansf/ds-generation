@@ -258,7 +258,7 @@ const razao = (css, sel, a, b) => {
 };
 
 test("contrasteDoEstilo leva a borda de campo do estilo a 3:1 em :root e .dark e registra os ajustes", () => {
-  const p = preset({ tokens: { ":root": { "--input": "0 0% 90%" } } });
+  const p = preset({ tokens: { ":root": { "--input": "0 0% 90%" }, ".dark": { "--input": "217 33% 18%" } } });
   const css = definirVar(CSS, ":root", "--input", "0 0% 90%");
   const r = contrasteDoEstilo(css, p, new Set(["--input"]), CORES);
   assert.ok(razao(r.css, ":root", "--input", "--background") >= 3);
@@ -268,6 +268,26 @@ test("contrasteDoEstilo leva a borda de campo do estilo a 3:1 em :root e .dark e
   assert.ok(parseTriplet(lerVar(r.css, ".dark", "--input")).l > 18);
   assert.deepEqual(r.ajustes.map((a) => a.split(" → ")[0]), [":root --input", ".dark --input"]);
   assert.deepEqual(r.avisos, []);
+});
+
+test("token só de :root não conta como do estilo no .dark quando o template o redefine", () => {
+  const p = preset({ tokens: { ":root": { "--input": "0 0% 90%" } } });
+  const css = definirVar(CSS, ":root", "--input", "0 0% 90%");
+  const r = contrasteDoEstilo(css, p, new Set(["--input"]), CORES);
+  assert.deepEqual(r.ajustes.map((a) => a.split(" → ")[0]), [":root --input"]);
+  assert.equal(lerVar(r.css, ".dark", "--input"), "217 33% 18%");
+});
+
+test("estilo que só troca a superfície não arrasta o fundo por um par que já era fraco no template", () => {
+  // Template: borda de campo clara sobre branco (1.2:1, decisão do template). O estilo põe um fundo creme.
+  const base = definirVar(CSS, ":root", "--input", "220 13% 85%");
+  const p = preset({ tokens: { ":root": { "--background": "40 15% 93%" } } });
+  const css = definirVar(base, ":root", "--background", "40 15% 93%");
+  const r = contrasteDoEstilo(css, p, new Set(["--background"]), CORES, { cssBase: base });
+  assert.equal(lerVar(r.css, ":root", "--background"), "40 15% 93%");
+  assert.deepEqual(r.ajustes, []);
+  // Sem a base (comportamento antigo), o fundo seria escurecido
+  assert.notEqual(lerVar(contrasteDoEstilo(css, p, new Set(["--background"]), CORES).css, ":root", "--background"), "40 15% 93%");
 });
 
 test("contrasteDoEstilo leva junto as superfícies da mesma família (relevo do neumorfismo)", () => {
