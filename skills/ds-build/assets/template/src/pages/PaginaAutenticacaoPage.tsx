@@ -82,7 +82,7 @@ export default function PaginaAutenticacaoPage() {
               </div>
 
               {/* Botão de login único (SSO) */}
-              <button className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-[#1351b4] hover:bg-[#1351b4]/90 text-white font-semibold text-sm transition-all shadow-md group">
+              <button data-ds="button" data-variant="default" className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg bg-[#1351b4] hover:bg-[#1351b4]/90 text-white font-semibold text-sm transition-all shadow-md group">
                 <span>Entrar com login único</span>
                 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -102,7 +102,7 @@ export default function PaginaAutenticacaoPage() {
                     <Mail size={14} className="text-muted-foreground" /> E-mail Institucional
                   </label>
                   <div className="relative">
-                    <input
+                    <input data-ds="input"
                       id="email"
                       type="email"
                       required
@@ -131,7 +131,7 @@ export default function PaginaAutenticacaoPage() {
                       placeholder="••••••••••••"
                       className="w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
                     />
-                    <button
+                    <button data-ds="button" data-variant="ghost"
                       type="button"
                       onClick={() => setShowPw(!showPw)}
                       className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
@@ -153,7 +153,7 @@ export default function PaginaAutenticacaoPage() {
                   </label>
                 </div>
 
-                <button
+                <button data-ds="button" data-variant="default"
                   type="submit"
                   disabled={isLoading}
                   className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
@@ -178,7 +178,7 @@ export default function PaginaAutenticacaoPage() {
                     >
                       <Shield size={14} className="text-muted-foreground" /> Solicitar Acesso
                     </Link>
-                    <button className="inline-flex items-center justify-center gap-2 border border-border bg-background text-foreground px-4 py-2 rounded text-xs font-medium hover:bg-muted transition-colors">
+                    <button data-ds="button" data-variant="outline" className="inline-flex items-center justify-center gap-2 border border-border bg-background text-foreground px-4 py-2 rounded text-xs font-medium hover:bg-muted transition-colors">
                       <HelpCircle size={14} className="text-muted-foreground" /> Central de Ajuda
                     </button>
                   </div>

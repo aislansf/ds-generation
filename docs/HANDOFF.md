@@ -32,6 +32,14 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 
    Depois dos overrides, `tools/lib/tokenizar.mjs` prepara o template para os estilos visuais: liga raio, sombra, espessura de borda, peso e duração do Tailwind aos **tokens de pele** do `index.css`, cria `src/styles/estilo.css` e `src/config/estilo.ts`, põe o tema padrão no `useTheme` e no `index.html` e acrescenta os ganchos `data-ds`, `data-variant` e `data-surface` nos componentes. Todos os valores padrão reproduzem o visual de sempre (prova: `tools/verificar-identidade.mjs`, capturas pixel a pixel).
 
+   As cores fixas dos campos de formulário (borda, hover/foco, placeholder) viram os tokens `--control-*`, com os mesmos HEX. E um codemod (`tools/lib/ganchos.mjs`) põe `data-ds` (e `data-variant` nos botões) nos elementos que as páginas e os templates montam à mão, por padrão de classe: `<button>` com fundo da marca → `default`, com borda e fundo neutro → `outline`, só hover → `ghost`, sublinhado → `link`; `<input>`, `<textarea>` e `<select>` → `input`, `textarea`, `select-trigger`; `div`/`a`/`Link` com `bg-card`, borda e raio → `card`. Um lexer de TSX pula strings e template literals (os exemplos de código das páginas de documentação ficam intactos), e as vitrines montadas por tabela (`[{ base: "bg-…" }, …].map((v) => …)`) recebem a variante de cada linha. O que o padrão não decide (fundo ou borda condicional, botão sobre o header azul dos templates, campo sem borda dentro de um contêiner) não ganha gancho: vai para a lista de revisão em `docs/GANCHOS.md` (`node tools/tokenizar-template.mjs --relatorio docs/GANCHOS.md`).
+
+   | Cobertura da camada CSS (JSX fora de `src/components/ui/`) | Antes | Depois |
+   |---|---|---|
+   | Botões | 19 `<Button>`; 337 `<button>` sem gancho | + 246 `<button>` com gancho; 90 na lista de revisão |
+   | Campos | 3 `<Input>`; 87 `<input>`, 4 `<textarea>`, 17 `<select>` sem gancho | + 50 `input`, 4 `textarea`, 15 `select-trigger`; checkbox, radio e afins ficam de fora; 14 na lista de revisão |
+   | Cards | 10 `<Card>`; 157 elementos com `bg-card` sem gancho | + 93 `card`; os demais são superfícies sem borda; 11 na lista de revisão |
+
    A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) de `termos_especificos` ou de `substituicoes_lugares` (palavra inteira), qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`, ou uma âncora da tokenização que não casou (a origem mudou naquele ponto).
 
 2. **Imagens** (`tools/imagens-neutras.mjs`): escreve os logos neutros, rasteriza favicon/selo/imagem de login com o Chromium do Playwright e captura as miniaturas da página Templates a partir de um DS gerado com `tools/marca-neutra.json` (cinza-azulado, "Sua Marca").

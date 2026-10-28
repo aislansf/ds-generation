@@ -7,6 +7,7 @@
 // passar a ter os tokens, as âncoras deixam de casar e cada edição vira no-op.
 import fs from "node:fs";
 import path from "node:path";
+import { ganchosNoArquivo } from "./ganchos.mjs";
 
 /** Tokens de pele com os valores do estilo "corporativo" (o visual de sempre). */
 export const TOKENS_PELE = [
@@ -421,10 +422,26 @@ const NOVOS = [
   ["src/config/__tests__/estilo.test.ts", ESTILO_TEST],
 ];
 
+/** .tsx de src/, fora de src/components/ui/ (os componentes já têm ganchos próprios) e dos testes, em ordem estável. */
+function arquivosTsx(dir) {
+  const out = [];
+  (function walk(rel) {
+    const abs = path.join(dir, rel);
+    if (!fs.existsSync(abs)) return;
+    for (const e of fs.readdirSync(abs, { withFileTypes: true }).sort((a, b) => (a.name < b.name ? -1 : 1))) {
+      const r = `${rel}/${e.name}`;
+      if (e.isDirectory()) { if (r !== "src/components/ui" && e.name !== "__tests__") walk(r); continue; }
+      if (e.name.endsWith(".tsx") && !/\.(test|spec)\.tsx$/.test(e.name)) out.push(r);
+    }
+  })("src");
+  return out;
+}
+
 /**
  * Aplica o patch em uma pasta de template (ou no frontend de origem).
- * Devolve { aplicadas, jaAplicadas, faltando }: "faltando" lista âncoras que não casaram e cujo
- * resultado também não está no arquivo (a origem mudou: revise a troca).
+ * Devolve { aplicadas, jaAplicadas, faltando, ganchos }: "faltando" lista âncoras que não casaram e cujo
+ * resultado também não está no arquivo (a origem mudou: revise a troca); "ganchos" traz os elementos montados
+ * à mão que ganharam data-ds ({ casou }) e os que ficaram para revisão ({ revisar }).
  */
 export function tokenizar(dir) {
   const res = { aplicadas: [], jaAplicadas: 0, faltando: [] };
@@ -480,6 +497,18 @@ export function tokenizar(dir) {
     res.aplicadas.push(`${rel} (novo)`);
   }
 
+  // Ganchos nos elementos montados à mão (R1): <button>, campos e cards das páginas e templates
+  res.ganchos = { casou: [], revisar: [] };
+  for (const rel of arquivosTsx(dir)) {
+    const text = ler(rel);
+    const g = ganchosNoArquivo(text);
+    for (const c of g.casou) res.ganchos.casou.push({ arquivo: rel, ...c });
+    for (const r of g.revisar) res.ganchos.revisar.push({ arquivo: rel, ...r });
+    if (g.texto !== text) {
+      cache.set(rel, g.texto);
+      res.aplicadas.push(`${rel} [${g.casou.length} gancho(s)]`);
+    }
+  }
 
   for (const [rel, text] of cache) {
     if (text === null) continue;

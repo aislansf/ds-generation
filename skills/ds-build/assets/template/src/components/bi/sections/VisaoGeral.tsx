@@ -280,7 +280,7 @@ function ChartCard({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
+    <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
       <div className="flex items-center justify-between mb-3 gap-2">
         <h3 className="text-sm font-semibold text-foreground">{title}</h3>
         {action}

@@ -102,7 +102,7 @@ function DatePickerBR({
   return (
     <div ref={ref} className="relative">
       <div className="relative">
-        <input
+        <input data-ds="input"
           id={id}
           type="text"
           inputMode="numeric"
@@ -120,7 +120,7 @@ function DatePickerBR({
             error ? "border-red-400" : "border-border"
           }`}
         />
-        <button
+        <button data-ds="button" data-variant="ghost"
           type="button"
           onClick={() => setOpen((o) => !o)}
           className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-muted text-muted-foreground"
@@ -132,11 +132,11 @@ function DatePickerBR({
       {open && (
         <div className="absolute z-30 mt-1 w-72 bg-popover border border-border rounded-lg shadow-lg p-3 animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between mb-2">
-            <button type="button" onClick={() => setView(new Date(year, month - 1, 1))} className="p-1 rounded hover:bg-muted" aria-label="Mês anterior">
+            <button data-ds="button" data-variant="ghost" type="button" onClick={() => setView(new Date(year, month - 1, 1))} className="p-1 rounded hover:bg-muted" aria-label="Mês anterior">
               <ChevronRight size={14} className="rotate-180" />
             </button>
             <span className="text-xs font-semibold text-foreground">{monthNames[month]} {year}</span>
-            <button type="button" onClick={() => setView(new Date(year, month + 1, 1))} className="p-1 rounded hover:bg-muted" aria-label="Próximo mês">
+            <button data-ds="button" data-variant="ghost" type="button" onClick={() => setView(new Date(year, month + 1, 1))} className="p-1 rounded hover:bg-muted" aria-label="Próximo mês">
               <ChevronRight size={14} />
             </button>
           </div>
@@ -375,7 +375,7 @@ export default function TelaFormularioPage() {
             <div className="px-3 py-2">
               <div className="relative">
                 <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/40" />
-                <input
+                <input data-ds="input"
                   ref={menuSearchRef}
                   type="text"
                   placeholder="Buscar no menu..."
@@ -460,17 +460,17 @@ export default function TelaFormularioPage() {
           {/* Conteúdo principal */}
           <main className="flex-1 px-5 py-6">
             {submitted ? (
-              <div className="max-w-2xl mx-auto bg-card rounded-xl border border-border p-8 text-center animate-in fade-in zoom-in-95">
+              <div data-ds="card" className="max-w-2xl mx-auto bg-card rounded-xl border border-border p-8 text-center animate-in fade-in zoom-in-95">
                 <div className="mx-auto w-14 h-14 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-3">
                   <Check className="text-green-700 dark:text-green-400" size={28} />
                 </div>
                 <h2 className="text-xl font-bold text-foreground">Cadastro concluído</h2>
                 <p className="text-sm text-muted-foreground mt-1">O programa <strong className="text-foreground">{form.programa}</strong> foi registrado com sucesso.</p>
                 <div className="mt-5 flex justify-center gap-2">
-                  <button onClick={reset} className="px-4 py-2 text-xs border border-border rounded hover:bg-muted transition-colors">
+                  <button data-ds="button" data-variant="outline" onClick={reset} className="px-4 py-2 text-xs border border-border rounded hover:bg-muted transition-colors">
                     Novo cadastro
                   </button>
-                  <button className="px-4 py-2 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors">
+                  <button data-ds="button" data-variant="default" className="px-4 py-2 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors">
                     Ver detalhes
                   </button>
                 </div>
@@ -543,7 +543,7 @@ export default function TelaFormularioPage() {
                     </Field>
 
                     <Field label="Observações" id="obs" hint="Opcional · Máx. 500 caracteres">
-                      <textarea id="obs" rows={3} maxLength={500} value={form.observacoes} onChange={(e) => update("observacoes", e.target.value)}
+                      <textarea data-ds="textarea" id="obs" rows={3} maxLength={500} value={form.observacoes} onChange={(e) => update("observacoes", e.target.value)}
                         placeholder="Informações adicionais relevantes..."
                         className={`${inputCls(undefined)} resize-y`} />
                     </Field>
@@ -607,22 +607,22 @@ export default function TelaFormularioPage() {
 
                 {/* Ações */}
                 <div className="flex items-center justify-between gap-3 mt-8 pt-5 border-t border-border">
-                  <button type="button" onClick={prev} disabled={step === 0}
+                  <button data-ds="button" data-variant="outline" type="button" onClick={prev} disabled={step === 0}
                     className="px-4 py-2 text-xs border border-border rounded hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
                     Voltar
                   </button>
                   <div className="flex items-center gap-2">
-                    <button type="button" onClick={() => { setToast({ kind: "success", msg: "Rascunho salvo." }); setTimeout(() => setToast(null), 3000); }}
+                    <button data-ds="button" data-variant="outline" type="button" onClick={() => { setToast({ kind: "success", msg: "Rascunho salvo." }); setTimeout(() => setToast(null), 3000); }}
                       className="inline-flex items-center gap-1.5 px-3 py-2 text-xs border border-border rounded hover:bg-muted transition-colors">
                       <Save size={12} /> Salvar rascunho
                     </button>
                     {step < steps.length - 1 ? (
-                      <button type="button" onClick={next}
+                      <button data-ds="button" data-variant="secondary" type="button" onClick={next}
                         className="inline-flex items-center gap-1.5 px-4 py-2 text-xs bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded transition-colors">
                         Avançar <ChevronRight size={12} />
                       </button>
                     ) : (
-                      <button type="submit"
+                      <button data-ds="button" data-variant="default" type="submit"
                         className="inline-flex items-center gap-1.5 px-4 py-2 text-xs bg-primary hover:bg-primary/90 text-primary-foreground rounded transition-colors">
                         <Send size={12} /> Enviar cadastro
                       </button>
@@ -688,7 +688,7 @@ function DescGroup({ title, children, onEdit, last }: { title: string; children:
     <div className={last ? "" : "border-b border-border"}>
       <div className="flex items-center justify-between px-4 py-2 bg-muted/40">
         <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">{title}</h3>
-        <button type="button" onClick={onEdit} className="text-[11px] font-medium text-secondary hover:underline">Editar</button>
+        <button data-ds="button" data-variant="link" type="button" onClick={onEdit} className="text-[11px] font-medium text-secondary hover:underline">Editar</button>
       </div>
       <dl className="divide-y divide-border">
         {children}

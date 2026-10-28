@@ -95,7 +95,7 @@ function KPICard({ icon: Icon, title, subtitle, value, borderColor }: {
   icon: React.ElementType; title: string; subtitle: string; value: string; borderColor: string;
 }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: borderColor }} />
       <p className="text-xs font-semibold mt-1" style={{ color: borderColor }}>{title}</p>
       <p className="text-[10px] text-muted-foreground">{subtitle}</p>
@@ -116,7 +116,7 @@ const performanceData = [
 
 function PerformanceSection() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-primary mb-1">Desempenho Geral dos Programas</p>
       <p className="text-[10px] text-muted-foreground mb-3">20 programas listados · 2.320 colaboradores</p>
       <div className="space-y-3">
@@ -137,7 +137,7 @@ function PerformanceSection() {
 
 function DonutSection() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-primary mb-1">Distribuição por Modalidade</p>
       <p className="text-[10px] text-muted-foreground mb-3">20 programas listados</p>
       <div className="flex items-center gap-4">
@@ -166,7 +166,7 @@ function DonutSection() {
 
 function BarChartSection() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-primary mb-3">Servidores por Diretoria</p>
       <div className="h-48">
         <ResponsiveContainer width="100%" height="100%">
@@ -231,7 +231,7 @@ export default function DashboardInstitucionalPage() {
       {/* ═══ HEADER · Fundo claro · Marca completa com título e subtítulo ═══ */}
       <header className="bg-[#F0F3FF] border-b border-border flex items-center px-5 py-3 gap-4 min-h-[64px] shrink-0 sticky top-0 z-40">
         {/* Menu hamburger (à esquerda) */}
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={() => setSidebarOpen((o) => !o)}
           className="p-1.5 hover:bg-[#0024A9]/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
           aria-label="Menu"
@@ -257,7 +257,7 @@ export default function DashboardInstitucionalPage() {
         </div>
 
         {/* Theme toggle */}
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={toggleTheme}
           className="p-1.5 hover:bg-[#0024A9]/10 rounded transition-colors shrink-0"
           aria-label="Alternar tema"
@@ -295,7 +295,7 @@ export default function DashboardInstitucionalPage() {
                 {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">SIGLA</span>}
               </div>
               {(!collapsed || isMobile) && (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
                   aria-label="Fechar menu"
@@ -310,7 +310,7 @@ export default function DashboardInstitucionalPage() {
               <div className="px-3 py-2">
                 <div className="relative">
                   <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-                  <input
+                  <input data-ds="input"
                     ref={searchRef}
                     type="text"
                     placeholder="Buscar no menu..."
@@ -319,7 +319,7 @@ export default function DashboardInstitucionalPage() {
                     className="w-full bg-sidebar-accent text-sidebar-foreground text-xs rounded pl-8 pr-8 py-2 placeholder:text-sidebar-muted border border-sidebar-border focus:outline-none focus:ring-1 focus:ring-sidebar-ring"
                   />
                   {searchQuery && (
-                    <button
+                    <button data-ds="button" data-variant="ghost"
                       onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
                     >
@@ -383,7 +383,7 @@ export default function DashboardInstitucionalPage() {
             {/* Footer: collapse toggle */}
             <div className={`border-t border-sidebar-border p-2 ${collapsed && !isMobile ? "flex justify-center" : "px-3"}`}>
               {isMobile ? (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label="Fechar menu"
@@ -391,7 +391,7 @@ export default function DashboardInstitucionalPage() {
                   <X size={16} /><span>Fechar menu</span>
                 </button>
               ) : (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setCollapsed(!collapsed)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -434,17 +434,17 @@ export default function DashboardInstitucionalPage() {
 
           {/* Filter bar */}
           <div className="flex items-center gap-2 px-5 py-2 bg-card border-b border-border">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded">
+            <button data-ds="button" data-variant="default" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded">
               <Filter size={12} /> Filtros
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded">
+            <button data-ds="button" data-variant="secondary" className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded">
               <Eye size={12} /> Visão geral
             </button>
           </div>
 
           <div className="p-5 space-y-4">
             {/* Resumo + KPIs */}
-            <div className="bg-card rounded-lg border border-border p-3">
+            <div data-ds="card" className="bg-card rounded-lg border border-border p-3">
               <p className="text-xs font-semibold text-foreground mb-3">
                 <span className="font-bold italic">Resumo da Pesquisa:</span> Categoria · prioridade · setor
               </p>
@@ -459,7 +459,7 @@ export default function DashboardInstitucionalPage() {
             </div>
 
             {/* Tabela auditoria */}
-            <div className="bg-card rounded-lg border border-border p-4">
+            <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
               <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
                 <p className="text-sm font-bold text-primary">Auditoria e Irregularidade</p>
                 <div className="flex items-center gap-3 text-[10px]">

@@ -48,7 +48,7 @@ export default function Regioes() {
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
+    <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
       <h3 className="text-sm font-semibold mb-3">{title}</h3>
       {children}
     </div>

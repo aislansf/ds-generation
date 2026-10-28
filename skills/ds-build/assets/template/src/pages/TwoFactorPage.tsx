@@ -106,7 +106,7 @@ export default function TwoFactorPage() {
                   <form onSubmit={handleVerify} className="space-y-8">
                     <div className="flex justify-between gap-2">
                       {codes.map((code, index) => (
-                        <input
+                        <input data-ds="input"
                           key={index}
                           ref={(el) => (inputs.current[index] = el)}
                           type="text"
@@ -120,7 +120,7 @@ export default function TwoFactorPage() {
                       ))}
                     </div>
 
-                    <button
+                    <button data-ds="button" data-variant="default"
                       type="submit"
                       disabled={isLoading || codes.some(c => !c)}
                       className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
@@ -136,7 +136,7 @@ export default function TwoFactorPage() {
                   <div className="pt-4 space-y-4">
                     <p className="text-xs text-muted-foreground">
                       Não recebeu o código?{" "}
-                      <button className="inline-flex items-center gap-1 text-primary hover:underline font-medium mx-auto mt-1">
+                      <button data-ds="button" data-variant="link" className="inline-flex items-center gap-1 text-primary hover:underline font-medium mx-auto mt-1">
                         <RefreshCw size={12} /> Reenviar código
                       </button>
                     </p>

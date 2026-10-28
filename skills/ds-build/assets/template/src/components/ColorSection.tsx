@@ -14,7 +14,7 @@ function CopyHex({ value }: { value: string }) {
   }, [value]);
 
   return (
-    <button
+    <button data-ds="button" data-variant="secondary"
       onClick={copy}
       className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted px-1.5 py-0.5 rounded transition-colors"
       title={`Copiar ${value}`}
@@ -86,7 +86,7 @@ function GradientCard({ name, css, colors, description }: GradientCardProps) {
       />
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-foreground">{name}</p>
-        <button
+        <button data-ds="button" data-variant="secondary"
           onClick={copy}
           className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted px-1.5 py-0.5 rounded transition-colors"
           title="Copiar CSS do gradiente"

@@ -61,7 +61,7 @@ export default function ModalAcessoTemplatePage() {
             <div className="mt-6 p-6 rounded-xl border border-success/30 bg-success/10 text-success-foreground">
               <p className="font-semibold text-success">Acesso liberado!</p>
               <p className="text-sm text-success/80 mt-1">Aqui entraria o conteúdo restrito da sua aplicação.</p>
-              <button
+              <button data-ds="button" data-variant="link"
                 onClick={() => { setUnlocked(false); setPassword(""); setOpen(true); }}
                 className="mt-4 text-xs underline text-primary"
               >
@@ -79,7 +79,7 @@ export default function ModalAcessoTemplatePage() {
           aria-labelledby="modal-acesso-titulo"
           className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/40 backdrop-blur-sm p-4"
         >
-          <div className="w-full max-w-md bg-card rounded-2xl shadow-2xl border border-border overflow-hidden animate-in fade-in zoom-in-95">
+          <div data-ds="card" className="w-full max-w-md bg-card rounded-2xl shadow-2xl border border-border overflow-hidden animate-in fade-in zoom-in-95">
             <div className="bg-primary text-primary-foreground p-6 flex flex-col items-center gap-2">
               <div className="w-12 h-12 rounded-full bg-primary-foreground/15 flex items-center justify-center">
                 <Lock size={22} />
@@ -97,7 +97,7 @@ export default function ModalAcessoTemplatePage() {
                 </label>
                 <div className="relative">
                   <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                  <input
+                  <input data-ds="input"
                     id="modal-email"
                     type="email"
                     value={email}
@@ -127,7 +127,7 @@ export default function ModalAcessoTemplatePage() {
                     aria-describedby={error ? "modal-pass-error" : undefined}
                     autoComplete="current-password"
                   />
-                  <button
+                  <button data-ds="button" data-variant="ghost"
                     type="button"
                     onClick={() => setShow(s => !s)}
                     className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
@@ -160,7 +160,7 @@ export default function ModalAcessoTemplatePage() {
                 </a>
               </div>
 
-              <button
+              <button data-ds="button" data-variant="default"
                 type="submit"
                 className="w-full bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold hover:brightness-110 transition-all"
               >

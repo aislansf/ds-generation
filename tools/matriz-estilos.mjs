@@ -4,11 +4,12 @@
  *
  * Uso:
  *   node tools/matriz-estilos.mjs --node-modules <pasta> [--estilos a,b,c] [--brief <json>] [--sem-build] [--capturas]
- *                                 [--chromium <exe>] [--saida <pasta>]
+ *                                 [--chromium <exe>] [--saida <pasta>] [--rotas /,/componentes]
  *
  * Para cada estilo: gera com --estilo, roda `npm run build` (typecheck, tokens do Figma, checagens e vite build)
  * e `vitest run`, e lê os ajustes e avisos de contraste do GERACAO.md. Com --capturas, serve o dist e captura
- * / e /componentes em light e dark, montando uma galeria HTML para revisão humana.
+ * a Home, /componentes e três templates (ou as rotas de --rotas) em light e dark, montando uma galeria HTML
+ * para revisão humana.
  *
  * Com --capturas, os estilos cuja camada CSS responde a movimento ou transparência reduzidos também são conferidos
  * com essas preferências ligadas: o hover que desloca ou aumenta (neobrutalismo, claymorfismo) precisa sumir com
@@ -40,6 +41,8 @@ if (!args["node-modules"]) {
 const NM = path.resolve(args["node-modules"]);
 const BRIEF = path.resolve(args.brief ?? path.join(ROOT, "skills/ds-build/assets/examples/exemplo-verde.json"));
 const ESTILOS = args.estilos ? String(args.estilos).split(",") : listarEstilos();
+// Rotas da galeria: a vitrine de componentes e três templates montados à mão (onde os ganchos do R1 agem)
+const ROTAS_GALERIA = typeof args.rotas === "string" ? args.rotas.split(",") : ["/", "/componentes", "/templates/pagina-autenticacao", "/templates/tela-listagem", "/templates/dashboard-analitico"];
 const OUT = path.resolve(typeof args.saida === "string" ? args.saida : path.join(os.tmpdir(), "ds-generation-matriz"));
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -154,7 +157,7 @@ if (args.capturas && !args["sem-build"]) {
       for (const tema of ["light", "dark"]) {
         const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
         await ctx.addInitScript((t) => { try { localStorage.setItem("brand-ds-theme", t); } catch {} }, tema);
-        for (const rota of ["/", "/componentes"]) {
+        for (const rota of ROTAS_GALERIA) {
           const page = await ctx.newPage();
           await page.goto(base + rota, { waitUntil: "networkidle", timeout: 120000 });
           await page.waitForTimeout(1200);
@@ -200,7 +203,7 @@ if (args.capturas && !args["sem-build"]) {
     await browser.close();
   }
   fs.writeFileSync(path.join(OUT, "galeria.html"), `<!doctype html><meta charset="utf-8"><title>Matriz de estilos</title>
-<style>body{font:14px system-ui;margin:24px;background:#f4f4f5}section{margin-bottom:32px}.g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}img{width:100%;border:1px solid #ccc}figure{margin:0}figcaption{color:#555}</style>
+<style>body{font:14px system-ui;margin:24px;background:#f4f4f5}section{margin-bottom:32px}.g{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}img{width:100%;border:1px solid #ccc}figure{margin:0}figcaption{color:#555}</style>
 <h1>Matriz de estilos — ${path.basename(BRIEF)}</h1>${cards.join("\n")}`);
   if (reduzidos.length) console.log("");
   for (const r of reduzidos) {

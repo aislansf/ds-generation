@@ -43,7 +43,7 @@ function ActionButton({
   icon: React.ReactNode;
 }) {
   return (
-    <button
+    <button data-ds="button" data-variant="outline"
       type="button"
       onClick={onClick}
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"

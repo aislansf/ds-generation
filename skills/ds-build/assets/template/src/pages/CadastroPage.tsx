@@ -92,7 +92,7 @@ export default function CadastroPage() {
                     <label className="block text-sm font-medium mb-1.5 flex items-center gap-1.5">
                       <User size={14} className="text-muted-foreground" /> Nome Completo
                     </label>
-                    <input
+                    <input data-ds="input"
                       required
                       type="text"
                       className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
@@ -103,7 +103,7 @@ export default function CadastroPage() {
                     <label className="block text-sm font-medium mb-1.5 flex items-center gap-1.5">
                       <Shield size={14} className="text-muted-foreground" /> CPF
                     </label>
-                    <input
+                    <input data-ds="input"
                       required
                       type="text"
                       className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
@@ -116,7 +116,7 @@ export default function CadastroPage() {
                   <label className="block text-sm font-medium mb-1.5 flex items-center gap-1.5">
                     <Mail size={14} className="text-muted-foreground" /> E-mail Institucional
                   </label>
-                  <input
+                  <input data-ds="input"
                     required
                     type="email"
                     className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
@@ -129,7 +129,7 @@ export default function CadastroPage() {
                     <Building size={14} className="text-muted-foreground" /> Órgão / Instituição
                   </label>
                   <div className="relative">
-                    <select className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors">
+                    <select data-ds="select-trigger" className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors">
                       <option value="">Selecione seu órgão</option>
                       <option value="brand">__BRAND_NAME__</option>
                       <option value="parceiro">Instituição parceira</option>
@@ -144,7 +144,7 @@ export default function CadastroPage() {
                   <label className="block text-sm font-medium mb-1.5 flex items-center gap-1.5">
                     <Lock size={14} className="text-muted-foreground" /> Criar Senha
                   </label>
-                  <input
+                  <input data-ds="input"
                     required
                     type="password"
                     className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
@@ -154,7 +154,7 @@ export default function CadastroPage() {
                 </div>
 
                 <div className="pt-4">
-                  <button
+                  <button data-ds="button" data-variant="default"
                     type="submit"
                     disabled={isLoading}
                     className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"

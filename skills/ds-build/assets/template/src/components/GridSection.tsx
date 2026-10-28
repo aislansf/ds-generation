@@ -47,7 +47,7 @@ function DashboardSkeleton({ device, cols, sidebar }: { device: string; cols: nu
           {/* KPI cards row */}
           <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${Math.min(cols, 4)}, 1fr)` }}>
             {[...Array(Math.min(cols, 4))].map((_, i) => (
-              <div key={i} className="h-14 rounded-md border border-border bg-card p-2">
+              <div data-ds="card" key={i} className="h-14 rounded-md border border-border bg-card p-2">
                 <div className="w-10 h-2 rounded bg-muted-foreground/20 mb-2" />
                 <div className="w-16 h-4 rounded bg-primary/20" />
               </div>
@@ -55,7 +55,7 @@ function DashboardSkeleton({ device, cols, sidebar }: { device: string; cols: nu
           </div>
           {/* Chart + table */}
           <div className="grid gap-2" style={{ gridTemplateColumns: cols >= 8 ? '2fr 1fr' : '1fr' }}>
-            <div className="h-24 rounded-md border border-border bg-card p-2">
+            <div data-ds="card" className="h-24 rounded-md border border-border bg-card p-2">
               <div className="w-20 h-2 rounded bg-muted-foreground/20 mb-2" />
               <div className="flex items-end gap-1 h-14">
                 {[40, 65, 50, 80, 55, 70, 90, 60].map((h, i) => (
@@ -64,7 +64,7 @@ function DashboardSkeleton({ device, cols, sidebar }: { device: string; cols: nu
               </div>
             </div>
             {cols >= 8 && (
-              <div className="h-24 rounded-md border border-border bg-card p-2 space-y-2">
+              <div data-ds="card" className="h-24 rounded-md border border-border bg-card p-2 space-y-2">
                 <div className="w-16 h-2 rounded bg-muted-foreground/20" />
                 {[...Array(4)].map((_, i) => (
                   <div key={i} className="h-3 rounded bg-muted/80" />
@@ -73,7 +73,7 @@ function DashboardSkeleton({ device, cols, sidebar }: { device: string; cols: nu
             )}
           </div>
           {/* Table */}
-          <div className="rounded-md border border-border bg-card p-2 space-y-1">
+          <div data-ds="card" className="rounded-md border border-border bg-card p-2 space-y-1">
             <div className="flex gap-2">
               {[...Array(Math.min(cols, 5))].map((_, i) => (
                 <div key={i} className="flex-1 h-2 rounded bg-muted-foreground/25" />

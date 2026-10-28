@@ -59,7 +59,7 @@ function KPICard({ icon: Icon, title, subtitle, value, borderColor }: {
   icon: React.ElementType; title: string; subtitle: string; value: string; borderColor: string;
 }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: borderColor }} />
       <p className="text-xs font-semibold mt-1" style={{ color: borderColor }}>{title}</p>
       <p className="text-[10px] text-muted-foreground">{subtitle}</p>
@@ -140,7 +140,7 @@ function AuditTable({ rows = tableRows }: { rows?: typeof tableRows }) {
 /* ─── Donut Chart Section ─── */
 function DonutSection({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-[#D98217] mb-1">{title}</p>
       <p className="text-[10px] text-muted-foreground mb-3">{subtitle}</p>
       <div className="flex items-center gap-4">
@@ -170,7 +170,7 @@ function DonutSection({ title, subtitle }: { title: string; subtitle: string }) 
 /* ─── Performance Section ─── */
 function PerformanceSection() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-[#D98217] mb-1">Desempenho Geral dos Programas</p>
       <p className="text-[10px] text-muted-foreground mb-3">20 programas listados - 2320 Colaboradores listados</p>
       <div className="space-y-3">
@@ -192,7 +192,7 @@ function PerformanceSection() {
 /* ─── Bar Chart Section ─── */
 function BarChartSection() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-sm font-bold text-[#D98217] mb-3">Servidores por Diretoria</p>
       <div className="h-48">
         <ResponsiveContainer width="100%" height="100%">
@@ -219,17 +219,17 @@ function DashboardCompleta() {
 
       {/* Filter bar */}
       <div className="flex items-center gap-2 px-5 py-2 bg-card border-b border-border">
-        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2A4FDA] text-white text-xs rounded">
+        <button data-ds="button" data-variant="default" className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2A4FDA] text-white text-xs rounded">
           <Filter size={12} /> Filtros
         </button>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#D98217] text-white text-xs rounded">
+        <button data-ds="button" data-variant="default" className="flex items-center gap-1.5 px-3 py-1.5 bg-[#D98217] text-white text-xs rounded">
           <Eye size={12} /> Visão geral
         </button>
       </div>
 
       <div className="p-5 space-y-4">
         {/* Resumo */}
-        <div className="bg-card rounded-lg border border-border p-3">
+        <div data-ds="card" className="bg-card rounded-lg border border-border p-3">
           <p className="text-xs font-semibold text-foreground mb-3">
             <span className="font-bold italic">Resumo da Pesquisa:</span> Categoria - prioridade - setor
           </p>
@@ -246,7 +246,7 @@ function DashboardCompleta() {
         </div>
 
         {/* Table — full width */}
-        <div className="bg-card rounded-lg border border-border p-4">
+        <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-bold text-[#D98217]">Auditoria e Irregularidade</p>
             <div className="flex items-center gap-3 text-[10px]">
@@ -313,7 +313,7 @@ function DashboardReduzida() {
           </p>
 
           {/* Table */}
-          <div className="bg-card rounded-lg border border-border p-4 min-w-0">
+          <div data-ds="card" className="bg-card rounded-lg border border-border p-4 min-w-0">
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm font-bold text-[#D98217]">Auditoria e Irregularidade</p>
               <div className="flex items-center gap-3 text-[10px]">

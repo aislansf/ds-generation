@@ -177,7 +177,7 @@ export default function ValidatorPage() {
       <div className="brand-card space-y-4">
         <div className="flex flex-wrap items-center gap-3">
           <label className="text-sm font-medium text-foreground">Schema:</label>
-          <select
+          <select data-ds="select-trigger"
             value={choice}
             onChange={(e) => {
               const next = e.target.value as SchemaKey;
@@ -194,7 +194,7 @@ export default function ValidatorPage() {
 
           <div className="ml-auto flex flex-wrap gap-2">
             {(["tokens", "components", "tailwind"] as const).map((k) => (
-              <button
+              <button data-ds="button" data-variant="outline"
                 key={k}
                 type="button"
                 onClick={() => loadExample(k)}
@@ -204,7 +204,7 @@ export default function ValidatorPage() {
                 Exemplo {SCHEMAS[k].label}
               </button>
             ))}
-            <button
+            <button data-ds="button" data-variant="outline"
               type="button"
               onClick={() => {
                 setInput("");
@@ -217,7 +217,7 @@ export default function ValidatorPage() {
           </div>
         </div>
 
-        <textarea
+        <textarea data-ds="textarea"
           value={input}
           onChange={(e) => {
             setInput(e.target.value);

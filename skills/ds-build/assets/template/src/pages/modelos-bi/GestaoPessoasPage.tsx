@@ -175,13 +175,13 @@ export default function GestaoPessoasBIPage() {
         ].map(f => (
           <div key={f.label} className="flex flex-col gap-[3px]">
             <label className="text-[10px] font-bold tracking-[0.5px] uppercase text-muted-foreground">{f.label}</label>
-            <div className="text-[13px] font-semibold text-foreground border border-border rounded-[7px] px-[10px] py-[6px] pr-[26px] bg-card min-w-[120px] relative cursor-pointer">
+            <div data-ds="card" className="text-[13px] font-semibold text-foreground border border-border rounded-[7px] px-[10px] py-[6px] pr-[26px] bg-card min-w-[120px] relative cursor-pointer">
               {f.val}
               <ChevronDown className="absolute right-[9px] top-1/2 -translate-y-1/2 text-muted-foreground w-[14px] h-[14px]" />
             </div>
           </div>
         ))}
-        <button className="ml-auto md:ml-auto text-[12px] font-semibold text-primary self-center flex gap-[6px] items-center cursor-pointer hover:underline">
+        <button data-ds="button" data-variant="link" className="ml-auto md:ml-auto text-[12px] font-semibold text-primary self-center flex gap-[6px] items-center cursor-pointer hover:underline">
           <RefreshCcw className="w-[14px] h-[14px]" /> Limpar filtros
         </button>
       </div>

@@ -94,7 +94,7 @@ export default function Empresas({ loading = false }: { loading?: boolean }) {
         </Button>
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-4 shadow-sm">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <div className="relative flex-1 min-w-[240px]">
             <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />

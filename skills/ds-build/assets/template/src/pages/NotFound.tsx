@@ -22,7 +22,7 @@ const NotFound = () => {
         <meta name="description" content="A página solicitada não existe ou foi movida. Volte para o portal do Design System __BRAND_NAME__." />
         <meta name="robots" content="noindex,follow" />
       </Helmet>
-      <div className="max-w-md w-full bg-card rounded-lg shadow-xl border border-border overflow-hidden">
+      <div data-ds="card" className="max-w-md w-full bg-card rounded-lg shadow-xl border border-border overflow-hidden">
         <div className="p-8 flex flex-col items-center text-center">
           {/* Marca __BRAND_SHORT__ colorida */}
           <BrandLogo variant="color" width={120} height={64} className="mb-8" />
@@ -46,7 +46,7 @@ const NotFound = () => {
             movida para um novo endereço.
           </p>
 
-          <button
+          <button data-ds="button" data-variant="default"
             onClick={() => navigate("/")}
             className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity"
           >
@@ -68,7 +68,7 @@ const NotFound = () => {
         </div>
       </div>
 
-      <button
+      <button data-ds="button" data-variant="ghost"
         onClick={() => navigate(-1)}
         className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
       >

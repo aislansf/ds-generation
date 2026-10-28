@@ -37,7 +37,7 @@ export default function Atendimentos({ loading = false }: { loading?: boolean })
         <IndicatorCard title="Atrasados" value={dados.filter((d) => d.proximaAcao && d.prazoProximaAcao && d.prazoProximaAcao < new Date().toISOString().slice(0, 10)).length} icon={AlertCircle} delta={null} />
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <h3 className="text-sm font-semibold mb-3">Atendimentos por escritório regional</h3>
         <Table>
           <TableHeader>

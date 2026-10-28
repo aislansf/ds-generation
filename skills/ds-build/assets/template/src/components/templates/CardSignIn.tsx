@@ -55,7 +55,7 @@ function CardSignInPreview() {
                   defaultValue="12345678"
                   className="flex-1 px-3 py-2 bg-transparent text-sm focus:outline-none"
                 />
-                <button
+                <button data-ds="button" data-variant="ghost"
                   type="button"
                   onClick={() => setShowPw(!showPw)}
                   className="px-3 text-muted-foreground hover:text-foreground"
@@ -76,7 +76,7 @@ function CardSignInPreview() {
           </div>
 
           {/* Button */}
-          <button className="w-full py-2.5 rounded-md bg-[#2A4FDA] text-white font-medium text-sm hover:bg-[#0a2d47] transition-colors">
+          <button data-ds="button" data-variant="default" className="w-full py-2.5 rounded-md bg-[#2A4FDA] text-white font-medium text-sm hover:bg-[#0a2d47] transition-colors">
             Entrar
           </button>
 

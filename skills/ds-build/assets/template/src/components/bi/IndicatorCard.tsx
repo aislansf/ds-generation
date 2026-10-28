@@ -14,7 +14,7 @@ export default function IndicatorCard({ title, value, icon: Icon, tooltip, delta
   const hasDelta = typeof delta === "number" && !Number.isNaN(delta);
   const positive = (delta ?? 0) >= 0;
   return (
-    <div className="rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md transition-shadow">
+    <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
           <Icon className="h-4 w-4 text-primary" />

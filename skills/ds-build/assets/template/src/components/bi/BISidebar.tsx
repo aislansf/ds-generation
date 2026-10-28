@@ -52,7 +52,7 @@ export default function BISidebar({ active, onChange, collapsed, onToggle }: Pro
             <span className="text-sm font-bold text-foreground">Tela BI</span>
           </div>
         )}
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={onToggle}
           aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
           className="h-8 w-8 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground"

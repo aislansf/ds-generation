@@ -48,7 +48,7 @@ function KPIBig({ value, label, accent = "primary", trend }: {
 }) {
   const color = `hsl(var(--${accent}))`;
   return (
-    <div className="bg-card rounded-lg border border-border p-5 relative overflow-hidden">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-5 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: color }} />
       <p className="text-2xl md:text-3xl font-bold mt-1" style={{ color }}>{value}</p>
       <p className="text-xs text-muted-foreground mt-1">{label}</p>
@@ -71,7 +71,7 @@ function FilterSelect({ name, value, onChange }: {
         {filterLabels[name]}
       </label>
       <div className="relative">
-        <select
+        <select data-ds="select-trigger"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="appearance-none w-full border border-input rounded px-3 py-2 pr-8 text-xs bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-colors cursor-pointer"
@@ -218,7 +218,7 @@ export default function RadarEstrategicoPage() {
                 {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">Radar Estratégico - BI</span>}
               </div>
               {(!collapsed || isMobile) && (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
                   aria-label="Fechar menu"
@@ -232,7 +232,7 @@ export default function RadarEstrategicoPage() {
               <div className="px-3 py-2">
                 <div className="relative">
                   <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-                  <input
+                  <input data-ds="input"
                     ref={searchRef}
                     type="text"
                     placeholder="Buscar no menu..."
@@ -241,7 +241,7 @@ export default function RadarEstrategicoPage() {
                     className="w-full bg-sidebar-accent text-sidebar-foreground text-xs rounded pl-8 pr-8 py-2 placeholder:text-sidebar-muted border border-sidebar-border focus:outline-none focus:ring-1 focus:ring-sidebar-ring"
                   />
                   {searchQuery && (
-                    <button
+                    <button data-ds="button" data-variant="ghost"
                       onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
                     >
@@ -303,7 +303,7 @@ export default function RadarEstrategicoPage() {
 
             <div className={`border-t border-sidebar-border p-2 ${collapsed && !isMobile ? "flex justify-center" : "px-3"}`}>
               {isMobile ? (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label="Fechar menu"
@@ -311,7 +311,7 @@ export default function RadarEstrategicoPage() {
                   <X size={16} /><span>Fechar menu</span>
                 </button>
               ) : (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setCollapsed(!collapsed)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -345,27 +345,27 @@ export default function RadarEstrategicoPage() {
 
           {/* Toolbar superior — feedback + atualizações */}
           <div className="flex flex-wrap items-center gap-3 px-5 py-2 bg-card border-b border-border">
-            <button
+            <button data-ds="button" data-variant="default"
               onClick={clearFilters}
               disabled={!hasActiveFilters}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded-md disabled:opacity-50 disabled:pointer-events-none"
             >
               <RotateCcw size={12} /> Limpar Filtros
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded-md">
+            <button data-ds="button" data-variant="secondary" className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded-md">
               <MessageSquareText size={12} /> Dê seu feedback!
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md">
+            <button data-ds="button" data-variant="outline" className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md">
               <Download size={12} /> Exportar
             </button>
-            <button
+            <button data-ds="button" data-variant="outline"
               onClick={() => downloadRadarReact()}
               className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md"
               title="Baixa um pacote .zip com o template em React + TS pronto para npm install"
             >
               <Download size={12} /> Código-fonte (React)
             </button>
-            <button
+            <button data-ds="button" data-variant="outline"
               onClick={() => downloadRadarVanilla()}
               className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md"
               title="Baixa um pacote .zip estático em HTML/CSS/JS — abre direto no navegador"
@@ -382,7 +382,7 @@ export default function RadarEstrategicoPage() {
                 <RefreshCw size={12} className="text-primary" />
                 <span><span className="font-semibold text-foreground">Próxima:</span> Amanhã, às 07:00</span>
               </div>
-              <button
+              <button data-ds="button" data-variant="outline"
                 onClick={reload}
                 disabled={isLoading}
                 className="flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md disabled:opacity-60"
@@ -395,7 +395,7 @@ export default function RadarEstrategicoPage() {
 
           <div className="p-5 space-y-4">
             {/* FILTROS */}
-            <section className="bg-card rounded-lg border border-border p-4">
+            <section data-ds="card" className="bg-card rounded-lg border border-border p-4">
               <div className="flex items-center gap-2 mb-3">
                 <Filter size={14} className="text-primary" />
                 <p className="text-sm font-bold text-primary">Filtros Estratégicos</p>
@@ -465,7 +465,7 @@ export default function RadarEstrategicoPage() {
             {isLoading ? (
               <ChartCardSkeleton height={320} />
             ) : (
-              <section className="bg-card rounded-lg border border-border p-4">
+              <section data-ds="card" className="bg-card rounded-lg border border-border p-4">
                 <p className="text-sm font-bold text-primary mb-1">Despesa Planejada vs Executada</p>
                 <p className="text-[11px] text-muted-foreground mb-3">Comparativo mensal · valores em R$</p>
                 <div className="h-[320px]">
@@ -514,7 +514,7 @@ export default function RadarEstrategicoPage() {
             {isLoading ? (
               <ChartCardSkeleton height={360} />
             ) : (
-              <section className="bg-card rounded-lg border border-border p-4">
+              <section data-ds="card" className="bg-card rounded-lg border border-border p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div>
                     <p className="text-sm font-bold text-primary">Detalhamento por Natureza</p>

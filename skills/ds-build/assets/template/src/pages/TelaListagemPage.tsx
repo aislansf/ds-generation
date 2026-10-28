@@ -131,7 +131,7 @@ function KPISpark({ title, value, delta, color }: { title: string; value: string
   const points = [8, 12, 9, 14, 11, 18, 15, 22, 19, 26];
   const max = Math.max(...points);
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-[11px] text-muted-foreground">{title}</p>
       <div className="flex items-end justify-between gap-2 mt-1">
         <div>
@@ -151,7 +151,7 @@ function KPISpark({ title, value, delta, color }: { title: string; value: string
 
 function KPICompare({ title, current, previous, color }: { title: string; current: string; previous: string; color: string }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-[11px] text-muted-foreground">{title}</p>
       <p className="text-2xl font-bold text-foreground mt-1 leading-none">{current}</p>
       <div className="flex items-center gap-1.5 mt-2 text-[10px]">
@@ -166,7 +166,7 @@ function KPICompare({ title, current, previous, color }: { title: string; curren
 
 function KPIProgress({ title, value, target, pct, color }: { title: string; value: string; target: string; pct: number; color: string }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <p className="text-[11px] text-muted-foreground">{title}</p>
       <p className="text-2xl font-bold text-foreground mt-1 leading-none">{value}</p>
       <div className="mt-2 h-1.5 w-full bg-muted rounded-full overflow-hidden">
@@ -182,7 +182,7 @@ function KPIProgress({ title, value, target, pct, color }: { title: string; valu
 
 function KPIRanking({ title, items }: { title: string; items: { label: string; value: string }[] }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <div className="flex items-center justify-between">
         <p className="text-[11px] text-muted-foreground">{title}</p>
         <Trophy size={12} className="text-secondary" />
@@ -426,7 +426,7 @@ export default function TelaListagemPage() {
             <div className="px-3 py-2">
               <div className="relative">
                 <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-white/40" />
-                <input
+                <input data-ds="input"
                   ref={menuSearchRef}
                   type="text"
                   placeholder="Buscar no menu..."
@@ -521,10 +521,10 @@ export default function TelaListagemPage() {
           <p className="text-xs text-muted-foreground">Acompanhamento dos programas e parcelas em execução.</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border rounded hover:bg-muted transition-colors">
+          <button data-ds="button" data-variant="outline" className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border rounded hover:bg-muted transition-colors">
             <Download size={12} /> Exportar
           </button>
-          <button
+          <button data-ds="button" data-variant="secondary"
             onClick={() => setModalOpen(true)}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs bg-secondary hover:bg-secondary/90 text-white rounded transition-colors"
           >
@@ -547,11 +547,11 @@ export default function TelaListagemPage() {
         </div>
 
         {/* ═══ Filter bar ═══ */}
-        <div className="bg-card rounded-lg border border-border p-3 space-y-3">
+        <div data-ds="card" className="bg-card rounded-lg border border-border p-3 space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
             <div className="relative flex-1 min-w-[220px]">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input
+              <input data-ds="input"
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -560,7 +560,7 @@ export default function TelaListagemPage() {
               />
             </div>
 
-            <select
+            <select data-ds="select-trigger"
               value={filtroUnidade}
               onChange={(e) => setFiltroUnidade(e.target.value)}
               className="px-3 py-2 text-xs bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
@@ -571,7 +571,7 @@ export default function TelaListagemPage() {
               ))}
             </select>
 
-            <select
+            <select data-ds="select-trigger"
               value={filtroStatus}
               onChange={(e) => setFiltroStatus(e.target.value)}
               className="px-3 py-2 text-xs bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
@@ -583,7 +583,7 @@ export default function TelaListagemPage() {
               <option value="Rejeitado">Rejeitado</option>
             </select>
 
-            <select
+            <select data-ds="select-trigger"
               value={filtroModalidade}
               onChange={(e) => setFiltroModalidade(e.target.value)}
               className="px-3 py-2 text-xs bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
@@ -595,11 +595,11 @@ export default function TelaListagemPage() {
               ))}
             </select>
 
-            <button className="inline-flex items-center gap-1.5 px-3 py-2 text-xs bg-primary text-white rounded hover:bg-primary/90 transition-colors">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-1.5 px-3 py-2 text-xs bg-primary text-white rounded hover:bg-primary/90 transition-colors">
               <Filter size={12} /> Filtros avançados
             </button>
 
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={limpar}
               className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
@@ -614,31 +614,31 @@ export default function TelaListagemPage() {
               {debouncedSearch && (
                 <span className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 text-[11px] bg-muted text-foreground rounded-full">
                   Busca: "{debouncedSearch}"
-                  <button onClick={() => setSearch("")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
+                  <button data-ds="button" data-variant="ghost" onClick={() => setSearch("")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
                 </span>
               )}
               {filtroUnidade !== "todas" && (
                 <span className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 text-[11px] bg-primary/10 text-primary dark:text-foreground dark:bg-foreground/10 rounded-full">
                   Unidade: {filtroUnidade}
-                  <button onClick={() => setFiltroUnidade("todas")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
+                  <button data-ds="button" data-variant="ghost" onClick={() => setFiltroUnidade("todas")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
                 </span>
               )}
               {filtroStatus !== "todos" && (
                 <span className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 text-[11px] bg-secondary/15 text-secondary rounded-full">
                   Status: {filtroStatus}
-                  <button onClick={() => setFiltroStatus("todos")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
+                  <button data-ds="button" data-variant="ghost" onClick={() => setFiltroStatus("todos")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
                 </span>
               )}
               {filtroModalidade !== "todas" && (
                 <span className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 text-[11px] bg-accent/40 text-foreground rounded-full">
                   Modalidade: {filtroModalidade}
-                  <button onClick={() => setFiltroModalidade("todas")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
+                  <button data-ds="button" data-variant="ghost" onClick={() => setFiltroModalidade("todas")} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
                 </span>
               )}
               {chips.map((c) => (
                 <span key={c} className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 text-[11px] bg-muted text-foreground rounded-full">
                   {c}
-                  <button onClick={() => setChips(chips.filter(x => x !== c))} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
+                  <button data-ds="button" data-variant="ghost" onClick={() => setChips(chips.filter(x => x !== c))} className="p-0.5 hover:bg-foreground/10 rounded-full"><X size={10} /></button>
                 </span>
               ))}
             </div>
@@ -646,7 +646,7 @@ export default function TelaListagemPage() {
         </div>
 
         {/* ═══ Tabela aninhada ═══ */}
-        <div className="bg-card rounded-lg border border-border overflow-hidden">
+        <div data-ds="card" className="bg-card rounded-lg border border-border overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border">
             <p className="text-sm font-bold text-secondary">Programas e Repasses</p>
             <span className="text-[11px] text-muted-foreground">{filtered.length} resultados</span>
@@ -674,7 +674,7 @@ export default function TelaListagemPage() {
                     <React.Fragment key={r.id}>
                       <tr className={`${i % 2 === 0 ? "bg-card" : "bg-muted/30"} border-b border-border hover:bg-muted/50 transition-colors`}>
                         <td className="px-2 py-2 text-center">
-                          <button
+                          <button data-ds="button" data-variant="ghost"
                             onClick={() => setExpanded({ ...expanded, [r.id]: !isOpen })}
                             className="p-1 hover:bg-foreground/10 rounded transition-colors"
                             aria-label={isOpen ? "Recolher detalhes" : "Expandir detalhes"}
@@ -691,7 +691,7 @@ export default function TelaListagemPage() {
                         <td className="px-3 py-2 text-right font-semibold">{r.valor}</td>
                         <td className="px-3 py-2"><StatusBadge status={r.status} /></td>
                         <td className="px-2 py-2 text-center relative">
-                          <button
+                          <button data-ds="button" data-variant="ghost"
                             onClick={(e) => {
                               e.stopPropagation();
                               setKebabOpen(kebabOpen === r.id ? null : r.id);
@@ -704,12 +704,12 @@ export default function TelaListagemPage() {
                             <MoreVertical size={14} />
                           </button>
                           {kebabOpen === r.id && (
-                            <div
+                            <div data-ds="card"
                               role="menu"
                               onClick={(e) => e.stopPropagation()}
                               className="absolute right-2 top-full mt-1 z-20 w-44 bg-card border border-border rounded-md shadow-lg py-1 text-left animate-in fade-in zoom-in-95 duration-150"
                             >
-                              <button
+                              <button data-ds="button" data-variant="ghost"
                                 role="menuitem"
                                 onClick={() => {
                                   setKebabOpen(null);
@@ -720,7 +720,7 @@ export default function TelaListagemPage() {
                               >
                                 <Eye size={12} className="text-primary dark:text-foreground" /> Visualizar
                               </button>
-                              <button
+                              <button data-ds="button" data-variant="ghost"
                                 role="menuitem"
                                 onClick={() => {
                                   setKebabOpen(null);
@@ -732,7 +732,7 @@ export default function TelaListagemPage() {
                                 <Pencil size={12} className="text-secondary" /> Editar
                               </button>
                               <div className="my-1 h-px bg-border" />
-                              <button
+                              <button data-ds="button" data-variant="ghost"
                                 role="menuitem"
                                 onClick={() => {
                                   setKebabOpen(null);
@@ -801,7 +801,7 @@ export default function TelaListagemPage() {
                 Mostrando {filtered.length === 0 ? 0 : pageStart + 1}
                 –{Math.min(pageStart + pageSize, filtered.length)} de {filtered.length} registros
               </span>
-              <select
+              <select data-ds="select-trigger"
                 value={pageSize}
                 onChange={(e) => setPageSize(Number(e.target.value))}
                 className="px-2 py-1 bg-background border border-border rounded text-[11px]"
@@ -814,7 +814,7 @@ export default function TelaListagemPage() {
             </div>
 
             <nav aria-label="Paginação" className="flex items-center gap-1">
-              <button
+              <button data-ds="button" data-variant="outline"
                 onClick={() => setPage(Math.max(1, page - 1))}
                 disabled={page === 1}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] border border-border rounded hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
@@ -850,7 +850,7 @@ export default function TelaListagemPage() {
                   </button>
                 </>
               )}
-              <button
+              <button data-ds="button" data-variant="outline"
                 onClick={() => setPage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] border border-border rounded hover:bg-muted disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
@@ -882,13 +882,13 @@ export default function TelaListagemPage() {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setModalOpen(false)}
           />
-          <div className="relative bg-card rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-border animate-in zoom-in-95 duration-200">
+          <div data-ds="card" className="relative bg-card rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-border animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-border bg-accent">
               <div>
                 <h2 id="modal-title" className="text-base font-bold text-accent-foreground">Novo registro</h2>
                 <p className="text-[11px] text-accent-foreground/70">Cadastre um novo programa de repasse.</p>
               </div>
-              <button
+              <button data-ds="button" data-variant="ghost"
                 onClick={() => setModalOpen(false)}
                 className="p-1.5 hover:bg-foreground/10 rounded transition-colors"
                 aria-label="Fechar modal"
@@ -902,7 +902,7 @@ export default function TelaListagemPage() {
                 <label htmlFor="f-programa" className="block text-xs font-medium text-foreground mb-1.5">
                   Programa <span className="text-secondary">*</span>
                 </label>
-                <input
+                <input data-ds="input"
                   id="f-programa"
                   type="text"
                   required
@@ -917,7 +917,7 @@ export default function TelaListagemPage() {
                 <label htmlFor="f-resp" className="block text-xs font-medium text-foreground mb-1.5">
                   Responsável <span className="text-secondary">*</span>
                 </label>
-                <input
+                <input data-ds="input"
                   id="f-resp"
                   type="text"
                   required
@@ -931,7 +931,7 @@ export default function TelaListagemPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="f-unidade" className="block text-xs font-medium text-foreground mb-1.5">Unidade</label>
-                  <select
+                  <select data-ds="select-trigger"
                     id="f-unidade"
                     value={form.unidade}
                     onChange={(e) => setForm({ ...form, unidade: e.target.value })}
@@ -945,7 +945,7 @@ export default function TelaListagemPage() {
                 </div>
                 <div>
                   <label htmlFor="f-modalidade" className="block text-xs font-medium text-foreground mb-1.5">Modalidade</label>
-                  <select
+                  <select data-ds="select-trigger"
                     id="f-modalidade"
                     value={form.modalidade}
                     onChange={(e) => setForm({ ...form, modalidade: e.target.value })}
@@ -965,7 +965,7 @@ export default function TelaListagemPage() {
                   <label htmlFor="f-valor" className="block text-xs font-medium text-foreground mb-1.5">
                     Valor (R$) <span className="text-secondary">*</span>
                   </label>
-                  <input
+                  <input data-ds="input"
                     id="f-valor"
                     type="text"
                     required
@@ -980,7 +980,7 @@ export default function TelaListagemPage() {
                   <label htmlFor="f-inicio" className="block text-xs font-medium text-foreground mb-1.5">
                     Data de início
                   </label>
-                  <input
+                  <input data-ds="input"
                     id="f-inicio"
                     type="text"
                     placeholder="DD/MM/AAAA"
@@ -992,14 +992,14 @@ export default function TelaListagemPage() {
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
-                <button
+                <button data-ds="button" data-variant="ghost"
                   type="button"
                   onClick={() => setModalOpen(false)}
                   className="px-4 py-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Cancelar
                 </button>
-                <button
+                <button data-ds="button" data-variant="default"
                   type="submit"
                   className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium bg-primary hover:bg-primary/90 text-white rounded transition-colors"
                 >
