@@ -8,14 +8,17 @@ Vite 5 + React 18 + TypeScript, Tailwind 3 com tokens em CSS custom properties, 
 
 ```
 index.html                  metatags, JSON-LD, favicon
-tailwind.config.ts          mapeia tokens → utilitários (cores, espaço, tipografia)
+tailwind.config.ts          mapeia tokens → utilitários (cores, espaço, tipografia, raio, sombra, borda, duração)
 src/
-  index.css                 TODOS os tokens (:root / .dark) + classes brand-* e ds-*
+  index.css                 TODOS os tokens (:root / .dark), inclusive os tokens de pele do estilo visual + classes brand-* e ds-*
+  styles/estilo.css         camada CSS do estilo visual (vazia no estilo corporativo), importada depois do index.css
+  config/estilo.ts          estilo visual do DS: id, nome, tema padrão (lido pelo useTheme) e layout
   App.tsx                   rotas (lazyWithRetry); templates standalone fora do DSLayout
   components/
     DSLayout.tsx            casca do site: header, sidebar com busca, navegação (array navItems)
     BrandLogo.tsx           logo com variantes auto/color/white/mono
-    ui/                     ~49 componentes shadcn (button tem as variantes "brand" e "diversificado")
+    ui/                     ~49 componentes shadcn (button tem as variantes "brand" e "diversificado"); os principais
+                            expõem data-ds="…" (e o Button, data-variant) para a camada CSS do estilo
     templates/              blocos reutilizáveis: Auth, CardSignIn, Dashboard, Footer, HubPaineis, SidebarMenuPreview
     bi/                     peças do Dashboard BI e da Tela BI (filtros, sidebar, KPI, header, seções em ECharts)
     charts/                 BrandChart (wrapper do ECharts: tema, resize, loading, mapas) e ChartShowcase
@@ -26,7 +29,8 @@ src/
   lib/echarts/              brandTheme (tema derivado dos tokens), format (pt-BR), mapas, exportPreset, buildLibraryZip
   assets/brand.ts           URLs dos logos oficiais (cor, branco, preto)
   assets/marca/*.asset.json ponteiros para os logos (gerados apontam para /marca/*.svg)
-  hooks/useTheme.ts         light/dark por classe, persistido no localStorage
+  hooks/useTheme.ts         light/dark por classe, persistido no localStorage; sem escolha salva, usa o tema padrão do estilo
+                            (o index.html aplica o tema antes da primeira pintura)
   utils/prefetchRoutes.ts   prefetch das rotas lazy no hover do menu
 scripts/                    validadores rodados no build e no CI; build-figma-tokens/validate-figma-tokens
 schemas/                    JSON Schemas (tokens, componentes, tailwind) usados pelo validador

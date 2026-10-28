@@ -13,6 +13,14 @@ Marque cada item antes de dizer ao usuário que o DS está pronto. Os que não p
 - [ ] Dark mode revisado em `/`, `/componentes` e `/templates`
 - [ ] Nenhum tom "fora da família" visível (ilustrações, gráficos, badges)
 
+## Estilo visual
+- [ ] Estilo confirmado pelo usuário no resumo (mesmo quando é o padrão, `corporativo`)
+- [ ] Seção "Estilo visual" do `GERACAO.md` revisada: ajustes de contraste do estilo e avisos
+- [ ] Estilo aplicado em `/componentes` (botões, cards, campos, abas, menus) e no header, em light e dark
+- [ ] Foco por teclado visível em botões, campos e links (Tab pela página)
+- [ ] Estilo com tema padrão `dark` (cyberpunk): o DS abre em dark sem "piscar"
+- [ ] Fontes sugeridas pelo estilo: adotadas ou recusadas pelo usuário (nunca trocadas sem ele)
+
 ## Marca
 - [ ] Logos oficiais (não o provisório tipográfico) em cor, branco e preto
 - [ ] Favicon oficial

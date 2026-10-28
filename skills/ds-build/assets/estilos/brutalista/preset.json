@@ -1,0 +1,80 @@
+{
+  "$schema": "../_schema.json",
+  "id": "brutalista",
+  "nome": "Brutalista",
+  "grupo": "ousados",
+  "nivel": 2,
+  "ordem": 6,
+  "descricao": "Cru e honesto, com cara de \"padrão do navegador\": preto e branco, bordas grossas, sem raio, sem sombra, sem animação.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "IBM Plex Mono",
+      "Space Mono"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0rem",
+      "--radius-xl": "0rem",
+      "--radius-2xl": "0rem",
+      "--radius-3xl": "0rem",
+      "--radius-card": "0rem",
+      "--radius-control": "0rem",
+      "--radius-control-brand": "0rem",
+      "--radius-full": "0px",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--background": "0 0% 100%",
+      "--foreground": "0 0% 0%",
+      "--card": "0 0% 100%",
+      "--card-foreground": "0 0% 0%",
+      "--popover": "0 0% 100%",
+      "--popover-foreground": "0 0% 0%",
+      "--muted": "0 0% 94%",
+      "--muted-foreground": "0 0% 25%",
+      "--border": "0 0% 0%",
+      "--input": "0 0% 0%",
+      "--ring": "0 0% 0%",
+      "--border-width": "2px",
+      "--border-width-strong": "3px",
+      "--duration-fast": "0ms",
+      "--duration-normal": "0ms",
+      "--duration-slow": "0ms",
+      "--duration-slower": "0ms",
+      "--duration-default": "0ms",
+      "--icon-stroke": "2.5"
+    },
+    ".dark": {
+      "--background": "0 0% 0%",
+      "--foreground": "0 0% 100%",
+      "--card": "0 0% 0%",
+      "--card-foreground": "0 0% 100%",
+      "--popover": "0 0% 0%",
+      "--popover-foreground": "0 0% 100%",
+      "--muted": "0 0% 12%",
+      "--muted-foreground": "0 0% 80%",
+      "--border": "0 0% 100%",
+      "--input": "0 0% 100%",
+      "--ring": "0 0% 100%"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Mostre a estrutura: bordas visíveis, links sublinhados",
+    "Use a cor da marca só onde ela identifica a instituição"
+  ],
+  "evite": [
+    "Sombras, degradês, cantos arredondados e transições",
+    "Esconder o foco do teclado"
+  ]
+}

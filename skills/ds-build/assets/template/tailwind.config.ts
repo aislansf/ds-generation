@@ -43,7 +43,7 @@ export default {
         semibold: "var(--font-semibold)",
         bold:     "var(--font-bold)",
         extrabold:"var(--font-extrabold)",
-        black:    "900",
+        black:    "var(--font-black)",
       },
       letterSpacing: {
         tighter: "var(--tracking-tighter)",
@@ -179,10 +179,38 @@ export default {
           bg: "hsl(var(--info-bg))",
         },
       },
+      // Raio, sombra, espessura de borda e duração vêm dos tokens de pele (src/index.css): o estilo visual
+      // do DS troca esses valores e as páginas acompanham sem editar classe nenhuma.
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "max(0px, calc(var(--radius) - 4px))",
+        xl: "var(--radius-xl)",
+        "2xl": "var(--radius-2xl)",
+        "3xl": "var(--radius-3xl)",
+        full: "var(--radius-full)",
+      },
+      boxShadow: {
+        xs: "var(--shadow-ui-xs)",
+        sm: "var(--shadow-ui-sm)",
+        DEFAULT: "var(--shadow-ui)",
+        md: "var(--shadow-ui-md)",
+        lg: "var(--shadow-ui-lg)",
+        xl: "var(--shadow-ui-xl)",
+        "2xl": "var(--shadow-ui-2xl)",
+        inner: "var(--shadow-ui-inner)",
+        none: "none",
+      },
+      borderWidth: {
+        DEFAULT: "var(--border-width)",
+        2: "var(--border-width-strong)",
+      },
+      transitionDuration: {
+        DEFAULT: "var(--duration-default)",
+        100: "var(--duration-fast)",
+        200: "var(--duration-normal)",
+        300: "var(--duration-slow)",
+        500: "var(--duration-slower)",
       },
       keyframes: {
         "accordion-down": {

@@ -3,8 +3,9 @@
  * generate-ds.mjs — gera um Design System completo para uma marca a partir do template.
  *
  * Uso:
- *   node scripts/generate-ds.mjs --brief <briefing.json> --out <pasta> [--force] [--node-modules <pasta>]
+ *   node scripts/generate-ds.mjs --brief <briefing.json> --out <pasta> [--estilo <id>] [--force] [--node-modules <pasta>]
  *
+ *   --estilo         estilo visual (assets/estilos/<id>); sobrescreve o "estilo" do briefing
  *   --force          apaga a pasta de saída se já existir
  *   --node-modules   cria um link (junction) para um node_modules existente, para testar o build sem npm install
  *
@@ -14,8 +15,9 @@
  *   2b. Ajusta os textos de tipografia à origem de cada fonte (Google Fonts ou proprietária)
  *   3. Recolore todas as cores por família de matiz (primária, secundária, destaque, realce);
  *      âncoras (cor institucional do H1) viram exatamente a cor do briefing
- *   4. Reescreve os HEX de src/data/tokenGroups.ts a partir dos HSL (mantém o teste de tokens verde)
- *   5. Corrige pares de contraste críticos (texto sobre a primária)
+ *   3b. Aplica o estilo visual (tokens de pele, camada CSS, tema padrão); sem estilo = corporativo, que não muda nada
+ *   4. Reescreve os HEX e valores de src/data/tokenGroups.ts a partir do CSS (mantém o teste de tokens verde)
+ *   5. Corrige pares de contraste críticos (texto sobre a primária) e os mínimos do estilo
  *   6. Instala logos, favicon e placeholders para as imagens que o template só referencia (.asset.json)
  *   7. Remove módulos opcionais (modelos de BI) conforme o briefing
  *   8. Grava scripts/legacy-brand.config.json e GERACAO.md (relatório com pendências)
@@ -30,7 +32,8 @@ import {
 import { ajustarFontes } from "./lib/fontes.mjs";
 import { PLACEHOLDERS, placeholderValues, fontImportsBlock } from "./lib/rules.mjs";
 import { auditContrast, contrastTable, blockBodies } from "./lib/contrast.mjs";
-import { validarBriefing, formatarPendencias, normalizarBriefing } from "./lib/briefing.mjs";
+import { validarBriefing, formatarPendencias, normalizarBriefing, estiloPadrao } from "./lib/briefing.mjs";
+import { carregarEstilo, aplicarEstilo, contrasteDoEstilo, listarEstilos, ESTILO_PADRAO } from "./lib/estilos.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SKILL = path.resolve(HERE, "..");
@@ -65,6 +68,16 @@ if (pendencias.length) {
   process.exit(1);
 }
 const brief = normalizarBriefing(briefRaw);
+// --estilo sobrescreve o briefing (matriz de testes, comparação de estilos)
+if (args.estilo) {
+  if (!listarEstilos().includes(args.estilo)) {
+    console.error(`Estilo "${args.estilo}" não existe. Estilos disponíveis: ${listarEstilos().join(", ")}`);
+    process.exit(1);
+  }
+  brief.estilo = args.estilo;
+}
+const estilo = carregarEstilo(brief.estilo);
+const estiloInformado = !!args.estilo || !estiloPadrao(briefRaw);
 
 if (fs.existsSync(OUT) && fs.readdirSync(OUT).length) {
   if (!args.force) {
@@ -215,6 +228,18 @@ const P = (rel) => path.join(OUT, rel);
 const read = (rel) => fs.readFileSync(P(rel), "utf8");
 const write = (rel, text) => { fs.mkdirSync(path.dirname(P(rel)), { recursive: true }); fs.writeFileSync(P(rel), text); };
 
+// ---------- 2c. Estilo visual ----------
+// Depois da recoloração (usa as cores finais da marca) e antes do contraste (mexe em neutros e superfícies)
+const familiaRealce = manifest.familias.find((f) => f.nome === "realce");
+const coresFinais = {
+  primaria: targets.primaria,
+  secundaria: targets.secundaria,
+  destaque: targets.destaque,
+  realce: targets.realce ?? (familiaRealce ? { h: familiaRealce.hsl[0], s: familiaRealce.hsl[1], l: familiaRealce.hsl[2] } : null),
+};
+const estiloRes = aplicarEstilo(OUT, estilo, coresFinais);
+warnings.push(...estiloRes.avisos);
+
 // ---------- 3. Contraste: texto sobre a primária ----------
 const CSS_REL = "src/index.css";
 let css = read(CSS_REL);
@@ -292,6 +317,10 @@ for (const selector of [":root", ".dark"]) {
     ajustes.push(`.dark h1 → ${corDark} (a cor do H1, ${hex.toUpperCase()}, tem ${contrastRatio(hexToRgb(hex), bg).toFixed(2)}:1 sobre o fundo escuro)`);
   }
 }
+// Mínimos do estilo: só mexe em tokens que o próprio estilo definiu
+const estiloContraste = contrasteDoEstilo(css, estilo, estiloRes.alterados, coresFinais);
+css = estiloContraste.css;
+warnings.push(...estiloContraste.avisos);
 write(CSS_REL, css);
 
 // ---------- 4. tokenGroups.ts: espelho dos valores do CSS ----------
@@ -314,6 +343,14 @@ if (fs.existsSync(P(TG_REL))) {
       return `{ name: "${name}", lightValue: "${lightValue}", darkValue: "${darkValue}", lightHex: "${lh}", darkHex: "${dh}" }`;
     },
   );
+  // Tokens escalares (raio, peso, duração, tokens de pele do estilo): o valor exibido segue o CSS.
+  // Mantém o sufixo descritivo ("0.5rem (8px)") quando o valor não mudou.
+  const semSufixo = (v) => v.replace(/\s+—\s+.*$/u, "").replace(/\s+\([^)]*\)\s*$/u, "").trim();
+  tg = tg.replace(/\{ name: "(--[a-z0-9-]+)", value: "([^"]*)" \}/g, (m, name, value) => {
+    const atual = lightVars.get(name)?.replace(/\s+/g, " ");
+    if (atual === undefined || atual === semSufixo(value)) return m;
+    return `{ name: "${name}", value: "${atual}" }`;
+  });
   write(TG_REL, tg);
 }
 
@@ -521,7 +558,24 @@ Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest
 | Destaque | ${targets.destaque.hex}${brief.cores.destaque ? "" : " — derivado"} |
 | Realce | ${targets.realce ? targets.realce.hex : "mantido do template"} |
 | Fontes | ${brief.fontes.primaria.nome} / ${fontDisplay} / ${brief.fontes.sistema?.nome || brief.fontes.primaria.nome} |
+| Estilo visual | ${estilo.nome} (\`${estilo.id}\`) |
 | Termos proibidos (build falha) | ${termos.join(", ") || "—"} |
+
+## Estilo visual: ${estilo.nome} (${estilo.id})
+
+- Tokens alterados: ${estiloRes.tokens[":root"]} (:root), ${estiloRes.tokens[".dark"]} (.dark)
+- Camada CSS: ${estiloRes.camada ? "src/styles/estilo.css" : "(nenhuma)"}
+- Decoração gerada: (nenhuma)
+- Degradê do header: ${estilo.degrade === false ? "desligado (cor sólida)" : "mantido"}
+- Tema padrão: ${estilo.tema_padrao}
+- Ajustes de contraste do estilo: ${estiloContraste.ajustes.length ? `\n${estiloContraste.ajustes.map((a) => `  - ${a}`).join("\n")}` : "(nenhum)"}
+- Pendências do estilo: ${(() => {
+    const p = [];
+    if (estilo.id !== ESTILO_PADRAO) p.push("miniaturas da página Templates (capturadas no estilo padrão)");
+    const sug = estilo.fontes_sugeridas?.primaria ?? [];
+    if (sug.length && !sug.includes(brief.fontes.primaria.nome)) p.push(`fontes sugeridas não adotadas (${sug.join(", ")})`);
+    return p.length ? p.join("; ") : "(nenhuma)";
+  })()}
 
 ## Ajustes automáticos de contraste
 
@@ -577,7 +631,7 @@ if (args["node-modules"]) {
   }
 }
 
-console.log(`DS "${brief.nome}" gerado em ${OUT}`);
+console.log(`DS "${brief.nome}" gerado em ${OUT} (estilo: ${estilo.id}${estiloInformado ? "" : ", padrão"})`);
 console.log(`  arquivos=${stats.arquivos} hex=${stats.hex} hsl=${stats.hsl} ajustes=${ajustes.length} removidos=${removidos.length}`);
 console.log(`  marcas proibidas: ${legados.length} · conteúdo de exemplo: ${especificos.length} · placeholders: ${sobras.length} · textos-modelo: ${modelos.length} · contraste < AA: ${falhas.length}`);
 if (warnings.length) console.log("  avisos:\n    " + warnings.join("\n    "));

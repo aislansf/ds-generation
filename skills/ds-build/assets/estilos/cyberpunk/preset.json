@@ -1,0 +1,95 @@
+{
+  "$schema": "../_schema.json",
+  "id": "cyberpunk",
+  "nome": "Dark mode / Cyberpunk",
+  "grupo": "digitais",
+  "nivel": 2,
+  "ordem": 18,
+  "descricao": "Fundo escuro, neon da marca e estética futurista. Abre em dark; o light é uma versão de alto contraste com o neon escurecido.",
+  "tema_padrao": "dark",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "JetBrains Mono",
+      "Space Mono"
+    ],
+    "display": [
+      "Orbitron"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--radius": "0.125rem",
+      "--radius-card": "0.125rem",
+      "--radius-control": "0.125rem",
+      "--radius-control-brand": "0.125rem",
+      "--radius-xl": "0.125rem",
+      "--radius-2xl": "0.125rem",
+      "--radius-3xl": "0.125rem",
+      "--border": "{neon.h} 70% 30%",
+      "--input": "{neon.h} 70% 30%",
+      "--ring": "{neon.h} 80% 35%",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 0 #0000",
+      "--shadow-ui-xl": "0 0 #0000",
+      "--shadow-ui-2xl": "0 0 #0000",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000"
+    },
+    ".dark": {
+      "--background": "240 30% 5%",
+      "--card": "240 25% 8%",
+      "--popover": "240 25% 8%",
+      "--muted": "240 20% 12%",
+      "--muted-foreground": "240 10% 70%",
+      "--border": "{neon.h} 60% 35%",
+      "--input": "{neon.h} 70% 50%",
+      "--ring": "{neon}",
+      "--sidebar-background": "240 30% 4%",
+      "--sidebar-foreground": "240 10% 85%",
+      "--sidebar-accent": "240 25% 12%",
+      "--sidebar-accent-foreground": "{neon}",
+      "--sidebar-border": "{neon.h} 60% 25%",
+      "--sidebar-muted": "240 10% 60%",
+      "--sidebar-ring": "{neon}",
+      "--header-surface": "240 30% 6%",
+      "--header-surface-foreground": "{neon}",
+      "--header-surface-border": "{neon.h} 60% 25%",
+      "--shadow-ui-xs": "0 0 4px hsl({neon} / 0.3)",
+      "--shadow-ui-sm": "0 0 6px hsl({neon} / 0.35)",
+      "--shadow-ui": "0 0 8px hsl({neon} / 0.4)",
+      "--shadow-ui-md": "0 0 12px hsl({neon} / 0.45)",
+      "--shadow-ui-lg": "0 0 18px hsl({neon} / 0.45)",
+      "--shadow-ui-xl": "0 0 24px hsl({neon} / 0.5)",
+      "--shadow-ui-2xl": "0 0 32px hsl({neon} / 0.5)",
+      "--shadow-hover": "0 0 16px hsl({neon} / 0.6)"
+    }
+  },
+  "css": "estilo.css",
+  "contraste": {
+    "pares_extras": [
+      [
+        "--sidebar-accent-foreground",
+        "--sidebar-accent",
+        4.5
+      ],
+      [
+        "--border",
+        "--background",
+        3
+      ]
+    ]
+  },
+  "faca": [
+    "Use o neon em bordas, foco e destaques; texto corrido fica claro e neutro",
+    "Mantenha o foco do teclado visível sem depender do brilho"
+  ],
+  "evite": [
+    "Texto longo em neon",
+    "Brilho como único indicador de estado"
+  ]
+}

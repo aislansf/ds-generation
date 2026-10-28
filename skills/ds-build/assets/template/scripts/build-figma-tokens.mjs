@@ -57,7 +57,8 @@ function hslTripleToHex(triple) {
 const HSL_RE = /^\d+(\.\d+)?\s+\d+(\.\d+)?%\s+\d+(\.\d+)?%$/;
 
 const isColor = (n, v) => HSL_RE.test(v) || v.startsWith("#") || v.startsWith("rgb");
-const isDim = (n) => /^(space|text|radius|bp)-/.test(n) || n === "radius";
+const isDim = (n) => /^(space|text|radius|bp)-/.test(n) || n === "radius" || /border-width/.test(n) || n === "surface-blur";
+const isNum = (n) => n === "card-alpha" || n === "icon-stroke" || n.startsWith("chart-");
 const isShadow = (n) => n.startsWith("shadow-");
 const isDur = (n) => n.startsWith("duration-");
 const isEase = (n) => n.startsWith("ease");
@@ -74,6 +75,7 @@ function typeOf(n, v) {
   if (isLH(n)) return "number";
   if (isLS(n)) return "dimension";
   if (isZ(n)) return "number";
+  if (isNum(n)) return "number";
   if (isDim(n)) return "dimension";
   if (isColor(n, v)) return "color";
   return "string";
@@ -199,8 +201,13 @@ const files = [
 writeFileSync(resolve(OUT, "tokens.css"), cssSnapshot);
 files.push({ file: "tokens.css", bytes: cssSnapshot.length, sha256: sha(cssSnapshot) });
 
+// Estilo visual do DS (src/config/estilo.ts)
+const estiloTs = readFileSync(resolve(ROOT, "src/config/estilo.ts"), "utf8");
+const estilo = { id: /id: "([^"]+)"/.exec(estiloTs)?.[1] ?? "corporativo", nome: /nome: "([^"]+)"/.exec(estiloTs)?.[1] ?? "Corporativo" };
+
 const manifest = {
   name: "__BRAND_NAME__ Design System",
+  estilo,
   version: "latest",
   generatedAt: new Date().toISOString(),
   source: "https://__DS_DOMAIN__",

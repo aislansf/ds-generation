@@ -85,7 +85,7 @@ export default function ErrorPageTemplate() {
           {/* Action Button */}
           <button
             onClick={() => navigate("/templates")}
-            className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
+            className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all shadow-[var(--shadow-brand)]"
           >
             {content.actionIcon}
             {content.action}

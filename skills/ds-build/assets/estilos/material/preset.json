@@ -1,0 +1,47 @@
+{
+  "$schema": "../_schema.json",
+  "id": "material",
+  "nome": "Material Design (M3)",
+  "grupo": "limpos",
+  "nivel": 2,
+  "ordem": 4,
+  "descricao": "Superfícies tonais, elevação suave em duas camadas, botões em pílula e camadas de estado no hover.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Roboto",
+      "Roboto Flex"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--radius-control": "9999px",
+      "--radius-control-brand": "9999px",
+      "--radius-card": "0.75rem",
+      "--shadow-ui-sm": "0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15)",
+      "--shadow-ui": "0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15)",
+      "--shadow-ui-md": "0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15)",
+      "--shadow-ui-lg": "0 4px 8px 3px rgb(0 0 0 / 0.15), 0 1px 3px 0 rgb(0 0 0 / 0.3)",
+      "--shadow-ui-xl": "0 6px 10px 4px rgb(0 0 0 / 0.15), 0 2px 3px 0 rgb(0 0 0 / 0.3)",
+      "--shadow-ui-2xl": "0 8px 12px 6px rgb(0 0 0 / 0.15), 0 4px 4px 0 rgb(0 0 0 / 0.3)",
+      "--card": "{primaria.h} 30% 98%",
+      "--card-border-width": "0px",
+      "--font-semibold": "500",
+      "--ease-emphasis": "cubic-bezier(0.2, 0, 0, 1)"
+    },
+    ".dark": {
+      "--card": "{primaria.h} 15% 14%"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Use a elevação para hierarquia (cards no nível 1, menus e modais acima)",
+    "Botões e chips em pílula"
+  ],
+  "evite": [
+    "Bordas em cards",
+    "Sombras coloridas"
+  ]
+}

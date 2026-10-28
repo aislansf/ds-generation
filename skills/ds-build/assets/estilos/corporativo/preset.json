@@ -1,0 +1,20 @@
+{
+  "$schema": "../_schema.json",
+  "id": "corporativo",
+  "nome": "Corporativo",
+  "grupo": "limpos",
+  "nivel": 0,
+  "ordem": 0,
+  "descricao": "Flat corporativo e neutro: o visual padrão do DS. Usado quando o estilo não é informado.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {},
+  "degrade": true,
+  "tokens": {},
+  "faca": [
+    "Use a primária nas superfícies institucionais (menu lateral, header degradê) e nos CTAs"
+  ],
+  "evite": [
+    "Misturar raios e sombras fora dos tokens"
+  ]
+}

@@ -1169,7 +1169,7 @@ h1, h2, h3, h4, h5, h6 {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-xs font-bold shadow-lg shadow-primary/20"
+                className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg text-xs font-bold shadow-[var(--shadow-brand)]"
               >
                 Pressione-me
               </motion.button>

@@ -17,6 +17,8 @@
   "manual_marca_url": "PREENCHER: URL do manual/brandbook, ou false se não houver",
   "og_image_url": "PREENCHER: URL da imagem de compartilhamento, ou false para usar o favicon",
 
+  "estilo": "PREENCHER: id do estilo visual (ver references/estilos.md), ou \"corporativo\" para manter o estilo atual. Se ficar sem resposta, a skill usa \"corporativo\".",
+
   "cores": {
     "primaria": "PREENCHER: #RRGGBB — cor institucional principal",
     "secundaria": "PREENCHER: #RRGGBB, ou \"derivar\" (análoga da primária)",

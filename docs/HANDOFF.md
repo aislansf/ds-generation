@@ -30,13 +30,16 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 
    Arquivos de `copiar_sem_regras` (o GeoJSON do Brasil) vão sem regra nenhuma. Nomes de arquivo passam por `substituicoes_caminho` e pela regra 6. Os `.asset.json` (ponteiros para o CDN do projeto de origem) viram ponteiros locais neutros. O `package.json` perde as `remover_dependencias` (Supabase, Drizzle) e ganha as `dependencias_dev`; se a origem não versionar `package-lock.json` (hoje só tem o do bun), a extração gera um com `npm install --package-lock-only`. Por fim, `origem/overrides/` é copiado por cima: logos "Sua Marca", favicon, selo "marca parceira", imagem de login, miniaturas e as versões neutras de `HomePage`, `MarcaPage`, `regioes.ts`, `mapas.ts` e `mapa-brasil-ufs.ts`.
 
-   A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) de `termos_especificos` ou de `substituicoes_lugares` (palavra inteira), ou qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`.
+   Depois dos overrides, `tools/lib/tokenizar.mjs` prepara o template para os estilos visuais: liga raio, sombra, espessura de borda, peso e duração do Tailwind aos **tokens de pele** do `index.css`, cria `src/styles/estilo.css` e `src/config/estilo.ts`, põe o tema padrão no `useTheme` e no `index.html` e acrescenta os ganchos `data-ds`, `data-variant` e `data-surface` nos componentes. Todos os valores padrão reproduzem o visual de sempre (prova: `tools/verificar-identidade.mjs`, capturas pixel a pixel).
+
+   A extração **falha** se sobrar no template: o prefixo da marca, qualquer item de `termos_proibidos_template` (substring) de `termos_especificos` ou de `substituicoes_lugares` (palavra inteira), qualquer imagem que não venha de `overrides/` nem esteja em `imagens_revisadas`, ou uma âncora da tokenização que não casou (a origem mudou naquele ponto).
 
 2. **Imagens** (`tools/imagens-neutras.mjs`): escreve os logos neutros, rasteriza favicon/selo/imagem de login com o Chromium do Playwright e captura as miniaturas da página Templates a partir de um DS gerado com `tools/marca-neutra.json` (cinza-azulado, "Sua Marca").
 
 3. **Geração** (`skills/ds-build/scripts/generate-ds.mjs`):
-   - recusa o briefing se qualquer uma das 30 perguntas estiver sem resposta válida ou sem `confirmado_pelo_usuario: true`;
+   - recusa o briefing se qualquer uma das 31 perguntas estiver sem resposta válida ou sem `confirmado_pelo_usuario: true` (o estilo visual sem resposta não conta: vale `corporativo`);
    - preenche os placeholders, ajusta os textos de tipografia à origem de cada fonte (Google Fonts ou proprietária) e **recolore por família de matiz**; as âncoras (cor institucional do H1 e dos validadores) viram exatamente a cor do briefing, e o H1 ganha uma cor legível no dark mode;
+   - aplica o **estilo visual** (`assets/estilos/<id>/`): tokens de pele em `:root` e `.dark`, camada CSS, tema padrão; depois confere os mínimos de contraste do estilo, ajustando só tokens do próprio estilo;
    - reescreve os HEX do catálogo de tokens, corrige contrastes que pioraram, instala logos e favicon (ou provisórios, se o usuário respondeu `false`), remove módulos opcionais, ajusta o gênero gramatical e trava os `termos_proibidos` no build.
 
 4. **Reescrita semântica** (o agente, guiado por `references/reescrita-semantica.md`).
@@ -56,6 +59,9 @@ O [ds-sebrae](https://github.com/aislansf/ds-sebrae) é um Design System complet
 - **Gráficos ECharts sem cor fixa.** O tema (`brandTheme.ts`) lê os tokens do CSS em tempo de execução, então a recoloração chega aos 74 presets sem regra nova. A fonte do tema, que na origem era `Poppins` fixo, vira `__FONT_PRIMARY__`.
 - **Só o mapa do Brasil.** Os dois mapas do Ceará por município saem na extração (preset, GeoJSON e documentação): um GeoJSON municipal tem nomes reais de lugares e não serve para outra marca. No mapa do Brasil, o Ceará continua como UF (`remanescentes_permitidos`) e o destaque passa para uma UF de exemplo marcada com `MODELO:`.
 - **Lugares fictícios.** Municípios, macrorregiões e bairros do Ceará dos dados de exemplo (presets, Tela BI, Dashboard Analítico, seed de empresas) viram nomes fictícios consistentes entre si; a checagem de remanescentes procura os nomes originais.
+- **Estilos visuais por preset, não por interpretação.** Cada estilo é um `preset.json` (tokens de pele que ele muda, com expressões como `{primaria.h}`) mais um `estilo.css` opcional. O `_schema.json` restringe os tokens: um estilo nunca altera a escala da marca nem as cores semânticas. Sem estilo, `corporativo` (`tokens: {}`), que gera o mesmo DS byte a byte. Plano completo, fases e estilos que ainda faltam (decoração e bento): `docs/PLANO-ESTILOS.md`.
+- **Tokenização no repositório do gerador.** O plano previa os tokens de pele na origem; eles entram como um patch idempotente aplicado no fim da extração (`tools/lib/tokenizar.mjs`), para a Fase 1 não depender de mudar o DS de referência. Se a origem passar a ter os tokens, as âncoras deixam de casar e a extração avisa: aí o patch sai.
+- **Sombras dos componentes separadas das sombras de marca.** `shadow-*` usa `--shadow-ui-*` (valores padrão do Tailwind); `--shadow-xs…xl` (tingidas da primária) continuam nas classes `.brand-card`. Unificar seria uma mudança visual consciente. `shadow-primary/20` não funciona com sombra em `var()` e virou `shadow-[var(--shadow-brand)]`.
 - **Nada da infraestrutura da origem.** `.env`, `supabase/`, `src/integrations/`, `drizzle/`, `.lovable/` e `.github/` ficam fora do template, assim como o `pixel-script` do Supabase que o `index.html` carregava (estava no template anterior também).
 
 ## Verificação
@@ -67,13 +73,16 @@ npm run verificar -- --source <ds-sebrae>/frontend --node-modules <ds-sebrae>/fr
 | Checagem | Resultado na última execução |
 |---|---|
 | Extração: remanescentes da origem | 0 |
-| Briefing incompleto | recusado (30 pendências) |
+| Briefing incompleto | recusado (30 pendências; o estilo não conta) |
+| Presets de estilo / sem estilo = corporativo / estilo inválido | 12 válidos / byte a byte / pendência |
+| Tokenização × versão anterior (8 rotas, light e dark, duas marcas) | idêntica, exceto os gráficos do Dashboard Analítico em dark, que agora usam as cores do tema escuro no primeiro carregamento |
+| Matriz de estilos (`exemplo-verde`) | 12 estilos: build e 127 testes passando |
 | Ida e volta | `hex=0 hsl=0` |
 | Marca fictícia verde: marcas proibidas / placeholders | 0 / 0 |
 | Marca fictícia verde: termos da origem no DS gerado | 0 |
 | Marca verde: H1 (light e dark), validadores, ColorSection, textos de fonte e dependências | seguem o briefing |
 | Marca verde: `npm run build` | passou |
-| Marca verde: `vitest run` | 96 testes |
+| Marca verde: `vitest run` | 127 testes (96 + o grupo "Estilo visual" de `/tokens`) |
 
 Na versão com gráficos, o teste `HeaderVariants.bannerHeight` falhava já na origem (a barra do header perdeu o `maxHeight: 52px`). Uma regra em `substituicoes_por_arquivo` devolve o valor no template; quando a origem corrigir, a regra deixa de casar e pode sair.
 

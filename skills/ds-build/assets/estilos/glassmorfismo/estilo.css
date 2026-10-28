@@ -1,0 +1,50 @@
+/* Estilo visual: Glassmorfismo.
+ * Fundo com a malha de cores da marca (--surface-pattern) e vidro fosco em cards, header, menus e modais.
+ * Superfícies de sistema (tabelas e formulários) ficam mais opacas. Sem suporte a backdrop-filter, ou com
+ * transparência reduzida pedida pelo sistema, as superfícies voltam a ser opacas. */
+
+body {
+  background-image: var(--surface-pattern);
+  background-attachment: fixed;
+}
+
+:is([data-ds="card"], [data-ds="dialog"], [data-ds="popover"], [data-ds="dropdown"], [data-ds="tooltip"]) {
+  background-color: hsl(var(--card) / var(--card-alpha));
+  border-color: hsl(0 0% 100% / 0.45);
+  -webkit-backdrop-filter: blur(var(--surface-blur)) saturate(140%);
+  backdrop-filter: blur(var(--surface-blur)) saturate(140%);
+}
+
+.dark :is([data-ds="card"], [data-ds="dialog"], [data-ds="popover"], [data-ds="dropdown"], [data-ds="tooltip"]) {
+  border-color: hsl(0 0% 100% / 0.12);
+}
+
+[data-ds="header"] {
+  background-color: hsl(var(--header-surface) / 0.7);
+  -webkit-backdrop-filter: blur(var(--surface-blur)) saturate(140%);
+  backdrop-filter: blur(var(--surface-blur)) saturate(140%);
+}
+
+[data-ds="card"]:has([data-ds="table"], form, [data-ds="input"]) {
+  background-color: hsl(var(--card) / 0.85);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :is([data-ds="card"], [data-ds="dialog"], [data-ds="popover"], [data-ds="dropdown"], [data-ds="tooltip"]) {
+    background-color: hsl(var(--card));
+  }
+  [data-ds="header"] {
+    background-color: hsl(var(--header-surface));
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :is([data-ds="card"], [data-ds="dialog"], [data-ds="popover"], [data-ds="dropdown"], [data-ds="tooltip"]) {
+    background-color: hsl(var(--card));
+    backdrop-filter: none;
+  }
+  [data-ds="header"] {
+    background-color: hsl(var(--header-surface));
+    backdrop-filter: none;
+  }
+}

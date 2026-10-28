@@ -1,0 +1,38 @@
+/* Estilo visual: Neumorfismo.
+ * Botões em relevo, campos afundados (--shadow-inset). Salvaguardas: todo controle mantém uma borda
+ * com 3:1 sobre o fundo (--input) e o foco é um anel sólido, nunca só a sombra. */
+
+[data-ds="card"] {
+  box-shadow: var(--shadow-ui-md);
+}
+
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]) {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);
+}
+
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):active {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-inset);
+}
+
+[data-ds="input"],
+[data-ds="textarea"],
+[data-ds="select-trigger"] {
+  background-color: hsl(var(--background));
+  border-color: hsl(var(--input));
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-inset);
+}
+
+[data-ds="checkbox"],
+[data-ds="radio"],
+[data-ds="switch"] {
+  box-shadow: var(--shadow-inset);
+}
+
+[data-ds="tabs-list"] {
+  box-shadow: var(--shadow-inset);
+}
+
+:is(a, button, input, select, textarea, [role="button"], [role="tab"], [tabindex]):focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}

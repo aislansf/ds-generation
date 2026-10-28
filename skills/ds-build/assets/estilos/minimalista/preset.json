@@ -1,0 +1,56 @@
+{
+  "$schema": "../_schema.json",
+  "id": "minimalista",
+  "nome": "Minimalista",
+  "grupo": "limpos",
+  "nivel": 1,
+  "ordem": 1,
+  "descricao": "Só o essencial: muito respiro, quase sem sombra, cor da marca usada com parcimônia.",
+  "tema_padrao": "light",
+  "layout": "padrao",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Inter",
+      "Manrope"
+    ]
+  },
+  "degrade": false,
+  "tokens": {
+    ":root": {
+      "--radius": "0.25rem",
+      "--radius-card": "0.5rem",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-ui-lg": "0 8px 24px hsl(0 0% 0% / 0.06)",
+      "--shadow-ui-xl": "0 8px 24px hsl(0 0% 0% / 0.06)",
+      "--shadow-ui-2xl": "0 12px 32px hsl(0 0% 0% / 0.08)",
+      "--shadow-ui-inner": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--border": "{primaria.h} 10% 92%",
+      "--input": "{primaria.h} 12% 60%",
+      "--font-semibold": "500",
+      "--font-bold": "600",
+      "--icon-stroke": "1.5",
+      "--duration-normal": "150ms",
+      "--sidebar-background": "{primaria.h} 20% 98%",
+      "--sidebar-foreground": "{primaria.h} 25% 20%",
+      "--sidebar-accent": "{primaria.h} 40% 93%",
+      "--sidebar-accent-foreground": "{primaria.h} 55% 26%",
+      "--sidebar-border": "{primaria.h} 15% 90%",
+      "--sidebar-muted": "{primaria.h} 10% 40%",
+      "--sidebar-ring": "{primaria}",
+      "--header-surface": "0 0% 100%",
+      "--header-surface-border": "{primaria.h} 10% 92%"
+    }
+  },
+  "faca": [
+    "Deixe o branco separar os blocos, não bordas e sombras",
+    "Reserve a primária para a ação principal da tela"
+  ],
+  "evite": [
+    "Mais de uma cor de destaque na mesma tela",
+    "Sombras em cards estáticos"
+  ]
+}

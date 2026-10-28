@@ -15,6 +15,7 @@
  *   5. Reescreve os .asset.json (ponteiros para o CDN do projeto de origem) como ponteiros locais neutros.
  *   6. Ajusta o package.json (dependências removidas e acrescentadas) e gera o package-lock.json se a origem não tiver.
  *   7. Aplica origem/overrides/ por cima (logos neutros, imagens genéricas, README…) e grava template.manifest.json.
+ *   7b. Tokeniza o esqueleto para os estilos visuais (tools/lib/tokenizar.mjs: tokens de pele e ganchos).
  *   8. Falha (exit 1) se sobrar qualquer termo da origem (nome, marcas proibidas, termos_especificos, lugares).
  *
  * As cores NÃO viram placeholder: o template guarda as cores de origem e o gerador
@@ -27,6 +28,7 @@ import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { PLACEHOLDERS } from "../skills/ds-build/scripts/lib/rules.mjs";
 import { buildExtractionRules, buildPathRules, buildFileRules, applyRules, residualMatchers, termoPermitido } from "./lib/regras-extracao.mjs";
+import { tokenizar } from "./lib/tokenizar.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SKILL = path.join(ROOT, "skills", "ds-build");
@@ -180,6 +182,10 @@ if (fs.existsSync(OVERRIDES)) {
 }
 const overrides = overridden.size;
 
+// Estilos visuais, Fase 1: tokens de pele e ganchos (data-ds, data-surface) por cima da origem.
+// Âncora que não casa = a origem mudou naquele ponto: revise tools/lib/tokenizar.mjs.
+const tokenizacao = tokenizar(OUT);
+
 // Arquivos de código trocados inteiros por versões neutras: se a origem mudou desde a versão neutra,
 // a mudança não chegaria ao template sem ninguém perceber. O hash registrado obriga a revisar.
 const codeOverrideDrift = [];
@@ -216,7 +222,7 @@ fs.writeFileSync(path.join(OUT, "template.manifest.json"), JSON.stringify(manife
 const matchers = residualMatchers(brief);
 const revisadas = new Set(brief.origem.imagens_revisadas ?? []);
 const IMAGE_EXT = /\.(png|jpe?g|webp|gif|ico|svg|avif)$/i;
-const leftovers = [...codeOverrideDrift];
+const leftovers = [...codeOverrideDrift, ...tokenizacao.faltando.map((f) => `tokenização: ${f}`)];
 (function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);

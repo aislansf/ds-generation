@@ -1,0 +1,12 @@
+/* Camada CSS do estilo visual do DS.
+ *
+ * Vazia no estilo "corporativo" (padrão). O ds-build grava aqui o CSS do estilo escolhido:
+ * o que os tokens de pele (src/index.css) não expressam, como blur, sombra interna em campos
+ * ou hover que desloca o elemento.
+ *
+ * Ganchos estáveis dos componentes:
+ *   [data-ds="button|card|input|textarea|select-trigger|checkbox|radio|switch|badge|alert|dialog|
+ *              popover|dropdown|tabs-list|tabs-trigger|table|toast|tooltip|sidebar|header"]
+ *   [data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|…"]
+ *   [data-surface="marca"]  superfícies de marca (decoração só aparece nelas)
+ */

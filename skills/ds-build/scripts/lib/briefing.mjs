@@ -1,8 +1,10 @@
 // Questionário obrigatório do briefing. Toda pergunta precisa de resposta explícita do usuário:
 // campos opcionais aceitam uma resposta de "não se aplica" (false, "derivar", "manter", []), mas nunca ficar em branco.
+// A exceção é o estilo visual: sem resposta, vale o padrão ("corporativo", o visual de sempre).
 // Usado por generate-ds.mjs (recusa gerar com pendências) e por validar-briefing.mjs (lista o que falta perguntar).
 import fs from "node:fs";
 import path from "node:path";
+import { listarEstilos, ESTILO_PADRAO } from "./estilos.mjs";
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const DOMINIO = /^(?!https?:\/\/)[a-z0-9-]+(\.[a-z0-9-]+)+$/i;
@@ -30,6 +32,16 @@ export const PERGUNTAS = [
   { campo: "dominios.org_raiz", pergunta: "O portal principal usa outro domínio, diferente do institucional?", aceita: "domínio, ou false se for o mesmo", ok: (v) => v === false || (isStr(v) && DOMINIO.test(v)) },
   { campo: "manual_marca_url", pergunta: "Qual é a URL do manual de marca/brandbook?", aceita: "URL http(s), ou false se não houver", ok: (v) => v === false || (isStr(v) && URL_RE.test(v)) },
   { campo: "og_image_url", pergunta: "Qual imagem usar no compartilhamento em redes (Open Graph)?", aceita: "URL http(s), ou false para usar o favicon", ok: (v) => v === false || (isStr(v) && URL_RE.test(v)) },
+
+  // Única pergunta com padrão: sem resposta, o DS sai no estilo atual (corporativo). Uma resposta que não é
+  // um estilo do catálogo continua sendo pendência, porque o usuário quis dizer alguma coisa.
+  {
+    campo: "estilo",
+    pergunta: "Qual estilo visual o DS deve seguir?",
+    get aceita() { return `id de um estilo (${listarEstilos().join(", ")}); sem resposta = "${ESTILO_PADRAO}"`; },
+    padrao: ESTILO_PADRAO,
+    ok: (v) => listarEstilos().includes(v),
+  },
 
   { campo: "cores.primaria", pergunta: "Qual é a cor primária (institucional)?", aceita: "#RRGGBB", ok: (v) => HEX.test(v ?? "") },
   { campo: "cores.secundaria", pergunta: "Qual é a cor secundária (apoio)?", aceita: "#RRGGBB, ou \"derivar\" para calcular a partir da primária", ok: (v) => v === "derivar" || HEX.test(v ?? "") },
@@ -78,6 +90,8 @@ export function validarBriefing(brief, dir) {
   for (const q of PERGUNTAS) {
     const v = get(brief, q.campo);
     let motivo = null;
+    const vazio = v === undefined || v === null || v === "" || naoPreenchido(v);
+    if (vazio && q.padrao !== undefined) continue;
     if (v === undefined || v === null || v === "") motivo = "sem resposta";
     else if (naoPreenchido(v)) motivo = "ainda com o texto do modelo";
     else if (!q.ok(v, { dir, brief })) motivo = `resposta inválida (${JSON.stringify(v).slice(0, 80)})`;
@@ -107,5 +121,12 @@ export function normalizarBriefing(brief) {
   drop(b.fontes, "sistema", false);
   for (const k of ["cor", "branco", "preto"]) drop(b.logos, k, false);
   drop(b, "favicon", false);
+  if (estiloPadrao(b)) b.estilo = ESTILO_PADRAO;
   return b;
+}
+
+/** O briefing não informou o estilo (ausente, vazio ou ainda com o texto do modelo): vale o padrão. */
+export function estiloPadrao(brief) {
+  const v = brief?.estilo;
+  return v === undefined || v === null || v === "" || naoPreenchido(v);
 }

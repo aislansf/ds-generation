@@ -1,0 +1,52 @@
+/* Estilo visual: Material Design (M3).
+ * Camada de estado (8% no hover, 12% no pressionado) em botões, abas e itens de menu,
+ * e campos no padrão "filled": fundo tonal e só a borda inferior. */
+
+:where([data-ds="button"], [data-ds="tabs-trigger"]) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+[data-ds="button"]::after,
+[data-ds="tabs-trigger"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal) var(--ease-emphasis);
+}
+
+[data-ds="button"]:hover::after,
+[data-ds="tabs-trigger"]:hover::after {
+  opacity: 0.08;
+}
+
+[data-ds="button"]:active::after,
+[data-ds="tabs-trigger"]:active::after {
+  opacity: 0.12;
+}
+
+[data-ds="dropdown"] [role="menuitem"]:hover {
+  background-color: hsl(var(--foreground) / 0.08);
+}
+
+[data-ds="input"],
+[data-ds="textarea"],
+[data-ds="select-trigger"] {
+  background-color: hsl(var(--muted));
+  border-width: 0 0 var(--control-border-width) 0;
+  border-color: hsl(var(--foreground) / 0.6);
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+[data-ds="input"]:focus-visible,
+[data-ds="textarea"]:focus-visible,
+[data-ds="select-trigger"]:focus {
+  border-bottom-width: 2px;
+  border-color: hsl(var(--primary));
+}

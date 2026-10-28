@@ -1,0 +1,50 @@
+{
+  "$comentario": "Marca fictícia com estilo visual informado (neobrutalismo). O exemplo-verde.json não tem o campo \"estilo\" de propósito: prova que, sem resposta, o DS sai no estilo padrão (corporativo).",
+
+  "nome": "Estúdio Horizonte",
+  "nome_curto": "Horizonte",
+  "nome_completo": "Horizonte Estúdio de Inovação Ltda.",
+  "genero": "m",
+  "slug": "estudio-horizonte",
+  "slogan": "Ideias que saem do papel",
+  "descricao": "Padrões de UI para os produtos digitais do Estúdio Horizonte.",
+
+  "dominios": {
+    "ds": "ds.horizonte.example",
+    "org": "horizonte.example",
+    "org_raiz": false
+  },
+  "manual_marca_url": false,
+  "og_image_url": false,
+
+  "estilo": "neobrutalismo",
+
+  "cores": {
+    "primaria": "#5B3DF5",
+    "secundaria": "#FF6B35",
+    "destaque": "#FFD23F",
+    "realce": "#00A878"
+  },
+
+  "fontes": {
+    "primaria": { "nome": "Space Grotesk", "google": true },
+    "display": false,
+    "sistema": false
+  },
+
+  "logos": { "cor": false, "branco": false, "preto": false },
+  "favicon": false,
+
+  "termos_proibidos": [],
+
+  "conteudo": {
+    "tom_de_voz": "Direto, bem-humorado e sem jargão.",
+    "publico": "Times de produto e clientes que usam as ferramentas do estúdio.",
+    "paleta_estendida": [],
+    "regras_de_marca": []
+  },
+
+  "modulos": { "modelos_bi": true },
+
+  "confirmado_pelo_usuario": true
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Preset de estilo visual do ds-build",
+  "description": "Um estilo define forma, profundidade, peso e ritmo do DS. Ele nunca altera a escala da marca (--brand-*) nem as cores semânticas (success, warning, error, info, destructive). Validado também por scripts/lib/estilos.mjs.",
+  "type": "object",
+  "required": ["id", "nome", "grupo", "nivel", "ordem", "descricao", "tema_padrao", "layout", "fontes_sugeridas", "degrade", "tokens", "faca", "evite"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "nome": { "type": "string" },
+    "grupo": { "enum": ["limpos", "ousados", "epocas", "digitais", "organicos"] },
+    "nivel": { "type": "integer", "minimum": 0, "maximum": 4, "description": "0 = padrão; 1 = só tokens; 2 = tokens + camada CSS; 3 = decoração; 4 = layout" },
+    "ordem": { "type": "integer", "description": "Posição no catálogo (seção 4 do plano)" },
+    "descricao": { "type": "string" },
+    "tema_padrao": { "enum": ["light", "dark"] },
+    "layout": { "enum": ["padrao", "bento"] },
+    "fontes_sugeridas": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primaria": { "type": "array", "items": { "type": "string" } },
+        "display": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "degrade": { "type": "boolean", "description": "false: o header degradê vira cor sólida" },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        ":root": { "$ref": "#/definitions/mapaTokens" },
+        ".dark": { "$ref": "#/definitions/mapaTokens" }
+      }
+    },
+    "css": { "type": "string", "description": "Camada CSS do estilo, relativa à pasta do preset (vai para src/styles/estilo.css)" },
+    "contraste": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pares_extras": {
+          "type": "array",
+          "items": { "type": "array", "items": [{ "type": "string" }, { "type": "string" }, { "type": "number" }], "minItems": 3, "maxItems": 3 }
+        }
+      }
+    },
+    "faca": { "type": "array", "items": { "type": "string" } },
+    "evite": { "type": "array", "items": { "type": "string" } }
+  },
+  "definitions": {
+    "mapaTokens": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/definitions/tokenPermitido" },
+      "additionalProperties": { "type": "string", "pattern": "^([^;{}]|\\{(primaria|secundaria|destaque|realce|neon)(\\.(h|s|l))?\\})+$" }
+    },
+    "tokenPermitido": {
+      "anyOf": [
+        {
+          "enum": [
+            "--background", "--foreground", "--card", "--card-foreground", "--popover", "--popover-foreground",
+            "--muted", "--muted-foreground", "--accent", "--accent-foreground", "--border", "--input", "--ring",
+            "--card-icon", "--card-icon-foreground",
+            "--header-surface", "--header-surface-foreground", "--header-surface-border",
+            "--radius", "--radius-sm", "--radius-md", "--radius-lg", "--radius-xl", "--radius-2xl", "--radius-3xl", "--radius-full",
+            "--radius-card", "--radius-control", "--radius-control-brand",
+            "--border-width", "--border-width-strong", "--card-border-width", "--control-border-width",
+            "--shadow-inset", "--shadow-hover", "--shadow-brand",
+            "--card-alpha", "--surface-blur", "--surface-pattern",
+            "--heading-transform", "--icon-stroke"
+          ]
+        },
+        { "pattern": "^--sidebar-[a-z-]+$" },
+        { "pattern": "^--shadow-ui(-[a-z0-9]+)?$" },
+        { "pattern": "^--font-(light|regular|medium|semibold|bold|extrabold|black)$" },
+        { "pattern": "^--tracking-[a-z]+$" },
+        { "pattern": "^--duration-[a-z]+$" },
+        { "pattern": "^--ease-[a-z-]+$" },
+        { "pattern": "^--deco-[a-z]+$" },
+        { "pattern": "^--chart-[a-z-]+$" }
+      ]
+    }
+  }
+}

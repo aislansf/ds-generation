@@ -7,7 +7,8 @@ Skill **`ds-build`** (comando `/ds-build`): gera um Design System completo para 
 - biblioteca de gráficos Apache ECharts: 74 presets em 7 categorias, tema derivado dos tokens, playground e downloads;
 - templates de tela (login, 2FA, listagem, formulário, dashboards, Tela BI, erro…);
 - páginas de marca, webwriting e acessibilidade;
-- validadores de build e testes.
+- validadores de build e testes;
+- um **estilo visual** à escolha: corporativo (padrão), minimalista, suíço, flat, Material, escandinavo, brutalista, neobrutalismo, neumorfismo, glassmorfismo, claymorfismo ou cyberpunk. A marca define cor, fonte e logo; o estilo define raios, bordas, sombras, pesos e ritmo do DS inteiro.
 
 Junto vem a skill **`ds-run`** (comando `/ds-run`), que sobe o DS gerado com `npm run dev` para ver o projeto rodando.
 
@@ -46,6 +47,7 @@ Com as skills instaladas, use os comandos:
 /ds-build                          # começa o questionário do zero
 /ds-build Agência Horizonte        # já informa o nome da marca
 /ds-build briefings/horizonte.json # parte de um briefing existente
+/ds-build Agência Horizonte --estilo neobrutalismo   # já escolhe o estilo visual
 /ds-run                            # sobe o último DS gerado (npm run dev)
 /ds-run ../ds-horizonte            # sobe o DS de uma pasta
 ```
@@ -54,7 +56,7 @@ Ou peça em linguagem natural:
 
 > Crie um design system para a marca X
 
-O agente faz **todas** as perguntas do briefing (30, incluindo as de "não se aplica", que o usuário precisa escolher). Se você não entregar todas as respostas de uma vez, ele pergunta **uma por vez** e só passa para a próxima depois da resposta. Em seguida, mostra um resumo para confirmação, gera o projeto, roda build e testes, reescreve os textos de marca e entrega o DS com a lista de pendências. O gerador se recusa a rodar enquanto faltar alguma resposta.
+O agente faz **todas** as perguntas do briefing (31, incluindo as de "não se aplica", que o usuário precisa escolher). Se você não entregar todas as respostas de uma vez, ele pergunta **uma por vez** e só passa para a próxima depois da resposta. A única pergunta com padrão é a do estilo visual: sem resposta, o DS sai no estilo `corporativo`, o visual de sempre. Em seguida, mostra um resumo para confirmação, gera o projeto, roda build e testes, reescreve os textos de marca e entrega o DS com a lista de pendências. O gerador se recusa a rodar enquanto faltar alguma resposta.
 
 O `/ds-run` acha a pasta do DS (a da última geração, a atual ou uma vizinha com `GERACAO.md`), instala as dependências se faltarem, roda `npm run dev` em segundo plano e mostra o endereço (porta 8080 ou a próxima livre).
 
@@ -63,7 +65,7 @@ Sem agente:
 ```bash
 cp skills/ds-build/assets/brand-brief.template.json minha-marca.json   # responda cada PREENCHER
 npm run validar-briefing -- minha-marca.json                              # lista o que falta
-npm run gerar -- --brief minha-marca.json --out ../ds-minha-marca
+npm run gerar -- --brief minha-marca.json --out ../ds-minha-marca   # --estilo <id> escolhe o estilo visual
 cd ../ds-minha-marca && npm install --legacy-peer-deps && npm run build
 ```
 
@@ -79,11 +81,12 @@ skills/ds-build/                    o que o `npx skills add` instala (100% neutr
     generate-ds.mjs                 briefing + template → DS novo
     validar-contraste.mjs           auditoria WCAG dos tokens
     gerar-escala.mjs                escala 50–700 a partir de um HEX
-    lib/                            questionário, cor, contraste e placeholders
-  references/                       tokens, arquitetura, geração, reescrita semântica, checklist
+    lib/                            questionário, cor, contraste, placeholders e estilos visuais
+  references/                       tokens, estilos, arquitetura, geração, reescrita semântica, checklist
   assets/
     brand-brief.template.json       modelo de briefing
-    examples/exemplo-verde.json     marca fictícia de teste
+    examples/                       marcas fictícias de teste (sem estilo e com neobrutalismo)
+    estilos/                        presets dos estilos visuais (preset.json + estilo.css) e _schema.json
     template/                       template neutro (gerado, não editar à mão)
 skills/ds-run/                      também instalado
   SKILL.md                          comando /ds-run: sobe o DS gerado com npm run dev
@@ -93,8 +96,11 @@ origem/                             manutenção: DS de referência de onde o te
   overrides/                        arquivos que substituem os do template (logos neutros, imagens genéricas…)
 tools/
   extract-template.mjs              DS de origem → template neutro (falha se sobrar qualquer termo da origem)
+  tokenizar-template.mjs            aplica ao template os tokens de pele e ganchos dos estilos (a extração já roda)
   imagens-neutras.mjs               gera as imagens genéricas e recaptura as miniaturas
-  verificar.mjs                     regressão: extração, questionário, ida e volta, geração e build
+  verificar.mjs                     regressão: extração, questionário, ida e volta, estilos, geração e build
+  verificar-identidade.mjs          prova que uma mudança não altera o DS gerado (arquivos e capturas pixel a pixel)
+  matriz-estilos.mjs                gera, compila, testa e captura cada estilo visual (galeria para revisão)
 docs/HANDOFF.md                     contexto, decisões e limitações
 ```
 
@@ -113,7 +119,20 @@ As checagens precisam passar:
 - gerar a origem a partir dela mesma não altera nenhuma cor;
 - a marca de teste sai sem marcas proibidas, sem placeholders e sem nenhum termo da origem;
 - o H1, os validadores e a ColorSection saem com a cor exata do briefing, os textos de fonte seguem a origem de cada fonte e o `@testing-library/dom` está declarado;
+- os presets de estilo são válidos, gerar sem estilo é igual a gerar com `corporativo` (byte a byte) e um estilo inexistente vira pendência;
 - o DS gerado passa no build e nos testes.
+
+Mudanças no template ou no gerador que não deveriam alterar o visual são conferidas contra uma versão anterior da skill (capturas pixel a pixel em light e dark):
+
+```bash
+node tools/verificar-identidade.mjs --base HEAD --node-modules <node_modules>
+```
+
+Para os estilos visuais, a matriz gera, compila e testa cada estilo, e monta uma galeria para revisão:
+
+```bash
+node tools/matriz-estilos.mjs --node-modules <node_modules> --capturas
+```
 
 Se a origem ganhar telas novas, recapture as miniaturas com `npm run imagens -- --source <frontend> --node-modules <node_modules>`.
 

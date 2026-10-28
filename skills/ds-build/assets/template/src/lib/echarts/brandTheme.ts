@@ -186,7 +186,17 @@ export interface BrandEchartsTheme {
 }
 
 
+/** Lê um token numérico (px ou sem unidade) dos tokens de pele do estilo visual. */
+function readNumber(name: string, fallback: number): number {
+  if (typeof window === "undefined" || typeof document === "undefined") return fallback;
+  const n = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name));
+  return Number.isFinite(n) ? n : fallback;
+}
+
 export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
+  const lineWidth = readNumber("--chart-line-width", 2);
+  const barRadius = readNumber("--chart-bar-radius", 0);
+  const smooth = readNumber("--chart-smooth", 0) > 0;
   const foreground = readToken("--foreground");
   const muted = readToken("--muted-foreground");
   const border = readToken("--border");
@@ -214,8 +224,8 @@ export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
     tooltip: {
       backgroundColor: card,
       borderColor: border,
-      borderWidth: 1,
-      borderRadius: 8,
+      borderWidth: readNumber("--card-border-width", 1),
+      borderRadius: readNumber("--chart-tooltip-radius", 8),
       padding: [8, 12],
       extraCssText: mode === "dark"
         ? "box-shadow: 0 10px 15px -3px hsl(0 0% 0% / 0.3);"
@@ -248,8 +258,15 @@ export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
     },
     // Hover previsível: destaca o elemento sob o cursor sem apagar os demais.
     // Sombras usam cor derivada de token com alpha (rgba), parseável pelo zrender.
-    bar: { emphasis: { focus: "series", itemStyle: { shadowBlur: 10, shadowColor: shadow } } },
-    line: { emphasis: { focus: "series" } },
+    bar: {
+      ...(barRadius > 0 ? { itemStyle: { borderRadius: barRadius } } : {}),
+      emphasis: { focus: "series", itemStyle: { shadowBlur: 10, shadowColor: shadow } },
+    },
+    line: {
+      ...(lineWidth !== 2 ? { lineStyle: { width: lineWidth } } : {}),
+      ...(smooth ? { smooth: true } : {}),
+      emphasis: { focus: "series" },
+    },
     pie: {
       emphasis: {
         focus: "self",
