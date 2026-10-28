@@ -197,6 +197,9 @@ export function aplicarEstilo(out, preset, cores) {
   return { tokens: contagem, alterados, camada: !!camada, campos, avisos };
 }
 
+/** Superfícies que um ajuste de contraste leva junto quando o preset as declara na mesma família de cor. */
+const SUPERFICIES = ["--background", "--card", "--popover", "--muted"];
+
 /** Pares mínimos de todo estilo (seção 10.3 do plano): [frente, fundo, mínimo]. */
 const PARES_ESTILO = [
   ["--foreground", "--background", 4.5],
@@ -243,7 +246,21 @@ export function contrasteDoEstilo(css, preset, alterados, cores) {
       if (ok) {
         const novo = `${Math.round(mover.h)} ${Math.round(mover.s)}% ${Math.round(mover.l)}%${alfa ? ` ${alfa.trim()}` : ""}`;
         css = definirVar(css, sel, alvo, novo);
-        ajustes.push(`${sel} ${alvo} → ${novo} (${fg} sobre ${bg} tinha ${r.toFixed(2)}:1, mínimo ${min}:1)`);
+        // Superfícies da mesma família (mesma matiz e saturação no preset) andam juntas: o neumorfismo declara
+        // fundo, card, popover e muted na mesma cor (ou um passo acima), e o relevo some se só uma delas mudar.
+        const junto = [];
+        const original = parseTriplet(atual);
+        if (SUPERFICIES.includes(alvo) && original) {
+          const delta = Math.round(mover.l) - original.l;
+          for (const outro of SUPERFICIES) {
+            if (outro === alvo || !(outro in (preset.tokens?.[sel] ?? {}))) continue;
+            const t = parseTriplet(lerVar(css, sel, outro) ?? "");
+            if (!t || t.h !== original.h || t.s !== original.s) continue;
+            css = definirVar(css, sel, outro, `${t.h} ${t.s}% ${Math.max(0, Math.min(100, t.l + delta))}%`);
+            junto.push(outro);
+          }
+        }
+        ajustes.push(`${sel} ${alvo} → ${novo} (${fg} sobre ${bg} tinha ${r.toFixed(2)}:1, mínimo ${min}:1)${junto.length ? `; junto: ${junto.join(", ")}` : ""}`);
       } else {
         avisos.push(`${sel} ${fg} sobre ${bg}: ${r.toFixed(2)}:1, abaixo de ${min}:1, e o ajuste do estilo não resolveu.`);
       }

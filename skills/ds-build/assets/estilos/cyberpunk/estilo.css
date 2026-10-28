@@ -2,8 +2,21 @@
  * Cantos cortados nos cards, rótulos em mono do sistema com caixa alta e brilho neon no hover.
  * O brilho nunca é o único sinal de foco: o anel sólido continua. */
 
+/* O clip-path corta tudo o que passa da borda do card: brilho (box-shadow), anel de foco e menus abertos
+ * dentro dele. Por isso o corte só vale em repouso: com o card em hover, focado ou com foco dentro,
+ * os cantos voltam e o brilho e o anel aparecem inteiros. */
 [data-ds="card"] {
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+[data-ds="card"]:focus-visible,
+[data-ds="card"]:focus-within,
+:is(a, button)[data-ds="card"]:hover {
+  clip-path: none;
+}
+
+.dark :is(a, button)[data-ds="card"]:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 label,

@@ -7,7 +7,7 @@
  *                                 [--chromium <exe>] [--saida <pasta>] [--rotas /,/componentes]
  *
  * Para cada estilo: gera com --estilo, roda `npm run build` (typecheck, tokens do Figma, checagens e vite build)
- * e `vitest run`, e lê os ajustes e avisos de contraste do GERACAO.md. Com --capturas, serve o dist e captura
+ * e `vitest run`, e lê os ajustes de contraste e os avisos do estilo em public/design-system/estilo.json. Com --capturas, serve o dist e captura
  * a Home, /componentes e três templates (ou as rotas de --rotas) em light e dark, montando uma galeria HTML
  * para revisão humana.
  *
@@ -58,10 +58,10 @@ for (const id of ESTILOS) {
   const linha = { id, nome: carregarEstilo(id).nome, gerar: g.ok, build: null, testes: null, ajustes: 0, avisos: 0, erro: "" };
   if (!g.ok) linha.erro = g.out.split("\n").slice(0, 3).join(" ");
   else {
-    const rel = fs.readFileSync(path.join(dir, "GERACAO.md"), "utf8");
-    const bloco = /## Estilo visual[\s\S]*?(?=\n## )/.exec(rel)?.[0] ?? "";
-    linha.ajustes = (bloco.match(/^\s{2}- /gm) ?? []).length;
-    linha.avisos = (/## Avisos\n\n([\s\S]*?)\n\n## /.exec(rel)?.[1] ?? "").split("\n").filter((l) => l.startsWith("- ") && !l.includes("(nenhum)") && /contraste|:1/.test(l)).length;
+    // Resumo estruturado gravado pelo gerador (ajustes e avisos do estilo)
+    const resumo = JSON.parse(fs.readFileSync(path.join(dir, "public/design-system/estilo.json"), "utf8"));
+    linha.ajustes = resumo.ajustes_contraste.length;
+    linha.avisos = resumo.avisos.length;
     if (!args["sem-build"]) {
       const b = run("npm", ["run", "build"], dir);
       linha.build = b.ok;
@@ -74,7 +74,7 @@ for (const id of ESTILOS) {
   }
   linhas.push(linha);
   const st = (v) => (v === null ? "—" : v ? "ok" : "FALHOU");
-  console.log(`${linha.gerar && linha.build !== false && !/falha/.test(linha.testes ?? "") ? "✅" : "❌"} ${id.padEnd(14)} gerar=${st(linha.gerar)} build=${st(linha.build)} testes=${linha.testes ?? "—"} ajustes=${linha.ajustes}${linha.erro ? ` — ${linha.erro.slice(0, 200)}` : ""}`);
+  console.log(`${linha.gerar && linha.build !== false && !/falha/.test(linha.testes ?? "") ? "✅" : "❌"} ${id.padEnd(14)} gerar=${st(linha.gerar)} build=${st(linha.build)} testes=${linha.testes ?? "—"} ajustes=${linha.ajustes} avisos=${linha.avisos}${linha.erro ? ` — ${linha.erro.slice(0, 200)}` : ""}`);
 }
 
 // ---------- Galeria ----------

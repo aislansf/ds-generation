@@ -156,7 +156,8 @@ test("aplicarEstilo grava tokens em :root e .dark, a camada CSS e o tema padrão
     assert.equal(res.campos, true);
     const css = f.ler("src/index.css");
     assert.equal(lerVar(css, ".dark", "--ring"), "40 90% 60%");
-    assert.equal(lerVar(css, ":root", "--border"), "40 70% 30%");
+    assert.equal(lerVar(css, ":root", "--border"), "240 15% 25%");
+    assert.equal(lerVar(css, ":root", "--ring"), "40 80% 35%");
     assert.match(f.ler("src/config/estilo.ts"), /id: "cyberpunk"[\s\S]*temaPadrao: "dark"/);
     assert.match(f.ler("index.html"), /var padrao = "dark";/);
     assert.doesNotMatch(f.ler("src/styles/estilo.css"), /\{(primaria|secundaria|destaque|realce|neon)/);
@@ -267,6 +268,25 @@ test("contrasteDoEstilo leva a borda de campo do estilo a 3:1 em :root e .dark e
   assert.ok(parseTriplet(lerVar(r.css, ".dark", "--input")).l > 18);
   assert.deepEqual(r.ajustes.map((a) => a.split(" → ")[0]), [":root --input", ".dark --input"]);
   assert.deepEqual(r.avisos, []);
+});
+
+test("contrasteDoEstilo leva junto as superfícies da mesma família (relevo do neumorfismo)", () => {
+  const tokens = { "--background": "150 12% 18%", "--card": "150 12% 18%", "--popover": "150 12% 18%", "--muted": "150 12% 21%" };
+  const p = preset({ tokens: { ".dark": tokens } });
+  // O texto secundário vem da marca (não é do estilo): quem se ajusta são as superfícies
+  let css = definirVar(CSS, ".dark", "--muted-foreground", "0 0% 55%");
+  // Bordas de campo já com 3:1, para só o texto secundário pedir ajuste
+  css = definirVar(definirVar(css, ":root", "--input", "0 0% 40%"), ".dark", "--input", "0 0% 70%");
+  for (const [k, v] of Object.entries(tokens)) css = definirVar(css, ".dark", k, v);
+  const r = contrasteDoEstilo(css, p, new Set(Object.keys(tokens)), CORES);
+  const L = (n) => parseTriplet(lerVar(r.css, ".dark", n)).l;
+  assert.ok(L("--background") < 18);
+  assert.equal(L("--card"), L("--background"));
+  assert.equal(L("--popover"), L("--background"));
+  assert.equal(L("--muted") - L("--background"), 3, "o muted mantém o passo em relação ao fundo");
+  const darkAjustes = r.ajustes.filter((a) => a.startsWith(".dark"));
+  assert.equal(darkAjustes.length, 1);
+  assert.match(darkAjustes[0], /junto: --card, --popover, --muted$/);
 });
 
 test("contrasteDoEstilo não mexe em pares que o estilo não tocou", () => {

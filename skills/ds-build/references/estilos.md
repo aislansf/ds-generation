@@ -93,7 +93,7 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **neumorfismo:** fundo, cards e popovers na mesma cor; relevo com luz e sombra; campos, checkbox, switch e abas afundados; salvaguardas: borda de 3:1 em todo controle e anel de foco sólido; sem degradê.
 - **glassmorfismo:** malha de `radial-gradient` com as cores da marca no fundo; cards, header, menus e modais em vidro (55% de opacidade no light, 35% no dark, desfoque de 16px); cards com tabela ou formulário a 85%.
 - **claymorfismo:** fundo tingido da primária; cards 1.5rem e controles em pílula, sem borda; sombra colorida por fora e realce por dentro; hover com aumento de 2%; gráficos com curvas suaves e barras arredondadas.
-- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards; rótulos em mono com caixa alta. No light, alto contraste com o neon escurecido. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
+- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards em repouso (somem em hover e foco, para o brilho e o anel não serem cortados); rótulos em mono com caixa alta. No light, alto contraste: estrutura em neutro escuro sobre fundo frio e o neon escurecido no anel de foco. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
 
 ## Criar ou ajustar um preset
 

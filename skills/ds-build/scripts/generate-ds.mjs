@@ -622,6 +622,23 @@ ${contrastTable(contraste)}
 `;
 write("GERACAO.md", relatorio);
 
+// Resumo estruturado do estilo (lido pela matriz de estilos e, na Fase 6, pela seção "Estilo visual" do DS).
+// Sem data nem caminho absoluto: gerar duas vezes dá o mesmo arquivo.
+write("public/design-system/estilo.json", JSON.stringify({
+  id: estilo.id,
+  nome: estilo.nome,
+  nivel: estilo.nivel,
+  tema_padrao: estilo.tema_padrao,
+  layout: estilo.layout,
+  tokens_alterados: estiloRes.tokens,
+  camada_css: estiloRes.camada,
+  campos_seguem_estilo: estiloRes.campos,
+  degrade: estilo.degrade !== false,
+  ajustes_contraste: estiloContraste.ajustes,
+  avisos: [...estiloRes.avisos, ...estiloContraste.avisos],
+  contraste_abaixo_aa: falhas.length,
+}, null, 2) + "\n");
+
 // ---------- 9. node_modules (opcional, para testar o build) ----------
 if (args["node-modules"]) {
   const nm = path.resolve(args["node-modules"]);
