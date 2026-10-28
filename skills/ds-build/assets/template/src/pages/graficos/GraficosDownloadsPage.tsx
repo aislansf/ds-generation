@@ -122,7 +122,7 @@ export default function GraficosDownloadsPage() {
               {CHART_PRESETS.length} gráficos · temas light e dark · wrapper React · manifesto <code className="text-xs">index.json</code>
             </p>
           </div>
-          <button
+          <button data-ds="button" data-variant="default"
             type="button"
             disabled={carregando === "full"}
             onClick={() => executar("full", downloadFullLibraryZip)}
@@ -167,7 +167,7 @@ export default function GraficosDownloadsPage() {
               </div>
               <h3 className="text-base font-semibold text-foreground mb-1">{cat.nome}</h3>
               <p className="text-sm text-muted-foreground flex-1">{cat.descricao}</p>
-              <button
+              <button data-ds="button" data-variant="outline"
                 type="button"
                 disabled={carregando === chave}
                 onClick={() => executar(chave, () => downloadCategoriaZip(cat.slug as ChartCategoria, cat.nome))}
@@ -190,21 +190,21 @@ export default function GraficosDownloadsPage() {
       />
       <div className="brand-card mb-8">
         <div className="flex flex-wrap gap-2">
-          <button
+          <button data-ds="button" data-variant="default"
             type="button"
             onClick={downloadThemeJs}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <FileCode2 size={14} /> brand-theme.js
           </button>
-          <button
+          <button data-ds="button" data-variant="outline"
             type="button"
             onClick={() => downloadThemeJson("light")}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <FileJson size={14} /> brand-light.json
           </button>
-          <button
+          <button data-ds="button" data-variant="outline"
             type="button"
             onClick={() => downloadThemeJson("dark")}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
@@ -226,7 +226,7 @@ export default function GraficosDownloadsPage() {
         description="Consuma o catálogo de forma programática: id, nome, categoria, descrição, tags e caminho dos arquivos de cada gráfico."
       />
       <div className="brand-card mb-4">
-        <button
+        <button data-ds="button" data-variant="default"
           type="button"
           onClick={downloadManifest}
           className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"

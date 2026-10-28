@@ -291,7 +291,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
         <div className="p-3 space-y-2">
           <div className="relative">
             <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-            <input
+            <input data-ds="input"
               ref={searchInputRef}
               type="text"
               placeholder="Buscar seções, componentes..."
@@ -304,7 +304,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
               aria-describedby="search-hint"
             />
             {searchQuery && (
-              <button
+              <button data-ds="button" data-variant="ghost"
                 onClick={() => { setSearchQuery(""); setShowNoResults(false); searchInputRef.current?.focus(); }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
                 aria-label="Limpar busca"
@@ -438,7 +438,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header data-ds="header" data-surface="marca" className="h-[92px] flex items-center px-4 gap-3 fixed top-0 left-0 right-0 z-50 border-b border-header-border bg-header text-header-foreground transition-colors">
-        <button
+        <button data-ds="button" data-variant="ghost"
           className="lg:hidden p-1.5 rounded hover:bg-foreground/10 transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
@@ -479,7 +479,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         <div className="ml-auto flex items-center gap-2">
-          <button
+          <button data-ds="button" data-variant="ghost"
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-foreground/10 transition-colors"
             aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
@@ -504,7 +504,7 @@ export default function DSLayout({ children }: { children: React.ReactNode }) {
           className={`hidden lg:flex lg:flex-col sticky top-[92px] h-[calc(100vh-92px)] bg-sidebar text-sidebar-foreground overflow-y-auto transition-all duration-200 ${collapsed ? "w-16" : "w-64"}`}>
           <div className="flex-1 overflow-y-auto">{renderNav(collapsed)}</div>
           <div className={`border-t border-sidebar-border p-2 ${collapsed ? "flex justify-center" : "px-3"}`}>
-            <button onClick={() => setCollapsed(!collapsed)}
+            <button data-ds="button" data-variant="ghost" onClick={() => setCollapsed(!collapsed)}
               className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
               aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>
               {collapsed ? <PanelLeftOpen size={16} /> : <><PanelLeftClose size={16} /><span>Recolher menu</span></>}

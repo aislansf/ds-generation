@@ -49,7 +49,7 @@ export default function ModelosBIPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {panels.map((p) => {
           const card = (
-            <div
+            <div data-ds="card"
               className={`group h-full rounded-lg border border-border bg-card p-5 transition-colors ${
                 p.available ? "hover:border-primary hover:shadow-md" : "opacity-70"
               }`}

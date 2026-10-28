@@ -118,7 +118,7 @@ function SidebarPreview() {
             )}
           </div>
           {!collapsed && (
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={() => setOpen(false)}
               className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
               aria-label="Fechar menu"
@@ -132,7 +132,7 @@ function SidebarPreview() {
         {!collapsed && <div className="px-3 py-2">
           <div className="relative">
             <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-            <input
+            <input data-ds="input"
               ref={searchRef}
               type="text"
               placeholder="Buscar no menu..."
@@ -141,7 +141,7 @@ function SidebarPreview() {
               className="w-full bg-sidebar-accent text-sidebar-foreground text-xs rounded pl-8 pr-8 py-2 placeholder:text-sidebar-muted border border-sidebar-border focus:outline-none focus:ring-1 focus:ring-sidebar-ring"
             />
             {searchQuery && (
-              <button
+              <button data-ds="button" data-variant="ghost"
                 onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
               >
@@ -215,7 +215,7 @@ function SidebarPreview() {
 
         {/* Footer: collapse toggle (mesmo padrão do menu externo) */}
         <div className={`border-t border-sidebar-border p-2 ${collapsed ? "flex justify-center" : "px-3"}`}>
-          <button
+          <button data-ds="button" data-variant="ghost"
             onClick={() => setCollapsed(!collapsed)}
             className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
             aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -548,7 +548,7 @@ export default function SidebarMenuSection() {
 
       {/* Code toggle */}
       <div className="brand-card mb-6">
-        <button
+        <button data-ds="button" data-variant="link"
           onClick={() => setShowCode(!showCode)}
           className="text-xs font-medium text-primary hover:underline"
         >

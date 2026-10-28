@@ -148,7 +148,7 @@ export default function PaginaFiltrosTabelaPage() {
 
       {/* ═══ Header · Fundo claro · Marca completa com título e subtítulo ═══ */}
       <header className="bg-[#F0F3FF] border-b border-border flex items-center px-5 py-3 gap-4 min-h-[64px] shrink-0 sticky top-0 z-40">
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={() => setSidebarOpen(o => !o)}
           className="p-1.5 hover:bg-[#0024A9]/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
           aria-label="Menu"
@@ -166,7 +166,7 @@ export default function PaginaFiltrosTabelaPage() {
             Catálogo de soluções para os pequenos negócios — __BRAND_NAME__
           </p>
         </div>
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={toggleTheme}
           className="p-1.5 hover:bg-[#0024A9]/10 rounded transition-colors shrink-0"
           aria-label="Alternar tema"
@@ -200,7 +200,7 @@ export default function PaginaFiltrosTabelaPage() {
                 {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">Menu</span>}
               </div>
               {(!collapsed || isMobile) && (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
                   aria-label="Fechar menu"
@@ -214,7 +214,7 @@ export default function PaginaFiltrosTabelaPage() {
               <div className="px-3 py-2">
                 <div className="relative">
                   <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-                  <input
+                  <input data-ds="input"
                     ref={searchRef}
                     type="text"
                     placeholder="Buscar no menu..."
@@ -223,7 +223,7 @@ export default function PaginaFiltrosTabelaPage() {
                     className="w-full bg-sidebar-accent text-sidebar-foreground text-xs rounded pl-8 pr-8 py-2 placeholder:text-sidebar-muted border border-sidebar-border focus:outline-none focus:ring-1 focus:ring-sidebar-ring"
                   />
                   {menuSearch && (
-                    <button
+                    <button data-ds="button" data-variant="ghost"
                       onClick={() => { setMenuSearch(""); searchRef.current?.focus(); }}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
                     >
@@ -285,14 +285,14 @@ export default function PaginaFiltrosTabelaPage() {
 
             <div className={`border-t border-sidebar-border p-2 ${collapsed && !isMobile ? "flex justify-center" : "px-3"}`}>
               {isMobile ? (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                 >
                   <X size={16} /><span>Fechar menu</span>
                 </button>
               ) : (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setCollapsed(!collapsed)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-expanded={!collapsed}
@@ -324,7 +324,7 @@ export default function PaginaFiltrosTabelaPage() {
                 <Filter size={12} /> {activeFilters} filtro{activeFilters === 1 ? "" : "s"} ativo{activeFilters === 1 ? "" : "s"}
               </span>
             </div>
-            <button className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium hover:bg-muted transition-colors">
+            <button data-ds="button" data-variant="outline" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium hover:bg-muted transition-colors">
               <Download size={14} /> Exportar CSV
             </button>
           </div>
@@ -339,7 +339,7 @@ export default function PaginaFiltrosTabelaPage() {
               <Filter size={14} /> Filtros
             </h2>
             {activeFilters > 0 && (
-              <button onClick={clearAll} className="text-[11px] text-primary hover:underline inline-flex items-center gap-1">
+              <button data-ds="button" data-variant="link" onClick={clearAll} className="text-[11px] text-primary hover:underline inline-flex items-center gap-1">
                 <X size={11} /> Limpar ({activeFilters})
               </button>
             )}
@@ -350,7 +350,7 @@ export default function PaginaFiltrosTabelaPage() {
             <label htmlFor="q" className="block text-[11px] font-semibold text-muted-foreground mb-1.5">BUSCAR</label>
             <div className="relative">
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input
+              <input data-ds="input"
                 id="q"
                 value={q}
                 onChange={e => setQ(e.target.value)}
@@ -424,13 +424,13 @@ export default function PaginaFiltrosTabelaPage() {
           <fieldset>
             <legend className="text-[11px] font-semibold text-muted-foreground mb-1.5">VALOR (R$)</legend>
             <div className="grid grid-cols-2 gap-2">
-              <input
+              <input data-ds="input"
                 type="number" inputMode="numeric" placeholder="Mín."
                 value={valorMin}
                 onChange={e => setValorMin(e.target.value)}
                 className="w-full border border-input rounded-md bg-background px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-ring"
               />
-              <input
+              <input data-ds="input"
                 type="number" inputMode="numeric" placeholder="Máx."
                 value={valorMax}
                 onChange={e => setValorMax(e.target.value)}
@@ -441,7 +441,7 @@ export default function PaginaFiltrosTabelaPage() {
         </aside>
 
         {/* ── Tabela ── */}
-        <section className="bg-card rounded-lg border border-border overflow-hidden flex flex-col">
+        <section data-ds="card" className="bg-card rounded-lg border border-border overflow-hidden flex flex-col">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border">
             <div>
               <h1 className="text-base font-semibold" style={{ color: "#16329C" }}>Iniciativas</h1>
@@ -483,7 +483,7 @@ export default function PaginaFiltrosTabelaPage() {
                     <td className="px-4 py-3"><StatusPill s={r.status} /></td>
                     <td className="px-4 py-3 text-right font-semibold text-foreground tabular-nums">{r.valor}</td>
                     <td className="px-3 py-3 relative">
-                      <button
+                      <button data-ds="button" data-variant="ghost"
                         type="button"
                         onClick={(e) => { e.stopPropagation(); setOpenKebab(openKebab === r.id ? null : r.id); }}
                         className="p-1 rounded hover:bg-muted text-muted-foreground"
@@ -496,9 +496,9 @@ export default function PaginaFiltrosTabelaPage() {
                           className="absolute right-2 top-9 z-10 w-40 bg-popover border border-border rounded-md shadow-lg py-1 animate-in fade-in-50"
                           onMouseLeave={() => setOpenKebab(null)}
                         >
-                          <button className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-foreground"><Eye size={12} /> Visualizar</button>
-                          <button className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-foreground"><Pencil size={12} /> Editar</button>
-                          <button className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-destructive"><Trash2 size={12} /> Excluir</button>
+                          <button data-ds="button" data-variant="ghost" className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-foreground"><Eye size={12} /> Visualizar</button>
+                          <button data-ds="button" data-variant="ghost" className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-foreground"><Pencil size={12} /> Editar</button>
+                          <button data-ds="button" data-variant="ghost" className="w-full flex items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted text-destructive"><Trash2 size={12} /> Excluir</button>
                         </div>
                       )}
                     </td>

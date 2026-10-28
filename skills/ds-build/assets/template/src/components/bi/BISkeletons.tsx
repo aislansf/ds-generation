@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function KPICardSkeleton() {
   return (
-    <div className="bg-card border-l-4 border-border rounded-md p-3 space-y-2">
+    <div data-ds="card" className="bg-card border-l-4 border-border rounded-md p-3 space-y-2">
       <div className="flex items-center gap-2">
         <Skeleton className="h-7 w-7 rounded-md" />
         <Skeleton className="h-3 w-24" />
@@ -22,7 +22,7 @@ export function KPICardSkeleton() {
 
 export function KPIGridSkeleton({ count = 4 }: { count?: number }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-3">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-3">
       <Skeleton className="h-3 w-64 mb-3" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {Array.from({ length: count }).map((_, i) => (
@@ -41,7 +41,7 @@ export function ChartCardSkeleton({
   className?: string;
 }) {
   return (
-    <div className={`bg-card rounded-lg border border-border p-4 ${className}`}>
+    <div data-ds="card" className={`bg-card rounded-lg border border-border p-4 ${className}`}>
       <Skeleton className="h-4 w-40 mb-4" />
       <Skeleton className="w-full rounded-md" style={{ height }} />
     </div>
@@ -50,7 +50,7 @@ export function ChartCardSkeleton({
 
 export function PieCardSkeleton() {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <Skeleton className="h-4 w-40 mb-4" />
       <div className="flex items-center justify-center h-[200px]">
         <Skeleton className="h-32 w-32 rounded-full" />
@@ -72,7 +72,7 @@ export function PieCardSkeleton() {
 
 export function TableSkeleton({ rows = 4, cols = 7 }: { rows?: number; cols?: number }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
       <div className="flex items-center justify-between mb-3">
         <Skeleton className="h-4 w-48" />
         <div className="flex gap-3">

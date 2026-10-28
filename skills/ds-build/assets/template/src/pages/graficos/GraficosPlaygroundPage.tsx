@@ -147,7 +147,7 @@ export default function GraficosPlaygroundPage() {
             <label htmlFor="pg-preset" className="block text-xs font-semibold text-foreground mb-1.5">
               Gráfico base
             </label>
-            <select
+            <select data-ds="select-trigger"
               id="pg-preset"
               value={presetId}
               onChange={(e) => setPresetId(e.target.value)}
@@ -225,7 +225,7 @@ export default function GraficosPlaygroundPage() {
           <label htmlFor="pg-editor" className="block text-xs font-semibold text-foreground mb-1.5">
             Editor do option (JSON)
           </label>
-          <textarea
+          <textarea data-ds="textarea"
             id="pg-editor"
             value={texto}
             spellCheck={false}

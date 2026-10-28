@@ -58,7 +58,7 @@ const radii = [
 function CopyChip({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <button
+    <button data-ds="button" data-variant="secondary"
       onClick={() => {
         navigator.clipboard.writeText(value);
         setCopied(true);
@@ -178,7 +178,7 @@ export default function TokenExplorer() {
           <div className="space-y-4 animate-in fade-in slide-in-from-bottom-1 duration-200">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {spacings.map((s) => (
-                <div key={s.token} className="border border-border rounded-lg p-3 bg-card text-center space-y-2">
+                <div data-ds="card" key={s.token} className="border border-border rounded-lg p-3 bg-card text-center space-y-2">
                   <div className="bg-muted/40 rounded flex items-center justify-center mx-auto" style={{ padding: s.px }}>
                     <div className="bg-primary rounded w-8 h-8" />
                   </div>

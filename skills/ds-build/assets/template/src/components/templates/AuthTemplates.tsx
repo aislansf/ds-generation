@@ -20,10 +20,10 @@ function SignInPreview() {
         </p>
 
         {/* Card */}
-        <div className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
+        <div data-ds="card" className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-foreground">E-mail <span className="text-[#D98217]">*</span></label>
-            <input
+            <input data-ds="input"
               type="email"
               placeholder="usuario@__ORG_DOMAIN__"
               className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -37,7 +37,7 @@ function SignInPreview() {
                 defaultValue="••••••••"
                 className="w-full h-10 rounded-lg border border-input bg-background px-3 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
               />
-              <button
+              <button data-ds="button" data-variant="ghost"
                 type="button"
                 onClick={() => setShowPw(!showPw)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
@@ -55,7 +55,7 @@ function SignInPreview() {
             <a href="#" className="text-xs font-medium text-[#2A4FDA] hover:underline">Esqueceu a senha?</a>
           </div>
 
-          <button className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
+          <button data-ds="button" data-variant="default" className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
             Entrar
           </button>
 
@@ -89,10 +89,10 @@ function SignUpPreview() {
         </p>
 
         {/* Card */}
-        <div className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
+        <div data-ds="card" className="bg-card rounded-xl border shadow-sm p-6 space-y-4">
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-foreground">Nome completo <span className="text-[#D98217]">*</span></label>
-            <input
+            <input data-ds="input"
               type="text"
               placeholder="João da Silva"
               className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -100,7 +100,7 @@ function SignUpPreview() {
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-foreground">E-mail <span className="text-[#D98217]">*</span></label>
-            <input
+            <input data-ds="input"
               type="email"
               placeholder="usuario@__ORG_DOMAIN__"
               className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -108,7 +108,7 @@ function SignUpPreview() {
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-foreground">CPF <span className="text-[#D98217]">*</span></label>
-            <input
+            <input data-ds="input"
               type="text"
               placeholder="000.000.000-00"
               className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -123,7 +123,7 @@ function SignUpPreview() {
                   placeholder="Mín. 8 caracteres"
                   className="w-full h-10 rounded-lg border border-input bg-background px-3 pr-10 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
                 />
-                <button
+                <button data-ds="button" data-variant="ghost"
                   type="button"
                   onClick={() => setShowPw(!showPw)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
@@ -134,7 +134,7 @@ function SignUpPreview() {
             </div>
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">Confirmar senha <span className="text-[#D98217]">*</span></label>
-              <input
+              <input data-ds="input"
                 type="password"
                 placeholder="Repita a senha"
                 className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -152,7 +152,7 @@ function SignUpPreview() {
             </span>
           </label>
 
-          <button className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
+          <button data-ds="button" data-variant="default" className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
             Criar conta
           </button>
 
@@ -300,11 +300,11 @@ function TwoFactorPreview() {
         </p>
 
         {/* Card */}
-        <div className="bg-card rounded-xl border shadow-sm p-6 space-y-5">
+        <div data-ds="card" className="bg-card rounded-xl border shadow-sm p-6 space-y-5">
           {/* OTP inputs */}
           <div className="flex justify-center gap-3">
             {otp.map((digit, idx) => (
-              <input
+              <input data-ds="input"
                 key={idx}
                 ref={el => { inputsRef.current[idx] = el; }}
                 type="text"
@@ -318,7 +318,7 @@ function TwoFactorPreview() {
             ))}
           </div>
 
-          <button className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
+          <button data-ds="button" data-variant="default" className="w-full h-10 rounded-lg bg-[#2A4FDA] text-white text-sm font-medium hover:bg-[#2A4FDA]/90 transition-colors">
             Verificar código
           </button>
 
@@ -439,7 +439,7 @@ export default function AuthTemplatesSection() {
         {activeTab === "signup" && <SignUpPreview />}
         {activeTab === "2fa" && <TwoFactorPreview />}
 
-        <button
+        <button data-ds="button" data-variant="link"
           onClick={() => setShowCode(!showCode)}
           className="text-xs font-medium text-primary hover:underline mt-3"
         >

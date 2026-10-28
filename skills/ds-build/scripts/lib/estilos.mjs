@@ -117,11 +117,25 @@ export function lerVar(css, selector, nome) {
 }
 
 /**
+ * Campos de formulário (--control-*): no corporativo, as cores fixas do DS de referência, recoloridas pela marca.
+ * Quando o estilo define --input, os campos passam a seguir os tokens semânticos do estilo (borda = --input,
+ * hover e foco = --ring, placeholder = --muted-foreground, texto = --foreground), a menos que o preset defina
+ * o token de campo ele mesmo.
+ */
+export const CAMPOS_DO_ESTILO = [
+  ["--control-border", "hsl(var(--input))"],
+  ["--control-border-hover", "hsl(var(--ring))"],
+  ["--control-placeholder", "hsl(var(--muted-foreground))"],
+  ["--control-placeholder-input", "hsl(var(--muted-foreground))"],
+  ["--control-foreground", "hsl(var(--foreground))"],
+];
+
+/**
  * Aplica o estilo a um DS já recolorido.
  * @param {string} out    pasta do DS gerado
  * @param {object} preset preset carregado
  * @param {object} cores  { primaria, secundaria, destaque, realce } em { h, s, l } (cores finais)
- * @returns relatório { tokens: { ":root": n, ".dark": n }, alterados: Set, css, avisos }
+ * @returns relatório { tokens: { ":root": n, ".dark": n }, alterados: Set, camada, campos, avisos }
  */
 export function aplicarEstilo(out, preset, cores) {
   const P = (rel) => path.join(out, rel);
@@ -139,6 +153,17 @@ export function aplicarEstilo(out, preset, cores) {
       css = definirVar(css, sel, nome, valor);
       alterados.add(nome);
       contagem[sel]++;
+    }
+  }
+  // Campos acompanham o --input do estilo (só em :root: as referências resolvem em cada tema)
+  const definidos = { ...preset.tokens?.[":root"], ...preset.tokens?.[".dark"] };
+  const campos = "--input" in definidos;
+  if (campos) {
+    for (const [nome, valor] of CAMPOS_DO_ESTILO) {
+      if (nome in definidos) continue;
+      css = definirVar(css, ":root", nome, valor);
+      alterados.add(nome);
+      contagem[":root"]++;
     }
   }
   // 4f. Sem degradê: o header degradê vira cor sólida (a cor inicial)
@@ -169,8 +194,11 @@ export function aplicarEstilo(out, preset, cores) {
   if (preset.id === "cyberpunk" && corNeon(cores).fraca) {
     avisos.push("Nenhuma cor da marca é saturada o bastante para o neon do cyberpunk (S < 50%): o neon foi saturado a 80% a partir da cor mais viva, e pode destoar da marca.");
   }
-  return { tokens: contagem, alterados, camada: !!camada, avisos };
+  return { tokens: contagem, alterados, camada: !!camada, campos, avisos };
 }
+
+/** Superfícies que um ajuste de contraste leva junto quando o preset as declara na mesma família de cor. */
+const SUPERFICIES = ["--background", "--card", "--popover", "--muted"];
 
 /** Pares mínimos de todo estilo (seção 10.3 do plano): [frente, fundo, mínimo]. */
 const PARES_ESTILO = [
@@ -218,7 +246,21 @@ export function contrasteDoEstilo(css, preset, alterados, cores) {
       if (ok) {
         const novo = `${Math.round(mover.h)} ${Math.round(mover.s)}% ${Math.round(mover.l)}%${alfa ? ` ${alfa.trim()}` : ""}`;
         css = definirVar(css, sel, alvo, novo);
-        ajustes.push(`${sel} ${alvo} → ${novo} (${fg} sobre ${bg} tinha ${r.toFixed(2)}:1, mínimo ${min}:1)`);
+        // Superfícies da mesma família (mesma matiz e saturação no preset) andam juntas: o neumorfismo declara
+        // fundo, card, popover e muted na mesma cor (ou um passo acima), e o relevo some se só uma delas mudar.
+        const junto = [];
+        const original = parseTriplet(atual);
+        if (SUPERFICIES.includes(alvo) && original) {
+          const delta = Math.round(mover.l) - original.l;
+          for (const outro of SUPERFICIES) {
+            if (outro === alvo || !(outro in (preset.tokens?.[sel] ?? {}))) continue;
+            const t = parseTriplet(lerVar(css, sel, outro) ?? "");
+            if (!t || t.h !== original.h || t.s !== original.s) continue;
+            css = definirVar(css, sel, outro, `${t.h} ${t.s}% ${Math.max(0, Math.min(100, t.l + delta))}%`);
+            junto.push(outro);
+          }
+        }
+        ajustes.push(`${sel} ${alvo} → ${novo} (${fg} sobre ${bg} tinha ${r.toFixed(2)}:1, mínimo ${min}:1)${junto.length ? `; junto: ${junto.join(", ")}` : ""}`);
       } else {
         avisos.push(`${sel} ${fg} sobre ${bg}: ${r.toFixed(2)}:1, abaixo de ${min}:1, e o ajuste do estilo não resolveu.`);
       }

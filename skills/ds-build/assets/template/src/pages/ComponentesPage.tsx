@@ -187,40 +187,40 @@ function ButtonSection() {
       >
         <div className="space-y-4">
           <div className="flex flex-wrap gap-3">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
               Primário
             </button>
-            <button className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+            <button data-ds="button" data-variant="secondary" className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
               Secundário
             </button>
-            <button className="inline-flex items-center gap-2 border border-border bg-background text-foreground px-4 py-2 rounded text-sm font-medium hover:bg-muted transition-colors">
+            <button data-ds="button" data-variant="outline" className="inline-flex items-center gap-2 border border-border bg-background text-foreground px-4 py-2 rounded text-sm font-medium hover:bg-muted transition-colors">
               Outline
             </button>
-            <button className="inline-flex items-center gap-2 text-foreground px-4 py-2 rounded text-sm font-medium hover:bg-muted transition-colors">
+            <button data-ds="button" data-variant="ghost" className="inline-flex items-center gap-2 text-foreground px-4 py-2 rounded text-sm font-medium hover:bg-muted transition-colors">
               Ghost
             </button>
-            <button className="inline-flex items-center gap-2 bg-destructive text-destructive-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+            <button data-ds="button" data-variant="destructive" className="inline-flex items-center gap-2 bg-destructive text-destructive-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
               Excluir
             </button>
-            <button className="inline-flex items-center gap-2 px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">
               Diversificado
             </button>
           </div>
           <hr className="border-border/60" />
           <div className="flex flex-wrap gap-3">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1.5 rounded text-xs font-medium">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1.5 rounded text-xs font-medium">
               Pequeno
             </button>
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium">
               Médio
             </button>
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded text-base font-medium">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded text-base font-medium">
               Grande
             </button>
           </div>
           <hr className="border-border/60" />
           <div className="flex flex-wrap gap-3">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed" disabled>
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed" disabled>
               Desabilitado
             </button>
           </div>
@@ -316,19 +316,19 @@ function ButtonSection() {
                 <div className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{v.name}</div>
                 <div className="flex flex-wrap items-end gap-6 p-3 bg-muted/20 rounded-lg border border-border/50">
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-bold transition-colors ${v.base}`}>Primário</button>
+                    <button data-ds="button" data-variant="default" className={`px-4 py-2 rounded text-sm font-bold transition-colors ${v.base}`}>Primário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Normal</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-bold ${v.hover}`}>Primário</button>
+                    <button data-ds="button" data-variant="default" className={`px-4 py-2 rounded text-sm font-bold ${v.hover}`}>Primário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Hover</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ${v.base} ${v.focusRing}`}>Primário</button>
+                    <button data-ds="button" data-variant="default" className={`px-4 py-2 rounded text-sm font-bold outline-none ring-2 ring-offset-2 ${v.base} ${v.focusRing}`}>Primário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Focus</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed ${v.base}`} disabled>Primário</button>
+                    <button data-ds="button" data-variant="default" className={`px-4 py-2 rounded text-sm font-bold opacity-50 cursor-not-allowed ${v.base}`} disabled>Primário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Disabled</span>
                   </div>
                 </div>
@@ -338,13 +338,13 @@ function ButtonSection() {
             <div className="space-y-3 pt-4 border-t border-border/50">
               <div className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Exemplos de uso em contexto</div>
               <div className="flex flex-wrap items-center gap-4 p-4 bg-muted/20 rounded-lg border border-border/50">
-                <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
+                <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
                   <Download size={16} /> Baixar relatório
                 </button>
-                <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
+                <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity">
                   Avançar <ArrowRight size={16} />
                 </button>
-                <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold opacity-80 cursor-wait" disabled>
+                <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-bold opacity-80 cursor-wait" disabled>
                   <Loader2 size={16} className="animate-spin" /> Enviando...
                 </button>
               </div>
@@ -356,17 +356,17 @@ function ButtonSection() {
               >
                 <label className="block text-xs font-semibold text-foreground">
                   Nome completo
-                  <input
+                  <input data-ds="input"
                     type="text"
                     placeholder="Digite seu nome"
                     className="mt-1 w-full px-3 py-2 rounded border border-border bg-background text-sm"
                   />
                 </label>
                 <div className="flex flex-wrap justify-end gap-3 pt-2">
-                  <button type="button" className="px-4 py-2 rounded text-sm font-bold border border-border bg-background text-foreground hover:bg-muted transition-colors">
+                  <button data-ds="button" data-variant="outline" type="button" className="px-4 py-2 rounded text-sm font-bold border border-border bg-background text-foreground hover:bg-muted transition-colors">
                     Cancelar
                   </button>
-                  <button type="submit" className="px-4 py-2 rounded text-sm font-bold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
+                  <button data-ds="button" data-variant="default" type="submit" className="px-4 py-2 rounded text-sm font-bold bg-primary text-primary-foreground hover:opacity-90 transition-opacity">
                     Salvar alterações
                   </button>
                 </div>
@@ -437,19 +437,19 @@ function ButtonSection() {
                 <div className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{v.name}</div>
                 <div className="flex flex-wrap items-end gap-6 p-3 bg-muted/20 rounded-lg border border-border/50">
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-medium transition-colors ${v.base}`}>Secundário</button>
+                    <button data-ds="button" data-variant={({ "bg-secondary text-secondary-foreground": "secondary", "bg-[#2A4FDA] text-white": "default", "bg-[#D98217] text-white": "default", "bg-[#1F8A4C] text-white": "default", "border border-primary bg-transparent text-primary": "outline", "bg-primary/10 text-primary": "secondary" } as Record<string, string>)[v.base]} className={`px-4 py-2 rounded text-sm font-medium transition-colors ${v.base}`}>Secundário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Normal</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-medium ${v.hover}`}>Secundário</button>
+                    <button data-ds="button" data-variant={({ "bg-secondary/80 text-secondary-foreground": "secondary", "bg-[#1644DC] text-white": "default", "bg-[#B86A0F] text-white": "default", "bg-[#176B3B] text-white": "default", "bg-primary/10 text-primary border border-primary": "secondary", "bg-primary/20 text-primary": "secondary" } as Record<string, string>)[v.hover]} className={`px-4 py-2 rounded text-sm font-medium ${v.hover}`}>Secundário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Hover</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ${v.base} ${v.focusRing}`}>Secundário</button>
+                    <button data-ds="button" data-variant={({ "bg-secondary text-secondary-foreground": "secondary", "bg-[#2A4FDA] text-white": "default", "bg-[#D98217] text-white": "default", "bg-[#1F8A4C] text-white": "default", "border border-primary bg-transparent text-primary": "outline", "bg-primary/10 text-primary": "secondary" } as Record<string, string>)[v.base]} className={`px-4 py-2 rounded text-sm font-medium outline-none ring-2 ring-offset-2 ${v.base} ${v.focusRing}`}>Secundário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Focus</span>
                   </div>
                   <div className="flex flex-col items-center gap-2">
-                    <button className={`px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed ${v.base}`} disabled>Secundário</button>
+                    <button data-ds="button" data-variant={({ "bg-secondary text-secondary-foreground": "secondary", "bg-[#2A4FDA] text-white": "default", "bg-[#D98217] text-white": "default", "bg-[#1F8A4C] text-white": "default", "border border-primary bg-transparent text-primary": "outline", "bg-primary/10 text-primary": "secondary" } as Record<string, string>)[v.base]} className={`px-4 py-2 rounded text-sm font-medium opacity-50 cursor-not-allowed ${v.base}`} disabled>Secundário</button>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Disabled</span>
                   </div>
                 </div>
@@ -489,25 +489,25 @@ function ButtonSection() {
         >
           <div className="flex flex-wrap items-end gap-6">
             <div className="flex flex-col items-center gap-2">
-              <button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">
+              <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">
                 Diversificado
               </button>
               <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Normal</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#D1E575] text-[#1644DC]">
+              <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#D1E575] text-[#1644DC]">
                 Diversificado
               </button>
               <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Hover</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <button className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] outline-none ring-2 ring-[#1644DC] ring-offset-2">
+              <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-sm font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] outline-none ring-2 ring-[#1644DC] ring-offset-2">
                 Diversificado
               </button>
               <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Focus</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <button className="px-4 py-2 rounded text-sm font-bold bg-[#E7F79E] text-[#2A4FDA] opacity-50 cursor-not-allowed" disabled>
+              <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-sm font-bold bg-[#E7F79E] text-[#2A4FDA] opacity-50 cursor-not-allowed" disabled>
                 Diversificado
               </button>
               <span className="text-[10px] text-muted-foreground uppercase tracking-wide">Disabled</span>
@@ -529,7 +529,7 @@ function ButtonSection() {
 </div>`}
         >
           <div className="flex justify-center">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium opacity-80 cursor-wait" disabled>
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium opacity-80 cursor-wait" disabled>
               <Loader2 size={18} className="animate-spin" /> Carregando...
             </button>
           </div>
@@ -547,7 +547,7 @@ function ButtonSection() {
 </div>`}
         >
           <div className="flex justify-center">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
               <Download size={18} /> Download
             </button>
           </div>
@@ -565,7 +565,7 @@ function ButtonSection() {
 </div>`}
         >
           <div className="flex justify-center">
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+            <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
               Próximo <ArrowRight size={18} />
             </button>
           </div>
@@ -620,28 +620,28 @@ function ButtonSection() {
 </div>`}
         >
           <div className="flex flex-wrap justify-center gap-3">
-            <button className="p-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity" aria-label="Download">
+            <button data-ds="button" data-variant="default" className="p-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity" aria-label="Download">
               <Download size={18} />
             </button>
-            <button className="p-2 bg-secondary text-secondary-foreground rounded hover:opacity-90 transition-opacity" aria-label="Salvar">
+            <button data-ds="button" data-variant="secondary" className="p-2 bg-secondary text-secondary-foreground rounded hover:opacity-90 transition-opacity" aria-label="Salvar">
               <Edit size={18} />
             </button>
-            <button className="p-2 border border-border bg-background text-foreground rounded hover:bg-muted transition-colors" aria-label="Editar">
+            <button data-ds="button" data-variant="outline" className="p-2 border border-border bg-background text-foreground rounded hover:bg-muted transition-colors" aria-label="Editar">
               <Edit size={18} />
             </button>
-            <button className="p-2 text-foreground rounded hover:bg-muted transition-colors" aria-label="Mais opções">
+            <button data-ds="button" data-variant="ghost" className="p-2 text-foreground rounded hover:bg-muted transition-colors" aria-label="Mais opções">
               <Edit size={18} />
             </button>
-            <button className="p-2 bg-destructive text-destructive-foreground rounded hover:opacity-90 transition-opacity" aria-label="Excluir">
+            <button data-ds="button" data-variant="destructive" className="p-2 bg-destructive text-destructive-foreground rounded hover:opacity-90 transition-opacity" aria-label="Excluir">
               <Trash2 size={18} />
             </button>
-            <button className="p-2 bg-success text-white rounded hover:opacity-90 transition-opacity" aria-label="Confirmar">
+            <button data-ds="button" data-variant="default" className="p-2 bg-success text-white rounded hover:opacity-90 transition-opacity" aria-label="Confirmar">
               <Download size={18} />
             </button>
-            <button className="p-2 bg-warning text-white rounded hover:opacity-90 transition-opacity" aria-label="Atenção">
+            <button data-ds="button" data-variant="default" className="p-2 bg-warning text-white rounded hover:opacity-90 transition-opacity" aria-label="Atenção">
               <Edit size={18} />
             </button>
-            <button className="p-2 bg-[#E7F79E] text-[#2A4FDA] rounded hover:bg-[#D1E575] hover:text-[#1644DC] transition-colors" aria-label="Diversificado">
+            <button data-ds="button" data-variant="default" className="p-2 bg-[#E7F79E] text-[#2A4FDA] rounded hover:bg-[#D1E575] hover:text-[#1644DC] transition-colors" aria-label="Diversificado">
               <Download size={18} />
             </button>
           </div>
@@ -714,7 +714,7 @@ function InputSection() {
       <div className="space-y-4 max-w-md">
         <div>
           <label className="block text-sm font-medium mb-1.5">Nome completo</label>
-          <input
+          <input data-ds="input"
             type="text"
             placeholder="Digite seu nome"
             className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors"
@@ -722,7 +722,7 @@ function InputSection() {
         </div>
         <div>
           <label className="block text-sm font-medium mb-1.5">E-mail</label>
-          <input
+          <input data-ds="input"
             type="email"
             placeholder="exemplo@__ORG_DOMAIN__"
             className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
@@ -731,7 +731,7 @@ function InputSection() {
         </div>
         <div>
           <label className="block text-sm font-medium mb-1.5 text-error">Campo com erro</label>
-          <input
+          <input data-ds="input"
             type="text"
             defaultValue="valor incorreto"
             className="w-full border-2 border-error rounded px-3 py-2 text-sm bg-error-bg focus:outline-none focus:ring-2 focus:ring-error transition-colors"
@@ -741,7 +741,7 @@ function InputSection() {
         </div>
         <div>
           <label className="block text-sm font-medium mb-1.5">Observações</label>
-          <textarea
+          <textarea data-ds="textarea"
             rows={3}
             placeholder="Descreva aqui..."
             className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors resize-y"
@@ -751,7 +751,7 @@ function InputSection() {
           <label className="block text-sm font-medium mb-1.5">Busca com ícone</label>
           <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <input
+            <input data-ds="input"
               type="search"
               placeholder="Buscar..."
               className="w-full border border-input rounded pl-9 pr-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
@@ -820,7 +820,7 @@ function SelectSection() {
         <div className="max-w-md">
           <label className="block text-sm font-medium mb-1.5">Estado</label>
           <div className="relative">
-            <select className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors">
+            <select data-ds="select-trigger" className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors">
               <option value="">Selecione um estado...</option>
               <option>Distrito Federal</option>
               <option>São Paulo</option>
@@ -847,7 +847,7 @@ function SelectSection() {
             <div key={s.label} className="space-y-1">
               <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{s.label}</span>
               <div className={`relative ${s.width}`}>
-                <select
+                <select data-ds="select-trigger"
                   disabled={s.disabled}
                   className={`appearance-none w-full border rounded px-3 py-2 pr-10 text-sm transition-colors focus:outline-none ${s.cls}`}
                 >
@@ -1111,7 +1111,7 @@ function CardSection() {
 </div>`}
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-card rounded-lg border border-border overflow-hidden">
+        <div data-ds="card" className="bg-card rounded-lg border border-border overflow-hidden">
           <div className="p-4 border-b border-border">
             <h4 className="font-semibold text-sm">Card básico</h4>
           </div>
@@ -1119,11 +1119,11 @@ function CardSection() {
             <p className="text-sm text-muted-foreground">Conteúdo do card com informações relevantes.</p>
           </div>
           <div className="p-4 border-t border-border bg-muted/30">
-            <button className="text-xs text-primary font-medium hover:underline">Ver mais →</button>
+            <button data-ds="button" data-variant="link" className="text-xs text-primary font-medium hover:underline">Ver mais →</button>
           </div>
         </div>
 
-        <div className="bg-card rounded-lg border border-border p-4 text-center">
+        <div data-ds="card" className="bg-card rounded-lg border border-border p-4 text-center">
           <p className="text-3xl font-bold text-primary">1.247</p>
           <p className="text-xs text-muted-foreground mt-1">Empresas atendidas</p>
           <p className="text-xs text-success mt-2">↑ 12% em relação ao mês anterior</p>
@@ -1173,7 +1173,7 @@ function KebabMenu({ onEdit, onDelete, onView }: { onEdit?: () => void; onDelete
 
   return (
     <div className="relative" ref={ref}>
-      <button
+      <button data-ds="button" data-variant="ghost"
         onClick={() => setOpen(!open)}
         className="p-1.5 rounded-md hover:bg-muted transition-colors"
         aria-label="Ações"
@@ -1185,17 +1185,17 @@ function KebabMenu({ onEdit, onDelete, onView }: { onEdit?: () => void; onDelete
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div className="absolute right-0 top-8 z-50 min-w-[140px] bg-popover border border-border rounded-lg shadow-lg py-1 animate-fade-in">
             {onView && (
-              <button onClick={() => { onView(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-foreground">
+              <button data-ds="button" data-variant="ghost" onClick={() => { onView(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-foreground">
                 <Eye size={14} className="text-muted-foreground" /> Visualizar
               </button>
             )}
             {onEdit && (
-              <button onClick={() => { onEdit(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-foreground">
+              <button data-ds="button" data-variant="ghost" onClick={() => { onEdit(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-foreground">
                 <Edit size={14} className="text-muted-foreground" /> Editar
               </button>
             )}
             {onDelete && (
-              <button onClick={() => { onDelete(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-destructive">
+              <button data-ds="button" data-variant="ghost" onClick={() => { onDelete(); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-muted transition-colors text-destructive">
                 <Trash2 size={14} /> Excluir
               </button>
             )}
@@ -1839,8 +1839,8 @@ function TableWithCheckbox() {
       {selected.length > 0 && (
         <div className="flex items-center gap-3 mb-3 p-2 bg-primary/5 rounded-lg text-xs">
           <span className="font-medium">{selected.length} item(ns) selecionado(s)</span>
-          <button className="flex items-center gap-1 text-destructive hover:underline"><Trash2 size={12} /> Excluir</button>
-          <button className="flex items-center gap-1 text-primary hover:underline"><Download size={12} /> Exportar</button>
+          <button data-ds="button" data-variant="link" className="flex items-center gap-1 text-destructive hover:underline"><Trash2 size={12} /> Excluir</button>
+          <button data-ds="button" data-variant="link" className="flex items-center gap-1 text-primary hover:underline"><Download size={12} /> Exportar</button>
         </div>
       )}
       <table className="w-full text-sm">
@@ -1925,7 +1925,7 @@ const [open, setOpen] = useState<number | null>(0);
       <div className="border border-border rounded-lg divide-y divide-border">
         {items.map((item, i) => (
           <div key={i}>
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={() => setOpen(open === i ? null : i)}
               aria-expanded={open === i}
               className="w-full flex items-center justify-between p-4 text-sm font-medium text-left hover:bg-muted/30 transition-colors"
@@ -2155,7 +2155,7 @@ function Modal() {
 }`}
     >
       <div>
-        <button
+        <button data-ds="button" data-variant="default"
           ref={triggerRef}
           onClick={() => setOpen(true)}
           className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium"
@@ -2180,7 +2180,7 @@ function Modal() {
             >
               <div className="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 sm:py-4 border-b border-border">
                 <h3 id="modal-title" className="font-semibold text-base sm:text-lg leading-tight">Confirmar ação</h3>
-                <button ref={initialFocusRef} onClick={() => setOpen(false)} aria-label="Fechar" className="p-1.5 hover:bg-muted rounded transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <button data-ds="button" data-variant="ghost" ref={initialFocusRef} onClick={() => setOpen(false)} aria-label="Fechar" className="p-1.5 hover:bg-muted rounded transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                   <X size={18} />
                 </button>
               </div>
@@ -2188,8 +2188,8 @@ function Modal() {
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">Tem certeza de que deseja prosseguir com esta ação? Esta operação não pode ser desfeita.</p>
               </div>
               <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 px-4 sm:px-5 py-3 sm:py-4 border-t border-border">
-                <button onClick={() => setOpen(false)} className="w-full sm:w-auto px-4 py-2 text-sm font-medium border border-border rounded hover:bg-muted transition-colors">Cancelar</button>
-                <button onClick={() => setOpen(false)} className="w-full sm:w-auto px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity">Confirmar</button>
+                <button data-ds="button" data-variant="outline" onClick={() => setOpen(false)} className="w-full sm:w-auto px-4 py-2 text-sm font-medium border border-border rounded hover:bg-muted transition-colors">Cancelar</button>
+                <button data-ds="button" data-variant="default" onClick={() => setOpen(false)} className="w-full sm:w-auto px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity">Confirmar</button>
               </div>
             </div>
           </div>
@@ -2236,7 +2236,7 @@ const [showToast, setShowToast] = useState(false);
 </div>`}
     >
       <div>
-        <button
+        <button data-ds="button" data-variant="default"
           onClick={() => { setShowToast(true); setTimeout(() => setShowToast(false), 4000); }}
           className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium"
         >
@@ -2244,10 +2244,10 @@ const [showToast, setShowToast] = useState(false);
         </button>
         {showToast && (
           <div className="fixed bottom-6 right-6 z-50 animate-fade-in" role="status" aria-live="polite">
-            <div className="flex items-center gap-3 bg-card border border-border rounded-lg p-4 shadow-lg max-w-sm">
+            <div data-ds="card" className="flex items-center gap-3 bg-card border border-border rounded-lg p-4 shadow-lg max-w-sm">
               <Check size={18} className="text-success shrink-0" />
               <p className="text-sm flex-1">Registro salvo com sucesso!</p>
-              <button onClick={() => setShowToast(false)} aria-label="Fechar" className="p-0.5 hover:bg-muted rounded">
+              <button data-ds="button" data-variant="ghost" onClick={() => setShowToast(false)} aria-label="Fechar" className="p-0.5 hover:bg-muted rounded">
                 <X size={14} />
               </button>
             </div>
@@ -2338,7 +2338,7 @@ const [page, setPage] = useState(1);
 </nav>`}
       >
         <nav aria-label="Paginação" className="flex items-center gap-1">
-          <button
+          <button data-ds="button" data-variant="ghost"
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page === 1}
             className="p-2 rounded hover:bg-muted transition-colors disabled:opacity-30"
@@ -2358,7 +2358,7 @@ const [page, setPage] = useState(1);
               {p}
             </button>
           ))}
-          <button
+          <button data-ds="button" data-variant="ghost"
             onClick={() => setPage(Math.min(5, page + 1))}
             disabled={page === 5}
             className="p-2 rounded hover:bg-muted transition-colors disabled:opacity-30"
@@ -2402,7 +2402,7 @@ const [page, setPage] = useState(1);
 </nav>`}
       >
         <nav aria-label="Paginação de contador" className="flex items-center gap-4 bg-muted/20 p-2 rounded-lg border border-border w-fit">
-          <button
+          <button data-ds="button" data-variant="outline"
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page === 1}
             className="p-1.5 rounded bg-background border border-border hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
@@ -2417,7 +2417,7 @@ const [page, setPage] = useState(1);
             <span className="text-sm font-bold text-foreground">10</span>
           </div>
 
-          <button
+          <button data-ds="button" data-variant="outline"
             onClick={() => setPage(Math.min(10, page + 1))}
             disabled={page === 10}
             className="p-1.5 rounded bg-background border border-border hover:bg-muted transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
@@ -2467,7 +2467,7 @@ function TooltipSection() {
     >
       <div className="flex gap-4">
         <div className="relative group">
-          <button className="p-2 border border-border rounded hover:bg-muted transition-colors">
+          <button data-ds="button" data-variant="outline" className="p-2 border border-border rounded hover:bg-muted transition-colors">
             <Eye size={16} />
           </button>
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block">
@@ -2477,7 +2477,7 @@ function TooltipSection() {
           </div>
         </div>
         <div className="relative group">
-          <button className="p-2 border border-border rounded hover:bg-muted transition-colors">
+          <button data-ds="button" data-variant="outline" className="p-2 border border-border rounded hover:bg-muted transition-colors">
             <Copy size={16} />
           </button>
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block">
@@ -2606,7 +2606,7 @@ function EmptyStateSection() {
         <p className="text-sm text-muted-foreground mb-4 max-w-sm mx-auto">
           Tente ajustar os filtros de busca ou verifique se os dados foram carregados corretamente.
         </p>
-        <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium">
+        <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium">
           <Search size={14} /> Nova busca
         </button>
       </div>
@@ -2669,7 +2669,7 @@ const [open, setOpen] = useState(false);
       <div className="flex flex-wrap gap-6 items-start">
         {/* Dropdown com botão texto */}
         <div className="relative">
-          <button
+          <button data-ds="button" data-variant="outline"
             onClick={() => setOpen(!open)}
             aria-haspopup="true"
             aria-expanded={open}
@@ -2678,7 +2678,7 @@ const [open, setOpen] = useState(false);
             Ações <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
           </button>
           {open && (
-            <div
+            <div data-ds="card"
               role="menu"
               className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-lg py-1 z-20 animate-fade-in"
               onMouseLeave={() => setOpen(false)}
@@ -2689,7 +2689,7 @@ const [open, setOpen] = useState(false);
                 { icon: <Share2 size={14} />, label: "Compartilhar", action: "share" },
                 { icon: <Download size={14} />, label: "Exportar", action: "export" },
               ].map(item => (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   key={item.action}
                   role="menuitem"
                   onClick={() => { setSelectedAction(item.label); setOpen(false); }}
@@ -2699,7 +2699,7 @@ const [open, setOpen] = useState(false);
                 </button>
               ))}
               <div className="h-px bg-border my-1" />
-              <button
+              <button data-ds="button" data-variant="ghost"
                 role="menuitem"
                 onClick={() => { setSelectedAction("Excluir"); setOpen(false); }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-error/10 text-error transition-colors text-left"
@@ -2727,7 +2727,7 @@ function DropdownIconDemo() {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
-      <button
+      <button data-ds="button" data-variant="outline"
         onClick={() => setOpen(!open)}
         aria-haspopup="true"
         aria-expanded={open}
@@ -2737,18 +2737,18 @@ function DropdownIconDemo() {
         <MoreVertical size={16} />
       </button>
       {open && (
-        <div
+        <div data-ds="card"
           role="menu"
           className="absolute top-full right-0 mt-1 w-40 bg-card border border-border rounded-lg shadow-lg py-1 z-20 animate-fade-in"
           onMouseLeave={() => setOpen(false)}
         >
-          <button role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left">
+          <button data-ds="button" data-variant="ghost" role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left">
             <Eye size={14} className="text-muted-foreground" /> Visualizar
           </button>
-          <button role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left">
+          <button data-ds="button" data-variant="ghost" role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left">
             <Edit size={14} className="text-muted-foreground" /> Editar
           </button>
-          <button role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left text-error hover:bg-error/10">
+          <button data-ds="button" data-variant="ghost" role="menuitem" className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted transition-colors text-left text-error hover:bg-error/10">
             <Trash2 size={14} /> Excluir
           </button>
         </div>
@@ -2839,7 +2839,7 @@ function KebabMenu() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground">Em linha de tabela</span>
-          <div className="flex items-center gap-3 border border-border rounded-md px-3 py-2 bg-card">
+          <div data-ds="card" className="flex items-center gap-3 border border-border rounded-md px-3 py-2 bg-card">
             <span className="text-sm text-foreground">Programa Elas Empreendem</span>
             <KebabDemo onAction={setLastAction} />
           </div>
@@ -2888,14 +2888,14 @@ function KebabDemo({ bordered = false, onAction }: { bordered?: boolean; onActio
       </button>
       {open && (
         <div role="menu" className="absolute right-0 top-full mt-1 z-50 min-w-[160px] bg-popover border border-border rounded-lg shadow-lg py-1 animate-fade-in">
-          <button role="menuitem" onClick={() => { onAction("Visualizar"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted text-foreground text-left transition-colors">
+          <button data-ds="button" data-variant="ghost" role="menuitem" onClick={() => { onAction("Visualizar"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted text-foreground text-left transition-colors">
             <Eye size={14} className="text-muted-foreground" /> Visualizar
           </button>
-          <button role="menuitem" onClick={() => { onAction("Editar"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted text-foreground text-left transition-colors">
+          <button data-ds="button" data-variant="ghost" role="menuitem" onClick={() => { onAction("Editar"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-muted text-foreground text-left transition-colors">
             <Edit size={14} className="text-muted-foreground" /> Editar
           </button>
           <div className="h-px bg-border my-1" />
-          <button role="menuitem" onClick={() => { onAction("Excluir"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-destructive/10 text-destructive text-left transition-colors">
+          <button data-ds="button" data-variant="ghost" role="menuitem" onClick={() => { onAction("Excluir"); setOpen(false); }} className="w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-destructive/10 text-destructive text-left transition-colors">
             <Trash2 size={14} /> Excluir
           </button>
         </div>
@@ -3000,14 +3000,14 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
           <label className="block text-sm font-medium mb-1.5">Data de referência</label>
           <div className="relative max-w-xs">
             <div className="relative">
-              <input
+              <input data-ds="input"
                 type="text"
                 value={date}
                 onChange={e => setDate(e.target.value)}
                 placeholder="DD/MM/AAAA"
                 className="w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
               />
-              <button
+              <button data-ds="button" data-variant="ghost"
                 onClick={() => setShowCal(!showCal)}
                 aria-label="Abrir calendário"
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground transition-colors"
@@ -3017,13 +3017,13 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
             </div>
 
             {showCal && (
-              <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg p-3 z-30 animate-fade-in w-72">
+              <div data-ds="card" className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg p-3 z-30 animate-fade-in w-72">
                 <div className="flex items-center justify-between mb-3">
-                  <button onClick={prevMonth} aria-label="Mês anterior" className="p-1 hover:bg-muted rounded transition-colors">
+                  <button data-ds="button" data-variant="ghost" onClick={prevMonth} aria-label="Mês anterior" className="p-1 hover:bg-muted rounded transition-colors">
                     <ArrowLeft size={16} />
                   </button>
                   <span className="text-sm font-semibold">{monthNames[viewMonth]} {viewYear}</span>
-                  <button onClick={nextMonth} aria-label="Próximo mês" className="p-1 hover:bg-muted rounded transition-colors">
+                  <button data-ds="button" data-variant="ghost" onClick={nextMonth} aria-label="Próximo mês" className="p-1 hover:bg-muted rounded transition-colors">
                     <ArrowRight size={16} />
                   </button>
                 </div>
@@ -3058,7 +3058,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
           <label className="block text-sm font-medium mb-1.5">Período (range)</label>
           <div className="flex items-center gap-2 max-w-md">
             <div className="relative flex-1">
-              <input
+              <input data-ds="input"
                 type="date"
                 value={rangeStart}
                 onChange={e => setRangeStart(e.target.value)}
@@ -3068,7 +3068,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
             </div>
             <span className="text-sm text-muted-foreground">até</span>
             <div className="relative flex-1">
-              <input
+              <input data-ds="input"
                 type="date"
                 value={rangeEnd}
                 onChange={e => setRangeEnd(e.target.value)}
@@ -3084,7 +3084,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
           <p className="text-sm font-medium mb-2">Atalhos de período</p>
           <div className="flex flex-wrap gap-2">
             {["Hoje", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Último trimestre", "Este ano"].map(label => (
-              <button key={label} className="px-3 py-1.5 text-xs border border-border rounded-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
+              <button data-ds="button" data-variant="outline" key={label} className="px-3 py-1.5 text-xs border border-border rounded-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
                 {label}
               </button>
             ))}
@@ -3184,7 +3184,7 @@ const [searchVal, setSearchVal] = useState("");
             <label className="block text-xs font-medium mb-1 text-muted-foreground">Buscar</label>
             <div className="relative">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input
+              <input data-ds="input"
                 type="search"
                 value={searchVal}
                 onChange={e => setSearchVal(e.target.value)}
@@ -3195,7 +3195,7 @@ const [searchVal, setSearchVal] = useState("");
           </div>
           <div>
             <label className="block text-xs font-medium mb-1 text-muted-foreground">Status</label>
-            <select
+            <select data-ds="select-trigger"
               value={status}
               onChange={e => handleStatusChange(e.target.value)}
               className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
@@ -3209,7 +3209,7 @@ const [searchVal, setSearchVal] = useState("");
           </div>
           <div>
             <label className="block text-xs font-medium mb-1 text-muted-foreground">Programa</label>
-            <select
+            <select data-ds="select-trigger"
               value={tipo}
               onChange={e => handleTipoChange(e.target.value)}
               className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
@@ -3221,7 +3221,7 @@ const [searchVal, setSearchVal] = useState("");
               <option value="Visita Técnica">Visita Técnica</option>
             </select>
           </div>
-          <button className="inline-flex items-center gap-1.5 border border-border px-3 py-2 rounded text-sm hover:bg-muted transition-colors">
+          <button data-ds="button" data-variant="outline" className="inline-flex items-center gap-1.5 border border-border px-3 py-2 rounded text-sm hover:bg-muted transition-colors">
             <Filter size={14} /> Mais filtros
           </button>
         </div>
@@ -3233,12 +3233,12 @@ const [searchVal, setSearchVal] = useState("");
             {activeFilters.map(f => (
               <span key={f} className="inline-flex items-center gap-1 bg-primary/10 text-primary px-2.5 py-1 rounded-full text-xs font-medium">
                 {f}
-                <button onClick={() => removeFilter(f)} aria-label={`Remover filtro ${f}`} className="hover:bg-primary/20 rounded-full p-0.5 transition-colors">
+                <button data-ds="button" data-variant="ghost" onClick={() => removeFilter(f)} aria-label={`Remover filtro ${f}`} className="hover:bg-primary/20 rounded-full p-0.5 transition-colors">
                   <X size={12} />
                 </button>
               </span>
             ))}
-            <button onClick={clearAll} className="text-xs text-error hover:underline ml-1">Limpar todos</button>
+            <button data-ds="button" data-variant="link" onClick={clearAll} className="text-xs text-error hover:underline ml-1">Limpar todos</button>
           </div>
         )}
 
@@ -3309,7 +3309,7 @@ const kpis = [
           { icon: <Clock size={20} />, value: "23", label: "Pendências", trend: "-15,4%", up: false, comparison: "vs. 27 semana anterior", color: "text-warning bg-warning-bg" },
           { icon: <BarChart3 size={20} />, value: "94,2%", label: "Taxa de execução", trend: "+2,1%", up: true, comparison: "Meta: 95%", color: "text-info bg-info-bg" },
         ].map((kpi, i) => (
-          <div key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${kpi.label}: ${kpi.value}`}>
+          <div data-ds="card" key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${kpi.label}: ${kpi.value}`}>
             <div className="flex items-center justify-between mb-3">
               <span className={`p-2 rounded-lg ${kpi.color}`}>{kpi.icon}</span>
               <span className={`inline-flex items-center gap-1 text-xs font-semibold ${kpi.up ? "text-success" : "text-error"}`}>
@@ -3475,7 +3475,7 @@ const fileInputRef = useRef<HTMLInputElement>(null);
 
         {/* Demo button */}
         {files.length === 0 && (
-          <button
+          <button data-ds="button" data-variant="default"
             onClick={handleFileSelect}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium"
           >
@@ -3494,7 +3494,7 @@ const fileInputRef = useRef<HTMLInputElement>(null);
               </span>
             </div>
             {files.map((file, i) => (
-              <div key={i} className="flex items-center gap-3 bg-card border border-border rounded-lg p-3">
+              <div data-ds="card" key={i} className="flex items-center gap-3 bg-card border border-border rounded-lg p-3">
                 <span className={`shrink-0 ${file.status === "done" ? "text-success" : file.status === "error" ? "text-error" : "text-muted-foreground"}`}>
                   {file.status === "done" ? <CheckCircle2 size={18} /> : file.status === "error" ? <XCircle size={18} /> : <File size={18} />}
                 </span>
@@ -3518,9 +3518,9 @@ const fileInputRef = useRef<HTMLInputElement>(null);
                   </div>
                 </div>
                 {file.status === "error" && (
-                  <button className="text-xs text-primary hover:underline shrink-0">Tentar novamente</button>
+                  <button data-ds="button" data-variant="link" className="text-xs text-primary hover:underline shrink-0">Tentar novamente</button>
                 )}
-                <button aria-label={`Remover ${file.name}`} className="p-1 hover:bg-muted rounded shrink-0 transition-colors" onClick={() => setFiles(prev => prev.filter((_, j) => j !== i))}>
+                <button data-ds="button" data-variant="ghost" aria-label={`Remover ${file.name}`} className="p-1 hover:bg-muted rounded shrink-0 transition-colors" onClick={() => setFiles(prev => prev.filter((_, j) => j !== i))}>
                   <X size={14} className="text-muted-foreground" />
                 </button>
               </div>
@@ -3670,7 +3670,7 @@ const [currentStep, setCurrentStep] = useState(1);
 
         {/* Navigation */}
         <div className="flex items-center justify-between">
-          <button
+          <button data-ds="button" data-variant="outline"
             onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
             disabled={currentStep === 1}
             className="inline-flex items-center gap-2 border border-border px-4 py-2 rounded text-sm font-medium hover:bg-muted transition-colors disabled:opacity-30"
@@ -3678,7 +3678,7 @@ const [currentStep, setCurrentStep] = useState(1);
             <ArrowLeft size={14} /> Voltar
           </button>
           <span className="text-xs text-muted-foreground">Etapa {currentStep} de {steps.length}</span>
-          <button
+          <button data-ds="button" data-variant="default"
             onClick={() => setCurrentStep(Math.min(steps.length, currentStep + 1))}
             disabled={currentStep === steps.length}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-30"
@@ -3863,7 +3863,7 @@ function StatsCardsSection() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Card com progresso/meta */}
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-muted-foreground">Taxa de execução</span>
             <BarChart3 size={16} className="text-muted-foreground" />
@@ -3880,7 +3880,7 @@ function StatsCardsSection() {
         </div>
 
         {/* Card comparativo */}
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
           <span className="text-sm text-muted-foreground block mb-3">Atendimentos: este mês vs anterior</span>
           <div className="flex items-end gap-6">
             <div>
@@ -3904,7 +3904,7 @@ function StatsCardsSection() {
         </div>
 
         {/* Card de ranking */}
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
           <span className="text-sm text-muted-foreground block mb-3">Top 5 programas por valor</span>
           <div className="space-y-2">
             {[
@@ -3928,7 +3928,7 @@ function StatsCardsSection() {
         </div>
 
         {/* Card com status indicadores */}
-        <div className="bg-card border border-border rounded-lg p-5">
+        <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
           <span className="text-sm text-muted-foreground block mb-3">Status dos processos</span>
           <div className="grid grid-cols-2 gap-3">
             {[
@@ -3958,7 +3958,7 @@ function StatsCardsSection() {
         </div>
 
         {/* Card ação rápida */}
-        <div className="bg-card border border-border rounded-lg p-5 flex flex-col justify-between">
+        <div data-ds="card" className="bg-card border border-border rounded-lg p-5 flex flex-col justify-between">
           <div>
             <span className="text-sm text-muted-foreground block mb-2">Ações pendentes</span>
             <div className="space-y-2">
@@ -3970,7 +3970,7 @@ function StatsCardsSection() {
               ))}
             </div>
           </div>
-          <button className="mt-4 w-full text-center bg-primary text-primary-foreground py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
+          <button data-ds="button" data-variant="default" className="mt-4 w-full text-center bg-primary text-primary-foreground py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity">
             Ver todas as pendências
           </button>
         </div>
@@ -4153,7 +4153,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
               { title: "Total de Ordens", badge: "Mensal", value: "180", subtitle: "Total mensal de ordens", pct: 58, color: "text-info" },
               { title: "Novos Cadastros", badge: "Mensal", value: "50.895", subtitle: "Novos cadastros mensais", pct: 85, color: "text-success" },
             ].map((m, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
+              <div data-ds="card" key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-sm font-semibold text-foreground">{m.title}</h4>
                   <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded">{m.badge}</span>
@@ -4179,7 +4179,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
               { title: "Projeto B - Receita", value: "R$ 450K", subtitle: "Receita mensal Projeto B", data: [50, 40, 70, 60, 80, 75, 95] },
               { title: "Projeto C - Engajamento", value: "R$ 580K", subtitle: "Engajamento mensal Projeto C", data: [30, 55, 45, 70, 60, 85, 75] },
             ].map((m, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
+              <div data-ds="card" key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-sm font-semibold text-foreground">{m.title}</h4>
                   <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded">Mensal</span>
@@ -4205,7 +4205,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
               { title: "Oceanview Residences", trend: "-R$ 20K", up: false, value: "R$ 230K", subtitle: "Variação de vendas", data: [60, 55, 50, 45, 40, 35, 42, 38, 30, 25] },
               { title: "Sunset Bay Villas", trend: "+R$ 50K", up: true, value: "R$ 650K", subtitle: "Variação de vendas", data: [30, 40, 35, 55, 50, 65, 60, 75, 80, 90] },
             ].map((m, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
+              <div data-ds="card" key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-semibold text-foreground">{m.title}</h4>
                   <span className={`text-xs font-semibold px-2 py-0.5 rounded ${m.up ? "bg-success-bg text-success" : "bg-error-bg text-error"}`}>
@@ -4233,7 +4233,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
               { title: "Total Despesas", trend: "-2,1%", up: false, value: "R$ 840K", subtitle: "Este trimestre", pct: 55, colors: ["text-secondary", "text-warning"] },
               { title: "Lucro Líquido", trend: "Estável", up: true, value: "R$ 400K", subtitle: "Este trimestre", pct: 42, colors: ["text-success", "text-primary"] },
             ].map((m, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
+              <div data-ds="card" key={i} className="bg-card border border-border rounded-lg p-5" aria-label={`${m.title}: ${m.value}`}>
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-sm font-semibold text-foreground">{m.title}</h4>
                   <span className={`text-xs font-semibold px-2 py-0.5 rounded ${
@@ -4264,16 +4264,16 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Tabela trimestral + Cards de resumo</p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* Quarterly table */}
-            <div className="bg-card border border-border rounded-lg overflow-hidden">
+            <div data-ds="card" className="bg-card border border-border rounded-lg overflow-hidden">
               <div className="flex items-center justify-between p-4 border-b border-border">
                 <div className="flex items-center gap-2">
                   <h4 className="text-sm font-semibold">Relatórios Trimestrais</h4>
                   <span className="text-[10px] font-bold bg-success text-success-foreground px-1.5 py-0.5 rounded">NOVO</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <button className="p-1 hover:bg-muted rounded transition-colors" aria-label="Recolher"><ChevronDown size={14} /></button>
-                  <button className="p-1 hover:bg-muted rounded transition-colors" aria-label="Atualizar"><Activity size={14} /></button>
-                  <button className="p-1 hover:bg-muted rounded transition-colors" aria-label="Fechar"><X size={14} /></button>
+                  <button data-ds="button" data-variant="ghost" className="p-1 hover:bg-muted rounded transition-colors" aria-label="Recolher"><ChevronDown size={14} /></button>
+                  <button data-ds="button" data-variant="ghost" className="p-1 hover:bg-muted rounded transition-colors" aria-label="Atualizar"><Activity size={14} /></button>
+                  <button data-ds="button" data-variant="ghost" className="p-1 hover:bg-muted rounded transition-colors" aria-label="Fechar"><X size={14} /></button>
                 </div>
               </div>
               <div className="overflow-x-auto">
@@ -4313,7 +4313,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
             </div>
 
             {/* Summary card - Orders */}
-            <div className="bg-card border border-border rounded-lg p-5 flex flex-col">
+            <div data-ds="card" className="bg-card border border-border rounded-lg p-5 flex flex-col">
               <div className="flex-1">
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-4xl font-bold text-foreground">421</span>
@@ -4355,7 +4355,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Cards mistos de indicadores</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Profit card */}
-            <div className="bg-card border border-border rounded-lg p-5">
+            <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
               <div className="flex items-baseline gap-2 mb-1">
                 <span className="text-3xl font-bold text-foreground">R$ 12,50k</span>
                 <span className="text-sm text-muted-foreground">Lucro</span>
@@ -4365,7 +4365,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
             </div>
 
             {/* Revenue goal */}
-            <div className="bg-card border border-border rounded-lg p-5">
+            <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-muted-foreground">Meta de receita</span>
                 <span className="text-xs font-semibold text-success">87% alcançado</span>
@@ -4390,7 +4390,7 @@ function MiniAreaChart({ data, color = "text-primary", height = 50, width = 140 
             </div>
 
             {/* Multi-stat card */}
-            <div className="bg-card border border-border rounded-lg p-5">
+            <div data-ds="card" className="bg-card border border-border rounded-lg p-5">
               <h4 className="text-sm font-semibold mb-4">Resumo do período</h4>
               <div className="space-y-3">
                 {[

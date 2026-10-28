@@ -151,7 +151,7 @@ function FlipCard({ card }: { card: PainelCard }) {
         }}
       >
         {/* Front */}
-        <div
+        <div data-ds="card"
           className="absolute inset-0 rounded-xl border border-border bg-card shadow-sm overflow-hidden flex flex-col"
           style={{ backfaceVisibility: "hidden" }}
         >
@@ -203,7 +203,7 @@ function FlipCardImage({ card }: { card: PainelCard }) {
         }}
       >
         {/* Front — imagem */}
-        <div
+        <div data-ds="card"
           className="absolute inset-0 rounded-xl border border-border bg-card shadow-sm overflow-hidden flex flex-col"
           style={{ backfaceVisibility: "hidden" }}
         >
@@ -285,7 +285,7 @@ function HubPaineisPreview() {
       <div className="flex justify-center py-4 px-4">
         <div className="relative w-full max-w-md">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
+          <input data-ds="input"
             type="text"
             placeholder="Buscar painel..."
             value={searchTerm}
@@ -293,7 +293,7 @@ function HubPaineisPreview() {
             className="w-full bg-muted/50 text-foreground text-xs rounded-lg pl-9 pr-9 py-2.5 border border-border focus:outline-none focus:ring-1 focus:ring-brand-primary placeholder:text-muted-foreground"
           />
           {searchTerm && (
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={() => setSearchTerm("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >
@@ -370,7 +370,7 @@ function HubPaineisImagePreview() {
       <div className="flex justify-center py-4 px-4">
         <div className="relative w-full max-w-md">
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-          <input
+          <input data-ds="input"
             type="text"
             placeholder="Buscar painel..."
             value={searchTerm}
@@ -378,7 +378,7 @@ function HubPaineisImagePreview() {
             className="w-full bg-muted/50 text-foreground text-xs rounded-lg pl-9 pr-9 py-2.5 border border-border focus:outline-none focus:ring-1 focus:ring-brand-primary placeholder:text-muted-foreground"
           />
           {searchTerm && (
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={() => setSearchTerm("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >

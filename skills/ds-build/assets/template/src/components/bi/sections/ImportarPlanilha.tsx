@@ -67,7 +67,7 @@ export default function ImportarPlanilha() {
 
       <Stepper atual={etapa} />
 
-      <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-6 shadow-sm">
         {etapa === 1 && (
           <div
             onDrop={(e) => {
@@ -144,7 +144,7 @@ export default function ImportarPlanilha() {
               {CAMPOS_SISTEMA.map((campo) => (
                 <div key={campo} className="flex items-center gap-3">
                   <label className="w-40 text-sm font-medium">{campo}</label>
-                  <input
+                  <input data-ds="input"
                     className="flex-1 h-9 rounded-md border border-input bg-background px-2 text-sm"
                     value={mapping[campo] ?? ""}
                     onChange={(e) => setMapping({ ...mapping, [campo]: e.target.value })}

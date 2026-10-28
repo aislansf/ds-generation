@@ -78,7 +78,7 @@ export default function HeaderPlaygroundPage() {
                 <Settings2 size={16} className="text-primary" />
                 Ajustar Tokens
               </h3>
-              <button 
+              <button data-ds="button" data-variant="ghost" 
                 onClick={resetTokens}
                 className="p-1.5 hover:bg-muted rounded-full text-muted-foreground transition-colors"
                 title="Resetar para o padrão"
@@ -171,7 +171,7 @@ export default function HeaderPlaygroundPage() {
           <div className="brand-card">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold text-sm">CSS Gerado</h3>
-              <button 
+              <button data-ds="button" data-variant="link" 
                 onClick={copyCSS}
                 className="text-[10px] flex items-center gap-1 text-primary font-bold uppercase hover:underline"
               >

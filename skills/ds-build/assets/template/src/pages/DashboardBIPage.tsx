@@ -91,7 +91,7 @@ function KPICard({ icon: Icon, title, subtitle, value, borderColor }: {
   icon: React.ElementType; title: string; subtitle: string; value: string; borderColor: string;
 }) {
   return (
-    <div className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
+    <div data-ds="card" className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: borderColor }} />
       <p className="text-xs font-semibold mt-1" style={{ color: borderColor }}>{title}</p>
       <p className="text-[10px] text-muted-foreground">{subtitle}</p>
@@ -169,7 +169,7 @@ export default function DashboardBIPage() {
 
       {/* ═══ HEADER · Fundo claro · Marca completa com título e subtítulo ═══ */}
       <header className="bg-accent border-b border-border flex items-center px-5 py-3 gap-4 min-h-[64px] shrink-0 sticky top-0 z-40">
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={() => setSidebarOpen((o) => !o)}
           className="p-1.5 hover:bg-primary/10 rounded-md flex items-center gap-1.5 transition-colors shrink-0"
           aria-label="Menu"
@@ -192,7 +192,7 @@ export default function DashboardBIPage() {
           </p>
         </div>
 
-        <button
+        <button data-ds="button" data-variant="ghost"
           onClick={toggleTheme}
           className="p-1.5 hover:bg-primary/10 rounded-md transition-colors shrink-0"
           aria-label="Alternar tema"
@@ -229,7 +229,7 @@ export default function DashboardBIPage() {
                 {(!collapsed || isMobile) && <span className="text-sm font-semibold whitespace-nowrap">SIGLA</span>}
               </div>
               {(!collapsed || isMobile) && (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
                   aria-label="Fechar menu"
@@ -243,7 +243,7 @@ export default function DashboardBIPage() {
               <div className="px-3 py-2">
                 <div className="relative">
                   <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-muted" />
-                  <input
+                  <input data-ds="input"
                     ref={searchRef}
                     type="text"
                     placeholder="Buscar no menu..."
@@ -252,7 +252,7 @@ export default function DashboardBIPage() {
                     className="w-full bg-sidebar-accent text-sidebar-foreground text-xs rounded pl-8 pr-8 py-2 placeholder:text-sidebar-muted border border-sidebar-border focus:outline-none focus:ring-1 focus:ring-sidebar-ring"
                   />
                   {searchQuery && (
-                    <button
+                    <button data-ds="button" data-variant="ghost"
                       onClick={() => { setSearchQuery(""); searchRef.current?.focus(); }}
                       className="absolute right-2 top-1/2 -translate-y-1/2 text-sidebar-muted hover:text-sidebar-foreground transition-colors"
                     >
@@ -314,7 +314,7 @@ export default function DashboardBIPage() {
 
             <div className={`border-t border-sidebar-border p-2 ${collapsed && !isMobile ? "flex justify-center" : "px-3"}`}>
               {isMobile ? (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label="Fechar menu"
@@ -322,7 +322,7 @@ export default function DashboardBIPage() {
                   <X size={16} /><span>Fechar menu</span>
                 </button>
               ) : (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setCollapsed(!collapsed)}
                   className="flex items-center gap-2 text-sidebar-muted hover:text-sidebar-foreground text-xs py-1.5 px-2 rounded hover:bg-sidebar-accent/50 transition-colors w-full"
                   aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
@@ -351,13 +351,13 @@ export default function DashboardBIPage() {
 
           {/* Filter Bar */}
           <div className="flex items-center gap-2 px-5 py-2 bg-card border-b border-border">
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded-md">
+            <button data-ds="button" data-variant="default" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs rounded-md">
               <Filter size={12} /> Filtros Avançados
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded-md">
+            <button data-ds="button" data-variant="secondary" className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors text-xs rounded-md">
               <Download size={12} /> Exportar PDF
             </button>
-            <button
+            <button data-ds="button" data-variant="outline"
               onClick={reload}
               disabled={isLoading}
               className="ml-auto flex items-center gap-1.5 px-3 py-1.5 border border-border bg-card text-foreground hover:bg-muted transition-colors text-xs rounded-md disabled:opacity-60"
@@ -372,7 +372,7 @@ export default function DashboardBIPage() {
             {isLoading ? (
               <KPIGridSkeleton count={4} />
             ) : (
-            <div className="bg-card rounded-lg border border-border p-3" aria-busy={isLoading}>
+            <div data-ds="card" className="bg-card rounded-lg border border-border p-3" aria-busy={isLoading}>
               <p className="text-xs font-semibold text-foreground mb-3 uppercase tracking-wider">
                 <span className="font-bold italic">Visão Geral:</span> Principais Métricas de Performance
               </p>
@@ -391,7 +391,7 @@ export default function DashboardBIPage() {
               {isLoading ? (
                 <ChartCardSkeleton height={280} className="lg:col-span-2" />
               ) : (
-              <div className="lg:col-span-2 bg-card rounded-lg border border-border p-4">
+              <div data-ds="card" className="lg:col-span-2 bg-card rounded-lg border border-border p-4">
                 <p className="text-sm font-bold text-primary mb-4">Evolução dos Repasses</p>
                 <div className="h-[280px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -425,7 +425,7 @@ export default function DashboardBIPage() {
               {isLoading ? (
                 <PieCardSkeleton />
               ) : (
-              <div className="bg-card rounded-lg border border-border p-4">
+              <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
                 <p className="text-sm font-bold text-primary mb-4">Distribuição por Programa</p>
                 <div className="h-[200px]">
                   <ResponsiveContainer width="100%" height="100%">
@@ -464,7 +464,7 @@ export default function DashboardBIPage() {
             {isLoading ? (
               <TableSkeleton rows={4} cols={7} />
             ) : (
-            <div className="bg-card rounded-lg border border-border p-4">
+            <div data-ds="card" className="bg-card rounded-lg border border-border p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-sm font-bold text-primary">Detalhamento de Execução</p>
                 <div className="flex items-center gap-3">
@@ -512,7 +512,7 @@ export default function DashboardBIPage() {
                     Mostrando {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, tableRows.length)} de {tableRows.length}
                   </span>
                   <div className="flex items-center gap-1">
-                    <button
+                    <button data-ds="button" data-variant="outline"
                       onClick={() => goToPage(page - 1)}
                       disabled={page === 1}
                       className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-border bg-card hover:bg-muted disabled:opacity-50 disabled:pointer-events-none transition-colors"
@@ -539,7 +539,7 @@ export default function DashboardBIPage() {
                         </button>
                       );
                     })}
-                    <button
+                    <button data-ds="button" data-variant="outline"
                       onClick={() => goToPage(page + 1)}
                       disabled={page === totalPages}
                       className="h-7 w-7 inline-flex items-center justify-center rounded-md border border-border bg-card hover:bg-muted disabled:opacity-50 disabled:pointer-events-none transition-colors"

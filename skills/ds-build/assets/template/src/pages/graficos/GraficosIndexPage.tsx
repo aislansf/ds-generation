@@ -115,7 +115,7 @@ export default function GraficosIndexPage() {
       />
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
         {BRAND_PALETTE_TOKENS.map((t, i) => (
-          <div key={t.token} className="rounded-lg border border-border bg-card overflow-hidden">
+          <div data-ds="card" key={t.token} className="rounded-lg border border-border bg-card overflow-hidden">
             <div className="h-16 w-full" style={{ background: readToken(t.token) }} aria-hidden="true" />
             <div className="p-2.5">
               <p className="text-xs font-semibold text-foreground">{i + 1}. {t.nome}</p>
@@ -138,7 +138,7 @@ export default function GraficosIndexPage() {
       </p>
       <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2 mb-8">
         {ECHARTS_PALETTE_COMPLEMENTAR.map((cor, i) => (
-          <div key={cor} className="rounded-lg border border-border bg-card overflow-hidden">
+          <div data-ds="card" key={cor} className="rounded-lg border border-border bg-card overflow-hidden">
             <div className="h-12 w-full" style={{ background: cor }} aria-hidden="true" />
             <div className="p-2">
               <p className="text-[11px] font-semibold text-foreground">{i + 11}</p>

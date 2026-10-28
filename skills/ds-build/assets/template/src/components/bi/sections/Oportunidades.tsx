@@ -107,7 +107,7 @@ export default function Oportunidades({ loading = false }: { loading?: boolean }
         <IndicatorCard title="Já participou de programa" value={jaParticipou} icon={Award} delta={null} />
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
         <h3 className="text-sm font-semibold mb-3">Oportunidades por município</h3>
         <BrandChart
           option={optCidade}
@@ -116,7 +116,7 @@ export default function Oportunidades({ loading = false }: { loading?: boolean }
         />
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <AlertOctagon className="h-4 w-4 text-primary" />
           <h3 className="text-sm font-semibold">Oportunidades prioritárias</h3>

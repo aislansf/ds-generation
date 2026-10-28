@@ -448,7 +448,7 @@ export default function DashboardAnaliticoPage() {
                 </span>
               )}
               {isMobile && (
-                <button
+                <button data-ds="button" data-variant="ghost"
                   onClick={() => setSidebarOpen(false)}
                   aria-label="Fechar menu"
                   className="p-1 rounded text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
@@ -502,7 +502,7 @@ export default function DashboardAnaliticoPage() {
             )}
 
             <div className={`border-t border-sidebar-border p-2 ${collapsed && !isMobile ? "flex justify-center" : "px-3"}`}>
-              <button
+              <button data-ds="button" data-variant="ghost"
                 onClick={() => (isMobile ? setSidebarOpen(false) : setCollapsed((c) => !c))}
                 aria-label={collapsed ? "Expandir menu" : "Recolher menu"}
                 aria-expanded={!collapsed}
@@ -642,7 +642,7 @@ export default function DashboardAnaliticoPage() {
                       <ul className="space-y-2.5">
                         {ranking.slice(0, 5).map((r) => (
                           <li key={r.nome}>
-                            <button
+                            <button data-ds="button" data-variant="ghost"
                               type="button"
                               onClick={() => detalharRegiao(r.nome)}
                               className="w-full text-left rounded-md p-1.5 hover:bg-muted transition-colors"

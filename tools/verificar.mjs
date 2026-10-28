@@ -17,6 +17,7 @@
  *   5b. marca de teste: H1 (light e dark), validadores e ColorSection na cor do briefing; textos de fonte e dependências corretos
  *   5c. estilos visuais: presets válidos, sem estilo = corporativo byte a byte, estilo inválido é pendência,
  *       briefing com estilo aplica a camada CSS
+ *   5d. testes unitários do motor de estilos (tools/testes/, node --test)
  *   (identidade visual pixel a pixel: tools/verificar-identidade.mjs; build e testes por estilo: tools/matriz-estilos.mjs)
  *   6. (com --node-modules) npm run build e vitest passam no DS da marca de teste
  */
@@ -160,6 +161,13 @@ const verde = path.join(OUT, "verde");
   const r = run("node", [GEN, "--brief", path.join(SKILL, "assets", "examples", "exemplo-neobrutalismo.json"), "--out", path.join(OUT, "neobrutalismo"), "--force"]);
   const css = r.ok ? fs.readFileSync(path.join(OUT, "neobrutalismo", "src", "styles", "estilo.css"), "utf8") : "";
   check("Briefing com estilo (neobrutalismo)", r.ok && /estilo: neobrutalismo/.test(r.out) && css.includes("translate(-2px, -2px)"), r.ok ? "" : r.out.slice(0, 300));
+}
+
+{
+  const r = run("node", ["--test", "tools/testes/*.test.mjs"]);
+  // Saída "spec" no terminal (ℹ pass N) e TAP quando redirecionada (# pass N)
+  const m = /(?:ℹ|#) pass (\d+)[\s\S]*?(?:ℹ|#) fail (\d+)/.exec(r.out);
+  check("Testes unitários do motor de estilos", r.ok, m ? `${m[1]} passaram, ${m[2]} falharam` : r.out.slice(0, 300));
 }
 
 if (args["node-modules"]) {

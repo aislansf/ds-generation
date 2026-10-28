@@ -83,7 +83,7 @@ export default function ErrorPageTemplate() {
           </p>
 
           {/* Action Button */}
-          <button
+          <button data-ds="button" data-variant="default"
             onClick={() => navigate("/templates")}
             className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all shadow-[var(--shadow-brand)]"
           >
@@ -105,7 +105,7 @@ export default function ErrorPageTemplate() {
       </div>
 
       {/* Back to templates link */}
-      <button 
+      <button data-ds="button" data-variant="ghost" 
         onClick={() => navigate("/templates")}
         className="mt-8 text-sm font-semibold text-primary/60 hover:text-primary flex items-center gap-2 transition-colors"
       >

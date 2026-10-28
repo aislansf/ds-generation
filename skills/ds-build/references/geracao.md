@@ -70,10 +70,11 @@ Entre a recoloração e os ajustes de contraste, o gerador aplica o estilo do br
 3. a camada CSS do preset vai para `src/styles/estilo.css`;
 4. `src/config/estilo.ts` e o script de tema do `index.html` recebem id, nome, tema padrão e layout;
 5. `degrade: false` faz `--brand-header-grad-end` igual a `--brand-header-grad-start` (header sólido);
-6. depois das correções da marca, os mínimos do estilo (`estilos.md`, regra 3) ajustam só tokens que o próprio estilo definiu;
+5b. se o estilo define `--input`, os tokens de campo (`--control-*`) passam a seguir `--input`, `--ring`, `--muted-foreground` e `--foreground`;
+6. depois das correções da marca, os mínimos do estilo (`estilos.md`, regra 3) ajustam só tokens que o próprio estilo definiu; quando o ajuste é numa superfície (`--background`, `--card`, `--popover`, `--muted`), as outras superfícies do preset na mesma matiz e saturação andam o mesmo passo;
 7. o espelho de `tokenGroups.ts` passa a incluir os valores escalares (raio, peso, duração, tokens de pele), para o validador de tokens continuar verde.
 
-O `corporativo` tem `tokens: {}` e nenhuma camada CSS: gerar sem estilo e com `corporativo` dá o mesmo DS, byte a byte. A seção "Estilo visual" do `GERACAO.md` lista tokens alterados, camada, tema padrão, ajustes de contraste do estilo e pendências (miniaturas capturadas no estilo padrão, fontes sugeridas não adotadas).
+O `corporativo` tem `tokens: {}` e nenhuma camada CSS: gerar sem estilo e com `corporativo` dá o mesmo DS, byte a byte. A seção "Estilo visual" do `GERACAO.md` lista tokens alterados, camada, tema padrão, ajustes de contraste do estilo e pendências (miniaturas capturadas no estilo padrão, fontes sugeridas não adotadas). O mesmo resumo, estruturado, vai para `public/design-system/estilo.json` (id, nível, tema padrão, tokens alterados, ajustes de contraste e avisos do estilo).
 
 ### Ajustando
 

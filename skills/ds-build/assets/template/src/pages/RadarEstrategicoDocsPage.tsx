@@ -64,7 +64,7 @@ export default function RadarEstrategicoDocsPage() {
         >
           <ArrowUpRight size={14} /> Abrir template
         </Link>
-        <Link
+        <Link data-ds="card"
           to="/templates"
           className="inline-flex items-center gap-1.5 px-4 py-2 border border-border bg-card text-foreground hover:bg-muted transition-colors text-sm rounded-md"
         >

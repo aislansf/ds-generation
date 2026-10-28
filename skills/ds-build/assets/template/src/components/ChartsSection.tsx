@@ -424,7 +424,7 @@ const codeRadial = `import { RadialBarChart, RadialBar, Legend, ResponsiveContai
 /* ========== CHART WRAPPER ========== */
 function ChartCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden">
+    <div data-ds="card" className="bg-card border border-border rounded-lg overflow-hidden">
       <div className="px-5 py-3 border-b border-border">
         <h4 className="text-sm font-semibold text-foreground">{title}</h4>
       </div>

@@ -36,6 +36,7 @@ O gerador aplica o preset depois de recolorir a marca e antes dos ajustes de con
 3. copia a **camada CSS** do estilo para `src/styles/estilo.css` (vazia no `corporativo`);
 4. grava `src/config/estilo.ts` (id, nome, tema padrão, layout) e o tema padrão no script do `index.html`;
 5. sem degradê no estilo: o header degradê vira cor sólida;
+5b. se o estilo define `--input`, os campos de formulário passam a seguir o estilo: `--control-border` = `--input`, `--control-border-hover` = `--ring`, placeholder = `--muted-foreground`, texto = `--foreground` (o preset pode fixar qualquer `--control-*` ele mesmo);
 6. confere os **mínimos de contraste do estilo** e ajusta só tokens do próprio estilo.
 
 O DS gerado mostra o estilo no grupo "Estilo visual" de `/tokens`, em `public/design-system/manifest.json` (`estilo: { id, nome }`) e nos tokens DTCG do Figma.
@@ -53,6 +54,7 @@ Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos est
 | `--shadow-ui`, `--shadow-ui-xs…2xl`, `--shadow-ui-inner` | sombras do Tailwind 3 | `shadow-*` dos componentes |
 | `--shadow-inset`, `--shadow-hover`, `--shadow-brand` | `none`, `var(--shadow-ui-md)`, sombra tingida da primária | Campos afundados, hover, CTA de marca |
 | `--card-alpha`, `--surface-blur`, `--surface-pattern` | `1`, `0px`, `none` | Vidro (glassmorfismo) |
+| `--control-border`, `--control-border-hover`, `--control-placeholder`, `--control-foreground`, `--control-placeholder-input` | cores fixas dos campos do DS de referência, recoloridas pela marca | Borda, hover/foco, placeholder dos campos crus; texto e placeholder do Input/Textarea |
 | `--font-light…black` | `300…900` | `font-*` |
 | `--tracking-*`, `--duration-*`, `--ease-*` | escala atual | `tracking-*`, `duration-*`, `transition` |
 | `--icon-stroke` | `2` | Traço dos ícones Lucide |
@@ -91,7 +93,7 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **neumorfismo:** fundo, cards e popovers na mesma cor; relevo com luz e sombra; campos, checkbox, switch e abas afundados; salvaguardas: borda de 3:1 em todo controle e anel de foco sólido; sem degradê.
 - **glassmorfismo:** malha de `radial-gradient` com as cores da marca no fundo; cards, header, menus e modais em vidro (55% de opacidade no light, 35% no dark, desfoque de 16px); cards com tabela ou formulário a 85%.
 - **claymorfismo:** fundo tingido da primária; cards 1.5rem e controles em pílula, sem borda; sombra colorida por fora e realce por dentro; hover com aumento de 2%; gráficos com curvas suaves e barras arredondadas.
-- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards; rótulos em mono com caixa alta. No light, alto contraste com o neon escurecido. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
+- **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards em repouso (somem em hover e foco, para o brilho e o anel não serem cortados); rótulos em mono com caixa alta. No light, alto contraste: estrutura em neutro escuro sobre fundo frio e o neon escurecido no anel de foco. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
 
 ## Criar ou ajustar um preset
 

@@ -34,7 +34,7 @@ export default function RadarEstrategicoHubPage() {
         {items.map((it) => {
           const Icon = it.icon;
           return (
-            <a
+            <a data-ds="card"
               key={it.path}
               href={it.path}
               target="_blank"

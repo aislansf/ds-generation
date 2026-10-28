@@ -565,6 +565,7 @@ Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest
 
 - Tokens alterados: ${estiloRes.tokens[":root"]} (:root), ${estiloRes.tokens[".dark"]} (.dark)
 - Camada CSS: ${estiloRes.camada ? "src/styles/estilo.css" : "(nenhuma)"}
+- Campos de formulário: ${estiloRes.campos ? "seguem o estilo (borda --input, hover e foco --ring, placeholder --muted-foreground, texto --foreground)" : "cores da marca (--control-*)"}
 - Decoração gerada: (nenhuma)
 - Degradê do header: ${estilo.degrade === false ? "desligado (cor sólida)" : "mantido"}
 - Tema padrão: ${estilo.tema_padrao}
@@ -620,6 +621,23 @@ Veja \`references/reescrita-semantica.md\` na skill: ColorSection (paleta estend
 ${contrastTable(contraste)}
 `;
 write("GERACAO.md", relatorio);
+
+// Resumo estruturado do estilo (lido pela matriz de estilos e, na Fase 6, pela seção "Estilo visual" do DS).
+// Sem data nem caminho absoluto: gerar duas vezes dá o mesmo arquivo.
+write("public/design-system/estilo.json", JSON.stringify({
+  id: estilo.id,
+  nome: estilo.nome,
+  nivel: estilo.nivel,
+  tema_padrao: estilo.tema_padrao,
+  layout: estilo.layout,
+  tokens_alterados: estiloRes.tokens,
+  camada_css: estiloRes.camada,
+  campos_seguem_estilo: estiloRes.campos,
+  degrade: estilo.degrade !== false,
+  ajustes_contraste: estiloContraste.ajustes,
+  avisos: [...estiloRes.avisos, ...estiloContraste.avisos],
+  contraste_abaixo_aa: falhas.length,
+}, null, 2) + "\n");
 
 // ---------- 9. node_modules (opcional, para testar o build) ----------
 if (args["node-modules"]) {

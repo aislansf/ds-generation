@@ -308,7 +308,7 @@ export default function FundamentosPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-border">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Escala tipográfica dinâmica</h4>
           <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg border border-border">
-            <button
+            <button data-ds="button" data-variant="ghost"
               onClick={() => setFontSizeOffset(prev => Math.max(prev - 0.125, -0.125))}
               disabled={fontSizeOffset <= -0.125}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
@@ -319,7 +319,7 @@ export default function FundamentosPage() {
             <div className="px-3 text-xs font-mono font-bold min-w-[60px] text-center">
               {fontSizeOffset > 0 ? `+${fontSizeOffset.toFixed(3)}` : fontSizeOffset.toFixed(3)}rem
             </div>
-            <button 
+            <button data-ds="button" data-variant="ghost" 
               onClick={() => setFontSizeOffset(prev => Math.min(prev + 0.125, 1))}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all"
               title="Aumentar tamanho"
@@ -327,7 +327,7 @@ export default function FundamentosPage() {
               <Plus size={16} />
             </button>
             <div className="w-px h-4 bg-border mx-1" />
-            <button 
+            <button data-ds="button" data-variant="ghost" 
               onClick={() => setFontSizeOffset(0)}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all text-muted-foreground hover:text-foreground"
               title="Resetar para o padrão"
@@ -817,7 +817,7 @@ h1, h2, h3, h4, h5, h6 {
         <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <div className="relative flex-1">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <input
+            <input data-ds="input"
               type="text"
               value={iconQuery}
               onChange={(e) => setIconQuery(e.target.value)}
@@ -1086,7 +1086,7 @@ h1, h2, h3, h4, h5, h6 {
           { label: "LG", token: "--shadow-lg" },
           { label: "XL", token: "--shadow-xl" },
         ].map(s => (
-          <div key={s.label} className="bg-card rounded-lg p-6 text-center border border-border" style={{ boxShadow: `var(${s.token})` }}>
+          <div data-ds="card" key={s.label} className="bg-card rounded-lg p-6 text-center border border-border" style={{ boxShadow: `var(${s.token})` }}>
             <p className="font-semibold text-sm">{s.label}</p>
             <p className="text-[10px] text-muted-foreground mt-1">{s.token}</p>
           </div>
@@ -1141,7 +1141,7 @@ h1, h2, h3, h4, h5, h6 {
           <div className="p-5 border border-border rounded-xl bg-muted/20">
             <div className="flex items-center justify-between mb-4">
               <h5 className="text-xs font-bold uppercase tracking-wider">01. Entrada Suave</h5>
-              <button 
+              <button data-ds="button" data-variant="secondary" 
                 onClick={() => setKey1(prev => prev + 1)}
                 className="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded font-bold hover:bg-primary/20 transition-colors"
               >
@@ -1187,7 +1187,7 @@ h1, h2, h3, h4, h5, h6 {
           <div className="p-5 border border-border rounded-xl bg-muted/20">
             <div className="flex items-center justify-between mb-4">
               <h5 className="text-xs font-bold uppercase tracking-wider">03. Lista em Cascata</h5>
-              <button 
+              <button data-ds="button" data-variant="secondary" 
                 onClick={() => setKey3(prev => prev + 1)}
                 className="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded font-bold hover:bg-primary/20 transition-colors"
               >

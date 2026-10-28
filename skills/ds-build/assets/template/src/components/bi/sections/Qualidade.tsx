@@ -53,7 +53,7 @@ export default function Qualidade({ loading = false }: { loading?: boolean }) {
         <IndicatorCard title="Sem contato" value={semContato} icon={AlertTriangle} delta={null} />
       </div>
 
-      <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+      <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <h3 className="text-sm font-semibold mb-3">Pendências de cadastro</h3>
         <div className="overflow-x-auto">
           <Table>

@@ -23,7 +23,7 @@ export default function AcessibilidadePage() {
             <p className="text-sm text-muted-foreground">Texto foreground sobre Secondary — adequado para texto grande</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="w-20 h-10 rounded flex items-center justify-center text-xs font-bold bg-card text-foreground border border-border">AA ✓</div>
+            <div data-ds="card" className="w-20 h-10 rounded flex items-center justify-center text-xs font-bold bg-card text-foreground border border-border">AA ✓</div>
             <p className="text-sm text-muted-foreground">Texto foreground sobre Card — adaptativo ao tema</p>
           </div>
         </div>
@@ -35,10 +35,10 @@ export default function AcessibilidadePage() {
       <SectionHeader id="foco" title="Foco Visível" description="Todo elemento interativo deve ter um indicador de foco visível para navegação por teclado." />
       <div className="brand-card mb-8">
         <div className="flex flex-wrap gap-4 mb-4">
-          <button className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
+          <button data-ds="button" data-variant="default" className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
             Clique ou use Tab
           </button>
-          <input placeholder="Campo com foco visível" className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background" />
+          <input data-ds="input" placeholder="Campo com foco visível" className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background" />
         </div>
         <CodeBlock code={`/* Padrão de foco visível — funciona em ambos os temas */
 .interactive-element:focus-visible {

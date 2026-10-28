@@ -198,13 +198,13 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
           {variant.showTitle === false && <div className="flex-1" />}
 
           {/* Theme toggle */}
-          <button className="p-1.5 hover:bg-[#0024A9]/10 rounded transition-colors shrink-0" aria-label="Alternar tema">
+          <button data-ds="button" data-variant="ghost" className="p-1.5 hover:bg-[#0024A9]/10 rounded transition-colors shrink-0" aria-label="Alternar tema">
             <Sun size={16} className="text-[#0024A9]/70" />
           </button>
 
           {/* Menu hamburger (right) */}
           {variant.menuPosition !== "sem" && (
-            <button className="p-1.5 hover:bg-[#0024A9]/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu">
+            <button data-ds="button" data-variant="ghost" className="p-1.5 hover:bg-[#0024A9]/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu">
               <Menu size={18} className="text-[#0024A9]" />
               <span className="text-[10px] text-[#0024A9]/70 hidden sm:inline">Menu</span>
             </button>
@@ -712,12 +712,12 @@ export default function TemplatesPage() {
                     Variantes de botão
                   </h5>
                   <div className="flex flex-wrap gap-3 p-4 bg-muted/20 rounded-lg border border-border/50">
-                    <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Primário</button>
-                    <button className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Secundário</button>
-                    <button className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold transition-all">Outline</button>
-                    <button className="hover:bg-muted text-foreground px-4 py-2 rounded text-xs font-bold transition-all">Ghost</button>
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Primário</button>
+                    <button data-ds="button" data-variant="secondary" className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Secundário</button>
+                    <button data-ds="button" data-variant="outline" className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold transition-all">Outline</button>
+                    <button data-ds="button" data-variant="ghost" className="hover:bg-muted text-foreground px-4 py-2 rounded text-xs font-bold transition-all">Ghost</button>
                     <button className="bg-error text-white px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Destrutivo</button>
-                    <button className="px-4 py-2 rounded text-xs font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">Diversificado</button>
+                    <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-xs font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">Diversificado</button>
                   </div>
                 </div>
                 <div>
@@ -726,11 +726,11 @@ export default function TemplatesPage() {
                     Estados Interativos
                   </h5>
                   <div className="flex flex-wrap gap-3 p-4 bg-muted/20 rounded-lg border border-border/50">
-                    <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold opacity-60 cursor-not-allowed" disabled>Desabilitado</button>
-                    <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2">
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold opacity-60 cursor-not-allowed" disabled>Desabilitado</button>
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2">
                       <Loader2 size={14} className="animate-spin" /> Carregando
                     </button>
-                    <button className="bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded text-xs font-bold ring-2 ring-primary/30">Focado</button>
+                    <button data-ds="button" data-variant="secondary" className="bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded text-xs font-bold ring-2 ring-primary/30">Focado</button>
                   </div>
                 </div>
               </div>
@@ -741,11 +741,11 @@ export default function TemplatesPage() {
                     Tamanhos e Ícones
                   </h5>
                   <div className="flex flex-wrap items-center gap-4 p-4 bg-muted/20 rounded-lg border border-border/50">
-                    <button className="bg-primary text-primary-foreground px-3 py-1.5 rounded text-[10px] font-bold">SM</button>
-                    <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold">MD (Padrão)</button>
-                    <button className="bg-primary text-primary-foreground px-6 py-3 rounded text-sm font-bold">LG</button>
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-3 py-1.5 rounded text-[10px] font-bold">SM</button>
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold">MD (Padrão)</button>
+                    <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-6 py-3 rounded text-sm font-bold">LG</button>
                     <div className="w-px h-8 bg-border mx-2" />
-                    <button className="p-2.5 bg-secondary text-secondary-foreground rounded-full hover:rotate-12 transition-transform shadow-sm">
+                    <button data-ds="button" data-variant="secondary" className="p-2.5 bg-secondary text-secondary-foreground rounded-full hover:rotate-12 transition-transform shadow-sm">
                       <Download size={16} />
                     </button>
                   </div>
@@ -759,40 +759,40 @@ export default function TemplatesPage() {
                   <div className="space-y-4 p-4 bg-muted/20 rounded-lg border border-border/50">
                     {/* Primário */}
                     <div className="flex flex-wrap items-center gap-3">
-                      <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+                      <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
                         <Send size={14} /> Primário
                       </button>
-                      <button className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+                      <button data-ds="button" data-variant="default" className="bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
                         Primário <Send size={14} />
                       </button>
                     </div>
                     
                     {/* Secundário */}
                     <div className="flex flex-wrap items-center gap-3">
-                      <button className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+                      <button data-ds="button" data-variant="secondary" className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
                         <Download size={14} /> Secundário
                       </button>
-                      <button className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
+                      <button data-ds="button" data-variant="secondary" className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold flex items-center gap-2 hover:brightness-110 transition-all">
                         Secundário <Download size={14} />
                       </button>
                     </div>
 
                     {/* Outline */}
                     <div className="flex flex-wrap items-center gap-3">
-                      <button className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all">
+                      <button data-ds="button" data-variant="outline" className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all">
                         <ExternalLink size={14} /> Outline
                       </button>
-                      <button className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all">
+                      <button data-ds="button" data-variant="outline" className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold flex items-center gap-2 transition-all">
                         Outline <ExternalLink size={14} />
                       </button>
                     </div>
 
                     {/* Link */}
                     <div className="flex flex-wrap items-center gap-3">
-                      <button className="text-primary hover:underline px-2 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-all">
+                      <button data-ds="button" data-variant="link" className="text-primary hover:underline px-2 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-all">
                         <ArrowRight size={14} /> Link
                       </button>
-                      <button className="text-primary hover:underline px-2 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-all">
+                      <button data-ds="button" data-variant="link" className="text-primary hover:underline px-2 py-1 rounded text-xs font-bold flex items-center gap-1.5 transition-all">
                         Link <ArrowRight size={14} />
                       </button>
                     </div>
@@ -808,13 +808,13 @@ export default function TemplatesPage() {
                 <div className="space-y-4 p-5 bg-muted/20 rounded-lg border border-border/50">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Campo Padrão</label>
-                    <input type="text" placeholder="Digite algo..." className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                    <input data-ds="input" type="text" placeholder="Digite algo..." className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-error ml-1 flex items-center gap-1">
                       <AlertCircle size={10} /> Campo com Erro
                     </label>
-                    <input type="email" defaultValue="email-invalido" className="w-full border-2 border-error rounded px-3 py-2 text-sm bg-error-bg focus:outline-none focus:ring-2 focus:ring-error transition-colors" />
+                    <input data-ds="input" type="email" defaultValue="email-invalido" className="w-full border-2 border-error rounded px-3 py-2 text-sm bg-error-bg focus:outline-none focus:ring-2 focus:ring-error transition-colors" />
                     <p className="text-[10px] text-error font-medium ml-1">E-mail institucional obrigatório.</p>
                   </div>
                 </div>
@@ -824,7 +824,7 @@ export default function TemplatesPage() {
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Select Customizado</label>
                     <div className="relative">
-                      <select className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors cursor-pointer">
+                      <select data-ds="select-trigger" className="appearance-none w-full border border-input rounded px-3 py-2 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors cursor-pointer">
                         <option>Opção 01</option>
                         <option>Opção 02</option>
                         <option>Opção 03</option>
@@ -836,7 +836,7 @@ export default function TemplatesPage() {
                     <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-1">Campo com Ícone</label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-                      <input type="text" placeholder="Buscar no sistema..." className="w-full border border-input rounded pl-9 pr-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors" />
+                      <input data-ds="input" type="text" placeholder="Buscar no sistema..." className="w-full border border-input rounded pl-9 pr-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -858,17 +858,17 @@ export default function TemplatesPage() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-foreground">Nome</label>
-                      <input type="text" placeholder="Seu nome" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                      <input data-ds="input" type="text" placeholder="Seu nome" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-foreground">CPF</label>
-                      <input type="text" placeholder="000.000.000-00" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                      <input data-ds="input" type="text" placeholder="000.000.000-00" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-foreground">Data de Nascimento</label>
                     <div className="relative">
-                      <input type="text" placeholder="dd/mm/aaaa" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                      <input data-ds="input" type="text" placeholder="dd/mm/aaaa" className="w-full border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
                       <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
                     </div>
                   </div>
@@ -877,8 +877,8 @@ export default function TemplatesPage() {
                     <label htmlFor="terms" className="text-xs text-muted-foreground cursor-pointer select-none">Eu concordo com as diretrizes do sistema.</label>
                   </div>
                   <div className="flex justify-end gap-3 pt-4 border-t border-border">
-                    <button className="inline-flex items-center gap-2 text-foreground px-4 py-2 rounded text-xs font-medium hover:bg-muted transition-colors">Cancelar</button>
-                    <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-medium hover:opacity-90 transition-opacity">Salvar Alterações</button>
+                    <button data-ds="button" data-variant="ghost" className="inline-flex items-center gap-2 text-foreground px-4 py-2 rounded text-xs font-medium hover:bg-muted transition-colors">Cancelar</button>
+                    <button data-ds="button" data-variant="default" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded text-xs font-medium hover:opacity-90 transition-opacity">Salvar Alterações</button>
                   </div>
                 </div>
               </div>
@@ -967,7 +967,7 @@ export default function TemplatesPage() {
             <HeaderPreview variant={variant} />
 
             {/* Code toggle */}
-            <button
+            <button data-ds="button" data-variant="link"
               onClick={() => setOpenCode(openCode === variant.id ? null : variant.id)}
               className="text-xs font-medium text-primary hover:underline mt-3"
             >
@@ -1236,7 +1236,7 @@ export default function TemplatesPage() {
                         <Upload size={10} /> {customDashboardThumb ? "Trocar" : "Enviar thumb"}
                       </button>
                       {customDashboardThumb && (
-                        <button
+                        <button data-ds="button" data-variant="destructive"
                           type="button"
                           onClick={(e) => { e.preventDefault(); e.stopPropagation(); resetCustomThumb(); }}
                           className="inline-flex items-center gap-1 px-2 py-1 bg-destructive text-destructive-foreground text-[10px] rounded shadow hover:opacity-90"
@@ -1343,7 +1343,7 @@ export default function TemplatesPage() {
           aria-label="Pré-visualização da thumbnail"
           onClick={() => setPendingThumb(null)}
         >
-          <div
+          <div data-ds="card"
             className="bg-card rounded-lg shadow-xl max-w-lg w-full p-5 border border-border"
             onClick={(e) => e.stopPropagation()}
           >
@@ -1359,14 +1359,14 @@ export default function TemplatesPage() {
               />
             </div>
             <div className="flex justify-end gap-2">
-              <button
+              <button data-ds="button" data-variant="outline"
                 type="button"
                 onClick={() => setPendingThumb(null)}
                 className="px-3 py-1.5 text-xs rounded border border-border hover:bg-muted transition-colors"
               >
                 Cancelar
               </button>
-              <button
+              <button data-ds="button" data-variant="default"
                 type="button"
                 onClick={confirmPendingThumb}
                 className="px-3 py-1.5 text-xs rounded bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"

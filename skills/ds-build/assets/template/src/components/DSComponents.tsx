@@ -80,7 +80,7 @@ export function ComponentPreview({
       {/* Toggle code */}
       {code && (
         <>
-          <button
+          <button data-ds="button" data-variant="link"
             onClick={() => setShowCode(!showCode)}
             className="text-xs font-medium text-primary hover:underline mb-2"
           >

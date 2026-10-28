@@ -63,7 +63,7 @@ export default function BIHeaderFilters({ onImportar, onExportar }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+    <div data-ds="card" className="rounded-xl border border-border bg-card p-4 shadow-sm">
       <div className="flex items-center gap-2 mb-3 text-xs font-semibold text-foreground/80 uppercase tracking-wide">
         <Filter className="h-3.5 w-3.5" /> Filtros globais
       </div>
