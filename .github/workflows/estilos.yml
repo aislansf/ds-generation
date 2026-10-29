@@ -1,0 +1,71 @@
+# Estilos visuais do ds-build (docs/PLANO-ESTILOS.md, risco "manutenção: 22 presets acompanhando a evolução da origem").
+#
+# Testes unitários e conferência do template a cada mudança na skill ou nas ferramentas; a matriz de estilos
+# (gera, compila e testa os 22 estilos, com duas marcas) quando o que muda alcança o DS gerado. Um estilo que
+# quebra sai do catálogo até ser corrigido, então a matriz precisa ficar verde.
+name: Estilos visuais
+
+on:
+  push:
+    branches: [main]
+    paths: ["skills/**", "tools/**", "package.json", ".github/workflows/estilos.yml"]
+  pull_request:
+    paths: ["skills/**", "tools/**", "package.json", ".github/workflows/estilos.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: estilos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes:
+    name: Testes e template em dia
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Testes unitários (presets, decoração, ganchos, catálogo, seção de estilo)
+        run: npm test
+      # O template versionado já precisa ter todos os patches de tokenização: reaplicar não pode mudar nada
+      - name: Template tokenizado (idempotente)
+        run: |
+          node tools/tokenizar-template.mjs
+          if [ -n "$(git status --porcelain -- skills/ds-build/assets/template)" ]; then
+            echo "::error::O template não está com os patches de tokenização aplicados. Rode node tools/tokenizar-template.mjs e commite."
+            git status --short -- skills/ds-build/assets/template
+            exit 1
+          fi
+
+  matriz:
+    name: Matriz de estilos (${{ matrix.marca }})
+    needs: testes
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - marca: exemplo-verde
+            briefing: skills/ds-build/assets/examples/exemplo-verde.json
+          - marca: exemplo-neobrutalismo
+            briefing: skills/ds-build/assets/examples/exemplo-neobrutalismo.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: skills/ds-build/assets/template/package-lock.json
+      # Um só node_modules, ligado (junction) a cada DS gerado; o template traz o package-lock.json
+      - name: Instalar as dependências do template
+        working-directory: skills/ds-build/assets/template
+        run: npm ci --legacy-peer-deps --ignore-scripts
+      - name: Gerar, compilar e testar os 22 estilos
+        run: >
+          node tools/matriz-estilos.mjs
+          --node-modules skills/ds-build/assets/template/node_modules
+          --brief ${{ matrix.briefing }}
+          --saida "$RUNNER_TEMP/matriz"
