@@ -122,7 +122,7 @@ export default function PaginaAutenticacaoPage() {
                     <a href="#" className="text-xs font-medium text-primary hover:underline">Esqueceu a senha?</a>
                   </div>
                   <div className="relative">
-                    <input
+                    <input data-ds="input"
                       id="pw"
                       type={showPw ? "text" : "password"}
                       required

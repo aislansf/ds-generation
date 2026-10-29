@@ -384,7 +384,7 @@ export default function TelaListagemPage() {
           className="text-white flex items-center px-4 gap-3"
           style={{ height: "36px", minHeight: "36px", maxHeight: "52px", backgroundColor: "#123148" }}
         >
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={() => setSidebarOpen((o) => !o)}
             className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
             aria-label={sidebarOpen ? "Fechar menu" : "Abrir menu"}
@@ -394,7 +394,7 @@ export default function TelaListagemPage() {
             <span className="text-[10px] hidden sm:inline">Menu</span>
           </button>
           <div className="flex-1" />
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={toggleTheme}
             className="p-1.5 hover:bg-white/10 rounded transition-colors shrink-0"
             aria-label="Alternar tema"
@@ -414,7 +414,7 @@ export default function TelaListagemPage() {
                 <img src={iconeBrandNegativo} alt="__BRAND_NAME__" className="h-5 w-5" />
                 <span className="text-sm font-semibold">SIGLA</span>
               </div>
-              <button
+              <button data-ds="button" data-variant="marca"
                 onClick={() => setSidebarOpen(false)}
                 className="p-1 rounded hover:bg-white/10 transition-colors"
                 aria-label="Fechar menu"
@@ -435,7 +435,7 @@ export default function TelaListagemPage() {
                   className="w-full bg-white/10 text-white text-xs rounded pl-8 pr-8 py-2 placeholder:text-white/40 border border-white/10 focus:outline-none focus:ring-1 focus:ring-secondary/50 focus:border-secondary/50"
                 />
                 {menuSearch && (
-                  <button
+                  <button data-ds="button" data-variant="marca"
                     onClick={() => { setMenuSearch(""); menuSearchRef.current?.focus(); }}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors"
                     aria-label="Limpar busca"
@@ -822,7 +822,7 @@ export default function TelaListagemPage() {
                 <ChevronLeft size={12} /> Anterior
               </button>
               {pageNumbers.map((n) => (
-                <button
+                <button data-ds="button" data-variant="toggle"
                   key={n}
                   onClick={() => setPage(n)}
                   aria-current={page === n ? "page" : undefined}
@@ -839,7 +839,7 @@ export default function TelaListagemPage() {
               {totalPages > 5 && (
                 <>
                   <span className="px-1 text-muted-foreground text-[11px]">…</span>
-                  <button
+                  <button data-ds="button" data-variant="toggle"
                     onClick={() => setPage(totalPages)}
                     className={`min-w-[28px] h-7 px-2 text-[11px] rounded border transition-colors ${
                       page === totalPages ? "text-white" : "border-border hover:bg-muted"

@@ -43,7 +43,7 @@ export default function ErrorPageTemplate() {
       {/* Selector for demonstration purposes */}
       <div className="fixed top-6 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-sm p-1 rounded-full border border-border shadow-lg flex gap-1 z-50">
         {(["404", "500", "generic"] as ErrorType[]).map((type) => (
-          <button
+          <button data-ds="button" data-variant="toggle"
             key={type}
             onClick={() => setErrorType(type)}
             className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
@@ -63,7 +63,7 @@ export default function ErrorPageTemplate() {
           <img src={brandLogoReduzida} alt="__BRAND_NAME__" className="h-12 w-auto mb-8" />
           
           {/* Icon */}
-          <div className="mb-6 p-4 bg-muted/30 rounded-full">
+          <div data-erro-icone={errorType} className="mb-6 p-4 bg-muted/30 rounded-full">
             {content.icon}
           </div>
 

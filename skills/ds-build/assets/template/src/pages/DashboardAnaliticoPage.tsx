@@ -21,6 +21,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bentoCell, bentoGrid } from "@/components/layout/bento";
+import { isBento } from "@/components/layout/bento";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -212,10 +213,10 @@ export default function DashboardAnaliticoPage() {
   const optTrimestral: EChartsOption = useMemo(() => {
     const trim = [0.22, 0.25, 0.26, 0.27];
     return {
-      grid: { left: 8, right: 12, top: 44, bottom: 8, containLabel: true },
+      grid: { left: 8, right: 12, top: isBento() ? 76 : 44, bottom: 8, containLabel: true },
       tooltip: { trigger: "axis" },
-      legend: { top: 0, right: 0, icon: "circle", itemHeight: 8 },
-      xAxis: { type: "category", data: ["1º Tri", "2º Tri", "3º Tri", "4º Tri"] },
+      legend: { top: 0, right: 0, icon: "circle", itemHeight: 8, ...(isBento() ? { left: 0, width: "100%", itemGap: 12 } : {}) },
+      xAxis: { type: "category", data: ["1º Tri", "2º Tri", "3º Tri", "4º Tri"], ...(isBento() ? { axisLabel: { interval: 0, formatter: (v: string) => `T${v[0]}` } } : {}) },
       yAxis: [{ type: "value", axisLabel: { formatter: (v: number) => formatarNumero(v) } }],
       series: [
         {
@@ -378,7 +379,7 @@ export default function DashboardAnaliticoPage() {
             "linear-gradient(90deg, var(--brand-header-grad-start) 0%, var(--brand-header-grad-end) 100%)",
         }}
       >
-        <button
+        <button data-ds="button" data-variant="marca"
           onClick={() => setSidebarOpen((o) => !o)}
           aria-label="Alternar menu lateral"
           className="p-1.5 rounded-md text-primary-foreground/90 hover:bg-primary-foreground/10 transition-colors"
@@ -414,7 +415,7 @@ export default function DashboardAnaliticoPage() {
               <p className="text-xs font-semibold">29/08/2026 · 06h00</p>
             </div>
           </div>
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={toggleTheme}
             aria-label="Alternar tema"
             className="p-1.5 rounded-md text-primary-foreground/90 hover:bg-primary-foreground/10 transition-colors"

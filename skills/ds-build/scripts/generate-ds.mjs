@@ -573,7 +573,7 @@ Gerado em ${new Date().toISOString()} a partir do template do ds-build${manifest
 - Pendências do estilo: ${(() => {
     const p = [];
     if (estilo.id !== ESTILO_PADRAO) p.push("miniaturas da página Templates (capturadas no estilo padrão)");
-    if (estiloRes.decoracao?.arquivos.some((a) => a.includes("/ilustracoes/"))) p.push("ilustrações reais em public/estilo/ilustracoes/ (hoje são placeholders nas cores da marca)");
+    if (estiloRes.decoracao?.arquivos.some((a) => a.includes("/ilustracoes/"))) p.push("ilustrações reais no lugar dos placeholders nas cores da marca: public/estilo/hero.svg (hero da Home), public/estilo/ilustracoes/login.svg (painel de login), vazio.svg (estados vazios), erro-404.svg e erro-500.svg (páginas de erro); mantenha os nomes e o viewBox quadrado (400×400), sem texto dentro do SVG");
     const sug = estilo.fontes_sugeridas?.primaria ?? [];
     if (sug.length && !sug.includes(brief.fontes.primaria.nome)) p.push(`fontes sugeridas não adotadas (${sug.join(", ")})`);
     return p.length ? p.join("; ") : "(nenhuma)";

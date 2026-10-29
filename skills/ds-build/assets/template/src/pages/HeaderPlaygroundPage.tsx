@@ -188,19 +188,19 @@ export default function HeaderPlaygroundPage() {
         {/* Preview Area */}
         <div className="xl:col-span-3 space-y-6">
           <div className="flex items-center justify-center gap-4 bg-muted/50 p-2 rounded-lg border border-border">
-            <button 
+            <button data-ds="button" data-variant="toggle" 
               onClick={() => setViewport("desktop")}
               className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-medium transition-all ${viewport === "desktop" ? "bg-primary text-primary-foreground shadow-sm" : "hover:bg-muted"}`}
             >
               <Monitor size={14} /> Desktop
             </button>
-            <button 
+            <button data-ds="button" data-variant="toggle" 
               onClick={() => setViewport("tablet")}
               className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-medium transition-all ${viewport === "tablet" ? "bg-primary text-primary-foreground shadow-sm" : "hover:bg-muted"}`}
             >
               <Tablet size={14} /> Tablet
             </button>
-            <button 
+            <button data-ds="button" data-variant="toggle" 
               onClick={() => setViewport("mobile")}
               className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-medium transition-all ${viewport === "mobile" ? "bg-primary text-primary-foreground shadow-sm" : "hover:bg-muted"}`}
             >

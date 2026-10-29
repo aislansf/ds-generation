@@ -11,6 +11,7 @@ import { ganchosNoArquivo } from "./ganchos.mjs";
 import { BENTO_NOVOS, BENTO_TROCAS } from "./bento.mjs";
 import { SECAO_NOVOS, SECAO_TROCAS } from "./estilo-secao.mjs";
 import { GRAFICOS_NOVOS, GRAFICOS_TROCAS } from "./graficos-estilo.mjs";
+import { ILUSTRACOES_TROCAS } from "./estilo-ilustracoes.mjs";
 
 /** Tokens de pele com os valores do estilo "corporativo" (o visual de sempre). */
 export const TOKENS_PELE = [
@@ -422,6 +423,8 @@ const manifest = {
   ...SECAO_TROCAS,
   // Símbolos de série alternados nos gráficos (Bauhaus)
   ...GRAFICOS_TROCAS,
+  // Ícones das páginas de erro: o estilo ilustrativo troca por ilustração
+  ...ILUSTRACOES_TROCAS,
 ];
 
 /** Arquivos novos (não sobrescreve se já existirem). */
@@ -545,12 +548,13 @@ export function tokenizar(dir) {
   }
 
   // Ganchos nos elementos montados à mão (R1): <button>, campos e cards das páginas e templates
-  res.ganchos = { casou: [], revisar: [] };
+  res.ganchos = { casou: [], revisar: [], ignorados: [] };
   for (const rel of arquivosTsx(dir)) {
     const text = ler(rel);
     const g = ganchosNoArquivo(text);
     for (const c of g.casou) res.ganchos.casou.push({ arquivo: rel, ...c });
     for (const r of g.revisar) res.ganchos.revisar.push({ arquivo: rel, ...r });
+    for (const r of g.ignorados) res.ganchos.ignorados.push({ arquivo: rel, ...r });
     if (g.texto !== text) {
       cache.set(rel, g.texto);
       res.aplicadas.push(`${rel} [${g.casou.length} gancho(s)]`);

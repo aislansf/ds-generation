@@ -169,8 +169,16 @@ export function elementosJsx(src) {
  * "fixas" são as que sempre se aplicam (string literal, primeiro argumento string de cn()/clsx(), partes literais
  * de um template sem ${}); "condicionais" são as que aparecem em ternários, &&, ${} ou outros argumentos.
  */
-export function classesDe(attr) {
+export function classesDe(attr, src = "") {
   if (!attr) return { fixas: [], condicionais: [], dinamico: false };
+  // className={nome}: lê a declaração `const nome = …;` do arquivo. As classes comuns a todas as strings da declaração
+  // valem sempre; o que varia entre elas (um tamanho, uma borda) é só ajuste e não muda o papel do elemento.
+  if (attr.tipo === "expr" && src && /^[A-Za-z_$][\w$]*$/.test(attr.texto.trim())) {
+    const nome = attr.texto.trim();
+    const decl = new RegExp(`(?:const|let)\\s+${nome}\\s*=\\s*([^;]*);`).exec(src)?.[1];
+    const textos = decl ? [...decl.matchAll(/"([^"]*)"|'([^']*)'|`([^`$]*)`/g)].map((m) => (m[1] ?? m[2] ?? m[3]).split(/\s+/).filter(Boolean)) : [];
+    if (textos.length) return { fixas: textos[0].filter((c) => textos.every((t) => t.includes(c))), condicionais: [], dinamico: true };
+  }
   if (attr.tipo === "string") return { fixas: attr.texto.split(/\s+/).filter(Boolean), condicionais: [], dinamico: false };
   const t = attr.texto.trim();
   const literais = (s) => [...s.matchAll(/"([^"]*)"|'([^']*)'|`([^`]*)`/g)].map((m) => m[1] ?? m[2] ?? m[3]);
@@ -204,21 +212,33 @@ const tem = (lista, re) => lista.some((c) => re.test(c));
 
 // Botão sobre superfície escura de marca (header azul dos templates): hover e texto em branco
 const SOBRE_MARCA = /^(hover:bg-(white|primary-foreground)\/\d+|text-(white|primary-foreground)(\/\d+)?)$/;
+const MARCA_BG = /^bg-(white|primary-foreground)\/\d+$/;
+// Estado "ativo" de um botão que alterna (chip, paginação, segmento): preenche com a cor da marca
+const ATIVO = /^(bg-(primary(\/\d+)?|secondary|success|\[#[0-9A-Fa-f]{6}\])|border-primary|text-white)$/;
+// Item de menu lateral: usa os tokens --sidebar-* (ou o branco translúcido do menu sobre a marca), que os estilos já trocam
+const ehItemDeMenu = (fixas, todas) => tem(fixas, /^w-full$/) && tem(fixas, /^(text-left|flex)$/) && tem(todas, /^(bg|text|hover:bg|hover:text)-(sidebar|white)/);
 
 /** Variante de um botão pelas classes, ou null se não casar. */
 export function varianteBotao(cl) {
   if (tem(cl, /^bg-primary(\/(90|95|100))?$/) || tem(cl, /^bg-\[#[0-9A-Fa-f]{6}\]$/)) return "default";
   if (tem(cl, /^bg-secondary(\/(80|90))?$/)) return "secondary";
-  if (tem(cl, /^bg-destructive$/)) return "destructive";
-  if (tem(cl, /^bg-(success|warning|foreground)(\/90)?$/)) return "default";
+  if (tem(cl, /^bg-(destructive|error|danger)$/)) return "destructive";
+  // Fundo branco sólido (botão invertido sobre a superfície de marca): o papel do secondary
+  if (tem(cl, /^bg-white$/)) return "secondary";
+  if (tem(cl, /^bg-(success|warning|foreground|sidebar)(\/\d+)?$/)) return "default";
   // Fundo tingido ou neutro sólido (chips, botão "suave"): o papel do secondary do shadcn
   if (tem(cl, /^bg-(primary|secondary|accent)\/(5|10|15|20)$/) || tem(cl, /^bg-(muted|accent)(\/\d+)?$/)) return "secondary";
   const bg = cl.filter((c) => BG_QUALQUER.test(c));
+  // Botão transparente ou translúcido sobre o header de marca (ícones, menu, ações): variante própria, que a camada
+  // CSS dos estilos deixa sem contorno, sombra ou inversão de cor (ela é feita para botões sobre o fundo da página)
+  if (tem(cl, SOBRE_MARCA) && bg.every((c) => MARCA_BG.test(c))) return "marca";
   const borda = tem(cl, BORDA) && !tem(cl, SEM_BORDA);
   if (borda && bg.every((c) => BG_NEUTRO.test(c))) return "outline";
   if (bg.length || borda) return null;
   if (tem(cl, /^(hover:)?underline$/)) return "link";
   if (tem(cl, /^hover:(bg|text)-/) && !tem(cl, SOBRE_MARCA)) return "ghost";
+  // Botão de ícone dos cabeçalhos de prévia (a cor do hover vem de uma interpolação): também fica sobre a marca
+  if (tem(cl, /^p-(1|1\.5)$/) && tem(cl, /^shrink-0$/) && tem(cl, ARREDONDADO)) return "marca";
   return null;
 }
 
@@ -271,29 +291,40 @@ const ehCard = (cl) => tem(cl, /^bg-card$/) && tem(cl, BORDA) && !tem(cl, SEM_BO
 export function classificar(el, src = "") {
   if (el.attrs.has("data-ds")) return null;
   const tag = el.tag;
-  const cls = classesDe(el.attrs.get("className"));
+  const cls = classesDe(el.attrs.get("className"), src);
   const fixas = cls.fixas;
   if (tem(fixas, /^(sr-only|hidden)$/)) return null;
 
   if (tag === "input" || tag === "textarea" || tag === "select") {
     const tipo = el.attrs.get("type");
     if (tag === "input" && tipo?.tipo === "string" && /^(checkbox|radio|range|color|file|hidden|submit|button|reset|image)$/.test(tipo.texto)) return null;
-    if (tag === "input" && tipo?.tipo === "expr") return { revisar: "type dinâmico" };
     // Campo interno de um contêiner com borda (busca, campo com ícone): o contêiner é que parece o campo
-    if (tem(fixas, SEM_BORDA) || (tem(fixas, /^bg-transparent$/) && !tem(fixas, BORDA))) return { revisar: "campo sem borda própria (dentro de um contêiner)" };
-    if (!fixas.length && !cls.condicionais.length) return { revisar: "sem className" };
+    if (tem(fixas, SEM_BORDA) || (tem(fixas, /^bg-transparent$/) && !tem(fixas, BORDA))) return { ignorar: "campo interno de um contêiner com borda (o contêiner é que parece o campo)" };
+    // type dinâmico é o alternar mostrar/ocultar senha: continua sendo um campo. className vindo de uma função (inputCls(…)) também
+    if (!el.attrs.has("className")) return { revisar: "sem className" };
     return { ds: tag === "input" ? "input" : tag === "textarea" ? "textarea" : "select-trigger" };
   }
 
   if (tag === "button") {
+    const todas = [...fixas, ...cls.condicionais];
     if (ehCard(fixas) && tem(fixas, PADDING_CARD)) return { ds: "card" };
+    // Tile selecionável (borda e fundo mudam com a seleção) e card clicável da Home
+    if ((tem(fixas, PADDING_CARD) && tem(fixas, BORDA) && tem(cls.condicionais, /^bg-card$/)) || tem(fixas, /^brand-card-hover$/)) return { ds: "card" };
+    if (tem(fixas, /^fixed$/) && tem(fixas, /^inset-0$/)) return { ignorar: "fundo do menu móvel (scrim), sem aparência de botão" };
+    if (ehItemDeMenu(fixas, todas)) return { ignorar: "item de menu lateral (usa os tokens --sidebar-*, que o estilo já troca)" };
+    // Aba com sublinhado: a cor da borda de baixo é o estado
+    if (tem(todas, /^(-mb-px|border-b-2|border-b-\[3px\])$/) && tem(cls.condicionais, /^(border-primary|border-b-\[.+\])$/)) return { ds: "tabs-trigger" };
+    if (tem(fixas, /^w-11$/) && tem(fixas, /^h-6$/) && tem(fixas, /^rounded-full$/) && tem(cls.condicionais, /^bg-primary$/)) return { ds: "switch" };
     const tabela = src ? tabelaDeVariantes(src, el, cls) : null;
     if (tabela) return { ds: "button", ...tabela };
     const v = varianteBotao(fixas);
     const ambigua = DECISIVAS.some((re) => tem(cls.condicionais, re));
     if (v && !ambigua) return { ds: "button", variante: v };
-    if (!v && !ambigua && tem(fixas, SOBRE_MARCA)) return { revisar: "botão sobre superfície de marca" };
+    // Botão que alterna entre preenchido (ativo) e neutro: chip, segmento, paginação, filtro
+    if (ambigua && tem(cls.condicionais, ATIVO)) return { ds: "button", variante: "toggle" };
     if (!fixas.length && !cls.condicionais.length) return { revisar: "sem className" };
+    // Só layout, sem cor própria (botão que envolve uma imagem ou um rótulo): nada para a camada CSS do estilo pintar
+    if (!ambigua && !tem(todas, BG_QUALQUER) && !tem(todas, BORDA) && !tem(todas, /^(hover|focus):(bg|text)-/)) return { ignorar: "botão só de layout, sem cor, borda nem hover próprios" };
     return { revisar: ambigua ? "fundo ou borda condicional" : "classes sem padrão de botão" };
   }
 
@@ -302,6 +333,8 @@ export function classificar(el, src = "") {
     // bg-card só numa parte condicional: card que muda de aparência
     if (tem(fixas, /^bg-card$/) || tem(cls.condicionais, /^bg-card$/)) {
       if (tem(fixas, /^bg-card$/) && !tem(fixas, BORDA)) return null; // superfície sem borda (fundo de seção): não é card
+      // Barra de ferramentas ou faixa (borda só embaixo, em cima ou ao lado, sem cantos arredondados): não é card
+      if (tem(fixas, /^bg-card$/) && tem(fixas, /^border-(b|t|r|l)$/) && !tem(fixas, ARREDONDADO)) return { ignorar: "barra ou faixa com bg-card (borda de um lado só, sem cantos), não é card" };
       return { revisar: "bg-card com borda ou raio condicional" };
     }
     return null;
@@ -310,14 +343,21 @@ export function classificar(el, src = "") {
 }
 
 /**
- * Aplica os ganchos a um arquivo. Devolve { texto, casou: [{ linha, tag, ds, variante }], revisar: [{ linha, tag, motivo, classes }] }.
+ * Aplica os ganchos a um arquivo. Devolve { texto, casou: [{ linha, tag, ds, variante }], revisar: [{ linha, tag, motivo, classes }],
+ * ignorados: [{ linha, tag, motivo, classes }] }. "ignorados" são elementos que a camada CSS não precisa alcançar de propósito
+ * (item de menu lateral, scrim, barra com bg-card…): ficam no relatório, mas fora da lista de revisão.
  */
 export function ganchosNoArquivo(src) {
-  const casou = [], revisar = [];
+  const casou = [], revisar = [], ignorados = [];
   const insercoes = [];
   for (const el of elementosJsx(src)) {
     const r = classificar(el, src);
     if (!r) continue;
+    if (r.ignorar) {
+      const cls = classesDe(el.attrs.get("className"));
+      ignorados.push({ linha: el.linha, tag: el.tag, motivo: r.ignorar, classes: [...cls.fixas, ...cls.condicionais].join(" ").slice(0, 140) });
+      continue;
+    }
     if (r.revisar) {
       const cls = classesDe(el.attrs.get("className"));
       revisar.push({ linha: el.linha, tag: el.tag, motivo: r.revisar, classes: [...cls.fixas, ...cls.condicionais].join(" ").slice(0, 140) });
@@ -331,7 +371,7 @@ export function ganchosNoArquivo(src) {
   }
   let texto = src;
   for (const [pos, s] of insercoes.sort((a, b) => b[0] - a[0])) texto = texto.slice(0, pos) + s + texto.slice(pos);
-  return { texto, casou, revisar };
+  return { texto, casou, revisar, ignorados };
 }
 
 /** Elementos que já têm data-ds (cobertura atual de um arquivo), por gancho. */

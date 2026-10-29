@@ -5,14 +5,14 @@
   box-shadow: var(--shadow-ui-md);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]) {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]) {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);
   transition-property: transform, box-shadow, background-color, color;
   transition-duration: var(--duration-normal);
   transition-timing-function: var(--ease-emphasis);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):hover,
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]):hover,
 a[data-ds="card"]:hover {
   transform: scale(1.02);
 }

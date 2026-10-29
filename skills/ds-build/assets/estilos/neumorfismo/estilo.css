@@ -6,11 +6,11 @@
   box-shadow: var(--shadow-ui-md);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]) {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]) {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):active {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]):active {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-inset);
 }
 

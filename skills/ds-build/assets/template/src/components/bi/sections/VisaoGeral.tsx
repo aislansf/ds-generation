@@ -198,7 +198,7 @@ export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
           action={
             <div className="flex gap-1">
               {(["dia", "semana", "mes"] as const).map((g) => (
-                <button
+                <button data-ds="button" data-variant="toggle"
                   key={g}
                   onClick={() => setGranularidade(g)}
                   aria-pressed={granularidade === g}

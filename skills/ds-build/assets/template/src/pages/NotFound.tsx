@@ -28,7 +28,7 @@ const NotFound = () => {
           <BrandLogo variant="color" width={120} height={64} className="mb-8" />
 
           {/* Ícone */}
-          <div className="mb-6 p-4 bg-muted rounded-full">
+          <div data-erro-icone="404" className="mb-6 p-4 bg-muted rounded-full">
             <Search className="w-16 h-16 text-primary/40" strokeWidth={1.5} />
           </div>
 

@@ -512,7 +512,7 @@ export default function ChartsSection() {
         <ChartCard title="Area Chart — Datetime X-axis">
           <div className="flex gap-2 mb-4">
             {["1M", "6M", "1Y", "YTD", "ALL"].map((p) => (
-              <button
+              <button data-ds="button" data-variant="toggle"
                 key={p}
                 onClick={() => setPeriod(p)}
                 className={`px-3 py-1 rounded text-xs font-medium transition-colors ${

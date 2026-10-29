@@ -117,5 +117,5 @@ Faça o commit do template atualizado junto com o que mudou em `origem/`.
 
 - **Páginas Home e Marca** são versões neutras mantidas à mão em `origem/overrides/` (texto-modelo marcado com `MODELO:`). Quando a origem muda uma delas, a extração falha pelo hash de `overrides_de_codigo`: leve a mudança para a versão neutra e atualize o hash.
 - **Fonte proprietária**: uma marca com fonte própria precisa de uma URL `.woff2` com CORS liberado (`fontes.*.url_woff2`).
-- **CI**: o template não traz workflow de deploy. Cada DS gerado precisa do seu.
+- **CI**: o template não traz workflow de deploy. Cada DS gerado precisa do seu. Este repositório não tem CI (decisão do dono): os testes (`npm test`), a verificação de identidade e a matriz de estilos rodam à mão, e a matriz precisa ficar verde a cada re-extração do template.
 - **Idioma**: o template é pt-BR.

@@ -173,7 +173,7 @@ export default function RadarEstrategicoPage() {
         title="Radar Estratégico — Painel Executivo"
         subtitle="__BRAND_NAME__ · dados ilustrativos"
         leading={
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={() => setSidebarOpen((o) => !o)}
             className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
             aria-label="Menu"
@@ -183,7 +183,7 @@ export default function RadarEstrategicoPage() {
           </button>
         }
         right={
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={toggleTheme}
             className="p-1.5 hover:bg-white/10 rounded transition-colors shrink-0"
             aria-label="Alternar tema"
@@ -424,7 +424,7 @@ export default function RadarEstrategicoPage() {
                 { id: "receitas", label: "Receitas", icon: <TrendingUp size={12} /> },
                 { id: "atendimento", label: "Atendimento Geral", icon: <Users size={12} /> },
               ] as { id: Aba; label: string; icon: React.ReactNode }[]).map((t) => (
-                <button
+                <button data-ds="button" data-variant="toggle"
                   key={t.id}
                   role="tab"
                   aria-selected={aba === t.id}

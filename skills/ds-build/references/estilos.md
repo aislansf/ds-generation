@@ -86,7 +86,7 @@ Para "sem sombra" use `0 0 #0000`, não `none`: as sombras dos componentes entra
 ### Ganchos da camada CSS
 
 - `[data-ds="button|card|input|textarea|select-trigger|checkbox|radio|switch|badge|alert|dialog|popover|dropdown|tabs-list|tabs-trigger|table|toast|tooltip|sidebar|header"]`
-- `[data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|destructive|diversificado"]`
+- `[data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|destructive|diversificado"]`, e duas variantes só dos botões montados à mão: `marca` (botão transparente ou translúcido sobre o header de marca, que não ganha contorno, sombra nem relevo) e `toggle` (chip, segmento ou paginação que alterna entre preenchido e neutro; recebe o tratamento dos botões com fundo)
 - `[data-surface="marca"][data-marca="header|hero|painel|capa|erro|rodape|vazio"]`: superfícies de marca (header do DS, hero da Home, painel visual de login, cadastro, 2FA e modal de acesso, capa do Hub de painéis, páginas de erro, rodapé e estado vazio). Decoração só entra nelas.
 
 Ao mexer em `box-shadow` de um elemento focável na camada CSS, componha com o anel de foco: `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);`. Propriedades estruturais (`position`) vão dentro de `:where(...)` para não vencer as classes das páginas.
@@ -123,7 +123,7 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **construtivismo:** raios 0; fundo de cartaz; bordas de 3px; títulos em caixa alta; faixas diagonais, seta e barra no hero, só com a primária e o preto; título do hero inclinado; sem degradê.
 - **retro:** fundo e cards creme; bordas marrons de 2px; raio 1rem; sombras deslocadas quentes; raios de sol e listras arredondadas com as cores da marca desbotadas (−15% de saturação); grão leve; sem degradê.
 - **organico:** fundo areia e texto tingido da primária; cards 1.5rem sem borda, com sombras suaves; gráficos com curvas suaves; blobs dessaturados no hero e no login, divisórias em onda; logo do hero com recorte orgânico.
-- **ilustrativo:** raio 0.75rem, bordas de 1.5px, ícones com traço 1.75; placeholders de ilustração gerados (`public/estilo/ilustracoes/`: hero, login, vazio, erro-404, erro-500) com moldura tracejada e cena simples nas cores da marca. As ilustrações reais ficam como pendência do `GERACAO.md`.
+- **ilustrativo:** raio 0.75rem, bordas de 1.5px, ícones com traço 1.75; placeholders de ilustração gerados, com moldura tracejada e cena simples nas cores da marca: `public/estilo/hero.svg` (hero da Home) e `public/estilo/ilustracoes/` (`login` no painel de login, `vazio` nos estados vazios, `erro-404` e `erro-500` nas páginas de erro; o erro genérico fica com o ícone). **As ilustrações reais ficam como pendência do `GERACAO.md`**: para trocar, substitua os SVGs mantendo os nomes, o `viewBox` quadrado (400×400) e sem texto dentro do SVG (o texto da tela vem do DS). O nome e o tamanho de cada espaço estão na camada `estilo.css` do estilo; as páginas de erro marcam o ícone com `data-erro-icone="404|500|generic"`.
 - **colagem:** raios 0; fundo de papel; sombra de papel; recortes coloridos com fita adesiva no hero, retícula na página de erro, grão e bordas rasgadas; logo do hero levemente torto; sem degradê.
 
 ## Layout bento

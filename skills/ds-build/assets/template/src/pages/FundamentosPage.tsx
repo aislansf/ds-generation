@@ -39,7 +39,7 @@ function ImageLightbox({ src, alt, open, onClose }: { src: string; alt: string; 
       onClick={onClose}
       className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
     >
-      <button
+      <button data-ds="button" data-variant="marca"
         type="button"
         onClick={(e) => { e.stopPropagation(); onClose(); }}
         aria-label="Fechar (ESC)"
@@ -832,7 +832,7 @@ h1, h2, h3, h4, h5, h6 {
               { v: "lucide", label: "Lucide" },
               { v: "remix", label: "Remix" },
             ] as const).map(o => (
-              <button key={o.v} onClick={() => setIconCollection(o.v)}
+              <button data-ds="button" data-variant="toggle" key={o.v} onClick={() => setIconCollection(o.v)}
                 className={`text-[11px] font-semibold px-3 py-1.5 rounded-md transition-colors ${iconCollection === o.v ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {o.label}
               </button>
@@ -840,7 +840,7 @@ h1, h2, h3, h4, h5, h6 {
           </div>
           <div className="flex gap-1 rounded-lg border border-border p-1 bg-muted/30">
             {([14, 16, 20, 24, 32] as const).map(sz => (
-              <button key={sz} onClick={() => setIconSize(sz)}
+              <button data-ds="button" data-variant="toggle" key={sz} onClick={() => setIconSize(sz)}
                 className={`text-[11px] font-semibold px-2.5 py-1.5 rounded-md transition-colors ${iconSize === sz ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {sz}px
               </button>

@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 6 e rodada R1–R4 implementadas (padrão + 21 estilos); revisão humana da galeria pendente · Data: 29/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: Fases 0 a 6, rodada R1–R4 e os itens anteriores à Fase 7 implementados (padrão + 21 estilos); falta só a revisão humana da galeria (Fase 7) · Data: 29/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -14,7 +14,7 @@
 | 5. Layout bento | Feita: `tools/lib/bento.mjs`, `src/components/layout/` (`bento.ts`, `BentoGrid`), preset `bento` (nível 4) e as 5 páginas; falta a revisão humana da galeria |
 | 6. Documentação e catálogo | Feita: `scripts/catalogo-estilos.mjs`, seção "Estilo visual" em `/fundamentos` (`tools/lib/estilo-secao.mjs`), `scripts/capturar-miniaturas.mjs`, `estilo.json` com faça/evite e catálogo; `SKILL.md`, referências, README e HANDOFF atualizados |
 | 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), rodada com duas marcas; testes unitários do motor de estilos e do codemod (`npm test`); falta a revisão humana da galeria |
-| R1. Ganchos nos elementos montados à mão | Feita: `tools/lib/ganchos.mjs` (408 ganchos; 115 elementos na lista de revisão de `docs/GANCHOS.md`) |
+| R1. Ganchos nos elementos montados à mão | Feita: `tools/lib/ganchos.mjs` (408 ganchos na primeira passada; os 115 elementos da lista de revisão foram resolvidos depois: 76 ganchos novos e 39 fora do escopo de propósito, em `docs/GANCHOS.md`) |
 | R2. Cores de campo | Feita: tokens `--control-*`; campos seguem o estilo quando ele define `--input` |
 | R3. Verificação ponta a ponta | Feita, menos a revisão humana da galeria |
 | R4. Ajustes de estilo | Feita: neumorfismo dark, cyberpunk (light e cantos cortados), `estilo.json`; glitch e miniaturas ficam para as Fases 4 e 6 |
@@ -154,6 +154,21 @@ Depois da Fase 6, uma conferência da seção 6 contra o código achou uma lacun
 
 - **Verificação.** Matriz completa com as duas marcas (`exemplo-verde` e `exemplo-neobrutalismo`): 22 estilos × 2 marcas com build e 154 testes passando (os 148 de antes mais 5 dos símbolos e 1 do validador de `tokenGroups`, que testa cada token e ganhou o `--chart-symbol-variety`), sem avisos. Ajustes de contraste automáticos: verde, minimalista (1) e neumorfismo (2); neobrutalismo, glassmorfismo (1) e cyberpunk (1). `corporativo` idêntico pixel a pixel ao `HEAD` em `/graficos/linhas`, `/graficos/barras` e no Dashboard Analítico, light e dark. `npm test`: 56 testes.
 - **Pendente.** Só a revisão humana da galeria e do catálogo (Fase 7), a lista de revisão do R1 (115 elementos sem gancho) e a limitação do bento no Dashboard Analítico a 1280px.
+
+## Itens antes da Fase 7 (29/10/2026)
+
+Os itens que a Fase 7 dependia de fechar, na ordem em que foram feitos:
+
+- **R1: lista de revisão zerada (115 → 0).** As regras de `tools/lib/ganchos.mjs` passaram a cobrir os 115 elementos: 76 ganchos novos (cobertura de `data-ds` de 431 para 507 elementos) e 39 que ficam de fora **de propósito**, agora numa seção própria do relatório (`docs/GANCHOS.md`, "Fora do escopo, de propósito"): itens de menu lateral (18; usam os tokens `--sidebar-*`, que o estilo já troca), barras com `bg-card` e borda de um lado só (11), fundos do menu móvel (5), botões só de layout (3) e campos internos de um contêiner com borda (2).
+  - **Duas variantes novas de botão**, só para botões montados à mão: `marca` (transparente ou translúcido sobre o header de marca; as camadas de neobrutalismo, claymorfismo, cyberpunk e neumorfismo os excluem de contorno, sombra e relevo, e há teste que garante isso) e `toggle` (chip, segmento e paginação que alternam entre preenchido e neutro).
+  - Também: botão de fundo branco sólido vira `secondary`, `bg-error` vira `destructive`, abas com sublinhado viram `tabs-trigger`, o interruptor feito à mão vira `switch`, o tile selecionável e o card clicável da Home viram `card`, `type` dinâmico (mostrar/ocultar senha) continua sendo `input`, e `className={variavel}` é lido da declaração (só as classes comuns a todas as strings valem).
+  - Uma âncora do bento na Home deixou de casar quando o botão ganhou gancho; ganhou uma marca de idempotência (as trocas do bento não podem depender do texto que os ganchos alteram).
+  - Testes do codemod: 12 → 15 casos.
+- **Bento: Comparativo Trimestral.** Só com o layout bento a legenda começa à esquerda, quebra em coluna e o gráfico ganha espaço no topo, e o eixo X usa rótulos curtos (T1 a T4, todos visíveis). Nos outros estilos o gráfico é o de sempre. Conferido nas capturas, em claro e escuro. Não resolve dois defeitos que já existiam no Dashboard Analítico e que **não** foram mexidos, por alterarem o `corporativo`: a legenda do gráfico a 1280px se sobrepõe ao rótulo "15.000" do eixo e, no escuro, o título do header ("Painel Analítico") tem texto escuro sobre o verde.
+- **CI: descartado.** Um workflow do GitHub Actions chegou a ser escrito e foi retirado a pedido do dono do repositório; a matriz de estilos a cada re-extração do template fica manual (`node tools/matriz-estilos.mjs`).
+- **Ilustrativo.** Achado: `erro-404.svg` e `erro-500.svg` eram gerados e nada os usava. As páginas de erro marcam o ícone com `data-erro-icone="404|500|generic"` (sem efeito fora do estilo) e a camada do `ilustrativo` o troca pela ilustração (o erro genérico fica com o ícone). A pendência do `GERACAO.md` agora lista onde cada ilustração entra (hero, login, vazio, erro-404, erro-500) e o formato (mesmos nomes, `viewBox` 400×400, sem texto). As ilustrações reais continuam sendo da marca, como na decisão 9.
+- **Verificação.** `corporativo` idêntico pixel a pixel ao `main` em `/`, `/componentes`, `/templates/pagina-erro`, `tela-listagem`, `tela-formulario`, `dashboard-analitico` e `hub-paineis`, em claro e escuro (só atributos novos). Matriz completa com as duas marcas (`exemplo-verde` e `exemplo-neobrutalismo`): 22 estilos × 2 marcas com build e testes passando; ajustes de contraste nos mesmos quatro casos de antes. `npm test`: 59 testes. Conferido no navegador: neobrutalismo na listagem (cards, campos e botões com contorno; header sem contorno), 404 do `ilustrativo` com a ilustração, bento no Dashboard Analítico.
+- **Pendente.** Só a Fase 7: a revisão humana da galeria e do catálogo.
 
 ## 1. Objetivo
 

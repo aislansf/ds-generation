@@ -92,7 +92,7 @@ export default function TokenExplorer() {
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 bg-muted/30 p-1 rounded-lg mb-6 border border-border w-fit">
         {tabs.map((t) => (
-          <button
+          <button data-ds="button" data-variant="toggle"
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-semibold transition-all ${
@@ -201,7 +201,7 @@ export default function TokenExplorer() {
           <div className="space-y-5 animate-in fade-in slide-in-from-bottom-1 duration-200">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {radii.map((r) => (
-                <button
+                <button data-ds="card"
                   key={r.token}
                   onClick={() => setActiveRadius(r.token)}
                   className={`border-2 transition-all p-4 text-center space-y-2 ${

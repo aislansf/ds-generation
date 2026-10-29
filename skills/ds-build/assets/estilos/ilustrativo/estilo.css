@@ -19,3 +19,30 @@
 [data-surface="marca"][data-marca="vazio"] > svg:first-child {
   display: none;
 }
+
+/* Páginas de erro: a ilustração (placeholder ou a da marca) no lugar do ícone. Só 404 e 500 têm ilustração; o erro
+ * genérico fica com o ícone. A página de 404 do DS e o 404 do template de erro usam a mesma. */
+[data-surface="marca"] [data-erro-icone="404"],
+[data-surface="marca"] [data-erro-icone="500"] {
+  width: 160px;
+  height: 160px;
+  padding: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 0;
+}
+
+[data-surface="marca"] [data-erro-icone="404"] {
+  background-image: url("/estilo/ilustracoes/erro-404.svg");
+}
+
+[data-surface="marca"] [data-erro-icone="500"] {
+  background-image: url("/estilo/ilustracoes/erro-500.svg");
+}
+
+[data-surface="marca"] [data-erro-icone="404"] > svg,
+[data-surface="marca"] [data-erro-icone="500"] > svg {
+  display: none;
+}

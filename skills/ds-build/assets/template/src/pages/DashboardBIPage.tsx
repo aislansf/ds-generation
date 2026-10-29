@@ -524,7 +524,7 @@ export default function DashboardBIPage() {
                       const n = i + 1;
                       const active = n === page;
                       return (
-                        <button
+                        <button data-ds="button" data-variant="toggle"
                           key={n}
                           onClick={() => goToPage(n)}
                           className={`h-7 w-7 inline-flex items-center justify-center rounded-md border text-xs transition-colors ${

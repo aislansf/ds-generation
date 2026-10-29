@@ -104,6 +104,7 @@ tools/
   verificar-identidade.mjs          prova que uma mudança não altera o DS gerado (arquivos e capturas pixel a pixel)
   matriz-estilos.mjs                gera, compila, testa e captura cada estilo visual (galeria para revisão)
 docs/HANDOFF.md                     contexto, decisões e limitações
+docs/GANCHOS.md                     cobertura dos ganchos data-ds e o que ficou de fora de propósito
 ```
 
 ## Manter

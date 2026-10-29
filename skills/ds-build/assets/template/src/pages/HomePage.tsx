@@ -115,7 +115,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded font-medium text-sm hover:opacity-90 transition-opacity">
             Começar <ArrowRight size={16} />
           </button>
-          <button onClick={() => navigate("/componentes")}
+          <button data-ds="button" data-variant="marca" onClick={() => navigate("/componentes")}
             className="inline-flex items-center gap-2 bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground px-4 py-2 rounded font-medium text-sm hover:bg-primary-foreground/20 transition-colors">
             Ver componentes
           </button>
@@ -292,7 +292,7 @@ export default function HomePage() {
       <h2 className="text-xl font-bold mb-4" style={{ color: "#005EB8" }}>Navegue pelo sistema</h2>
       <div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "mb-10")}>
         {sections.map((s, i) => (
-          <button key={s.path} onClick={() => navigate(s.path)} className={cn("brand-card-hover text-left group", bentoCell(NAV_BENTO[i] ?? "1x1", { hero: i === 0 }))}>
+          <button data-ds="card" key={s.path} onClick={() => navigate(s.path)} className={cn("brand-card-hover text-left group", bentoCell(NAV_BENTO[i] ?? "1x1", { hero: i === 0 }))}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-card-icon text-card-icon-foreground">
               {s.icon}
             </div>
