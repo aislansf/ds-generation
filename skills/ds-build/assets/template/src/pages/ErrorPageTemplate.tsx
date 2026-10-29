@@ -63,7 +63,7 @@ export default function ErrorPageTemplate() {
           <img src={brandLogoReduzida} alt="__BRAND_NAME__" className="h-12 w-auto mb-8" />
           
           {/* Icon */}
-          <div className="mb-6 p-4 bg-muted/30 rounded-full">
+          <div data-erro-icone={errorType} className="mb-6 p-4 bg-muted/30 rounded-full">
             {content.icon}
           </div>
 
