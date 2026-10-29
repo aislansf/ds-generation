@@ -545,12 +545,13 @@ export function tokenizar(dir) {
   }
 
   // Ganchos nos elementos montados à mão (R1): <button>, campos e cards das páginas e templates
-  res.ganchos = { casou: [], revisar: [] };
+  res.ganchos = { casou: [], revisar: [], ignorados: [] };
   for (const rel of arquivosTsx(dir)) {
     const text = ler(rel);
     const g = ganchosNoArquivo(text);
     for (const c of g.casou) res.ganchos.casou.push({ arquivo: rel, ...c });
     for (const r of g.revisar) res.ganchos.revisar.push({ arquivo: rel, ...r });
+    for (const r of g.ignorados) res.ganchos.ignorados.push({ arquivo: rel, ...r });
     if (g.texto !== text) {
       cache.set(rel, g.texto);
       res.aplicadas.push(`${rel} [${g.casou.length} gancho(s)]`);

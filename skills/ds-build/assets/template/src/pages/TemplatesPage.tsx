@@ -135,7 +135,7 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
           }}
         >
           {variant.menuPosition === "esquerda" && (
-            <button
+            <button data-ds="button" data-variant="marca"
               className={`p-1 ${hoverBg} rounded flex items-center gap-1.5 transition-colors shrink-0`}
               aria-label="Menu"
               style={{ color: fg }}
@@ -146,7 +146,7 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
           )}
           <div className="flex-1 flex items-center">
           </div>
-          <button
+          <button data-ds="button" data-variant="marca"
             className={`p-1 ${hoverBg} rounded transition-colors shrink-0`}
             aria-label="Ativar modo escuro"
             style={{ color: fg }}
@@ -154,7 +154,7 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
             <Moon size={16} />
           </button>
           {variant.menuPosition === "direita" && (
-            <button
+            <button data-ds="button" data-variant="marca"
               className={`p-1 ${hoverBg} rounded flex items-center gap-1.5 transition-colors shrink-0`}
               aria-label="Menu"
               style={{ color: fg }}
@@ -257,7 +257,7 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
       >
         {/* Menu hamburger (left) */}
         {variant.menuPosition === "esquerda" && (
-          <button className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu">
+          <button data-ds="button" data-variant="marca" className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu">
             <Menu size={18} />
             <span className="text-[10px] hidden sm:inline">Menu</span>
           </button>
@@ -325,14 +325,14 @@ export function HeaderPreview({ variant }: { variant: HeaderVariant }) {
 
         {/* Theme toggle - Hidden for new gradient header */}
         {variant.id !== "int-visual-gradient-brand" && (
-          <button className="p-1.5 hover:bg-white/10 rounded transition-colors" aria-label="Alternar tema">
+          <button data-ds="button" data-variant="marca" className="p-1.5 hover:bg-white/10 rounded transition-colors" aria-label="Alternar tema">
             <Sun size={16} className={variant.id === "ext-red-left" ? "" : "text-white/80"} style={variant.id === "ext-red-left" ? { color: "#16329C", opacity: 0.85 } : undefined} />
           </button>
         )}
 
         {/* Menu hamburger (right) */}
         {variant.menuPosition === "direita" && (
-          <button className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu" style={variant.id === "ext-red-left" ? { color: "#16329C" } : undefined}>
+          <button data-ds="button" data-variant="marca" className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0" aria-label="Menu" style={variant.id === "ext-red-left" ? { color: "#16329C" } : undefined}>
             <Menu size={18} />
             <span className="text-[10px] hidden sm:inline">Menu</span>
           </button>
@@ -687,7 +687,7 @@ export default function TemplatesPage() {
       <div className="brand-card mb-12">
         <div className="flex flex-wrap gap-1 bg-muted/30 p-1 rounded-xl mb-8 border border-border">
           {componentTabs.map((tab) => (
-            <button
+            <button data-ds="button" data-variant="toggle"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
@@ -716,7 +716,7 @@ export default function TemplatesPage() {
                     <button data-ds="button" data-variant="secondary" className="bg-secondary text-secondary-foreground px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Secundário</button>
                     <button data-ds="button" data-variant="outline" className="border border-input bg-background hover:bg-muted px-4 py-2 rounded text-xs font-bold transition-all">Outline</button>
                     <button data-ds="button" data-variant="ghost" className="hover:bg-muted text-foreground px-4 py-2 rounded text-xs font-bold transition-all">Ghost</button>
-                    <button className="bg-error text-white px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Destrutivo</button>
+                    <button data-ds="button" data-variant="destructive" className="bg-error text-white px-4 py-2 rounded text-xs font-bold hover:brightness-110 transition-all">Destrutivo</button>
                     <button data-ds="button" data-variant="default" className="px-4 py-2 rounded text-xs font-bold transition-colors bg-[#E7F79E] text-[#2A4FDA] hover:bg-[#D1E575] hover:text-[#1644DC]">Diversificado</button>
                   </div>
                 </div>
@@ -934,7 +934,7 @@ export default function TemplatesPage() {
       {/* Audience filter tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
         {audiences.map(a => (
-          <button
+          <button data-ds="button" data-variant="toggle"
             key={a.key}
             onClick={() => setActiveAudience(a.key)}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
@@ -1227,7 +1227,7 @@ export default function TemplatesPage() {
                   />
                   {isDashboard && (
                     <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover/thumb:opacity-100 transition-opacity">
-                      <button
+                      <button data-ds="button" data-variant="default"
                         type="button"
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); customThumbInputRef.current?.click(); }}
                         className="inline-flex items-center gap-1 px-2 py-1 bg-foreground/85 text-background text-[10px] rounded shadow hover:bg-foreground"

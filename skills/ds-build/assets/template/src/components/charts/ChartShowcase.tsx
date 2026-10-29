@@ -13,7 +13,7 @@ type Aba = "visualizacao" | "react" | "json";
 function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <button
+    <button data-ds="button" data-variant="toggle"
       type="button"
       onClick={() => {
         navigator.clipboard.writeText(text);
@@ -92,7 +92,7 @@ export function ChartShowcase({ preset }: { preset: ChartPreset }) {
       {/* Abas */}
       <div className="flex flex-wrap gap-1 border-b border-border mb-3" role="tablist">
         {abas.map((a) => (
-          <button
+          <button data-ds="tabs-trigger"
             key={a.id}
             type="button"
             role="tab"

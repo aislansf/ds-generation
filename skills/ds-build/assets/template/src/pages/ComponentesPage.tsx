@@ -975,7 +975,7 @@ function Switch() {
 }`}
     >
       <label className="flex items-center gap-3 cursor-pointer">
-        <button
+        <button data-ds="switch"
           role="switch"
           aria-checked={on}
           onClick={() => setOn(!on)}
@@ -1987,7 +1987,7 @@ const [tab, setTab] = useState(0);
       <div>
         <div role="tablist" className="flex border-b border-border mb-4">
           {tabs.map((t, i) => (
-            <button
+            <button data-ds="tabs-trigger"
               key={t}
               role="tab"
               aria-selected={tab === i}
@@ -2347,7 +2347,7 @@ const [page, setPage] = useState(1);
             <ArrowLeft size={16} />
           </button>
           {[1, 2, 3, 4, 5].map(p => (
-            <button
+            <button data-ds="button" data-variant="toggle"
               key={p}
               onClick={() => setPage(p)}
               aria-current={page === p ? "page" : undefined}
@@ -2877,7 +2877,7 @@ function KebabDemo({ bordered = false, onAction }: { bordered?: boolean; onActio
 
   return (
     <div className="relative" ref={ref}>
-      <button
+      <button data-ds="button" data-variant="ghost"
         onClick={() => setOpen(!open)}
         aria-haspopup="menu"
         aria-expanded={open}
@@ -3036,7 +3036,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
                     const day = i + 1;
                     const isToday = day === today.getDate() && viewMonth === currentMonth && viewYear === currentYear;
                     return (
-                      <button
+                      <button data-ds="button" data-variant="toggle"
                         key={day}
                         onClick={() => selectDate(day)}
                         className={`py-1.5 rounded text-sm transition-colors hover:bg-primary hover:text-primary-foreground ${
@@ -3636,7 +3636,7 @@ const [currentStep, setCurrentStep] = useState(1);
               return (
                 <li key={i} className="flex-1 relative">
                   <div className="flex flex-col items-center text-center">
-                    <button
+                    <button data-ds="button" data-variant="toggle"
                       onClick={() => setCurrentStep(num)}
                       aria-current={isActive ? "step" : undefined}
                       aria-label={`Etapa ${num}${isComplete ? " completa" : isActive ? " atual" : " pendente"}: ${step.label}`}

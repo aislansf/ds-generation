@@ -65,7 +65,7 @@ export default function BISidebar({ active, onChange, collapsed, onToggle }: Pro
           const Icon = item.icon;
           const isActive = active === item.id;
           return (
-            <button
+            <button data-ds="button" data-variant="toggle"
               key={item.id}
               onClick={() => onChange(item.id)}
               title={collapsed ? item.label : undefined}

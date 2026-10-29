@@ -32,7 +32,7 @@ function SignInPreview() {
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-foreground">Senha <span className="text-[#D98217]">*</span></label>
             <div className="relative">
-              <input
+              <input data-ds="input"
                 type={showPw ? "text" : "password"}
                 defaultValue="••••••••"
                 className="w-full h-10 rounded-lg border border-input bg-background px-3 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -118,7 +118,7 @@ function SignUpPreview() {
             <div className="space-y-1.5">
               <label className="text-xs font-medium text-foreground">Senha <span className="text-[#D98217]">*</span></label>
               <div className="relative">
-                <input
+                <input data-ds="input"
                   type={showPw ? "text" : "password"}
                   placeholder="Mín. 8 caracteres"
                   className="w-full h-10 rounded-lg border border-input bg-background px-3 pr-10 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2A4FDA]/30"
@@ -411,7 +411,7 @@ export default function AuthTemplatesSection() {
       {/* Tabs */}
       <div className="flex gap-2 mb-6">
         {tabs.map(t => (
-          <button
+          <button data-ds="button" data-variant="toggle"
             key={t.key}
             onClick={() => { setActiveTab(t.key); setShowCode(false); }}
             className={`px-4 py-2 rounded-lg text-xs font-medium transition-colors ${

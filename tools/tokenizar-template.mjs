@@ -37,12 +37,13 @@ const cobertura = {};
   }
 })(path.join(dir, "src"));
 
-const { casou, revisar } = r.ganchos;
+const { casou, revisar, ignorados } = r.ganchos;
 const conta = (lista, chave) => lista.reduce((m, x) => { const k = chave(x); m[k] = (m[k] ?? 0) + 1; return m; }, {});
 const porGancho = conta(casou, (c) => (c.variante ? `${c.ds} (${c.variante})` : c.ds));
 const porMotivo = conta(revisar, (x) => `<${x.tag}>: ${x.motivo}`);
+const porIgnorado = conta(ignorados, (x) => `<${x.tag}>: ${x.motivo}`);
 const linhas = (m) => Object.entries(m).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1));
-console.log(`  ganchos novos nos elementos montados à mão: ${casou.length}; para revisão: ${revisar.length}`);
+console.log(`  ganchos novos nos elementos montados à mão: ${casou.length}; para revisão: ${revisar.length}; fora do escopo de propósito: ${ignorados.length}`);
 console.log(`  elementos com data-ds no template: ${Object.values(cobertura).reduce((a, b) => a + b, 0)} (${linhas(cobertura).map(([k, n]) => `${k} ${n}`).join(", ")})`);
 
 if (arg("relatorio")) {
@@ -50,7 +51,8 @@ if (arg("relatorio")) {
 
 Relatório gerado por \`node tools/tokenizar-template.mjs --relatorio\` (codemod de \`tools/lib/ganchos.mjs\`, R1 de \`docs/PLANO-ESTILOS.md\`).
 Os elementos da lista de revisão não ganharam gancho: o padrão de classes não decide sozinho o que eles são.
-Para cobri-los, ajuste as regras de \`tools/lib/ganchos.mjs\` (nunca o template à mão) e rode de novo.
+Os "fora do escopo" também não, mas de propósito: a camada CSS dos estilos não tem o que pintar neles (item de menu lateral, fundo do menu móvel, barra com bg-card, campo dentro de um contêiner com borda, botão só de layout).
+Para cobrir um elemento, ajuste as regras de \`tools/lib/ganchos.mjs\` (nunca o template à mão) e rode de novo.
 
 ## Elementos com data-ds no template
 
@@ -63,6 +65,12 @@ ${linhas(cobertura).map(([k, n]) => `| \`${k}\` | ${n} |`).join("\n")}
 | Gancho (variante) | Elementos |
 |---|---|
 ${linhas(porGancho).map(([k, n]) => `| ${k} | ${n} |`).join("\n") || "| — | 0 |"}
+
+## Fora do escopo, de propósito (${ignorados.length})
+
+| Motivo | Elementos |
+|---|---|
+${linhas(porIgnorado).map(([k, n]) => `| ${k.replace(/</g, "\\<")} | ${n} |`).join("\n") || "| — | 0 |"}
 
 ## Lista de revisão (${revisar.length})
 

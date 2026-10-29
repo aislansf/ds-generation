@@ -116,7 +116,7 @@ export default function ModalAcessoTemplatePage() {
                 </label>
                 <div className="relative">
                   <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                  <input
+                  <input data-ds="input"
                     id="modal-pass"
                     type={show ? "text" : "password"}
                     value={password}

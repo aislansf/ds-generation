@@ -177,7 +177,7 @@ function FlipCard({ card, className }: { card: PainelCard; className?: string })
           <div className="mb-3 opacity-80">{card.icon}</div>
           <h4 className="font-semibold text-sm mb-2">{card.titulo}</h4>
           <p className="text-xs opacity-80 mb-4 line-clamp-3">{card.descricao}</p>
-          <button className="bg-white text-brand-primary font-semibold text-xs px-5 py-2 rounded-lg hover:bg-white/90 transition-colors">
+          <button data-ds="button" data-variant="secondary" className="bg-white text-brand-primary font-semibold text-xs px-5 py-2 rounded-lg hover:bg-white/90 transition-colors">
             Acessar Painel
           </button>
         </div>
@@ -234,7 +234,7 @@ function FlipCardImage({ card, className }: { card: PainelCard; className?: stri
           <div className="mb-3 opacity-80">{card.icon}</div>
           <h4 className="font-semibold text-sm mb-2">{card.titulo}</h4>
           <p className="text-xs opacity-80 mb-4 line-clamp-3">{card.descricao}</p>
-          <button className="bg-white text-brand-primary font-semibold text-xs px-5 py-2 rounded-lg hover:bg-white/90 transition-colors">
+          <button data-ds="button" data-variant="secondary" className="bg-white text-brand-primary font-semibold text-xs px-5 py-2 rounded-lg hover:bg-white/90 transition-colors">
             Acessar Painel
           </button>
         </div>
@@ -262,14 +262,14 @@ function HubPaineisPreview() {
       <div className="font-sans">
         <header data-surface="marca" data-marca="capa" className="bg-[#2A4FDA] text-white">
           <div className="flex items-center gap-3 px-4 py-2.5 min-h-[44px]">
-            <button className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
+            <button data-ds="button" data-variant="marca" className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
               <Menu size={18} />
             </button>
             <img src={brandLogoWhite} alt="__BRAND_NAME__" className="h-6 w-auto" />
             <span className="opacity-40 text-sm">|</span>
             <span className="font-semibold text-sm">SIGLA</span>
             <span className="text-sm opacity-80">Hub de Painéis Gerenciais</span>
-            <button
+            <button data-ds="button" data-variant="marca"
               onClick={() => setDarkMode(!darkMode)}
               className="ml-auto p-1.5 rounded text-white hover:bg-white/10 transition-colors"
               aria-label={darkMode ? "Modo claro" : "Modo escuro"}
@@ -347,14 +347,14 @@ function HubPaineisImagePreview() {
       <div className="font-sans">
         <header data-surface="marca" data-marca="capa" className="bg-[#2A4FDA] text-white">
           <div className="flex items-center gap-3 px-4 py-2.5 min-h-[44px]">
-            <button className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
+            <button data-ds="button" data-variant="marca" className="p-1 rounded text-white hover:bg-white/10 transition-colors" aria-label="Abrir menu">
               <Menu size={18} />
             </button>
             <img src={brandLogoWhite} alt="__BRAND_NAME__" className="h-6 w-auto" />
             <span className="opacity-40 text-sm">|</span>
             <span className="font-semibold text-sm">SIGLA</span>
             <span className="text-sm opacity-80">Hub de Painéis Gerenciais</span>
-            <button
+            <button data-ds="button" data-variant="marca"
               onClick={() => setDarkMode(!darkMode)}
               className="ml-auto p-1.5 rounded text-white hover:bg-white/10 transition-colors"
               aria-label={darkMode ? "Modo claro" : "Modo escuro"}

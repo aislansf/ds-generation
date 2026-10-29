@@ -2,23 +2,23 @@
  * Contorno em tudo que é clicável e sombra dura que "levanta" no hover e "afunda" ao pressionar.
  * A sombra compõe com o anel de foco (--tw-ring-*) para o foco por teclado continuar visível. */
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]),
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]),
 [data-ds="badge"] {
   border: var(--border-width) solid hsl(var(--border));
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]) {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]) {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);
   transition-property: transform, box-shadow, background-color, color;
   transition-duration: var(--duration-normal);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):hover {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]):hover {
   transform: translate(-2px, -2px);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-hover);
 }
 
-[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):active {
+[data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]):active {
   transform: translate(2px, 2px);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000);
 }

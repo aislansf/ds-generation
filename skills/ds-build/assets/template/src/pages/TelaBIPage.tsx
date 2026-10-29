@@ -92,7 +92,7 @@ function TelaBIShell() {
           }}
         >
           {isMobile && (
-            <button
+            <button data-ds="button" data-variant="marca"
               onClick={() => setDrawerOpen((o) => !o)}
               aria-label="Abrir menu lateral"
               className="p-1.5 rounded-md text-primary-foreground/90 hover:bg-primary-foreground/10"
@@ -125,7 +125,7 @@ function TelaBIShell() {
                 {registros.length} registros na base
               </span>
             </div>
-            <button
+            <button data-ds="button" data-variant="marca"
               onClick={toggleTheme}
               aria-label="Alternar tema"
               className="p-1.5 rounded-md text-primary-foreground/90 hover:bg-primary-foreground/10"

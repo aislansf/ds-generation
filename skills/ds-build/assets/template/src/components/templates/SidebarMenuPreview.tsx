@@ -90,7 +90,7 @@ function SidebarPreview() {
   if (!open) {
     return (
       <div className="flex items-center justify-center h-[480px] border border-border rounded-lg bg-muted/30">
-        <button
+        <button data-ds="button" data-variant="default"
           onClick={() => setOpen(true)}
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-sidebar text-sidebar-foreground text-sm font-sans hover:bg-sidebar/90 transition-colors"
         >

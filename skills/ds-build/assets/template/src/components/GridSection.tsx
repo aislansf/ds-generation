@@ -154,7 +154,7 @@ export default function GridSection() {
       {/* Tab nav */}
       <div className="flex gap-1 mb-6 border-b border-border">
         {tabs.map(t => (
-          <button
+          <button data-ds="tabs-trigger"
             key={t.id}
             onClick={() => setActiveTab(t.id)}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${

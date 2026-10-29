@@ -86,7 +86,7 @@ Para "sem sombra" use `0 0 #0000`, não `none`: as sombras dos componentes entra
 ### Ganchos da camada CSS
 
 - `[data-ds="button|card|input|textarea|select-trigger|checkbox|radio|switch|badge|alert|dialog|popover|dropdown|tabs-list|tabs-trigger|table|toast|tooltip|sidebar|header"]`
-- `[data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|destructive|diversificado"]`
+- `[data-ds="button"][data-variant="default|brand|outline|secondary|ghost|link|destructive|diversificado"]`, e duas variantes só dos botões montados à mão: `marca` (botão transparente ou translúcido sobre o header de marca, que não ganha contorno, sombra nem relevo) e `toggle` (chip, segmento ou paginação que alterna entre preenchido e neutro; recebe o tratamento dos botões com fundo)
 - `[data-surface="marca"][data-marca="header|hero|painel|capa|erro|rodape|vazio"]`: superfícies de marca (header do DS, hero da Home, painel visual de login, cadastro, 2FA e modal de acesso, capa do Hub de painéis, páginas de erro, rodapé e estado vazio). Decoração só entra nelas.
 
 Ao mexer em `box-shadow` de um elemento focável na camada CSS, componha com o anel de foco: `box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-ui);`. Propriedades estruturais (`position`) vão dentro de `:where(...)` para não vencer as classes das páginas.

@@ -124,7 +124,7 @@ export default function GestaoPessoasBIPage() {
         style={{ background: "var(--brand-header-grad-end)" }}
       >
         {TABS.map((t) => (
-          <button
+          <button data-ds="tabs-trigger"
             key={t.id}
             disabled={t.locked}
             onClick={() => setActiveTab(t.id)}

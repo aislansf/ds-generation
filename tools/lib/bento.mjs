@@ -229,7 +229,7 @@ export const BENTO_TROCAS = [
     '// Layout bento: tamanho de cada card de navegação (o primeiro é o destaque; as linhas fecham em 4 colunas)\nconst NAV_BENTO: BentoSize[] = ["2x2", "1x1", "1x1", "1x1", "1x1", "2x1", "2x1"];\n\nconst principles = [\n'],
   ["src/pages/HomePage.tsx",
     '<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">\n        {sections.map((s) => (\n          <button key={s.path} onClick={() => navigate(s.path)} className="brand-card-hover text-left group">',
-    '<div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "mb-10")}>\n        {sections.map((s, i) => (\n          <button key={s.path} onClick={() => navigate(s.path)} className={cn("brand-card-hover text-left group", bentoCell(NAV_BENTO[i] ?? "1x1", { hero: i === 0 }))}>'],
+    '<div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "mb-10")}>\n        {sections.map((s, i) => (\n          <button key={s.path} onClick={() => navigate(s.path)} className={cn("brand-card-hover text-left group", bentoCell(NAV_BENTO[i] ?? "1x1", { hero: i === 0 }))}>', 'bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "mb-10")'],
 
   // ── Dashboard Institucional: 6 KPIs (destaque 2×1, quatro 1×1 e um 2×1 fecham duas linhas) ──
   ["src/pages/DashboardInstitucionalPage.tsx", 'import { SEO } from "@/components/SEO";\n',
@@ -321,4 +321,14 @@ export const BENTO_TROCAS = [
     "  action,\n  className,\n}: {\n  title: string;\n  children: React.ReactNode;\n  action?: React.ReactNode;\n  className?: string;\n}) {"],
   ["src/components/bi/sections/VisaoGeral.tsx", 'className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">',
     'className={cn("rounded-xl border border-border bg-card p-5 shadow-sm min-w-0", className)}>'],
+  // Comparativo Trimestral: no bento ele ocupa 1 coluna de 4 (~280px a 1280px) e a legenda de três séries não cabe numa
+  // linha à direita. No bento a legenda começa à esquerda, quebra em duas linhas e o gráfico ganha espaço no topo.
+  ["src/pages/DashboardAnaliticoPage.tsx", 'import { bentoCell, bentoGrid } from "@/components/layout/bento";\n',
+    'import { bentoCell, bentoGrid } from "@/components/layout/bento";\nimport { isBento } from "@/components/layout/bento";\n', 'import { isBento }'],
+  ["src/pages/DashboardAnaliticoPage.tsx",
+    '      grid: { left: 8, right: 12, top: 44, bottom: 8, containLabel: true },\n      tooltip: { trigger: "axis" },\n      legend: { top: 0, right: 0, icon: "circle", itemHeight: 8 },',
+    '      grid: { left: 8, right: 12, top: isBento() ? 76 : 44, bottom: 8, containLabel: true },\n      tooltip: { trigger: "axis" },\n      legend: { top: 0, right: 0, icon: "circle", itemHeight: 8, ...(isBento() ? { left: 0, width: "100%", itemGap: 12 } : {}) },'],
+  ["src/pages/DashboardAnaliticoPage.tsx",
+    '      xAxis: { type: "category", data: ["1º Tri", "2º Tri", "3º Tri", "4º Tri"] },',
+    '      xAxis: { type: "category", data: ["1º Tri", "2º Tri", "3º Tri", "4º Tri"], ...(isBento() ? { axisLabel: { interval: 0, formatter: (v: string) => `T${v[0]}` } } : {}) },'],
 ];

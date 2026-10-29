@@ -29,7 +29,7 @@ h6,
   letter-spacing: 0.08em;
 }
 
-.dark [data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):hover {
+.dark [data-ds="button"]:not([data-variant="link"]):not([data-variant="ghost"]):not([data-variant="marca"]):hover {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--shadow-hover);
 }
 

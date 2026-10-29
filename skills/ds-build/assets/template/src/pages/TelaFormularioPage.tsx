@@ -150,7 +150,7 @@ function DatePickerBR({
               const isSel = selected && fmt(dt) === fmt(selected);
               const isToday = fmt(dt) === fmt(today);
               return (
-                <button
+                <button data-ds="button" data-variant="toggle"
                   key={i}
                   type="button"
                   onClick={() => { onChange(fmt(dt)); setOpen(false); }}
@@ -338,7 +338,7 @@ export default function TelaFormularioPage() {
           className="text-white flex items-center px-4 gap-3"
           style={{ height: "36px", minHeight: "36px", maxHeight: "52px", backgroundColor: "#123148" }}
         >
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={() => setSidebarOpen((o) => !o)}
             className="p-1.5 hover:bg-white/10 rounded flex items-center gap-1.5 transition-colors shrink-0"
             aria-label={sidebarOpen ? "Fechar menu" : "Abrir menu"}
@@ -348,7 +348,7 @@ export default function TelaFormularioPage() {
             <span className="text-[10px] hidden sm:inline">Menu</span>
           </button>
           <div className="flex-1" />
-          <button
+          <button data-ds="button" data-variant="marca"
             onClick={toggleTheme}
             className="p-1.5 hover:bg-white/10 rounded transition-colors shrink-0"
             aria-label="Alternar tema"
@@ -368,7 +368,7 @@ export default function TelaFormularioPage() {
                 <img src={iconeBrandNegativo} alt="__BRAND_NAME__" className="h-5 w-5" />
                 <span className="text-sm font-semibold">SIGLA</span>
               </div>
-              <button onClick={() => setSidebarOpen(false)} className="p-1 rounded hover:bg-white/10 transition-colors" aria-label="Fechar menu">
+              <button data-ds="button" data-variant="marca" onClick={() => setSidebarOpen(false)} className="p-1 rounded hover:bg-white/10 transition-colors" aria-label="Fechar menu">
                 <X size={16} />
               </button>
             </div>
@@ -384,7 +384,7 @@ export default function TelaFormularioPage() {
                   className="w-full bg-white/10 text-white text-xs rounded pl-8 pr-8 py-2 placeholder:text-white/40 border border-white/10 focus:outline-none focus:ring-1 focus:ring-secondary/50 focus:border-secondary/50"
                 />
                 {menuSearch && (
-                  <button onClick={() => { setMenuSearch(""); menuSearchRef.current?.focus(); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors" aria-label="Limpar busca">
+                  <button data-ds="button" data-variant="marca" onClick={() => { setMenuSearch(""); menuSearchRef.current?.focus(); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors" aria-label="Limpar busca">
                     <X size={12} />
                   </button>
                 )}
@@ -484,26 +484,26 @@ export default function TelaFormularioPage() {
                     <p className="text-xs text-muted-foreground -mt-3">Dados básicos do programa e do responsável.</p>
 
                     <Field label="Nome do programa" id="programa" required error={errors.programa}>
-                      <input id="programa" type="text" value={form.programa} onChange={(e) => update("programa", e.target.value)}
+                      <input data-ds="input" id="programa" type="text" value={form.programa} onChange={(e) => update("programa", e.target.value)}
                         placeholder="Ex: Empreender — Empreendedorismo"
                         className={inputCls(errors.programa)} aria-invalid={!!errors.programa} />
                     </Field>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Field label="Responsável" id="responsavel" required error={errors.responsavel}>
-                        <input id="responsavel" type="text" value={form.responsavel} onChange={(e) => update("responsavel", e.target.value)}
+                        <input data-ds="input" id="responsavel" type="text" value={form.responsavel} onChange={(e) => update("responsavel", e.target.value)}
                           placeholder="Nome completo"
                           className={inputCls(errors.responsavel)} aria-invalid={!!errors.responsavel} />
                       </Field>
                       <Field label="CPF" id="cpf" required error={errors.cpf}>
-                        <input id="cpf" type="text" inputMode="numeric" value={form.cpf} onChange={(e) => update("cpf", maskCPF(e.target.value))}
+                        <input data-ds="input" id="cpf" type="text" inputMode="numeric" value={form.cpf} onChange={(e) => update("cpf", maskCPF(e.target.value))}
                           placeholder="000.000.000-00"
                           className={inputCls(errors.cpf)} aria-invalid={!!errors.cpf} />
                       </Field>
                     </div>
 
                     <Field label="E-mail institucional" id="email" required error={errors.email}>
-                      <input id="email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)}
+                      <input data-ds="input" id="email" type="email" value={form.email} onChange={(e) => update("email", e.target.value)}
                         placeholder="responsavel@__ORG_DOMAIN__"
                         className={inputCls(errors.email)} aria-invalid={!!errors.email} />
                     </Field>
@@ -518,7 +518,7 @@ export default function TelaFormularioPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <Field label="Unidade gestora" id="unidade" required error={errors.unidade}>
-                        <select id="unidade" value={form.unidade} onChange={(e) => update("unidade", e.target.value)} className={inputCls(errors.unidade)}>
+                        <select data-ds="select-trigger" id="unidade" value={form.unidade} onChange={(e) => update("unidade", e.target.value)} className={inputCls(errors.unidade)}>
                           <option>DIROP/__BRAND_NAME__</option>
                           <option>DIAFI/__BRAND_NAME__</option>
                           <option>DIPLAN/__BRAND_NAME__</option>
@@ -526,7 +526,7 @@ export default function TelaFormularioPage() {
                         </select>
                       </Field>
                       <Field label="Modalidade" id="modalidade" required error={errors.modalidade}>
-                        <select id="modalidade" value={form.modalidade} onChange={(e) => update("modalidade", e.target.value)} className={inputCls(errors.modalidade)}>
+                        <select data-ds="select-trigger" id="modalidade" value={form.modalidade} onChange={(e) => update("modalidade", e.target.value)} className={inputCls(errors.modalidade)}>
                           <option>Repasse mensal</option>
                           <option>Repasse trimestral</option>
                           <option>Repasse semestral</option>
@@ -537,7 +537,7 @@ export default function TelaFormularioPage() {
                     </div>
 
                     <Field label="Valor previsto (R$)" id="valor" required error={errors.valor}>
-                      <input id="valor" type="text" value={form.valor} onChange={(e) => update("valor", e.target.value)}
+                      <input data-ds="input" id="valor" type="text" value={form.valor} onChange={(e) => update("valor", e.target.value)}
                         placeholder="Ex: 1.240.000,00"
                         className={inputCls(errors.valor)} aria-invalid={!!errors.valor} />
                     </Field>
@@ -566,7 +566,7 @@ export default function TelaFormularioPage() {
                     </div>
 
                     <Field label="Número de parcelas" id="parcelas" required error={errors.parcelas}>
-                      <input id="parcelas" type="number" min={1} max={48} value={form.parcelas} onChange={(e) => update("parcelas", e.target.value)}
+                      <input data-ds="input" id="parcelas" type="number" min={1} max={48} value={form.parcelas} onChange={(e) => update("parcelas", e.target.value)}
                         className={inputCls(errors.parcelas)} aria-invalid={!!errors.parcelas} />
                     </Field>
                   </div>
