@@ -105,7 +105,6 @@ tools/
   matriz-estilos.mjs                gera, compila, testa e captura cada estilo visual (galeria para revisão)
 docs/HANDOFF.md                     contexto, decisões e limitações
 docs/GANCHOS.md                     cobertura dos ganchos data-ds e o que ficou de fora de propósito
-.github/workflows/estilos.yml       CI: testes, template em dia e matriz de 22 estilos × 2 marcas
 ```
 
 ## Manter
