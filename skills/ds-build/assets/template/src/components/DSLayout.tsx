@@ -7,6 +7,7 @@ import {
   SearchX, Users, BarChart3, LineChart
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { ESTILO } from "@/config/estilo";
 import { brandCor as logoBrandCompleta2 } from "@/assets/brand";
 import logoBrandWhite from "@/assets/brand-logo-white-header.svg";
 import { prefetchRoute, cancelPendingPrefetch } from "@/utils/prefetchRoutes";
@@ -38,6 +39,7 @@ const navItems: NavItem[] = [
       { label: "Iconografia", path: "/fundamentos#iconografia" },
       { label: "Grid e Espaçamento", path: "/fundamentos#grid" },
       { label: "Elevação e Sombras", path: "/fundamentos#elevacao" },
+      ...((ESTILO.id as string) !== "corporativo" ? [{ label: "Estilo visual", path: "/fundamentos#estilo" }] : []),
       { label: "Motion", path: "/fundamentos#motion" },
       { label: "Responsividade", path: "/fundamentos#responsividade" },
     ],

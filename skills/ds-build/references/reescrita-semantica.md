@@ -35,7 +35,7 @@ Os **lugares** também são fictícios: regiões (Região Metropolitana, Vale do
 
 ## Imagens
 
-- Miniaturas da página Templates (`src/assets/thumb-*.jpg`) são capturas do template com a marca neutra "Sua Marca". Recapture com o DS novo rodando (Playwright, 1280×800) e sobrescreva mantendo o nome.
+- Miniaturas da página Templates (`src/assets/thumb-*.jpg`) são capturas do template com a marca neutra "Sua Marca". Recapture com o DS novo rodando e sobrescreva mantendo o nome: `node <skill>/scripts/capturar-miniaturas.mjs --ds <pasta-destino>` faz isso para as oito telas (Playwright, 1280 de largura), no tema padrão do estilo.
 - Fotos e ilustrações (`brand-empreendedora.jpg`, `empreendedora-brand.jpg`, `exemplo-imagem-login*.jpg`, `hub-thumb-*.jpg`) são genéricas, sem marca. Pergunte ao usuário se a marca tem fotos próprias para o login e o cadastro.
 - `marca-parceiro.png` é um selo genérico de "marca parceira" (headers com assinatura de parceiro). Troque pela marca parceira real ou remova se não se aplicar.
 - Placeholders em `public/placeholders/` devem virar imagens reais quando o usuário tiver.

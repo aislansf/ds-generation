@@ -52,6 +52,13 @@ O gerador aplica o preset depois de recolorir a marca e antes dos ajustes de con
 
 O DS gerado mostra o estilo no grupo "Estilo visual" de `/tokens`, em `public/design-system/manifest.json` (`estilo: { id, nome }`) e nos tokens DTCG do Figma.
 
+Nos estilos diferentes do `corporativo`, `/fundamentos#estilo` ganha a seção "Estilo visual" (com item no menu lateral): resumo do estilo, componentes no estilo, faça e evite, os tokens de pele com o valor em vigor no tema ativo, os ajustes de contraste e os avisos do gerador, e a lista dos outros estilos do catálogo (o DS leva só o escolhido; para trocar, gere de novo com `--estilo <id>`). Os dados vêm de `public/design-system/estilo.json`, gravado pelo gerador (id, grupo, nível, descrição, tema padrão, tokens alterados, camada CSS, decoração, ajustes e avisos de contraste, faça e evite, fontes sugeridas e o catálogo). No `corporativo` a seção e o item de menu não existem: a página fica como sempre foi.
+
+## Catálogo visual e miniaturas
+
+- `scripts/catalogo-estilos.mjs --brief <briefing.json> --out <catalogo-estilos.html> [--estilos a,b]` gera uma página com a mesma tela em cada estilo, com as cores da marca. Para cada estilo roda o próprio gerador numa pasta temporária e usa os tokens resolvidos, a camada CSS e a decoração dali (cada tela é um iframe, então a camada age como no DS). A página tem um seletor de tema (o de cada estilo, claro ou escuro). Aceita briefing incompleto: usa só o que for válido e, sem a primária, a marca de exemplo.
+- `scripts/capturar-miniaturas.mjs --ds <pasta do DS>` recaptura as oito miniaturas da página Templates no DS gerado, no tema padrão do estilo (`--tema light|dark` força um), e retira a pendência do `GERACAO.md`. Rode com o DS já com as cores, fontes e textos finais.
+
 ### Tokens de pele
 
 Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos estão em `src/index.css` do DS gerado.
@@ -71,6 +78,7 @@ Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos est
 | `--icon-stroke` | `2` | Traço dos ícones Lucide |
 | `--deco-hero`, `--deco-divider`, `--deco-pattern`, `--deco-texture`, `--deco-mask` | `none` | Decoração do nível 3, só em superfícies de marca: arte do hero/painel/capa, faixa do header/rodapé/estado vazio, padrão e textura da página de erro, borda irregular |
 | `--chart-line-width`, `--chart-bar-radius`, `--chart-smooth`, `--chart-tooltip-radius` | `2`, `0`, `0`, `8` | Tema ECharts (`brandTheme.ts`) |
+| `--chart-symbol-variety` | `0` | Quantos símbolos (círculo, quadrado, triângulo) alternam entre as séries de linha e dispersão; aplicado pelo `BrandChart` (`src/lib/echarts/simbolos.ts`). O Bauhaus usa `3` |
 | `--heading-transform`, `--deco-*` | `none` | Reservados para os estilos com decoração |
 
 Para "sem sombra" use `0 0 #0000`, não `none`: as sombras dos componentes entram numa lista junto com o anel de foco, e `none` apagaria o foco. O gerador converte `none` sozinho nos tokens `--shadow-ui*` e `--shadow-hover`.

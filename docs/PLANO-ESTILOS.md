@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 5 e rodada R1–R4 implementadas (padrão + 21 estilos); Fase 6 parcial; revisão humana da galeria pendente · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: Fases 0 a 6 e rodada R1–R4 implementadas (padrão + 21 estilos); revisão humana da galeria pendente · Data: 29/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -12,7 +12,7 @@
 | 3. Camada CSS | Feita: brutalista, neobrutalismo, material (camada de estado), neumorfismo, glassmorfismo, claymorfismo, cyberpunk; mínimos de contraste por estilo |
 | 4. Decoração | Feita: `scripts/lib/decoracao.mjs`, `assets/estilos/_decoracao.css`, 9 estilos de nível 3, `data-surface="marca"` nas superfícies de marca, glitch do cyberpunk; falta a revisão humana da galeria |
 | 5. Layout bento | Feita: `tools/lib/bento.mjs`, `src/components/layout/` (`bento.ts`, `BentoGrid`), preset `bento` (nível 4) e as 5 páginas; falta a revisão humana da galeria |
-| 6. Documentação e catálogo | Parcial: `SKILL.md`, referências, README e HANDOFF atualizados; faltam `catalogo-estilos.mjs`, a seção "Estilo visual" na `FundamentosPage` e as miniaturas por estilo |
+| 6. Documentação e catálogo | Feita: `scripts/catalogo-estilos.mjs`, seção "Estilo visual" em `/fundamentos` (`tools/lib/estilo-secao.mjs`), `scripts/capturar-miniaturas.mjs`, `estilo.json` com faça/evite e catálogo; `SKILL.md`, referências, README e HANDOFF atualizados |
 | 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), rodada com duas marcas; testes unitários do motor de estilos e do codemod (`npm test`); falta a revisão humana da galeria |
 | R1. Ganchos nos elementos montados à mão | Feita: `tools/lib/ganchos.mjs` (408 ganchos; 115 elementos na lista de revisão de `docs/GANCHOS.md`) |
 | R2. Cores de campo | Feita: tokens `--control-*`; campos seguem o estilo quando ele define `--input` |
@@ -31,7 +31,7 @@ Onde a implementação diverge do texto abaixo:
 - **Decoração em arquivos, não em data URI** (`public/estilo/*.svg`, referenciados por `url("/estilo/…")`), e um token a mais, `--deco-mask`, para a borda irregular de grunge e colagem. Raios assimétricos do art nouveau ficam na camada CSS (`--radius-card` com dois valores quebraria a exportação DTCG).
 - **Título do hero do construtivismo inclinado em −3°, não −6°:** a −6° ele subia sobre o logo do hero.
 - **Cinco tokens de campo, não três (R2).** O DS de referência usa dois cinzas de placeholder (`#96A1C0` nos campos crus, `#98A2C1` no texto e no placeholder do Input/Textarea): `--control-placeholder`, `--control-foreground` e `--control-placeholder-input` preservam o pixel. São HEX, e não triplets HSL, para a recoloração da marca dar o mesmo valor que dava nas classes.
-- **Resumo do estilo em `public/design-system/estilo.json` (R4)**, onde a seção "Estilo visual" da Fase 6 vai ler.
+- **Resumo do estilo em `public/design-system/estilo.json` (R4)**, de onde a seção "Estilo visual" da Fase 6 lê (ganhou grupo, descrição, faça e evite, fontes sugeridas e o catálogo na Fase 6).
 - **Estilos com tokens de cor sem alpha.** Tokens de cor listados em `/tokens` (`--border`, `--card`…) precisam ser triplets HSL puros; borda translúcida do vidro e borda neon com alpha ficam na camada CSS.
 
 ## Próxima rodada: o que ainda não está bom ou não foi testado
@@ -75,7 +75,7 @@ Plano:
 - **Neumorfismo dark:** o ajuste de contraste mexe em `--background` e `--card` (17%), mas `--popover` e `--muted` ficam em 18% e 21%; o relevo pede a mesma cor. O ajuste deve levar junto os tokens que o preset declara iguais.
 - **Cyberpunk:** o light (versão de alto contraste) não foi revisado; o efeito "glitch" do h1 do hero ficou para a Fase 4; os cantos cortados (`clip-path`) também cortam o brilho e o anel de foco dos cards.
 - **Contagem de avisos da matriz:** a coluna de avisos lê o `GERACAO.md` por texto; trocar por um resumo estruturado (ex.: `estilo.json` com ajustes e avisos) gravado pelo gerador.
-- **Miniaturas da página Templates:** continuam capturadas no estilo padrão; o `capturar-miniaturas.mjs` da Fase 6 resolve.
+- **Miniaturas da página Templates:** continuam capturadas no estilo padrão no template; no DS gerado, o `scripts/capturar-miniaturas.mjs` (Fase 6) as recaptura.
 
 ### Ordem sugerida
 
@@ -131,6 +131,29 @@ Um commit por item, nesta ordem. A identidade foi conferida a cada passo com `ve
 - **Verificação.** Matriz com `exemplo-verde`, só o `bento`: build e 145 testes passando (os 137 de antes mais 8 do bento), sem ajustes de contraste nem avisos; capturas de light e dark nas cinco rotas. `npm test`: 50 testes (3 novos do preset). Conferência visual das capturas e do DS no navegador: a Home (2×2 + quatro 1×1), o Institucional (2+1+1 e 1+1+2) e a Tela BI (2+1+1, 1+1+2, 2+2) fecham as linhas; o Hub, com 12 painéis, já fecha 3 linhas e nenhum card vira 2×1.
 - **Limitação.** No Dashboard Analítico, o "Comparativo Trimestral" (1 coluna de 4) fica estreito em telas de 1280px e a legenda do gráfico encosta no eixo; a partir de ~1440px cabe. Resolver pede mudar a legenda do gráfico, não o bento.
 - **Pendente.** Revisão humana da galeria dos 21 estilos (inclusive o bento no dark e no celular); a matriz completa (21 estilos × 2 marcas) não foi rodada de novo nesta fase, só o `bento`, e o `corporativo` só foi comparado em uma marca.
+
+## Resultado da Fase 6 (29/10/2026)
+
+- **Catálogo (`skills/ds-build/scripts/catalogo-estilos.mjs`).** Gera uma página só, sem rede e sem `node_modules`: para cada estilo roda o próprio `generate-ds.mjs --estilo <id>` numa pasta temporária (4 em paralelo; os 22 levam ~12 s) e monta um iframe com a mesma tela (header e hero de superfície de marca, card de saldo, botões, campo, badges e tabela), usando os tokens já resolvidos (`:root` e `.dark`), a camada `estilo.css` e a decoração embutida em data URI. A camada CSS age como no DS porque a tela usa os mesmos ganchos `data-ds`. Seletor de tema (o de cada estilo, claro, escuro). **Aceita briefing incompleto**, porque a pergunta 13 vem antes das cores: usa as cores em HEX que forem válidas, deriva o que faltar da primária e, sem primária, usa a marca de exemplo e avisa. Imprime a lista agrupada para o agente.
+- **Seção "Estilo visual" em `/fundamentos#estilo`.** Patch idempotente no fim da extração, como as fases 1 e 5 (`tools/lib/estilo-secao.mjs`; os arquivos ficam em `tools/lib/patch/`): componente `EstiloVisualSection.tsx` e o teste dele, uma linha na página (entre Grid e Elevação) e um item no menu lateral. Mostra o resumo do estilo, componentes no estilo, faça e evite, os tokens de pele com o valor do tema ativo (relidos quando a classe `dark` muda), os ajustes de contraste e avisos do gerador e o catálogo dos outros estilos, lendo `public/design-system/estilo.json`. **No `corporativo` a seção e o item de menu não existem** (o componente devolve `null`), para a página ficar idêntica à de antes.
+- **`estilo.json`** ganhou `grupo`, `descricao`, `faca`, `evite`, `fontes_sugeridas` e `catalogo` (comparação estática dos 22 estilos, decisão 5).
+- **Miniaturas (`skills/ds-build/scripts/capturar-miniaturas.mjs`).** Em vez de dois scripts (um na skill e outro em `tools/imagens-neutras.mjs --estilo`, como a tabela 9.2 previa), um só, na skill: sobe o Vite no DS gerado, captura as oito telas no tema padrão do estilo (`--tema` força outro) e grava em `src/assets/thumb-*.jpg`, mesmos nomes e tamanhos; ao fim retira a pendência "miniaturas da página Templates" do `GERACAO.md`. O `tools/imagens-neutras.mjs` continua sendo o das miniaturas neutras do template.
+- **Gráficos** já seguiam o estilo desde a Fase 1 (`brandTheme.ts` lê `--chart-*`); nada novo.
+- **Documentação.** `SKILL.md` (pergunta 13 usa o catálogo; revisão visual usa as miniaturas e confere a seção), `references/estilos.md`, `geracao.md`, `checklist-marca.md`, `reescrita-semantica.md`, README, HANDOFF e `package.json` (`npm run catalogo`, `npm run miniaturas`).
+- **Verificação.** `corporativo` (marca verde; `/`, `/fundamentos` e `/componentes`, light e dark) idêntico pixel a pixel contra `HEAD`; só mudam, entre os arquivos, `estilo.json`, `GERACAO.md`, `DSLayout.tsx`, `FundamentosPage.tsx` e os dois arquivos novos. Matriz com `exemplo-verde`: 22 estilos com build e 148 testes passando (os 145 de antes mais 3 da seção), sem avisos; ajustes de contraste só no minimalista (1) e no neumorfismo (2). `npm test`: 56 testes (6 novos, em `tools/testes/fase6.test.mjs`: catálogo com e sem briefing completo, recusas, idempotência do patch e ausência da seção no corporativo). Conferido no navegador: seção no neobrutalismo, catálogo com decoração e vidro, troca de tema, e `capturar-miniaturas` no cyberpunk (52 s, miniaturas em dark).
+- **Pendente.** Revisão humana da galeria e do catálogo; `tools/verificar.mjs` e a segunda marca (`exemplo-neobrutalismo`, `marca-neutra`) não foram rodados nesta fase (o primeiro pede a origem, que este repositório não busca). O `capturar-miniaturas` só foi rodado em um estilo.
+
+## Fechamento das lacunas da especificação (29/10/2026)
+
+Depois da Fase 6, uma conferência da seção 6 contra o código achou uma lacuna real e duas que não eram:
+
+- **Bauhaus, símbolos de série nos gráficos (feito).** O tema ECharts não alterna o símbolo entre séries, então a alternância é feita pelo `BrandChart`, antes do `setOption`: `src/lib/echarts/simbolos.ts` (`aplicarSimbolos`) lê o token novo `--chart-symbol-variety` (0 ou 1 não muda nada; 2 alterna círculo e quadrado; 3 usa também o triângulo) e dá `symbol` às séries de linha e dispersão que não definem o seu. O preset `bauhaus` liga o `3`. Patch idempotente (`tools/lib/graficos-estilo.mjs`, arquivos em `tools/lib/patch/`); o token entra no `index.css`, em `/tokens` e na exportação DTCG como número. Conferido no navegador (linhas com círculo, quadrado e triângulo) e com 5 testes unitários.
+- **Maximalista, título do hero em display ampliado: já existia** (`assets/estilos/maximalista/estilo.css`, regra em `h2` do hero). Era engano da conferência.
+- **Retrô, dessaturação de 15%: já existia na decoração** (`"dessaturar": 15` em `retro/decoracao.json`, que desatura as cores dos raios de sol, das listras e da faixa). Nas superfícies de marca em si (o fundo `bg-primary` do hero) **não foi aplicada, de propósito**: a seção 6.13 pede, mas o princípio 2 diz que o estilo nunca altera a cor da marca, só quais superfícies ela preenche. Fica registrado como decisão.
+- **Tokens de gráfico em outros estilos: sem especificação.** O plano só pede `--chart-smooth` em orgânico e claymorfismo (feitos) e os símbolos do Bauhaus.
+
+- **Verificação.** Matriz completa com as duas marcas (`exemplo-verde` e `exemplo-neobrutalismo`): 22 estilos × 2 marcas com build e 154 testes passando (os 148 de antes mais 5 dos símbolos e 1 do validador de `tokenGroups`, que testa cada token e ganhou o `--chart-symbol-variety`), sem avisos. Ajustes de contraste automáticos: verde, minimalista (1) e neumorfismo (2); neobrutalismo, glassmorfismo (1) e cyberpunk (1). `corporativo` idêntico pixel a pixel ao `HEAD` em `/graficos/linhas`, `/graficos/barras` e no Dashboard Analítico, light e dark. `npm test`: 56 testes.
+- **Pendente.** Só a revisão humana da galeria e do catálogo (Fase 7), a lista de revisão do R1 (115 elementos sem gancho) e a limitação do bento no Dashboard Analítico a 1280px.
 
 ## 1. Objetivo
 

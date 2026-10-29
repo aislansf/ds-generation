@@ -16,6 +16,8 @@ Marque cada item antes de dizer ao usuário que o DS está pronto. Os que não p
 ## Estilo visual
 - [ ] Estilo confirmado pelo usuário no resumo (mesmo quando é o padrão, `corporativo`)
 - [ ] Seção "Estilo visual" do `GERACAO.md` revisada: ajustes de contraste do estilo e avisos
+- [ ] Seção "Estilo visual" de `/fundamentos#estilo` (fora do `corporativo`) bate com o estilo escolhido
+- [ ] Miniaturas da página Templates recapturadas no estilo (`scripts/capturar-miniaturas.mjs`) ou pendência registrada
 - [ ] Estilo aplicado em `/componentes` (botões, cards, campos, abas, menus) e no header, em light e dark
 - [ ] Foco por teclado visível em botões, campos e links (Tab pela página)
 - [ ] Estilo com tema padrão `dark` (cyberpunk): o DS abre em dark sem "piscar"

@@ -5,6 +5,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { registerBrandThemes, BRAND_THEME_NAMES } from "@/lib/echarts/brandTheme";
 import { mapaRegistrado, registrarMapaPorNome } from "@/lib/echarts/mapas";
 import { cn } from "@/lib/utils";
+import { aplicarSimbolos } from "@/lib/echarts/simbolos";
 
 export interface BrandChartProps {
   option: EChartsOption;
@@ -94,7 +95,7 @@ export const BrandChart = forwardRef<BrandChartHandle, BrandChartProps>(function
     const chart = chartRef.current;
     if (!chart || !mapaPronto) return;
     const reduced = prefersReducedMotion();
-    chart.setOption({ ...option, animation: reduced ? false : option.animation ?? true }, notMerge);
+    chart.setOption(aplicarSimbolos({ ...option, animation: reduced ? false : option.animation ?? true }), notMerge);
   }, [option, notMerge, theme, mapaPronto]);
 
   useEffect(() => {

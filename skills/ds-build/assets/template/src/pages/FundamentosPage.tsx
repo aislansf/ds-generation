@@ -6,6 +6,7 @@ import ColorSection from "@/components/ColorSection";
 import { FontFamilyCard } from "@/components/FontFamilyCard";
 import paletaReferencia from "@/assets/paleta-referencia.png.asset.json";
 import GridSection from "@/components/GridSection";
+import EstiloVisualSection from "@/components/EstiloVisualSection";
 import {
   ArrowRight, Bell, Check, ChevronRight, Download, Eye,
   Heart, Home, Mail, Search, Settings, Star, User, AlertTriangle, Info,
@@ -1074,6 +1075,8 @@ h1, h2, h3, h4, h5, h6 {
       <SectionHeader id="grid" title="Grid e Espaçamento" description="Sistema de grid responsivo com suporte a 16, 12, 8 e 4 colunas para desktop, tablet e mobile, com exemplos práticos para dashboards." />
 
       <GridSection />
+
+      <EstiloVisualSection />
 
       {/* Elevation */}
       <SectionHeader id="elevacao" title="Elevação e Sombras" description="Níveis de elevação para criar hierarquia visual e profundidade. As sombras se adaptam ao tema." />

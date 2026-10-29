@@ -248,6 +248,7 @@
     --chart-line-width: 2;
     --chart-bar-radius: 0;
     --chart-smooth: 0;
+    --chart-symbol-variety: 0;
     --chart-tooltip-radius: 8;
     /* Campos de formulário: borda, hover e foco, placeholder e texto do Input/Textarea */
     --control-border: #95ADFF;
