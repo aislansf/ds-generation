@@ -623,12 +623,14 @@ ${contrastTable(contraste)}
 `;
 write("GERACAO.md", relatorio);
 
-// Resumo estruturado do estilo (lido pela matriz de estilos e, na Fase 6, pela seção "Estilo visual" do DS).
+// Resumo estruturado do estilo (lido pela matriz de estilos e pela seção "Estilo visual" de /fundamentos).
 // Sem data nem caminho absoluto: gerar duas vezes dá o mesmo arquivo.
 write("public/design-system/estilo.json", JSON.stringify({
   id: estilo.id,
   nome: estilo.nome,
   nivel: estilo.nivel,
+  grupo: estilo.grupo,
+  descricao: estilo.descricao,
   tema_padrao: estilo.tema_padrao,
   layout: estilo.layout,
   tokens_alterados: estiloRes.tokens,
@@ -639,6 +641,14 @@ write("public/design-system/estilo.json", JSON.stringify({
   ajustes_contraste: estiloContraste.ajustes,
   avisos: [...estiloRes.avisos, ...estiloContraste.avisos],
   contraste_abaixo_aa: falhas.length,
+  faca: estilo.faca,
+  evite: estilo.evite,
+  fontes_sugeridas: estilo.fontes_sugeridas,
+  // Comparação estática com os outros estilos (o DS gerado leva só o escolhido)
+  catalogo: listarEstilos().map((id) => {
+    const p = carregarEstilo(id);
+    return { id: p.id, nome: p.nome, grupo: p.grupo, nivel: p.nivel, descricao: p.descricao };
+  }),
 }, null, 2) + "\n");
 
 // ---------- 9. node_modules (opcional, para testar o build) ----------

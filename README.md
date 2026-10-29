@@ -80,6 +80,8 @@ skills/ds-build/                    o que o `npx skills add` instala (100% neutr
     validar-briefing.mjs            lista as perguntas sem resposta válida
     generate-ds.mjs                 briefing + template → DS novo
     validar-contraste.mjs           auditoria WCAG dos tokens
+    catalogo-estilos.mjs            página com a mesma tela em cada estilo visual, nas cores da marca
+    capturar-miniaturas.mjs         recaptura, no DS gerado, as miniaturas da página Templates
     gerar-escala.mjs                escala 50–700 a partir de um HEX
     lib/                            questionário, cor, contraste, placeholders e estilos visuais
   references/                       tokens, estilos, arquitetura, geração, reescrita semântica, checklist
@@ -134,6 +136,11 @@ Para os estilos visuais, a matriz gera, compila e testa cada estilo, e monta uma
 node tools/matriz-estilos.mjs --node-modules <node_modules> --capturas
 ```
 
-Se a origem ganhar telas novas, recapture as miniaturas com `npm run imagens -- --source <frontend> --node-modules <node_modules>`.
+Se a origem ganhar telas novas, recapture as miniaturas do template com `npm run imagens -- --source <frontend> --node-modules <node_modules>`. Num DS gerado com marca e estilo próprios, quem recaptura as miniaturas é a skill, na revisão visual:
+
+```bash
+node skills/ds-build/scripts/capturar-miniaturas.mjs --ds <pasta do DS>   # usa o node_modules do DS ou --node-modules <pasta>
+node skills/ds-build/scripts/catalogo-estilos.mjs --brief minha-marca.json --out catalogo-estilos.html   # a tela de exemplo em cada estilo
+```
 
 Detalhes em [docs/HANDOFF.md](docs/HANDOFF.md).

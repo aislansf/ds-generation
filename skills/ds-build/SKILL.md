@@ -35,6 +35,8 @@ Não pule nenhuma. O gerador **se recusa a rodar** com o briefing incompleto, e 
 | `assets/examples/exemplo-verde.json` | Briefing completo de uma marca fictícia, sem `estilo` (sai no padrão) |
 | `assets/examples/exemplo-neobrutalismo.json` | Briefing com o estilo informado |
 | `assets/estilos/` | Presets dos estilos visuais (`<id>/preset.json` + `estilo.css`) e o `_schema.json` |
+| `scripts/catalogo-estilos.mjs` | Página que mostra a mesma tela em cada estilo, com as cores da marca (pergunta 13) |
+| `scripts/capturar-miniaturas.mjs` | Recaptura, no DS gerado, as miniaturas da página Templates (revisão visual) |
 | `assets/template/` | Template neutro (marca "Sua Marca", dados fictícios). Não editar à mão |
 | `scripts/validar-briefing.mjs` | Lista as perguntas sem resposta válida (exit 1 enquanto houver) |
 | `scripts/generate-ds.mjs` | Gera o DS para um briefing completo |
@@ -95,7 +97,7 @@ Regras do questionário:
 - **Exceção, só para `estilo`:** se o usuário disser "tanto faz", "não sei", "pode seguir" ou pular a pergunta, grave `"estilo": "corporativo"` e informe: "Vou manter o estilo atual (corporativo)." Um briefing sem o campo também sai em `corporativo` (o validador avisa, mas não é pendência). Um id que não existe é pendência: pergunte de novo.
 - **Como perguntar o estilo (pergunta 13):** ela vem antes das cores porque o estilo influencia o que você propõe nelas (ex.: o neobrutalismo pede uma secundária saturada) e nas fontes (cada estilo tem fontes sugeridas, mas a fonte escolhida pelo usuário sempre vence).
   1. Use a ferramenta de perguntas com uma pergunta e três opções: "Manter o estilo atual (Recomendado)" (corporativo flat, o visual de hoje), "Escolher outro estilo" e "Ver a comparação antes de escolher".
-  2. Se ele quiser escolher ou comparar, mostre a lista agrupada de `references/estilos.md` (nome e uma linha de descrição) e peça a resposta pelo nome. Para comparar de verdade, gere um DS rápido em cada estilo candidato (`--estilo`) e mostre lado a lado.
+  2. Se ele quiser escolher ou comparar, rode `node <skill>/scripts/catalogo-estilos.mjs --brief <briefing.json> --out <pasta>/catalogo-estilos.html` (leva ~15 s; não precisa de `node_modules`). Ele gera uma página com **a mesma tela** (header, destaque, card de saldo, botões, campo, badges e tabela) em cada estilo, já com as cores do briefing (as que estiverem válidas: a pergunta 13 vem antes das cores, então o briefing pode estar incompleto; sem a primária ele usa a marca de exemplo e avisa). Mostre a página (abra no navegador ou entregue o arquivo) e a lista agrupada de `references/estilos.md`, e peça a resposta pelo nome. `--estilos a,b,c` limita a página aos candidatos.
   3. Resposta vaga ("algo moderno", "mais divertido"): ofereça de 2 a 4 estilos compatíveis numa nova pergunta.
   - O resumo final sempre mostra o estilo, mesmo quando é o padrão.
 - **Pode extrair do material do usuário.** Se ele enviar um manual de marca em PDF, leia-o para propor cores, fontes, regras do logo e tom de voz. Mesmo assim, apresente o que encontrou e peça confirmação de cada item.
@@ -160,7 +162,8 @@ Rode `npm run dev` **em segundo plano** (o processo não termina sozinho; é o m
 - texto ilegível sobre a primária (botões, sidebar, header);
 - tons "estranhos" em ilustrações e gráficos (sinal de uma cor fora das janelas de família);
 - logos provisórios (quando o usuário respondeu `false`);
-- miniaturas da página Templates, que mostram a marca neutra "Sua Marca" no estilo padrão: recapture com o DS novo rodando;
+- miniaturas da página Templates, que mostram a marca neutra "Sua Marca" no estilo padrão: com as cores, fontes e textos já finais, rode `node <skill>/scripts/capturar-miniaturas.mjs --ds <pasta-destino>` (usa o `node_modules` do DS ou `--node-modules <pasta>`; `--chromium <exe>` se o Chromium do Playwright não estiver baixado). Ele sobe o Vite, captura as oito telas no tema padrão do estilo, grava em `src/assets/thumb-*.jpg` e tira a pendência do `GERACAO.md`;
+- com estilo diferente do `corporativo`, a seção "Estilo visual" de `/fundamentos#estilo` (e o item no menu lateral) mostra o estilo em uso, faça e evite, os tokens de pele em vigor, os ajustes de contraste e os outros estilos do catálogo: confira se o resumo bate com o que o usuário escolheu;
 - com estilo de nível 3 (decoração): confira a decoração no hero da Home, no login (`/templates/pagina-autenticacao`), na página de erro e no rodapé, e, no `ilustrativo`, troque os placeholders de `public/estilo/ilustracoes/` pelas ilustrações da marca (mesmos nomes);
 - com estilo diferente do `corporativo`: confira se o estilo "pegou" em botões, cards, campos, abas, menus e no header (`/componentes` mostra quase tudo), se o foco por teclado continua visível (Tab pela página) e, nos estilos com tema padrão `dark` (cyberpunk), se o DS abre em dark sem "piscar".
 

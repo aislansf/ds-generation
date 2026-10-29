@@ -75,7 +75,7 @@ Entre a recoloração e os ajustes de contraste, o gerador aplica o estilo do br
 6. depois das correções da marca, os mínimos do estilo (`estilos.md`, regra 3) ajustam só tokens que o próprio estilo definiu; quando o ajuste é numa superfície (`--background`, `--card`, `--popover`, `--muted`), as outras superfícies do preset na mesma matiz e saturação andam o mesmo passo;
 7. o espelho de `tokenGroups.ts` passa a incluir os valores escalares (raio, peso, duração, tokens de pele), para o validador de tokens continuar verde.
 
-O `corporativo` tem `tokens: {}` e nenhuma camada CSS: gerar sem estilo e com `corporativo` dá o mesmo DS, byte a byte. A seção "Estilo visual" do `GERACAO.md` lista tokens alterados, camada, tema padrão, ajustes de contraste do estilo e pendências (miniaturas capturadas no estilo padrão, fontes sugeridas não adotadas). O mesmo resumo, estruturado, vai para `public/design-system/estilo.json` (id, nível, tema padrão, tokens alterados, ajustes de contraste e avisos do estilo).
+O `corporativo` tem `tokens: {}` e nenhuma camada CSS: gerar sem estilo e com `corporativo` dá o mesmo DS, byte a byte. A seção "Estilo visual" do `GERACAO.md` lista tokens alterados, camada, tema padrão, ajustes de contraste do estilo e pendências (miniaturas capturadas no estilo padrão, fontes sugeridas não adotadas). O mesmo resumo, estruturado, vai para `public/design-system/estilo.json` (id, grupo, nível, descrição, tema padrão, tokens alterados, camada CSS, decoração, ajustes de contraste e avisos do estilo, faça e evite, fontes sugeridas e o catálogo dos estilos), que a seção "Estilo visual" de `/fundamentos` lê. A pendência das miniaturas some com `scripts/capturar-miniaturas.mjs`.
 
 ### Ajustando
 

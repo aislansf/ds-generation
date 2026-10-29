@@ -11,7 +11,9 @@
     "extrair": "node tools/extract-template.mjs",
     "imagens": "node tools/imagens-neutras.mjs",
     "contraste": "node skills/ds-build/scripts/validar-contraste.mjs",
-    "escala": "node skills/ds-build/scripts/gerar-escala.mjs"
+    "escala": "node skills/ds-build/scripts/gerar-escala.mjs",
+    "catalogo": "node skills/ds-build/scripts/catalogo-estilos.mjs",
+    "miniaturas": "node skills/ds-build/scripts/capturar-miniaturas.mjs"
   },
   "engines": {
     "node": ">=18"

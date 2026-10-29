@@ -9,6 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { ganchosNoArquivo } from "./ganchos.mjs";
 import { BENTO_NOVOS, BENTO_TROCAS } from "./bento.mjs";
+import { SECAO_NOVOS, SECAO_TROCAS } from "./estilo-secao.mjs";
 
 /** Tokens de pele com os valores do estilo "corporativo" (o visual de sempre). */
 export const TOKENS_PELE = [
@@ -415,6 +416,8 @@ const manifest = {
 `],
   // Layout bento (Fase 5): grades e blocos das cinco páginas; sem o layout bento, as classes são as de sempre
   ...BENTO_TROCAS,
+  // Seção "Estilo visual" de /fundamentos e o item do menu (Fase 6)
+  ...SECAO_TROCAS,
 ];
 
 /** Arquivos novos (não sobrescreve se já existirem). */
@@ -444,6 +447,7 @@ const NOVOS = [
   ["src/hooks/__tests__/useTheme.test.ts", USE_THEME_TEST],
   ["src/config/__tests__/estilo.test.ts", ESTILO_TEST],
   ...BENTO_NOVOS,
+  ...SECAO_NOVOS,
 ];
 
 /** .tsx de src/, fora de src/components/ui/ (os componentes já têm ganchos próprios) e dos testes, em ordem estável. */
