@@ -15,6 +15,8 @@ import { KPIGridSkeleton, ChartCardSkeleton } from "../BISkeletons";
 import BrandChart from "@/components/charts/BrandChart";
 import { BRAND_PALETTE } from "@/lib/echarts/brandTheme";
 import { formatarNumero } from "@/lib/echarts/format";
+import { cn } from "@/lib/utils";
+import { bentoCell, bentoGrid } from "@/components/layout/bento";
 import {
   Building2,
   PhoneCall,
@@ -162,19 +164,19 @@ export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <IndicatorCard title="Empresas atendidas" value={kpis.empresasUnicas} icon={Building2} tooltip="Empresas distintas identificadas pelo CNPJ." delta={d("empresasUnicas")} />
-        <IndicatorCard title="Atendimentos" value={kpis.atendimentos} icon={PhoneCall} tooltip="Registros de atendimento ao empreendedor." delta={d("atendimentos")} />
-        <IndicatorCard title="Contatos" value={kpis.contatos} icon={Users} tooltip="Registros com contato nominal identificado." delta={d("contatos")} />
-        <IndicatorCard title="Com e-mail" value={kpis.comEmail} icon={Mail} tooltip="Empresas com pelo menos um e-mail cadastrado." delta={d("comEmail")} />
-        <IndicatorCard title="Municípios atendidos" value={kpis.cidades} icon={MapPin} tooltip="Municípios com registros de atendimento." delta={d("cidades")} />
-        <IndicatorCard title="Oportunidades" value={kpis.oportunidades} icon={Target} tooltip="Empresas em estágio de oportunidade, cadastro ou proposta." delta={d("oportunidades")} />
-        <IndicatorCard title="Sem retorno" value={kpis.semRetorno} icon={AlertCircle} tooltip="Tentativas sem resposta ou aguardando retorno." delta={d("semRetorno")} />
-        <IndicatorCard title="Taxa de qualificação" value={`${kpis.taxaQualificacao}%`} icon={Sparkles} tooltip="Percentual de registros com potencial médio ou alto." delta={d("taxaQualificacao")} />
+      <div className={bentoGrid("grid grid-cols-2 md:grid-cols-4 gap-3")}>
+        <IndicatorCard className={bentoCell("2x1", { hero: true })} title="Empresas atendidas" value={kpis.empresasUnicas} icon={Building2} tooltip="Empresas distintas identificadas pelo CNPJ." delta={d("empresasUnicas")} />
+        <IndicatorCard className={bentoCell()} title="Atendimentos" value={kpis.atendimentos} icon={PhoneCall} tooltip="Registros de atendimento ao empreendedor." delta={d("atendimentos")} />
+        <IndicatorCard className={bentoCell()} title="Contatos" value={kpis.contatos} icon={Users} tooltip="Registros com contato nominal identificado." delta={d("contatos")} />
+        <IndicatorCard className={bentoCell()} title="Com e-mail" value={kpis.comEmail} icon={Mail} tooltip="Empresas com pelo menos um e-mail cadastrado." delta={d("comEmail")} />
+        <IndicatorCard className={bentoCell()} title="Municípios atendidos" value={kpis.cidades} icon={MapPin} tooltip="Municípios com registros de atendimento." delta={d("cidades")} />
+        <IndicatorCard className={bentoCell("2x1")} title="Oportunidades" value={kpis.oportunidades} icon={Target} tooltip="Empresas em estágio de oportunidade, cadastro ou proposta." delta={d("oportunidades")} />
+        <IndicatorCard className={bentoCell("2x1")} title="Sem retorno" value={kpis.semRetorno} icon={AlertCircle} tooltip="Tentativas sem resposta ou aguardando retorno." delta={d("semRetorno")} />
+        <IndicatorCard className={bentoCell("2x1")} title="Taxa de qualificação" value={`${kpis.taxaQualificacao}%`} icon={Sparkles} tooltip="Percentual de registros com potencial médio ou alto." delta={d("taxaQualificacao")} />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <ChartCard title="Empresas por município">
+      <div className={bentoGrid("grid grid-cols-1 lg:grid-cols-2 gap-4")}>
+        <ChartCard className={bentoCell("3x1")} title="Empresas por município">
           <BrandChart
             option={optCidades}
             height={260}
@@ -182,7 +184,7 @@ export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
           />
         </ChartCard>
 
-        <ChartCard title="Empresas por status">
+        <ChartCard className={bentoCell()} title="Empresas por status">
           <BrandChart
             option={optStatus}
             height={260}
@@ -191,6 +193,7 @@ export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
         </ChartCard>
 
         <ChartCard
+          className={bentoCell("2x1")}
           title="Evolução dos atendimentos"
           action={
             <div className="flex gap-1">
@@ -214,7 +217,7 @@ export default function VisaoGeral({ loading = false }: { loading?: boolean }) {
           />
         </ChartCard>
 
-        <ChartCard title="Funil de atendimento">
+        <ChartCard className={bentoCell("2x1")} title="Funil de atendimento">
           <div className="space-y-2 py-2">
             {funil.map((etapa, i) => {
               const max = funil[0].value || 1;
@@ -274,13 +277,15 @@ function ChartCard({
   title,
   children,
   action,
+  className,
 }: {
   title: string;
   children: React.ReactNode;
   action?: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm min-w-0">
+    <div data-ds="card" className={cn("rounded-xl border border-border bg-card p-5 shadow-sm min-w-0", className)}>
       <div className="flex items-center justify-between mb-3 gap-2">
         <h3 className="text-sm font-semibold text-foreground">{title}</h3>
         {action}

@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 4 e rodada R1–R4 implementadas (padrão + 20 estilos); revisão humana da galeria e Fases 5 a 7 pendentes · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: Fases 0 a 5 e rodada R1–R4 implementadas (padrão + 21 estilos); Fase 6 parcial; revisão humana da galeria pendente · Data: 28/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -11,7 +11,7 @@
 | 2. Motor de presets e pergunta | Feita: `scripts/lib/estilos.mjs`, `assets/estilos/`, pergunta 13, `--estilo`, `references/estilos.md` |
 | 3. Camada CSS | Feita: brutalista, neobrutalismo, material (camada de estado), neumorfismo, glassmorfismo, claymorfismo, cyberpunk; mínimos de contraste por estilo |
 | 4. Decoração | Feita: `scripts/lib/decoracao.mjs`, `assets/estilos/_decoracao.css`, 9 estilos de nível 3, `data-surface="marca"` nas superfícies de marca, glitch do cyberpunk; falta a revisão humana da galeria |
-| 5. Layout bento | Pendente |
+| 5. Layout bento | Feita: `tools/lib/bento.mjs`, `src/components/layout/` (`bento.ts`, `BentoGrid`), preset `bento` (nível 4) e as 5 páginas; falta a revisão humana da galeria |
 | 6. Documentação e catálogo | Parcial: `SKILL.md`, referências, README e HANDOFF atualizados; faltam `catalogo-estilos.mjs`, a seção "Estilo visual" na `FundamentosPage` e as miniaturas por estilo |
 | 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), rodada com duas marcas; testes unitários do motor de estilos e do codemod (`npm test`); falta a revisão humana da galeria |
 | R1. Ganchos nos elementos montados à mão | Feita: `tools/lib/ganchos.mjs` (408 ganchos; 115 elementos na lista de revisão de `docs/GANCHOS.md`) |
@@ -114,6 +114,23 @@ Um commit por item, nesta ordem. A identidade foi conferida a cada passo com `ve
 - **Correção de contraste (bug das Fases 2 e 3):** um estilo que só troca `--background` não arrasta mais o fundo por pares que já eram fracos no template, e o `.dark` não é mais "corrigido" por tokens só de `:root`. Nas matrizes do PR #9, flat e claymorfismo saíam com o fundo do light em 76% e 60% e o do dark entre 40% e 52%; agora ficam com o valor do preset.
 - **Verificação:** `corporativo` idêntico ao PR #9 (capturas, 8 rotas, light e dark, duas marcas; só ruído em `/fundamentos` e `/templates`). Matriz com `exemplo-verde` e `exemplo-neobrutalismo`: 21 estilos × 2 marcas com build e 137 testes; decoração só em superfícies de marca (7 ou 8 elementos decorados por estilo, 0 fora); animação e rotação desligadas com movimento reduzido (glitch, adesivos do grunge, título do construtivismo, recortes da colagem). `npm test`: 47 testes.
 - **Pendente:** revisão humana da galeria (os 21 estilos, light e dark, com a página de erro). As ilustrações reais do `ilustrativo` ficam como pendência do `GERACAO.md` de cada DS (seção 12, decisão 9).
+
+## Resultado da Fase 5 (29/10/2026)
+
+- **Como entrou.** Patch idempotente no fim da extração, como a Fase 1 (`tools/lib/bento.mjs`, usado por `tokenizar.mjs`): cria `src/components/layout/bento.ts` (`bentoGrid`, `bentoCell`, `bentoSizes`, `isBento`), `BentoGrid.tsx` (`BentoGrid` e `BentoCell`, para páginas novas) e um teste, e troca por âncora as classes de grade e de bloco de Home, Dashboard Institucional, Dashboard Analítico, Hub de painéis (os dois previews) e visão geral da Tela BI. Nada entra na origem nem em `origem/overrides/`: a `HomePage` é patchada depois de copiada, como já é com os ganchos de superfície.
+- **Identidade.** Com `ESTILO.layout !== "bento"`, `bentoGrid` devolve a grade original e `bentoCell`, texto vazio. `verificar-identidade.mjs --base HEAD` (marca verde, rotas `/`, `/templates`, Institucional, Analítico e Tela BI, light e dark): capturas idênticas pixel a pixel.
+- **Divergências do plano.**
+  - As páginas usam as funções direto (`className={bentoGrid(...)}`, `bentoCell(...)`), e não o componente `BentoGrid` em volta: o componente exigiria trocar a tag de abertura e a de fechamento de cada grade, âncoras frágeis. `BentoGrid` e `BentoCell` ficam para páginas novas.
+  - Dois tamanhos além dos quatro do plano: `3x1` (gráfico principal ao lado de um 1×1) e `4x1` (linha inteira).
+  - Linhas só se estendem a partir de 1024px (`lg:row-span-2`); com duas colunas, um bloco 2×2 deixaria uma linha vazia.
+  - Sem `grid-auto-flow: dense`: ele reordenaria visualmente sem reordenar o foco por teclado. Os tamanhos de cada página fecham as linhas à mão, e `bentoSizes(n)` faz isso para listas de tamanho variável (o Hub).
+  - O bloco de destaque é um 2×2 só na Home; nos dashboards é 2×1 ou 1×1, porque o plano de 2×2 não fecha as linhas de 4 e 6 indicadores. Ele é pintado de primária pela camada CSS do estilo (`.bento-hero`), que força o texto interno para `--primary-foreground` (as cores próprias de cada indicador, inclusive as inline, não valem sobre a primária).
+  - O Dashboard Analítico não recebe um bloco 2×2: o plano o previa como "bloco herói", mas os KPIs ficam em 1×1 (o primeiro é o destaque) e o gráfico territorial em 3×1.
+  - A "visão geral da `TelaBIPage`" está em `components/bi/sections/VisaoGeral.tsx`, não na página.
+- **Preset `bento`** (`ordem` 17, nível 4, `layout: "bento"`): fundo tingido da primária (`{primaria.h} 10% 93%`; dark `12% 8%`), cards brancos sem borda e sem sombra, raio 1.25rem. O validador agora liga nível 4 a `layout: "bento"` nos dois sentidos.
+- **Verificação.** Matriz com `exemplo-verde`, só o `bento`: build e 145 testes passando (os 137 de antes mais 8 do bento), sem ajustes de contraste nem avisos; capturas de light e dark nas cinco rotas. `npm test`: 50 testes (3 novos do preset). Conferência visual das capturas e do DS no navegador: a Home (2×2 + quatro 1×1), o Institucional (2+1+1 e 1+1+2) e a Tela BI (2+1+1, 1+1+2, 2+2) fecham as linhas; o Hub, com 12 painéis, já fecha 3 linhas e nenhum card vira 2×1.
+- **Limitação.** No Dashboard Analítico, o "Comparativo Trimestral" (1 coluna de 4) fica estreito em telas de 1280px e a legenda do gráfico encosta no eixo; a partir de ~1440px cabe. Resolver pede mudar a legenda do gráfico, não o bento.
+- **Pendente.** Revisão humana da galeria dos 21 estilos (inclusive o bento no dark e no celular); a matriz completa (21 estilos × 2 marcas) não foi rodada de novo nesta fase, só o `bento`, e o `corporativo` só foi comparado em uma marca.
 
 ## 1. Objetivo
 

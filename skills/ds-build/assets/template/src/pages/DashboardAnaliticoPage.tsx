@@ -19,6 +19,8 @@ import { brandCor as brandLogoCor } from "@/assets/brand";
 import brandLogoBranca from "@/assets/brand-logo-white-header.svg";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { bentoCell, bentoGrid } from "@/components/layout/bento";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -562,12 +564,12 @@ export default function DashboardAnaliticoPage() {
           {isLoading ? (
             <KPIGridSkeleton />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {kpis.map((k) => {
+            <div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4")}>
+              {kpis.map((k, i) => {
                 const Icon = k.icon;
                 const positivo = k.delta >= 0;
                 return (
-                  <Card key={k.titulo} className="relative overflow-hidden">
+                  <Card key={k.titulo} className={cn("relative overflow-hidden", bentoCell("1x1", { hero: i === 0 }))}>
                     <span className="absolute inset-x-0 top-0 h-px" style={{ background: k.cor }} />
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between gap-3">
@@ -597,8 +599,8 @@ export default function DashboardAnaliticoPage() {
           )}
 
           {/* Territorial + Trimestral */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <Card className="lg:col-span-2 min-w-0">
+          <div className={bentoGrid("grid grid-cols-1 lg:grid-cols-3 gap-4")}>
+            <Card className={cn("lg:col-span-2 min-w-0", bentoCell("3x1"))}>
               <CardHeader className="flex flex-row items-start justify-between gap-3 space-y-0 pb-2">
                 <div className="min-w-0">
                   <h2 className="text-base font-semibold text-foreground">Distribuição Territorial de Atendimentos</h2>
@@ -669,7 +671,7 @@ export default function DashboardAnaliticoPage() {
               </CardContent>
             </Card>
 
-            <Card className="min-w-0">
+            <Card className={cn("min-w-0", bentoCell())}>
               <CardHeader className="pb-2">
                 <h2 className="text-base font-semibold text-foreground">Comparativo Trimestral</h2>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">

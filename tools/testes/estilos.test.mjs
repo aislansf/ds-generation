@@ -7,7 +7,7 @@ import os from "node:os";
 import path from "node:path";
 import {
   listarEstilos, carregarEstilo, validarPreset, corNeon, resolverValor, definirVar, lerVar,
-  aplicarEstilo, contrasteDoEstilo, ESTILO_PADRAO, CAMPOS_DO_ESTILO,
+  aplicarEstilo, contrasteDoEstilo, ESTILO_PADRAO, ESTILOS_DIR, CAMPOS_DO_ESTILO,
 } from "../../skills/ds-build/scripts/lib/estilos.mjs";
 import { contrastRatio, hslToRgb, parseTriplet } from "../../skills/ds-build/scripts/lib/color.mjs";
 
@@ -314,4 +314,32 @@ test("contrasteDoEstilo não mexe em pares que o estilo não tocou", () => {
   const r = contrasteDoEstilo(css, preset(), new Set(["--radius"]), CORES);
   assert.equal(r.css, css);
   assert.deepEqual(r.ajustes, []);
+});
+
+// ---------- Layout bento (Fase 5) ----------
+
+test("bento é o único estilo de layout: nível 4, layout \"bento\" e camada CSS própria", () => {
+  const bento = carregarEstilo("bento");
+  assert.equal(bento.nivel, 4);
+  assert.equal(bento.layout, "bento");
+  assert.ok(bento.css && fs.existsSync(path.join(ESTILOS_DIR, "bento", bento.css)));
+  for (const id of listarEstilos()) if (id !== "bento") assert.equal(carregarEstilo(id).layout, "padrao", id);
+});
+
+test("validarPreset liga nível 4 a layout bento nos dois sentidos", () => {
+  assert.ok(validarPreset(preset({ nivel: 4, layout: "padrao" })).some((e) => e.includes("nível 4")));
+  assert.ok(validarPreset(preset({ nivel: 1, layout: "bento" })).some((e) => e.includes("nível 4")));
+  assert.deepEqual(validarPreset(preset({ nivel: 4, layout: "bento" })), []);
+});
+
+test("aplicarEstilo grava o layout bento em src/config/estilo.ts e copia a camada CSS", () => {
+  const f = fixture();
+  try {
+    aplicarEstilo(f.dir, carregarEstilo("bento"), CORES);
+    assert.match(f.ler("src/config/estilo.ts"), /layout: "bento"/);
+    assert.match(f.ler("src/styles/estilo.css"), /\.bento-hero/);
+    // fundo tingido da primária e cards brancos: a separação vem da cor, não da borda
+    assert.equal(lerVar(f.ler("src/index.css"), ":root", "--background"), "150 10% 93%");
+    assert.equal(lerVar(f.ler("src/index.css"), ":root", "--card-border-width"), "0px");
+  } finally { f.limpar(); }
 });

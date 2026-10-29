@@ -1,0 +1,20 @@
+/* Estilo visual: Bento grid.
+ * O layout (grade de 4 colunas e tamanho de cada bloco) vem de src/components/layout/bento.ts, ligado por
+ * ESTILO.layout === "bento"; esta camada só pinta o bloco de destaque (.bento-hero) com a cor primária.
+ * Como o texto dentro do bloco tem cores próprias (muted-foreground, success, cor do indicador em style=""),
+ * ele é forçado para a cor de texto da primária: o par --primary / --primary-foreground já passa na checagem
+ * de contraste do gerador. */
+
+.bento-hero {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.bento-hero :is(p, span, h1, h2, h3, h4, li, svg) {
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Caixa do ícone (card de navegação da Home e indicador do Dashboard Analítico) */
+.bento-hero :is([class*="bg-card-icon"], span[style]) {
+  background-color: hsl(var(--primary-foreground) / 0.16) !important;
+}

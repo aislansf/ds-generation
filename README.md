@@ -8,7 +8,7 @@ Skill **`ds-build`** (comando `/ds-build`): gera um Design System completo para 
 - templates de tela (login, 2FA, listagem, formulário, dashboards, Tela BI, erro…);
 - páginas de marca, webwriting e acessibilidade;
 - validadores de build e testes;
-- um **estilo visual** à escolha: corporativo (padrão), minimalista, suíço, flat, Material, escandinavo, brutalista, neobrutalismo, neumorfismo, glassmorfismo, claymorfismo ou cyberpunk. A marca define cor, fonte e logo; o estilo define raios, bordas, sombras, pesos e ritmo do DS inteiro.
+- um **estilo visual** à escolha: corporativo (padrão), minimalista, suíço, flat, Material, escandinavo, brutalista, neobrutalismo, maximalista, grunge, art nouveau, Bauhaus, construtivismo, retrô, neumorfismo, glassmorfismo, claymorfismo, bento grid, cyberpunk, orgânico, ilustrativo ou colagem. A marca define cor, fonte e logo; o estilo define raios, bordas, sombras, pesos, textura e ritmo do DS inteiro (o bento grid também reorganiza cinco páginas em blocos de tamanhos variados).
 
 Junto vem a skill **`ds-run`** (comando `/ds-run`), que sobe o DS gerado com `npm run dev` para ver o projeto rodando.
 

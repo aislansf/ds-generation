@@ -17,6 +17,8 @@ import { brandWhite as iconeBrandNegativo } from "@/assets/brand";
 import { useTheme } from "@/hooks/useTheme";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SEO } from "@/components/SEO";
+import { cn } from "@/lib/utils";
+import { bentoCell, bentoGrid } from "@/components/layout/bento";
 
 /* ─── Menu items ─── */
 interface MenuItem {
@@ -91,11 +93,11 @@ function StatusDot({ status }: { status: string }) {
   );
 }
 
-function KPICard({ icon: Icon, title, subtitle, value, borderColor }: {
-  icon: React.ElementType; title: string; subtitle: string; value: string; borderColor: string;
+function KPICard({ icon: Icon, title, subtitle, value, borderColor, className }: {
+  icon: React.ElementType; title: string; subtitle: string; value: string; borderColor: string; className?: string;
 }) {
   return (
-    <div data-ds="card" className="bg-card rounded-lg border border-border p-4 relative overflow-hidden">
+    <div data-ds="card" className={cn("bg-card rounded-lg border border-border p-4 relative overflow-hidden", className)}>
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: borderColor }} />
       <p className="text-xs font-semibold mt-1" style={{ color: borderColor }}>{title}</p>
       <p className="text-[10px] text-muted-foreground">{subtitle}</p>
@@ -448,13 +450,13 @@ export default function DashboardInstitucionalPage() {
               <p className="text-xs font-semibold text-foreground mb-3">
                 <span className="font-bold italic">Resumo da Pesquisa:</span> Categoria · prioridade · setor
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <KPICard icon={Users} title="Total de Servidores" subtitle="Servidores em análise (filtrados)" value="1.019" borderColor="hsl(var(--primary))" />
-                <KPICard icon={FileCheck} title="Servidores Regulares" subtitle="Filtro (listar todos)" value="80,00%" borderColor="hsl(var(--success))" />
-                <KPICard icon={FileX} title="Servidores Irregulares" subtitle="Filtro (listar todos)" value="20,00%" borderColor="hsl(var(--destructive))" />
-                <KPICard icon={Clock} title="Em Análise" subtitle="Aguardando conformidade" value="20,00%" borderColor="hsl(var(--warning))" />
-                <KPICard icon={ShieldCheck} title="Auditoria em Andamento" subtitle="Aguardando conformidade" value="2,00%" borderColor="hsl(var(--success))" />
-                <KPICard icon={RefreshCw} title="Atualização de Dados" subtitle="Aguardando conformidade" value="+120" borderColor="hsl(var(--warning))" />
+              <div className={bentoGrid("grid grid-cols-1 md:grid-cols-3 gap-3")}>
+                <KPICard className={bentoCell("2x1", { hero: true })} icon={Users} title="Total de Servidores" subtitle="Servidores em análise (filtrados)" value="1.019" borderColor="hsl(var(--primary))" />
+                <KPICard className={bentoCell()} icon={FileCheck} title="Servidores Regulares" subtitle="Filtro (listar todos)" value="80,00%" borderColor="hsl(var(--success))" />
+                <KPICard className={bentoCell()} icon={FileX} title="Servidores Irregulares" subtitle="Filtro (listar todos)" value="20,00%" borderColor="hsl(var(--destructive))" />
+                <KPICard className={bentoCell()} icon={Clock} title="Em Análise" subtitle="Aguardando conformidade" value="20,00%" borderColor="hsl(var(--warning))" />
+                <KPICard className={bentoCell()} icon={ShieldCheck} title="Auditoria em Andamento" subtitle="Aguardando conformidade" value="2,00%" borderColor="hsl(var(--success))" />
+                <KPICard className={bentoCell("2x1")} icon={RefreshCw} title="Atualização de Dados" subtitle="Aguardando conformidade" value="+120" borderColor="hsl(var(--warning))" />
               </div>
             </div>
 
