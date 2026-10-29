@@ -143,6 +143,18 @@ Um commit por item, nesta ordem. A identidade foi conferida a cada passo com `ve
 - **Verificação.** `corporativo` (marca verde; `/`, `/fundamentos` e `/componentes`, light e dark) idêntico pixel a pixel contra `HEAD`; só mudam, entre os arquivos, `estilo.json`, `GERACAO.md`, `DSLayout.tsx`, `FundamentosPage.tsx` e os dois arquivos novos. Matriz com `exemplo-verde`: 22 estilos com build e 148 testes passando (os 145 de antes mais 3 da seção), sem avisos; ajustes de contraste só no minimalista (1) e no neumorfismo (2). `npm test`: 56 testes (6 novos, em `tools/testes/fase6.test.mjs`: catálogo com e sem briefing completo, recusas, idempotência do patch e ausência da seção no corporativo). Conferido no navegador: seção no neobrutalismo, catálogo com decoração e vidro, troca de tema, e `capturar-miniaturas` no cyberpunk (52 s, miniaturas em dark).
 - **Pendente.** Revisão humana da galeria e do catálogo; `tools/verificar.mjs` e a segunda marca (`exemplo-neobrutalismo`, `marca-neutra`) não foram rodados nesta fase (o primeiro pede a origem, que este repositório não busca). O `capturar-miniaturas` só foi rodado em um estilo.
 
+## Fechamento das lacunas da especificação (29/10/2026)
+
+Depois da Fase 6, uma conferência da seção 6 contra o código achou uma lacuna real e duas que não eram:
+
+- **Bauhaus, símbolos de série nos gráficos (feito).** O tema ECharts não alterna o símbolo entre séries, então a alternância é feita pelo `BrandChart`, antes do `setOption`: `src/lib/echarts/simbolos.ts` (`aplicarSimbolos`) lê o token novo `--chart-symbol-variety` (0 ou 1 não muda nada; 2 alterna círculo e quadrado; 3 usa também o triângulo) e dá `symbol` às séries de linha e dispersão que não definem o seu. O preset `bauhaus` liga o `3`. Patch idempotente (`tools/lib/graficos-estilo.mjs`, arquivos em `tools/lib/patch/`); o token entra no `index.css`, em `/tokens` e na exportação DTCG como número. Conferido no navegador (linhas com círculo, quadrado e triângulo) e com 5 testes unitários.
+- **Maximalista, título do hero em display ampliado: já existia** (`assets/estilos/maximalista/estilo.css`, regra em `h2` do hero). Era engano da conferência.
+- **Retrô, dessaturação de 15%: já existia na decoração** (`"dessaturar": 15` em `retro/decoracao.json`, que desatura as cores dos raios de sol, das listras e da faixa). Nas superfícies de marca em si (o fundo `bg-primary` do hero) **não foi aplicada, de propósito**: a seção 6.13 pede, mas o princípio 2 diz que o estilo nunca altera a cor da marca, só quais superfícies ela preenche. Fica registrado como decisão.
+- **Tokens de gráfico em outros estilos: sem especificação.** O plano só pede `--chart-smooth` em orgânico e claymorfismo (feitos) e os símbolos do Bauhaus.
+
+- **Verificação.** Matriz completa com as duas marcas (`exemplo-verde` e `exemplo-neobrutalismo`): 22 estilos × 2 marcas com build e 154 testes passando (os 148 de antes mais 5 dos símbolos e 1 do validador de `tokenGroups`, que testa cada token e ganhou o `--chart-symbol-variety`), sem avisos. Ajustes de contraste automáticos: verde, minimalista (1) e neumorfismo (2); neobrutalismo, glassmorfismo (1) e cyberpunk (1). `corporativo` idêntico pixel a pixel ao `HEAD` em `/graficos/linhas`, `/graficos/barras` e no Dashboard Analítico, light e dark. `npm test`: 56 testes.
+- **Pendente.** Só a revisão humana da galeria e do catálogo (Fase 7), a lista de revisão do R1 (115 elementos sem gancho) e a limitação do bento no Dashboard Analítico a 1280px.
+
 ## 1. Objetivo
 
 Permitir que o usuário escolha um **estilo visual** (minimalista, suíço, neobrutalismo, glassmorfismo…) e que **todo o Design System gerado** siga esse estilo: tokens, componentes, templates de tela, gráficos, documentação e exportação para o Figma.

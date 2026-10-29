@@ -152,6 +152,7 @@ export const tokenGroups: TokenGroup[] = [
       { name: "--chart-line-width", value: "2" },
       { name: "--chart-bar-radius", value: "0" },
       { name: "--chart-smooth", value: "0" },
+      { name: "--chart-symbol-variety", value: "0" },
       { name: "--chart-tooltip-radius", value: "8" },
       { name: "--control-border", value: "#95ADFF" },
       { name: "--control-border-hover", value: "#2A4FDA" },

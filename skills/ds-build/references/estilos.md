@@ -78,6 +78,7 @@ Valores do `corporativo` (reproduzem o visual de sempre). Os nomes completos est
 | `--icon-stroke` | `2` | Traço dos ícones Lucide |
 | `--deco-hero`, `--deco-divider`, `--deco-pattern`, `--deco-texture`, `--deco-mask` | `none` | Decoração do nível 3, só em superfícies de marca: arte do hero/painel/capa, faixa do header/rodapé/estado vazio, padrão e textura da página de erro, borda irregular |
 | `--chart-line-width`, `--chart-bar-radius`, `--chart-smooth`, `--chart-tooltip-radius` | `2`, `0`, `0`, `8` | Tema ECharts (`brandTheme.ts`) |
+| `--chart-symbol-variety` | `0` | Quantos símbolos (círculo, quadrado, triângulo) alternam entre as séries de linha e dispersão; aplicado pelo `BrandChart` (`src/lib/echarts/simbolos.ts`). O Bauhaus usa `3` |
 | `--heading-transform`, `--deco-*` | `none` | Reservados para os estilos com decoração |
 
 Para "sem sombra" use `0 0 #0000`, não `none`: as sombras dos componentes entram numa lista junto com o anel de foco, e `none` apagaria o foco. O gerador converte `none` sozinho nos tokens `--shadow-ui*` e `--shadow-hover`.
