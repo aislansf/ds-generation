@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info, TrendingUp, TrendingDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
   title: string;
@@ -8,13 +9,14 @@ interface Props {
   icon: LucideIcon;
   tooltip?: string;
   delta?: number | null; // % vs período anterior
+  className?: string;
 }
 
-export default function IndicatorCard({ title, value, icon: Icon, tooltip, delta }: Props) {
+export default function IndicatorCard({ title, value, icon: Icon, tooltip, delta, className }: Props) {
   const hasDelta = typeof delta === "number" && !Number.isNaN(delta);
   const positive = (delta ?? 0) >= 0;
   return (
-    <div data-ds="card" className="rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md transition-shadow">
+    <div data-ds="card" className={cn("rounded-xl border border-border bg-card p-5 shadow-sm hover:shadow-md transition-shadow", className)}>
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wide">
           <Icon className="h-4 w-4 text-primary" />

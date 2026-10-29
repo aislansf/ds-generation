@@ -5,6 +5,8 @@ import {
   TrendingUp, Search, X, Moon, Sun, Menu
 } from "lucide-react";
 import { ComponentPreview } from "@/components/DSComponents";
+import { cn } from "@/lib/utils";
+import { bentoCell, bentoGrid, bentoSizes } from "@/components/layout/bento";
 import { brandCor as logoBrandCompleta2, brandWhite as brandLogoWhite } from "@/assets/brand";
 import hubThumb1 from "@/assets/hub-thumb-1.jpg";
 import hubThumb2 from "@/assets/hub-thumb-2.jpg";
@@ -133,12 +135,12 @@ const paineis: PainelCard[] = [
 ];
 
 /* ── Card com ícone (original) ── */
-function FlipCard({ card }: { card: PainelCard }) {
+function FlipCard({ card, className }: { card: PainelCard; className?: string }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
     <div
-      className="h-[280px] perspective-1000"
+      className={cn("h-[280px] perspective-1000", className)}
       style={{ perspective: "1000px" }}
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
@@ -185,12 +187,12 @@ function FlipCard({ card }: { card: PainelCard }) {
 }
 
 /* ── Card com imagem (nova variação) ── */
-function FlipCardImage({ card }: { card: PainelCard }) {
+function FlipCardImage({ card, className }: { card: PainelCard; className?: string }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
     <div
-      className="h-[300px]"
+      className={cn("h-[300px]", className)}
       style={{ perspective: "1000px" }}
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
@@ -304,9 +306,9 @@ function HubPaineisPreview() {
       </div>
 
       {/* Cards Grid */}
-      <div className="px-4 pb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((card) => (
-          <FlipCard key={card.id} card={card} />
+      <div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "px-4 pb-6")}>
+        {filtered.map((card, i) => (
+          <FlipCard key={card.id} card={card} className={bentoCell(bentoSizes(filtered.length)[i])} />
         ))}
         {filtered.length === 0 && (
           <div className="col-span-full text-center py-12 text-muted-foreground text-sm">
@@ -389,9 +391,9 @@ function HubPaineisImagePreview() {
       </div>
 
       {/* Cards Grid */}
-      <div className="px-4 pb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((card) => (
-          <FlipCardImage key={card.id} card={card} />
+      <div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "px-4 pb-6")}>
+        {filtered.map((card, i) => (
+          <FlipCardImage key={card.id} card={card} className={bentoCell(bentoSizes(filtered.length)[i])} />
         ))}
         {filtered.length === 0 && (
           <div className="col-span-full text-center py-12 text-muted-foreground text-sm">

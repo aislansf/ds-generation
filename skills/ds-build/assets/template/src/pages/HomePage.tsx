@@ -7,6 +7,8 @@ import {
 import { PageHeader } from "@/components/DSComponents";
 import { SEO } from "@/components/SEO";
 import { brandWhite as brandLogo } from "@/assets/brand";
+import { cn } from "@/lib/utils";
+import { bentoCell, bentoGrid, type BentoSize } from "@/components/layout/bento";
 
 const sections = [
   { icon: <Palette size={24} />, title: "Fundamentos", desc: "Tipografia, cores, iconografia, grid, espaçamento e princípios visuais", path: "/fundamentos" },
@@ -17,6 +19,9 @@ const sections = [
   { icon: <FileText size={24} />, title: "Conteúdo", desc: "Voz da marca, tom de voz, boas práticas de escrita e microcopy", path: "/conteudo" },
   { icon: <Accessibility size={24} />, title: "Acessibilidade", desc: "Contraste, navegação por teclado, ARIA, foco visível e semântica", path: "/acessibilidade" },
 ];
+
+// Layout bento: tamanho de cada card de navegação (o primeiro é o destaque; as linhas fecham em 4 colunas)
+const NAV_BENTO: BentoSize[] = ["2x2", "1x1", "1x1", "1x1", "1x1", "2x1", "2x1"];
 
 const principles = [
   { icon: <Users size={20} />, title: "Acessível", desc: "Disponível para todas as pessoas, em qualquer dispositivo." },
@@ -285,9 +290,9 @@ export default function HomePage() {
 
       {/* Sections */}
       <h2 className="text-xl font-bold mb-4" style={{ color: "#005EB8" }}>Navegue pelo sistema</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        {sections.map((s) => (
-          <button key={s.path} onClick={() => navigate(s.path)} className="brand-card-hover text-left group">
+      <div className={bentoGrid("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", "mb-10")}>
+        {sections.map((s, i) => (
+          <button key={s.path} onClick={() => navigate(s.path)} className={cn("brand-card-hover text-left group", bentoCell(NAV_BENTO[i] ?? "1x1", { hero: i === 0 }))}>
             <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 bg-card-icon text-card-icon-foreground">
               {s.icon}
             </div>

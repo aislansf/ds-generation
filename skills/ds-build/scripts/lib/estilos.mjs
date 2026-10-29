@@ -72,6 +72,7 @@ export function validarPreset(p, id = p?.id) {
     }
   }
   if ((p.nivel === 3) !== !!p.decoracao) erros.push("nível 3 é o nível com decoração: só ele (e todo ele) declara \"decoracao\"");
+  if ((p.nivel === 4) !== (p.layout === "bento")) erros.push("nível 4 é o nível de layout: só ele (e todo ele) declara \"layout\": \"bento\"");
   for (const par of p.contraste?.pares_extras ?? []) {
     if (!Array.isArray(par) || par.length !== 3 || typeof par[2] !== "number") erros.push(`par de contraste inválido: ${JSON.stringify(par)}`);
   }

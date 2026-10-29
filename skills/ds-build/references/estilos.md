@@ -27,12 +27,13 @@ Só os estilos desta tabela existem em `assets/estilos/`. Ofereça ao usuário a
 | Digitais e de interface | `neumorfismo` | Neumorfismo | Relevo na mesma cor do fundo; campos afundados | light |
 | | `glassmorfismo` | Glassmorfismo | Vidro fosco sobre a malha de cores da marca | light |
 | | `claymorfismo` | Claymorfismo | 3D macio, como massinha, com a cor da marca na sombra | light |
+| | `bento` | Bento grid | Blocos de tamanhos variados em grade de 4 colunas, bloco de destaque na cor da marca | light |
 | | `cyberpunk` | Dark mode / Cyberpunk | Fundo escuro, neon da marca, cantos cortados | **dark** |
 | Orgânicos e artesanais | `organico` | Orgânico / Natural | Tons terrosos, blobs e ondas | light |
 | | `ilustrativo` | Ilustrativo / Hand-drawn | Espaços de ilustração no hero, no login, nos estados vazios e nos erros | light |
 | | `colagem` | Colagem | Recortes de papel, retícula e fita adesiva | light |
 
-Ainda não disponível (depende de layout próprio, fase 5 do `docs/PLANO-ESTILOS.md` do repositório): bento grid. Se o usuário pedir, diga que ainda não existe e ofereça material ou flat.
+O `bento` é o único estilo de **layout** (nível 4): além dos tokens, reorganiza cinco páginas do DS (ver "Layout bento" abaixo).
 
 Fora do escopo: Art Déco, Memphis, Y2K e Skeuomorfismo.
 
@@ -104,6 +105,7 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **neumorfismo:** fundo, cards e popovers na mesma cor; relevo com luz e sombra; campos, checkbox, switch e abas afundados; salvaguardas: borda de 3:1 em todo controle e anel de foco sólido; sem degradê.
 - **glassmorfismo:** malha de `radial-gradient` com as cores da marca no fundo; cards, header, menus e modais em vidro (55% de opacidade no light, 35% no dark, desfoque de 16px); cards com tabela ou formulário a 85%.
 - **claymorfismo:** fundo tingido da primária; cards 1.5rem e controles em pílula, sem borda; sombra colorida por fora e realce por dentro; hover com aumento de 2%; gráficos com curvas suaves e barras arredondadas.
+- **bento:** fundo tingido da primária (cinza-azulado, quase escuro no dark) e cards brancos sem borda e sem sombra, com raio de 1.25rem; a separação vem da cor de fundo e do espaço. Reorganiza as páginas em grade de 4 colunas (ver "Layout bento").
 - **cyberpunk:** abre em dark; fundo quase preto azulado; neon calculado a partir da cor mais saturada da marca (`{neon}`) em bordas, foco, menu ativo e header; sombras de brilho; cantos cortados nos cards em repouso (somem em hover e foco, para o brilho e o anel não serem cortados); rótulos em mono com caixa alta; efeito "glitch" em rajadas curtas no título do hero (sem ele com movimento reduzido). No light, alto contraste: estrutura em neutro escuro sobre fundo frio e o neon escurecido no anel de foco. Se nenhuma cor da marca for saturada, o `GERACAO.md` avisa.
 
 - **maximalista:** cards 1.25rem e controles em pílula; bordas de 2px; sombras coloridas em camadas (secundária e primária); camadas de bolinhas, listras e zigue-zague ao lado do texto do hero; faixa com as quatro cores no header, no rodapé e nos estados vazios; título do hero maior.
@@ -115,6 +117,25 @@ Cada preset está em `assets/estilos/<id>/preset.json`, com `descricao`, `fontes
 - **organico:** fundo areia e texto tingido da primária; cards 1.5rem sem borda, com sombras suaves; gráficos com curvas suaves; blobs dessaturados no hero e no login, divisórias em onda; logo do hero com recorte orgânico.
 - **ilustrativo:** raio 0.75rem, bordas de 1.5px, ícones com traço 1.75; placeholders de ilustração gerados (`public/estilo/ilustracoes/`: hero, login, vazio, erro-404, erro-500) com moldura tracejada e cena simples nas cores da marca. As ilustrações reais ficam como pendência do `GERACAO.md`.
 - **colagem:** raios 0; fundo de papel; sombra de papel; recortes coloridos com fita adesiva no hero, retícula na página de erro, grão e bordas rasgadas; logo do hero levemente torto; sem degradê.
+
+## Layout bento
+
+O `bento` grava `"layout": "bento"` em `src/config/estilo.ts`. As páginas já trazem as duas versões (a grade original e a bento) e escolhem pelo `ESTILO.layout`, com as funções de `src/components/layout/bento.ts` (`bentoGrid`, `bentoCell`, `bentoSizes`) e os componentes `BentoGrid` e `BentoCell` para páginas novas. Em qualquer outro estilo, as funções devolvem as classes originais: o DS sai igual.
+
+| Página | O que vira bento |
+|---|---|
+| Home | cards de navegação: o primeiro em 2×2 (destaque, na cor primária), quatro em 1×1 e dois em 2×1 |
+| Dashboard Institucional | 6 indicadores: 2×1 (destaque), quatro em 1×1 e um 2×1 |
+| Dashboard Analítico | 4 indicadores em 1×1 (o primeiro é o destaque) e o gráfico territorial em 3×1 ao lado do trimestral em 1×1 |
+| Hub de painéis | os cards fecham as linhas da grade (alguns viram 2×1, conforme a quantidade) |
+| Tela BI, visão geral | 8 indicadores (2×1 no primeiro, no sexto, no sétimo e no oitavo) e 4 gráficos (3×1 + 1×1 e 2×1 + 2×1) |
+
+Regras do layout:
+
+1. **A ordem do DOM segue a leitura lógica.** O bloco maior vem primeiro no código; a grade nunca usa `grid-auto-flow: dense`, que reordenaria visualmente sem reordenar o foco por teclado.
+2. **Responsivo.** Uma coluna abaixo de 640px, duas de 640 a 1023px, quatro a partir de 1024px. Blocos de duas linhas só se estendem a partir de 1024px.
+3. **Feche as linhas.** A soma das larguras dos blocos de cada linha é 4; os tamanhos acima já fecham. Ao acrescentar um indicador, ajuste o tamanho dos vizinhos (ou use `bentoSizes(n)`, que escolhe quais blocos viram 2×1 para fechar as linhas).
+4. **Um só bloco de destaque por grade**, marcado com `hero` em `bentoCell`. A camada CSS do estilo o pinta com a primária e força o texto dele para `--primary-foreground`.
 
 ## Criar ou ajustar um preset
 

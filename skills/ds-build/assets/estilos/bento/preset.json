@@ -1,0 +1,47 @@
+{
+  "$schema": "../_schema.json",
+  "id": "bento",
+  "nome": "Bento grid",
+  "grupo": "digitais",
+  "nivel": 4,
+  "ordem": 17,
+  "descricao": "Blocos de tamanhos variados numa grade de 4 colunas, como uma marmita japonesa: cards brancos sobre fundo tingido, sem borda e sem sombra, com um bloco de destaque na cor da marca.",
+  "tema_padrao": "light",
+  "layout": "bento",
+  "fontes_sugeridas": {
+    "primaria": [
+      "Inter",
+      "Manrope"
+    ]
+  },
+  "degrade": true,
+  "tokens": {
+    ":root": {
+      "--background": "{primaria.h} 10% 93%",
+      "--card": "0 0% 100%",
+      "--radius-card": "1.25rem",
+      "--card-border-width": "0px",
+      "--shadow-ui": "0 0 #0000",
+      "--shadow-ui-xs": "0 0 #0000",
+      "--shadow-ui-sm": "0 0 #0000",
+      "--shadow-ui-md": "0 0 #0000",
+      "--shadow-hover": "0 0 #0000",
+      "--font-bold": "700"
+    },
+    ".dark": {
+      "--background": "{primaria.h} 12% 8%",
+      "--card": "{primaria.h} 12% 12%"
+    }
+  },
+  "css": "estilo.css",
+  "faca": [
+    "Ponha o dado mais importante da tela no bloco de destaque (o 2×2 ou o 2×1 na cor da marca)",
+    "Mantenha a ordem de leitura no código: o bloco maior vem primeiro, e a grade nunca reordena com grid-auto-flow: dense",
+    "Feche as linhas da grade (4 colunas): some as larguras dos blocos até um múltiplo de 4"
+  ],
+  "evite": [
+    "Mais de um bloco de destaque por tela",
+    "Blocos de tamanhos aleatórios, sem relação com a importância do conteúdo",
+    "Borda ou sombra para separar os blocos: a separação vem da cor de fundo e do espaço"
+  ]
+}
