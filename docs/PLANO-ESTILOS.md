@@ -1,6 +1,6 @@
 # Plano de execução: estilos visuais no `ds-build`
 
-> Status: Fases 0 a 6, rodada R1–R4 e os itens anteriores à Fase 7 implementados (padrão + 21 estilos); falta só a revisão humana da galeria (Fase 7) · Data: 29/10/2026 · Escopo: repositório `aislansf/ds-generation`
+> Status: todas as fases (0 a 7), a rodada R1–R4 e os itens anteriores à Fase 7 concluídos: padrão + 21 estilos, com a revisão humana da galeria feita · Data: 29/10/2026 · Escopo: repositório `aislansf/ds-generation`
 
 ## Andamento
 
@@ -13,10 +13,10 @@
 | 4. Decoração | Feita: `scripts/lib/decoracao.mjs`, `assets/estilos/_decoracao.css`, 9 estilos de nível 3, `data-surface="marca"` nas superfícies de marca, glitch do cyberpunk; falta a revisão humana da galeria |
 | 5. Layout bento | Feita: `tools/lib/bento.mjs`, `src/components/layout/` (`bento.ts`, `BentoGrid`), preset `bento` (nível 4) e as 5 páginas; falta a revisão humana da galeria |
 | 6. Documentação e catálogo | Feita: `scripts/catalogo-estilos.mjs`, seção "Estilo visual" em `/fundamentos` (`tools/lib/estilo-secao.mjs`), `scripts/capturar-miniaturas.mjs`, `estilo.json` com faça/evite e catálogo; `SKILL.md`, referências, README e HANDOFF atualizados |
-| 7. QA | Parcial: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), rodada com duas marcas; testes unitários do motor de estilos e do codemod (`npm test`); falta a revisão humana da galeria |
+| 7. QA | Feita: `tools/matriz-estilos.mjs` (gera, compila, testa, confere movimento e transparência reduzidos e monta a galeria), matriz completa verde com as duas marcas, testes unitários (`npm test`) e galeria revisada por uma pessoa, sem correções (seção "Resultado da Fase 7") |
 | R1. Ganchos nos elementos montados à mão | Feita: `tools/lib/ganchos.mjs` (408 ganchos na primeira passada; os 115 elementos da lista de revisão foram resolvidos depois: 76 ganchos novos e 39 fora do escopo de propósito, em `docs/GANCHOS.md`) |
 | R2. Cores de campo | Feita: tokens `--control-*`; campos seguem o estilo quando ele define `--input` |
-| R3. Verificação ponta a ponta | Feita, menos a revisão humana da galeria |
+| R3. Verificação ponta a ponta | Feita; a revisão humana da galeria ficou para a Fase 7, que a fez |
 | R4. Ajustes de estilo | Feita: neumorfismo dark, cyberpunk (light e cantos cortados), `estilo.json`; glitch e miniaturas ficam para as Fases 4 e 6 |
 
 Onde a implementação diverge do texto abaixo:
@@ -169,6 +169,15 @@ Os itens que a Fase 7 dependia de fechar, na ordem em que foram feitos:
 - **Ilustrativo.** Achado: `erro-404.svg` e `erro-500.svg` eram gerados e nada os usava. As páginas de erro marcam o ícone com `data-erro-icone="404|500|generic"` (sem efeito fora do estilo) e a camada do `ilustrativo` o troca pela ilustração (o erro genérico fica com o ícone). A pendência do `GERACAO.md` agora lista onde cada ilustração entra (hero, login, vazio, erro-404, erro-500) e o formato (mesmos nomes, `viewBox` 400×400, sem texto). As ilustrações reais continuam sendo da marca, como na decisão 9.
 - **Verificação.** `corporativo` idêntico pixel a pixel ao `main` em `/`, `/componentes`, `/templates/pagina-erro`, `tela-listagem`, `tela-formulario`, `dashboard-analitico` e `hub-paineis`, em claro e escuro (só atributos novos). Matriz completa com as duas marcas (`exemplo-verde` e `exemplo-neobrutalismo`): 22 estilos × 2 marcas com build e testes passando; ajustes de contraste nos mesmos quatro casos de antes. `npm test`: 59 testes. Conferido no navegador: neobrutalismo na listagem (cards, campos e botões com contorno; header sem contorno), 404 do `ilustrativo` com a ilustração, bento no Dashboard Analítico.
 - **Pendente.** Só a Fase 7: a revisão humana da galeria e do catálogo.
+
+## Resultado da Fase 7 (29/10/2026)
+
+- **Critério de aceite (seção 10.5): "matriz completa verde; galeria revisada por uma pessoa".** Os dois estão cumpridos.
+- **Matriz completa verde.** 22 estilos × 2 marcas (`exemplo-verde` e `exemplo-neobrutalismo`), cada um com build e testes passando, sem avisos de contraste sem solução; movimento e transparência reduzidos respeitados; decoração só em superfícies de marca. Gerada de novo para a revisão, com capturas.
+- **Galeria revisada.** O material da revisão (galerias das duas marcas, claro e escuro, o catálogo de estilos e 30 capturas de celular do bento, do cyberpunk e do corporativo, sem rolagem horizontal) foi olhado por uma pessoa, que não apontou nada a corrigir. Isso resolve as pendências de revisão humana registradas nas fases 4, 5 e 6 e na rodada R1–R4.
+- **O que a revisão por captura não alcança** (e que, portanto, não foi conferido nesta fase): o foco por teclado, o cyberpunk abrindo em escuro sem "piscar" e as linhas do Bauhaus com símbolos alternados, que pedem o DS rodando. O teste de `useTheme` e o de `index.html` cobrem o tema padrão; os símbolos têm testes unitários.
+- **Continuam fora, de propósito ou por decisão do dono:** `tools/verificar.mjs` (pede a origem, que este repositório não busca); CI (descartado); os dois defeitos que já existiam no Dashboard Analítico e que só mudam mexendo no `corporativo` (a legenda do gráfico sobreposta ao rótulo "15.000" do eixo e o título do header, escuro sobre verde, no tema escuro); a dessaturação do fundo das superfícies de marca no retrô; e as ilustrações reais do `ilustrativo`, que são pendência de cada DS gerado.
+- **O plano está concluído.** O que vier depois (novos estilos, variante de década do retrô, combinação de estilos, densidade por estilo) está na seção 13 como fora da v1.
 
 ## 1. Objetivo
 
