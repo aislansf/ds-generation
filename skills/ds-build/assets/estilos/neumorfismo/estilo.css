@@ -16752,6 +16752,293 @@ div[role="img"][aria-label] > div[style*="z-index: 9999999"] {
   box-shadow: var(--neu-popover) !important;
 }
 
+/* ---------- Páginas de template (rotas /templates/* e /modelos-bi/*, fora da casca do DS) ---------- */
+
+/* Cada uma traz cabeçalho, menu lateral, trilha e rodapé próprios, sem os ganchos data-ds da casca. Aqui eles ganham
+   as mesmas peças da casca. O escopo é "página sem .neu-casca": as prévias da página Templates, que ficam dentro da
+   casca, continuam como mostram o componente */
+
+/* Cabeçalho: borda de baixo em relevo no lugar da linha; os de fundo claro (sem estilo em linha) usam a superfície do estilo
+   e os de faixa da marca (degradê em linha) mantêm a cor */
+body:not(:has(.neu-casca)) header:not([class*="neu-"]) {
+  border-bottom: 0;
+  box-shadow: 0 8px 20px rgba(194, 205, 219, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.dark body:not(:has(.neu-casca)) header:not([class*="neu-"]),
+body.dark:not(:has(.neu-casca)) header:not([class*="neu-"]) {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) {
+  background-color: hsl(var(--background));
+  background-image: var(--neu-convex-bg);
+}
+
+body:not(:has(.neu-casca)) header:not([class*="neu-"]) > div[class~="w-px"] {
+  width: 2px;
+  background: var(--neu-slit-shade);
+  box-shadow: 1px 0 0 var(--neu-slit-light);
+}
+
+/* Teclas do cabeçalho claro (menu e tema): peças salientes que afundam ao apertar */
+body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) > button {
+  min-height: 40px;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--neu-edge);
+  border-radius: 0.75rem;
+  background: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex-sm);
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) > button:hover {
+  background: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex-sm);
+}
+
+body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) > button:active {
+  box-shadow: var(--neu-pressed);
+  transform: scale(0.985);
+}
+
+/* Menu lateral: o item atual em relevo e a cor da marca só nele; subitens em trilha com fenda */
+body:not(:has(.neu-casca)) aside:is([class~="bg-sidebar"], [class~="bg-card"][class~="border-r"]) {
+  border-right: 1px solid hsl(var(--border));
+  font-weight: 500;
+}
+
+body:not(:has(.neu-casca)) aside:is([class~="bg-sidebar"], [class~="bg-card"][class~="border-r"]) nav button {
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+}
+
+body:not(:has(.neu-casca)) aside:is([class~="bg-sidebar"], [class~="bg-card"][class~="border-r"]) nav button[class~="bg-sidebar-accent"] {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+  background-image: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex);
+  color: hsl(var(--primary));
+}
+
+.dark body:not(:has(.neu-casca)) aside nav button[class~="bg-sidebar-accent"],
+body.dark:not(:has(.neu-casca)) aside nav button[class~="bg-sidebar-accent"] {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+body:not(:has(.neu-casca)) aside[class~="bg-sidebar"] nav div[class~="ml-7"] {
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--neu-slit-shade);
+  box-shadow: -1px 0 0 var(--neu-slit-light);
+}
+
+body:not(:has(.neu-casca)) aside[class~="bg-sidebar"] > div[class~="border-t"],
+body:not(:has(.neu-casca)) aside[class~="bg-sidebar"] > div[class~="border-b"] {
+  border-color: var(--neu-slit-shade);
+}
+
+/* Trilha de navegação, barra de filtros e rodapé da página: a fenda (sombra sobre luz) no lugar da linha chapada */
+body:not(:has(.neu-casca)) :is(nav[aria-label="Navegação estrutural"], main > div[class~="bg-card"][class~="border-b"], footer[class~="border-t"]:not([class*="neu-"])) {
+  border-top-color: transparent;
+  border-bottom: 1px solid var(--neu-slit-shade);
+  background-color: transparent;
+  box-shadow: 0 1px 0 var(--neu-slit-light);
+}
+
+body:not(:has(.neu-casca)) footer[class~="border-t"]:not([class*="neu-"]) {
+  border-bottom: 0;
+  border-top: 1px solid var(--neu-slit-shade);
+  box-shadow: inset 0 1px 0 var(--neu-slit-light);
+}
+
+/* Formulário em etapas e painel de filtros: laje saliente como o card */
+body:not(:has(.neu-casca)) :is(form, aside)[class~="bg-card"][class*="rounded-"][class~="border"] {
+  border-color: var(--neu-edge);
+  background-image: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex);
+}
+
+/* Passos do formulário: o passo por fazer afunda, o atual e os feitos ficam salientes na cor deles */
+body:not(:has(.neu-casca)) span[class~="rounded-full"][class~="border-2"] {
+  border-width: 1px;
+  border-color: var(--neu-edge);
+}
+
+body:not(:has(.neu-casca)) span[class~="rounded-full"][class~="border-2"][class~="bg-card"] {
+  background: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+body:not(:has(.neu-casca)) span[class~="rounded-full"][class~="border-2"]:not([class~="bg-card"]) {
+  box-shadow: var(--neu-convex-sm);
+}
+
+/* Selos de situação feitos à mão (verde, âmbar, azul, vermelho, cinza claros): chips afundados, com o texto no tom deles */
+body:not(:has(.neu-casca)) span[class~="rounded-full"][class~="inline-flex"][class*="-100"] {
+  border: 0;
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+  font-weight: 700;
+}
+
+/* Cabeçalho de tabela: o da tabela do estilo (caixa alta, tom apagado, fio claro), não a faixa cheia da marca */
+body:not(:has(.neu-casca)) table thead,
+body:not(:has(.neu-casca)) table thead tr,
+body:not(:has(.neu-casca)) table thead th {
+  background-color: transparent;
+  background-image: none;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Alternância marcada (menu da Tela BI e afins): afundada e na cor da marca, porque o texto claro do bg-primary some na superfície clara */
+[data-ds="button"][data-variant="toggle"][class~="bg-primary"],
+nav [data-ds="button"][data-variant="toggle"][class~="bg-primary"] {
+  background-image: none;
+  background-color: var(--neu-inset);
+  border-color: transparent;
+  box-shadow: var(--neu-inset-sh);
+  color: var(--neu-accent);
+}
+
+/* Logo negativo (branco) do menu lateral: no tema claro vira silhueta escura, para não sumir na superfície */
+html:not(.dark) body:not(:has(.neu-casca)) aside[class~="bg-sidebar"] > div:first-child img {
+  filter: brightness(0) opacity(0.6);
+}
+
+/* O link "Voltar ao DS" fica fixo no canto de cima: o cabeçalho de uma linha deixa o espaço dele, para não cobrir a tecla do tema */
+body:has(a[class~="fixed"][class~="top-3"][class~="right-3"]) header[class~="flex"]:not([class*="neu-"]) {
+  padding-right: 9.5rem;
+}
+
+/* Faixa da marca no topo das telas de acesso (celular) e selo circular do ícone: mantêm a cor, ganham relevo no lugar da linha chapada */
+body:not(:has(.neu-casca)) div[class~="lg:hidden"][class~="border-b"][class*="border-[#"] {
+  border-bottom: 0;
+  box-shadow: 0 8px 20px rgba(194, 205, 219, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.7);
+}
+
+body:not(:has(.neu-casca)) div[class~="rounded-full"][class*="bg-[#"][class~="w-16"] {
+  box-shadow: var(--neu-convex);
+}
+
+/* Página de erro: o cartão branco vira a laje saliente do estilo, o ícone afunda e o seletor de demonstração vira uma trilha */
+body:not(:has(.neu-casca)) div[class~="bg-white"][class~="rounded-2xl"][class~="shadow-xl"][class~="border"] {
+  border-color: var(--neu-edge);
+  background-color: hsl(var(--card));
+  background-image: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex);
+}
+
+body:not(:has(.neu-casca)) div[data-erro-icone] {
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+body:not(:has(.neu-casca)) div[class~="fixed"][class~="rounded-full"][class*="bg-white"] {
+  border-color: transparent;
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+  backdrop-filter: none;
+}
+
+/* Cabeçalho claro no tema escuro: o texto e os ícones em azul fixo da marca somem na superfície escura; passam para os tons do tema */
+.dark body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) p {
+  color: hsl(var(--foreground));
+}
+
+.dark body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) p + p {
+  color: hsl(var(--muted-foreground));
+}
+
+.dark body:not(:has(.neu-casca)) header[class*="bg-"]:not([style], [class*="neu-"]) > button :is(svg, span) {
+  color: hsl(var(--primary));
+}
+
+/* Painel de Gestão de Pessoas (cartões, selos e abas feitos à mão com cores em hexadecimal) */
+
+/* Cartões brancos com borda em hex: lajes salientes do estilo */
+body:not(:has(.neu-casca)) :is(div, section)[class~="bg-white"][class*="border-[#"][class*="rounded-"] {
+  border-color: var(--neu-edge);
+  background-color: hsl(var(--card));
+  background-image: var(--neu-convex-bg);
+  box-shadow: var(--neu-convex);
+}
+
+/* Selos de veredito (verde, âmbar, vermelho claros): chips afundados, com o texto no tom deles */
+body:not(:has(.neu-casca)) div[class~="inline-flex"][class~="rounded-full"][class*="bg-[#"] {
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+/* Selo do período: a barra de acento da marca; selo da população total: chip afundado */
+body:not(:has(.neu-casca)) div[class~="bg-primary"][class~="inline-flex"][class*="rounded-["] {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-image: var(--neu-accent-grad);
+  box-shadow: var(--neu-accent-bar);
+}
+
+body:not(:has(.neu-casca)) span[class~="bg-white"][class*="border-[#"][class*="rounded-["] {
+  border-color: transparent;
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+/* Abas sobre a faixa da marca: o tom apagado das abas do estilo não lê no azul-marinho; as abas voltam a ser claras */
+body:not(:has(.neu-casca)) nav[style] > button[data-ds="tabs-trigger"] {
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+body:not(:has(.neu-casca)) nav[style] > button[data-ds="tabs-trigger"]:disabled {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body:not(:has(.neu-casca)) nav[style] > button[data-ds="tabs-trigger"][class~="text-white"] {
+  color: #fff;
+  background-image: none;
+  box-shadow: none;
+}
+
+/* Links com cara de botão ("Abrir template", "Voltar para Modelos de BI"): a barra de acento da marca */
+a[class~="bg-primary"][class~="inline-flex"][class*="rounded-"]:not([data-ds]) {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-image: var(--neu-accent-grad);
+  box-shadow: var(--neu-accent-bar);
+}
+
+/* Selo redondo do ícone das telas em construção: afundado */
+body:not(:has(.neu-casca)) main div[class~="rounded-full"][class~="bg-muted"] {
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+/* Gestão de Pessoas no tema escuro: os textos em hexadecimal escuro (valores, títulos, apoio) leem nos tons do tema (o azul dos títulos de seção muda com a marca, por isso o seletor não fixa o hex), e o anel de fundo das rosquinhas afunda */
+.dark body:not(:has(.neu-casca)) [class*="text-[#152430]"] {
+  color: hsl(var(--foreground));
+}
+
+.dark body:not(:has(.neu-casca)) h2[class*="uppercase"][class*="text-[#"] {
+  color: hsl(var(--primary));
+}
+
+.dark body:not(:has(.neu-casca)) :is([class*="text-[#5c6b7a]"], [class*="text-[#8894a2]"]) {
+  color: hsl(var(--muted-foreground));
+}
+
+body:not(:has(.neu-casca)) .recharts-sector[fill="#eef2f7"] {
+  fill: var(--neu-inset);
+}
+
+/* Barras de progresso feitas à mão: calha escavada e preenchimento arredondado */
+body:not(:has(.neu-casca)) div[class~="bg-muted"][class~="overflow-hidden"][class~="rounded"] {
+  border-radius: 9999px;
+  background-color: var(--neu-inset);
+  box-shadow: var(--neu-inset-sh);
+}
+
+body:not(:has(.neu-casca)) div[class~="bg-muted"][class~="overflow-hidden"][class~="rounded"] > div {
+  border-radius: inherit;
+}
+
 /* ---------- Foco, rolagem e movimento ---------- */
 
 /* Foco: anel sólido de 2px com 3px de folga (o pacote usa o royal; aqui, o anel do DS) */
