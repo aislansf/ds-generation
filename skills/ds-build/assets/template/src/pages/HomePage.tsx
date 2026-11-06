@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import {
   Palette, Code2, Component, LayoutTemplate, Stamp, FileText,
   Accessibility, ArrowRight, BookOpen, Users, Shield, Lightbulb,
@@ -111,14 +112,14 @@ export default function HomePage() {
           Este Design System estabelece padrões de UI e implementação para os produtos digitais do __BRAND_NAME__. Desenvolvido em vanilla (sem frameworks ou bibliotecas externas), assegura compatibilidade, flexibilidade e reutilização em qualquer stack ou aplicações geradas por IA.
         </p>
         <div className="flex flex-wrap gap-3">
-          <button data-ds="button" data-variant="secondary" onClick={() => navigate("/fundamentos")}
+          <BotaoDS data-ds="button" data-variant="secondary" onClick={() => navigate("/fundamentos")}
             className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-4 py-2 rounded font-medium text-sm hover:opacity-90 transition-opacity">
             Começar <ArrowRight size={16} />
-          </button>
-          <button data-ds="button" data-variant="marca" onClick={() => navigate("/componentes")}
+          </BotaoDS>
+          <BotaoDS data-ds="button" data-variant="marca" onClick={() => navigate("/componentes")}
             className="inline-flex items-center gap-2 bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground px-4 py-2 rounded font-medium text-sm hover:bg-primary-foreground/20 transition-colors">
             Ver componentes
-          </button>
+          </BotaoDS>
         </div>
       </div>
 

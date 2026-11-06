@@ -1,0 +1,454 @@
+{
+  "$comentario": "Fonte do docs/NEUMORFISMO-DEPARA.md. Rode `npm run depara:neumorfismo` depois de mudar este arquivo. status: trocado (estilo do anexo aplicado no equivalente do DS) | parcial (equivalente trocado, faltam variações ou detalhes) | pendente (equivalente existe, ainda não trocado) | sem-similar (não existe no DS).",
+  "anexo": "stitch_neumorphic_design_system_ui (14 telas + 2 DESIGN.md) Segunda passada: pacote Neumorphic UI v3.2.0 (tokens, components.css e components/<Nome>/preview.html), que passou a ser a referência de relevo, raios e sombras (preset.json e estilo.css).",
+  "itens": [
+    {
+      "grupo": "Botões",
+      "componente": "Botão Primário",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão Primário (/componentes#botao)",
+      "status": "trocado",
+      "nota": "Degradê suave, filete de luz, brilho colorido; pressionado afunda; desabilitado fica raso e neutro."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão Secundário",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão Secundário",
+      "status": "trocado",
+      "nota": "Variantes secondary e outline em peça convexa."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão Diversificado",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão Diversificado",
+      "status": "trocado",
+      "nota": "Variante diversificado com o mesmo relevo dos preenchidos."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão com Loading",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão com Loading",
+      "status": "trocado",
+      "nota": "Spinner com brilho; estado desabilitado raso."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão com Ícone à Esquerda",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão com ícone à esquerda",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão com Ícone à Direita",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão com ícone à direita",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão Somente Ícone",
+      "origem": "catálogo base",
+      "ds": "Botão Templates › Botão somente ícone",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Campo de texto (formulário, busca e textarea)",
+      "origem": "catálogo base",
+      "ds": "Campo de Texto (/componentes#input)",
+      "status": "trocado",
+      "nota": "Leito afundado, borda 3:1, foco e hover na cor do anel, erro em aria-invalid."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Custom Select (combo)",
+      "origem": "avançado",
+      "ds": "Select (/componentes#select; ui/select)",
+      "status": "trocado",
+      "nota": "Gatilho afundado; lista aberta como painel flutuante com item em hover."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Checkbox e Radio",
+      "origem": "catálogo base",
+      "ds": "Checkbox e Radio (/componentes#checkbox)",
+      "status": "trocado",
+      "nota": "Caixa de 24px escavada; marcada, barra de acento com brilho. Radio marcado sobe convexo com núcleo de 10px na cor da marca (nativos e Radix)."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Switches e Toggles",
+      "origem": "catálogo base",
+      "ds": "Switch (/componentes#switch)",
+      "status": "trocado",
+      "nota": "Trilha de 64×32 escavada, botão convexo de 24px que desliza 32px; ligado, barra de acento com brilho."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Badges e Tags (convexo e côncavo)",
+      "origem": "catálogo base",
+      "ds": "Badge / Tag (/componentes#badge; ui/badge)",
+      "status": "trocado",
+      "nota": "Pacote Neumorphic UI: estado convexo, metadado afundado, destaque em barra de acento. Cobre ui/badge e as pílulas .brand-badge-* da vitrine."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "DatePicker (campo e range)",
+      "origem": "avançado",
+      "ds": "DatePicker (/componentes#datepicker)",
+      "status": "trocado",
+      "nota": "Campo, calendário, dia selecionado e faixa de datas validados (NeumorfismoDatePicker)."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Breadcrumb",
+      "origem": "avançado",
+      "ds": "Breadcrumb (/componentes#breadcrumb)",
+      "status": "trocado",
+      "nota": "Nós em pílula saliente, página atual em destaque (aria-current)."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Paginação numérica",
+      "origem": "avançado",
+      "ds": "Paginação › Paginação Numérica (/componentes#paginacao)",
+      "status": "trocado",
+      "nota": "Botões convexos; página atual afundada."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Paginação de contador",
+      "origem": "avançado",
+      "ds": "Paginação › Paginação de Contador",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Tabs (underline, segmented e card com abas)",
+      "origem": "avançado",
+      "ds": "Tabs (/componentes#tabs; ui/tabs; src/components/estilo/NeumorfismoNavegacao.tsx)",
+      "status": "trocado",
+      "nota": "Vitrine trocada pelo markup do pacote (só neste estilo): padrão (aba convexa com sublinhado luminoso e painel afundado), linha, segmentada e card com abas integradas, com setas, Home e End. O Radix (ui/tabs) fica na casca afundada com aba ativa convexa."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Barra de Etapas (Stepper)",
+      "origem": "BI",
+      "ds": "Barra de Etapas (/componentes#steps; src/components/estilo/NeumorfismoNavegacao.tsx)",
+      "status": "trocado",
+      "nota": "Vitrine trocada pelo markup do pacote (só neste estilo): horizontal com trilha afundada que enche até a etapa atual, vertical com linha afundada, data, estado em texto e conteúdo na etapa atual, e a versão compacta."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Menu Lateral (Sidebar)",
+      "origem": "BI / página interna",
+      "ds": "Menu lateral (MenuLateral, GavetaLateral e Painel/Workspace lateral; /componentes#sidebar)",
+      "status": "trocado",
+      "nota": "Item ativo afundado, ponto luminoso, busca e modos embutido e modal validados. É também o menu do próprio DS (CascaNeumorfismo)."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Menu Lateral Retrátil (68px)",
+      "origem": "menu lateral",
+      "ds": "Menu lateral › GavetaLateral e MenuLateral (/componentes#sidebar)",
+      "status": "trocado",
+      "nota": "Variante recolhida validada. O menu da casca do DS abre e fecha, mas não tem trilho de 68px."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Header Institucional (3 variantes)",
+      "origem": "BI",
+      "ds": "Cabecalho (barra, compacto e completo; /componentes#header) e Cabecalho faixa",
+      "status": "trocado",
+      "nota": "Três variantes e faixa de classificação validadas. É também o cabeçalho do DS (CascaNeumorfismo)."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Footer Institucional (claro, escuro, compacto)",
+      "origem": "BI",
+      "ds": "Rodape (/componentes#footer; variante slim na casca do DS)",
+      "status": "trocado",
+      "nota": "Claro, escuro e compacto validados."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Cards (básico, com fundo primário, densidades)",
+      "origem": "avançado",
+      "ds": "Card (/componentes#card; ui/card; src/components/estilo/NeumorfismoCards.tsx)",
+      "status": "trocado",
+      "nota": "Vitrine trocada pelo markup do anexo (NeumorfismoCards, só neste estilo): card básico com link em pílula, KPI num leito afundado e card de destaque com degradê e brilho. O card com data-ds ganha brilho 145°, filete de luz e divisórias em sulco."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Accordion (3 variações)",
+      "origem": "avançado",
+      "ds": "Accordion (/componentes#accordion)",
+      "status": "trocado",
+      "nota": "Cartões separados, bloco agrupado e item aberto por vez validados (NeumorfismoAcordeao). A variação \"destaque de acento\" do anexo anterior não existe no pacote e ficou de fora de propósito."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Tabelas (básica, linha expansível, cabeçalho primário, modificadores)",
+      "origem": "avançado",
+      "ds": "Tabela (/componentes#tabela, 11 variantes; ui/table)",
+      "status": "trocado",
+      "nota": "Moldura afundada, linhas separadas por sulco, hover em véu de luz."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Modal",
+      "origem": "avançado",
+      "ds": "Modal (/componentes#modal; ui/dialog)",
+      "status": "trocado",
+      "nota": "Painel flutuante com a sombra mais alta do estilo."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Toast",
+      "origem": "avançado",
+      "ds": "Toast / Notificação (/componentes#toast; ui/toast)",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Tooltip",
+      "origem": "avançado",
+      "ds": "Tooltip (/componentes#tooltip; ui/tooltip)",
+      "status": "trocado",
+      "nota": "Balão do pacote validado também na vitrine (NeumorfismoTooltips), com posições e ponta."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Alerts e notificações",
+      "origem": "alerts",
+      "ds": "Alert (/componentes#alert; ui/alert)",
+      "status": "trocado",
+      "nota": "Painel raso com fio de luz e ícone em quadrado de 36px com brilho (primária no sucesso, secundária na informação, cores semânticas no aviso e no erro)."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Skeleton Loading",
+      "origem": "avançado",
+      "ds": "Skeleton (/componentes#skeleton)",
+      "status": "trocado",
+      "nota": "Barras afundadas."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Spinner / Loading",
+      "origem": "avançado",
+      "ds": "Spinner (/componentes#spinner)",
+      "status": "trocado",
+      "nota": "Brilho na cor da marca."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Empty State",
+      "origem": "avançado",
+      "ds": "Empty State (/componentes#empty-state)",
+      "status": "trocado",
+      "nota": "Leito afundado no lugar da borda tracejada."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Dropdown Menu",
+      "origem": "avançado",
+      "ds": "Dropdown Menu (/componentes#dropdown; ui/dropdown-menu)",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Menu Kebab",
+      "origem": "avançado",
+      "ds": "Menu Kebab (/componentes#menu-kebab)",
+      "status": "trocado",
+      "nota": ""
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Filtros Dinâmicos",
+      "origem": "BI",
+      "ds": "Filtros Dinâmicos (/componentes#filtros)",
+      "status": "trocado",
+      "nota": "Campos, seletores e chips de filtro ativo validados (NeumorfismoFiltros)."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Big Numbers / KPIs",
+      "origem": "BI",
+      "ds": "Big Numbers / KPIs (/componentes#big-numbers)",
+      "status": "trocado",
+      "nota": "Cards em relevo; variante compacta herda os tokens de sombra."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Upload em Massa",
+      "origem": "BI",
+      "ds": "Upload em Massa (/componentes#upload)",
+      "status": "trocado",
+      "nota": "Área de soltar afundada; progresso por item em trilha afundada."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Lista Descritiva (dl)",
+      "origem": "BI",
+      "ds": "Lista Descritiva (/componentes#lista-descritiva)",
+      "status": "trocado",
+      "nota": "Painel, grade e dividida validadas (NeumorfismoListaDescritiva); reaproveitada em Superfícies e fundos e no Validador."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Cards de Estatísticas",
+      "origem": "BI",
+      "ds": "Cards de Estatísticas (/componentes#stats)",
+      "status": "trocado",
+      "nota": "Cards e barras de progresso (role=progressbar) em trilha afundada com brilho."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Métricas e Mini-Charts",
+      "origem": "BI",
+      "ds": "Métricas — Painel Completo (/componentes#metricas)",
+      "status": "trocado",
+      "nota": "Cards, progresso e metas validados (NeumorfismoMetricas, NeumorfismoMetas)."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Galeria de Gráficos (área, multilinha, barras, linhas, donut)",
+      "origem": "BI",
+      "ds": "Gráficos (componentes Neumorfismo* de gráfico; /graficos)",
+      "status": "trocado",
+      "nota": "Área, barras, colunas, linhas, rosca, medidor e composto validados com os componentes do pacote. As cores dos gráficos ECharts da página de downloads continuam as dos tokens --chart-*."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Painel de BI e Telemetria",
+      "origem": "catálogo base",
+      "ds": "Dashboard — Painel de atendimentos (templates; NeumorfismoDashboard)",
+      "status": "trocado",
+      "nota": "Painel completo validado, com medidor, metas e gráficos."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Tokens de cor, luz e sombras duplas",
+      "origem": "catálogo base",
+      "ds": "Tokens › Estilo visual (/tokens)",
+      "status": "trocado",
+      "nota": "Seis níveis de sombra, inset e hover com luz a 135° (valores do anexo)."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Edição escura (Dark Edition)",
+      "origem": "página interna 2",
+      "ds": "Tema dark do DS",
+      "status": "trocado",
+      "nota": "Superfícies #0E131F/#141926, leito #0B0F1A, luz a 5,5% e sombra a 75%."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Bento Grid e Card de autenticação tátil",
+      "origem": "catálogo base",
+      "ds": "Layout bento (estilo à parte) e CardSignIn",
+      "status": "parcial",
+      "nota": "Card de login trocado pelos ganchos. Falta: combinar com o layout bento, que é outro estilo do gerador."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Página interna completa (header + sidebar + conteúdo)",
+      "origem": "páginas internas 1 e 2",
+      "ds": "Dashboard — Painel de atendimentos e casca do DS (NeumorfismoDashboard, NeumorfismoCasca)",
+      "status": "trocado",
+      "nota": "Header, menu lateral, rodapé e conteúdo montados com os componentes validados, nos templates e no próprio DS."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Réplica da imagem de referência (Peak Demand)",
+      "origem": "catálogo base",
+      "ds": "—",
+      "status": "sem-similar",
+      "nota": "É um mockup da imagem de referência (medidor, trilhas, knob com ranhuras), sem componente equivalente no DS."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Slider com knob de ranhuras",
+      "origem": "DESIGN.md",
+      "ds": "Slider (/componentes#slider; NeumorfismoSlider)",
+      "status": "trocado",
+      "nota": "Trilha afundada e botão saliente validados a partir do HTML colado pelo usuário. O knob não leva as três ranhuras do DESIGN.md."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Botão (primário, secundário, contorno, ícone, grupo)",
+      "origem": "pacote v3.2.0",
+      "ds": "Button, ButtonGroup e IconButton (/componentes#botao); BotaoDS nas páginas",
+      "status": "trocado",
+      "nota": "Texto de 15px (o pacote usa 12px). Os botões de todas as páginas do DS passam pelo mesmo Button validado."
+    },
+    {
+      "grupo": "Botões",
+      "componente": "Ícone",
+      "origem": "pacote v3.2.0",
+      "ds": "Icone (/componentes#icone)",
+      "status": "trocado",
+      "nota": "Família de ícones do pacote."
+    },
+    {
+      "grupo": "Campos e seleção",
+      "componente": "Campo de texto, OTP, Select, Slider, Segmented, Questionnaire",
+      "origem": "pacote v3.2.0",
+      "ds": "CampoTexto, InputOTP, SelecaoNeu, Slider, Segmentado, Questionario",
+      "status": "trocado",
+      "nota": "Foco por anel sólido de 2px e borda 3:1. Textarea continua com o leito afundado por CSS (o pacote não tem componente de área de texto)."
+    },
+    {
+      "grupo": "Navegação",
+      "componente": "Carousel, Collapsible, Command, Menubar, NavigationMenu",
+      "origem": "pacote v3.2.0",
+      "ds": "NeumorfismoCarrossel, Recolhivel, Comandos, Menubar e NavegacaoSite",
+      "status": "trocado",
+      "nota": "Validados na vitrine de Navegação."
+    },
+    {
+      "grupo": "Superfícies e feedback",
+      "componente": "Progress, Alert Dialog, Dialog, Sheet, Drawer, Popover, HoverCard",
+      "origem": "pacote v3.2.0",
+      "ds": "Progresso, DialogoAlerta, Dialogo, Folha, Gaveta, Popovers e HoverCards",
+      "status": "trocado",
+      "nota": "Overlays próprios com foco inicial, Tab preso, Esc e retorno do foco."
+    },
+    {
+      "grupo": "BI e dados",
+      "componente": "Avatar, Bubble, Message, Marker, Item, Kbd, Attachment, Upload",
+      "origem": "pacote v3.2.0",
+      "ds": "Avatares, Baloes, Mensagens, Marcadores, Itens, Teclas, Anexos e Upload",
+      "status": "trocado",
+      "nota": "Família do Avatar compartilhada com o HoverCard."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Templates de entrada (SignIn, SignUp, TwoFactor)",
+      "origem": "pacote v3.2.0",
+      "ds": "AuthTemplates (NeumorfismoSignIn, SignUp e TwoFactor)",
+      "status": "trocado",
+      "nota": "O código de verificação usa as mesmas células do InputOTP."
+    },
+    {
+      "grupo": "Fundamentos e páginas",
+      "componente": "Casca e páginas do próprio DS",
+      "origem": "revisão do DS",
+      "ds": "DSLayout › CascaNeumorfismo e as páginas do /design-system",
+      "status": "trocado",
+      "nota": "Com o estilo Neumorfismo, cabeçalho, menu, rodapé, botões, painéis, Superfícies e fundos e o Validador seguem os componentes validados. Os outros estilos mantêm a casca original."
+    }
+  ]
+}

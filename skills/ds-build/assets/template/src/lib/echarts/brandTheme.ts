@@ -86,8 +86,14 @@ export function readToken(name: string, alpha?: number): string {
   }
   const value = raw || FALLBACKS[key] || "228 70% 51%";
   const [r, g, b] = hslTokenToRgb(value);
-  return alpha === undefined ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  const cor = alpha === undefined ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  CORES_LIDAS.set(cor, { token: key, alpha });
+  return cor;
 }
+
+/** Cores devolvidas por readToken e o token de cada uma: temaCores.ts usa isto para ler de novo quando o tema muda. */
+const CORES_LIDAS = new Map<string, { token: string; alpha?: number }>();
+export const tokenDaCor = (cor: string) => CORES_LIDAS.get(cor);
 
 
 /** Nome legível + token de cada cor da paleta categórica oficial. */
@@ -197,6 +203,8 @@ export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
   const lineWidth = readNumber("--chart-line-width", 2);
   const barRadius = readNumber("--chart-bar-radius", 0);
   const smooth = readNumber("--chart-smooth", 0) > 0;
+  const gridSoft = readNumber("--chart-grid-soft", 0) > 0;
+  const pieGap = readNumber("--chart-pie-gap", 0);
   const foreground = readToken("--foreground");
   const muted = readToken("--muted-foreground");
   const border = readToken("--border");
@@ -205,7 +213,10 @@ export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
 
   const axisLine = { show: true, lineStyle: { color: border, width: 1 } };
   const axisLabel = { color: muted, fontSize: 12, fontFamily: BRAND_FONT_FAMILY };
-  const splitLine = { show: true, lineStyle: { color: border, type: "dashed" as const } };
+  const splitLine = {
+    show: true,
+    lineStyle: gridSoft ? { color: readToken("--border", 0.3), type: "solid" as const, width: 1 } : { color: border, type: "dashed" as const },
+  };
 
   return {
     color: getBrandPalette(),
@@ -268,6 +279,7 @@ export function buildBrandTheme(mode: BrandThemeMode): BrandEchartsTheme {
       emphasis: { focus: "series" },
     },
     pie: {
+      ...(pieGap > 0 ? { padAngle: pieGap, itemStyle: { borderRadius: barRadius } } : {}),
       emphasis: {
         focus: "self",
         itemStyle: { shadowBlur: 10, shadowColor: shadow },

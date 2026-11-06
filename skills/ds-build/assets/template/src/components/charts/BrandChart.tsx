@@ -6,6 +6,8 @@ import { registerBrandThemes, BRAND_THEME_NAMES } from "@/lib/echarts/brandTheme
 import { mapaRegistrado, registrarMapaPorNome } from "@/lib/echarts/mapas";
 import { cn } from "@/lib/utils";
 import { aplicarSimbolos } from "@/lib/echarts/simbolos";
+import { aplicarEstiloSeries } from "@/lib/echarts/estiloSeries";
+import { aplicarTemaVivo, useTemaDoDocumento } from "@/lib/echarts/temaCores";
 
 export interface BrandChartProps {
   option: EChartsOption;
@@ -43,7 +45,8 @@ export const BrandChart = forwardRef<BrandChartHandle, BrandChartProps>(function
 ) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<ECharts | null>(null);
-  const { theme } = useTheme();
+  const { theme: temaSalvo } = useTheme();
+  const theme = useTemaDoDocumento(temaSalvo);
   const [mapaPronto, setMapaPronto] = useState(() => !requerMapa || mapaRegistrado(requerMapa));
   const [erroMapa, setErroMapa] = useState<string | null>(null);
 
@@ -95,7 +98,7 @@ export const BrandChart = forwardRef<BrandChartHandle, BrandChartProps>(function
     const chart = chartRef.current;
     if (!chart || !mapaPronto) return;
     const reduced = prefersReducedMotion();
-    chart.setOption(aplicarSimbolos({ ...option, animation: reduced ? false : option.animation ?? true }), notMerge);
+    chart.setOption(aplicarEstiloSeries(aplicarSimbolos(aplicarTemaVivo({ ...option, animation: reduced ? false : option.animation ?? true }))), notMerge);
   }, [option, notMerge, theme, mapaPronto]);
 
   useEffect(() => {

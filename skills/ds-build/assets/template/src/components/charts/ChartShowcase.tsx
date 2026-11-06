@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Check, Copy, Download, FileJson, FileCode2 } from "lucide-react";
 import { BrandChart } from "@/components/charts/BrandChart";
 import type { ChartPreset } from "@/data/echarts/types";
@@ -13,7 +14,7 @@ type Aba = "visualizacao" | "react" | "json";
 function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <button data-ds="button" data-variant="toggle"
+    <BotaoDS data-ds="button" data-variant="toggle"
       type="button"
       onClick={() => {
         navigator.clipboard.writeText(text);
@@ -29,7 +30,7 @@ function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }
     >
       {copied ? <Check size={14} /> : <Copy size={14} />}
       <span>{copied ? "Copiado" : label}</span>
-    </button>
+    </BotaoDS>
   );
 }
 
@@ -43,14 +44,14 @@ function ActionButton({
   icon: React.ReactNode;
 }) {
   return (
-    <button data-ds="button" data-variant="outline"
+    <BotaoDS data-ds="button" data-variant="outline"
       type="button"
       onClick={onClick}
       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
     >
       {icon}
       {children}
-    </button>
+    </BotaoDS>
   );
 }
 

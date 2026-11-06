@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Link } from "react-router-dom";
 import type { EChartsOption } from "echarts";
 import {
@@ -23,7 +24,7 @@ function Botao({
   variante?: "primario" | "secundario";
 }) {
   return (
-    <button data-ds="button" data-variant="toggle"
+    <BotaoDS data-ds="button" data-variant="toggle"
       type="button"
       onClick={onClick}
       className={
@@ -34,7 +35,7 @@ function Botao({
     >
       {icon}
       {children}
-    </button>
+    </BotaoDS>
   );
 }
 
@@ -171,7 +172,7 @@ export default function GraficosPlaygroundPage() {
             <span className="block text-xs font-semibold text-foreground mb-1.5">Altura do gráfico</span>
             <div role="group" aria-label="Altura do gráfico" className="flex flex-wrap gap-2">
               {ALTURAS.map((h) => (
-                <button data-ds="button" data-variant="toggle"
+                <BotaoDS data-ds="button" data-variant="toggle"
                   key={h}
                   type="button"
                   aria-pressed={altura === h}
@@ -183,7 +184,7 @@ export default function GraficosPlaygroundPage() {
                   }`}
                 >
                   {h} px
-                </button>
+                </BotaoDS>
               ))}
             </div>
           </div>

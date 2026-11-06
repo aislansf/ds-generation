@@ -10,6 +10,7 @@ import path from "node:path";
 import { ganchosNoArquivo } from "./ganchos.mjs";
 import { BENTO_NOVOS, BENTO_TROCAS } from "./bento.mjs";
 import { SECAO_NOVOS, SECAO_TROCAS } from "./estilo-secao.mjs";
+import { NEUMORFISMO_NOVOS, NEUMORFISMO_TROCAS } from "./neumorfismo-componentes.mjs";
 import { GRAFICOS_NOVOS, GRAFICOS_TROCAS } from "./graficos-estilo.mjs";
 import { ILUSTRACOES_TROCAS } from "./estilo-ilustracoes.mjs";
 
@@ -52,6 +53,12 @@ export const TOKENS_PELE = [
   ["--chart-bar-radius", "0"],
   ["--chart-smooth", "0"],
   ["--chart-symbol-variety", "0"],
+  ["--chart-grid-soft", "0"],
+  ["--chart-track", "0"],
+  ["--chart-area-gradient", "0"],
+  ["--chart-pie-gap", "0"],
+  ["--chart-theme-sync", "0"],
+  ["--chart-mark-depth", "0"],
   ["--chart-tooltip-radius", "8"],
 ];
 
@@ -421,6 +428,8 @@ const manifest = {
   ...BENTO_TROCAS,
   // Seção "Estilo visual" de /fundamentos e o item do menu (Fase 6)
   ...SECAO_TROCAS,
+  // Vitrine do Card do neumorfismo (usada só nesse estilo)
+  ...NEUMORFISMO_TROCAS,
   // Símbolos de série alternados nos gráficos (Bauhaus)
   ...GRAFICOS_TROCAS,
   // Ícones das páginas de erro: o estilo ilustrativo troca por ilustração
@@ -455,6 +464,7 @@ const NOVOS = [
   ["src/config/__tests__/estilo.test.ts", ESTILO_TEST],
   ...BENTO_NOVOS,
   ...SECAO_NOVOS,
+  ...NEUMORFISMO_NOVOS,
   ...GRAFICOS_NOVOS,
 ];
 

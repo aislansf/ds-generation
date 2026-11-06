@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Copy, Check, Palette, Type, Move, Square } from "lucide-react";
 
 type TabId = "cores" | "tipografia" | "espacamento" | "bordas";
@@ -58,7 +59,7 @@ const radii = [
 function CopyChip({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <button data-ds="button" data-variant="secondary"
+    <BotaoDS data-ds="button" data-variant="secondary"
       onClick={() => {
         navigator.clipboard.writeText(value);
         setCopied(true);
@@ -69,7 +70,7 @@ function CopyChip({ value }: { value: string }) {
     >
       <code>{value}</code>
       {copied ? <Check size={10} className="text-success" /> : <Copy size={10} className="opacity-60" />}
-    </button>
+    </BotaoDS>
   );
 }
 
@@ -92,7 +93,7 @@ export default function TokenExplorer() {
       {/* Tabs */}
       <div className="flex flex-wrap gap-1 bg-muted/30 p-1 rounded-lg mb-6 border border-border w-fit">
         {tabs.map((t) => (
-          <button data-ds="button" data-variant="toggle"
+          <BotaoDS data-ds="button" data-variant="toggle"
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`flex items-center gap-2 px-3 py-1.5 rounded text-xs font-semibold transition-all ${
@@ -103,7 +104,7 @@ export default function TokenExplorer() {
           >
             {t.icon}
             {t.label}
-          </button>
+          </BotaoDS>
         ))}
       </div>
 

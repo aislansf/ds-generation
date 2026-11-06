@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { CodeBlock } from "@/components/DSComponents";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import { brandCor as brandLogoCompleta } from "@/assets/brand";
+import { ESTILO } from "@/config/estilo";
+import { ExemploEntrar } from "@/components/estilo/NeumorfismoSignIn";
+import { ExemploCadastro } from "@/components/estilo/NeumorfismoSignUp";
+import { ExemploVerificacao } from "@/components/estilo/NeumorfismoTwoFactor";
 
 /* ─── Sign In Preview ─── */
 function SignInPreview() {
@@ -435,9 +439,9 @@ export default function AuthTemplatesSection() {
           <span className="brand-badge-primary shrink-0 text-[10px]">Autenticação</span>
         </div>
 
-        {activeTab === "signin" && <SignInPreview />}
-        {activeTab === "signup" && <SignUpPreview />}
-        {activeTab === "2fa" && <TwoFactorPreview />}
+        {activeTab === "signin" && ((ESTILO.id as string) === "neumorfismo" ? <ExemploEntrar /> : <SignInPreview />)}
+        {activeTab === "signup" && ((ESTILO.id as string) === "neumorfismo" ? <ExemploCadastro /> : <SignUpPreview />)}
+        {activeTab === "2fa" && ((ESTILO.id as string) === "neumorfismo" ? <ExemploVerificacao /> : <TwoFactorPreview />)}
 
         <button data-ds="button" data-variant="link"
           onClick={() => setShowCode(!showCode)}

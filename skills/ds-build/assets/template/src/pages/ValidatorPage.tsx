@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import Ajv, { type ErrorObject, type ValidateFunction } from "ajv";
 import addFormats from "ajv-formats";
 import { AlertCircle, CheckCircle2, FileJson } from "lucide-react";
@@ -7,6 +8,9 @@ import { PageHeader, SectionHeader } from "@/components/DSComponents";
 import tokensSchema from "@/data/tokens.schema.json";
 import componentsSchema from "@/data/components.schema.json";
 import tailwindSchema from "@/data/tailwind.schema.json";
+import { ESTILO } from "@/config/estilo";
+import { SelecaoNeu } from "@/components/estilo/NeumorfismoSelect";
+import { ResultadoValidacao } from "@/components/estilo/NeumorfismoValidador";
 
 type SchemaKey = "tokens" | "components" | "tailwind" | "auto";
 
@@ -176,6 +180,24 @@ export default function ValidatorPage() {
 
       <div className="brand-card space-y-4">
         <div className="flex flex-wrap items-center gap-3">
+          {(ESTILO.id as string) === "neumorfismo" ? (
+            <SelecaoNeu
+              rotulo="Schema"
+              valor={choice}
+              aoMudar={(valor) => {
+                const next = valor as SchemaKey;
+                setChoice(next);
+                runValidation(input, next);
+              }}
+              opcoes={[
+                { value: "auto", label: "Detectar automaticamente" },
+                { value: "tokens", label: "tokens.json" },
+                { value: "components", label: "components.json" },
+                { value: "tailwind", label: "tailwind.config.json" },
+              ]}
+            />
+          ) : (
+            <>
           <label className="text-sm font-medium text-foreground">Schema:</label>
           <select data-ds="select-trigger"
             value={choice}
@@ -191,10 +213,12 @@ export default function ValidatorPage() {
             <option value="components">components.json</option>
             <option value="tailwind">tailwind.config.json</option>
           </select>
+            </>
+          )}
 
           <div className="ml-auto flex flex-wrap gap-2">
             {(["tokens", "components", "tailwind"] as const).map((k) => (
-              <button data-ds="button" data-variant="outline"
+              <BotaoDS data-ds="button" data-variant="outline"
                 key={k}
                 type="button"
                 onClick={() => loadExample(k)}
@@ -202,9 +226,9 @@ export default function ValidatorPage() {
               >
                 <FileJson size={14} />
                 Exemplo {SCHEMAS[k].label}
-              </button>
+              </BotaoDS>
             ))}
-            <button data-ds="button" data-variant="outline"
+            <BotaoDS data-ds="button" data-variant="outline"
               type="button"
               onClick={() => {
                 setInput("");
@@ -213,7 +237,7 @@ export default function ValidatorPage() {
               className="rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted"
             >
               Limpar
-            </button>
+            </BotaoDS>
           </div>
         </div>
 
@@ -231,6 +255,35 @@ export default function ValidatorPage() {
 
       <SectionHeader id="resultado" badge="Resultado" title="Diagnóstico" />
 
+      {(ESTILO.id as string) === "neumorfismo" ? (
+        <ResultadoValidacao
+          vazio={!result}
+          erroJson={result?.parseError}
+          sucesso={
+            result && !result.parseError && result.ok
+              ? {
+                  titulo: `${SCHEMAS[result.schemaKey].label} OK contra ${SCHEMAS[result.schemaKey].file.replace(".json", ".schema.json")}`,
+                  texto: "Nenhum erro de schema encontrado. O artefato está pronto para publicação.",
+                }
+              : null
+          }
+          erros={
+            result && !result.parseError && !result.ok && result.errors.length > 0
+              ? {
+                  titulo: `${result.errors.length} erro(s) contra ${SCHEMAS[result.schemaKey].label}`,
+                  itens: result.errors.map((err) => ({
+                    caminho: err.instancePath || "(root)",
+                    linha: err.line,
+                    palavra: err.keyword,
+                    mensagem: err.message ?? "",
+                    parametros: err.params && Object.keys(err.params).length > 0 ? JSON.stringify(err.params) : undefined,
+                  })),
+                }
+              : null
+          }
+        />
+      ) : (
+        <>
       {!result && (
         <div className="brand-card text-sm text-muted-foreground">
           Nenhum JSON validado ainda. Cole conteúdo acima ou carregue um exemplo.
@@ -287,6 +340,8 @@ export default function ValidatorPage() {
             ))}
           </ul>
         </div>
+      )}
+        </>
       )}
     </div>
   );

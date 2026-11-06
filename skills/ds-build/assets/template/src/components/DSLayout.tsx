@@ -11,6 +11,7 @@ import { ESTILO } from "@/config/estilo";
 import { brandCor as logoBrandCompleta2 } from "@/assets/brand";
 import logoBrandWhite from "@/assets/brand-logo-white-header.svg";
 import { prefetchRoute, cancelPendingPrefetch } from "@/utils/prefetchRoutes";
+import CascaNeumorfismo from "@/components/estilo/NeumorfismoCasca";
 
 interface NavItem {
   label: string;
@@ -61,7 +62,9 @@ const navItems: NavItem[] = [
   {
     label: "Componentes", path: "/componentes", icon: <Component size={18} />,
     children: [
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Ícones", path: "/componentes#icones" }] : []),
       { label: "Botão Templates", path: "/componentes#botao" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Grupo de botões", path: "/componentes#grupo-botoes" }, { label: "Botão somente ícone", path: "/componentes#botao-icone" }] : []),
       { label: "Campo de Texto", path: "/componentes#input" },
       { label: "Select", path: "/componentes#select" },
       { label: "Checkbox e Radio", path: "/componentes#checkbox" },
@@ -73,19 +76,53 @@ const navItems: NavItem[] = [
       { label: "Accordion", path: "/componentes#accordion" },
       { label: "Tabs", path: "/componentes#tabs" },
       { label: "Modal", path: "/componentes#modal" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Alert Dialog", path: "/componentes#alert-dialog" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Dialog", path: "/componentes#dialog" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Sheet", path: "/componentes#sheet" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Drawer", path: "/componentes#drawer" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Popover", path: "/componentes#popover" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "HoverCard", path: "/componentes#hovercard" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Carousel", path: "/componentes#carousel" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Collapsible", path: "/componentes#collapsible" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Command", path: "/componentes#command" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Menubar", path: "/componentes#menubar" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "NavigationMenu", path: "/componentes#navigationmenu" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Header", path: "/componentes#header-topo" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Footer", path: "/componentes#rodape" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Sidebar", path: "/componentes#sidebar" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Sidebar · Gaveta", path: "/componentes#sidebar-gaveta" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Sidebar · Painel", path: "/componentes#sidebar-painel" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Sidebar · Workspace", path: "/componentes#sidebar-workspace" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Avatar", path: "/componentes#avatar" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Bubble", path: "/componentes#bubble" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Message", path: "/componentes#message" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "MessageScroller", path: "/componentes#message-scroller" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Marker", path: "/componentes#marker" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Item", path: "/componentes#item" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Kbd", path: "/componentes#kbd" }] : []),
       { label: "Toast", path: "/componentes#toast" },
       { label: "Breadcrumb", path: "/componentes#breadcrumb" },
       { label: "Paginação", path: "/componentes#paginacao" },
       { label: "Tooltip", path: "/componentes#tooltip" },
       { label: "Skeleton", path: "/componentes#skeleton" },
       { label: "Spinner", path: "/componentes#spinner" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Progress", path: "/componentes#progress" }] : []),
       { label: "Empty State", path: "/componentes#empty-state" },
       { label: "Dropdown Menu", path: "/componentes#dropdown" },
       { label: "Menu Kebab", path: "/componentes#menu-kebab" },
       { label: "DatePicker", path: "/componentes#datepicker" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Slider", path: "/componentes#slider" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Controle segmentado", path: "/componentes#segmentado" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Questionário", path: "/componentes#questionario" }] : []),
       { label: "Filtros Dinâmicos", path: "/componentes#filtros" },
       { label: "Big Numbers / KPIs", path: "/componentes#big-numbers" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "IndicatorCard", path: "/componentes#indicator-card" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "StatCard", path: "/componentes#stat-card" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "StatisticCard", path: "/componentes#statistic-card" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "MetricCard", path: "/componentes#metric-card" }] : []),
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "BarChart", path: "/componentes#bar-chart" }] : []),
       { label: "Upload em Massa", path: "/componentes#upload" },
+      ...((ESTILO.id as string) === "neumorfismo" ? [{ label: "Anexos", path: "/componentes#anexos" }] : []),
       { label: "Stepper (Etapas)", path: "/componentes#steps" },
       { label: "Lista Descritiva", path: "/componentes#lista-descritiva" },
       { label: "Cards de Estatísticas", path: "/componentes#stats" },
@@ -166,7 +203,12 @@ const navItems: NavItem[] = [
   { label: "Acessibilidade", path: "/acessibilidade", icon: <Accessibility size={18} /> },
 ];
 
+// Neumorfismo: a casca usa o Header e a Sidebar validados em Componentes; nos demais estilos, a casca de sempre
 export default function DSLayout({ children }: { children: React.ReactNode }) {
+  return (ESTILO.id as string) === "neumorfismo" ? <CascaNeumorfismo itens={navItems}>{children}</CascaNeumorfismo> : <DSLayoutOriginal>{children}</DSLayoutOriginal>;
+}
+
+function DSLayoutOriginal({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(() => {
     if (typeof window === "undefined") return false;

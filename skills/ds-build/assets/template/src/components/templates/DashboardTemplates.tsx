@@ -10,6 +10,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, PieChart, Pie, Cell
 } from "recharts";
+import { ESTILO } from "@/config/estilo";
+import { ExemploPainel } from "@/components/estilo/NeumorfismoDashboard";
 
 /* ─── Shared data ─── */
 const barData = [
@@ -376,6 +378,14 @@ function DashboardReduzida() {
 export default function DashboardTemplatesSection() {
   return (
     <div className="space-y-8">
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <ComponentPreview
+          title="Dashboard — Painel de atendimentos"
+          description="Tela de gestão completa montada só com os componentes do estilo: menu lateral e cabeçalho, filtros, KPIs, gráficos, metas por programa, detalhamento em abas, modal e toast. A grade segue o espaço da própria tela: até 1180px os gráficos ocupam a largura toda e, até 720px, tudo vira uma coluna."
+        >
+          <ExemploPainel />
+        </ComponentPreview>
+      )}
       <ComponentPreview
         title="Dashboard — Layout Completa"
         description="Layout com KPIs horizontais no topo, tabela de auditoria com gráfico donut e gráficos de barras/performance na base. Ideal para visão geral consolidada."

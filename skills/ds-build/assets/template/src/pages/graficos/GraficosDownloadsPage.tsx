@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Link } from "react-router-dom";
 import {
   BarChart3, Boxes, ChevronRight, Download, FileCode2, FileJson, Gauge, Info,
@@ -122,7 +123,7 @@ export default function GraficosDownloadsPage() {
               {CHART_PRESETS.length} gráficos · temas light e dark · wrapper React · manifesto <code className="text-xs">index.json</code>
             </p>
           </div>
-          <button data-ds="button" data-variant="default"
+          <BotaoDS data-ds="button" data-variant="default"
             type="button"
             disabled={carregando === "full"}
             onClick={() => executar("full", downloadFullLibraryZip)}
@@ -130,7 +131,7 @@ export default function GraficosDownloadsPage() {
           >
             {carregando === "full" ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
             {carregando === "full" ? "Gerando…" : "Baixar .zip"}
-          </button>
+          </BotaoDS>
         </div>
         <ul className="mt-4 pt-4 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-muted-foreground">
           <li><code>README.md</code> — instalação, registro do tema e uso</li>
@@ -167,7 +168,7 @@ export default function GraficosDownloadsPage() {
               </div>
               <h3 className="text-base font-semibold text-foreground mb-1">{cat.nome}</h3>
               <p className="text-sm text-muted-foreground flex-1">{cat.descricao}</p>
-              <button data-ds="button" data-variant="outline"
+              <BotaoDS data-ds="button" data-variant="outline"
                 type="button"
                 disabled={carregando === chave}
                 onClick={() => executar(chave, () => downloadCategoriaZip(cat.slug as ChartCategoria, cat.nome))}
@@ -175,7 +176,7 @@ export default function GraficosDownloadsPage() {
               >
                 {carregando === chave ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
                 {carregando === chave ? "Gerando…" : `Baixar ${cat.slug}.zip`}
-              </button>
+              </BotaoDS>
             </div>
           );
         })}
@@ -190,27 +191,27 @@ export default function GraficosDownloadsPage() {
       />
       <div className="brand-card mb-8">
         <div className="flex flex-wrap gap-2">
-          <button data-ds="button" data-variant="default"
+          <BotaoDS data-ds="button" data-variant="default"
             type="button"
             onClick={downloadThemeJs}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <FileCode2 size={14} /> brand-theme.js
-          </button>
-          <button data-ds="button" data-variant="outline"
+          </BotaoDS>
+          <BotaoDS data-ds="button" data-variant="outline"
             type="button"
             onClick={() => downloadThemeJson("light")}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <FileJson size={14} /> brand-light.json
-          </button>
-          <button data-ds="button" data-variant="outline"
+          </BotaoDS>
+          <BotaoDS data-ds="button" data-variant="outline"
             type="button"
             onClick={() => downloadThemeJson("dark")}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium border border-border bg-card text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           >
             <FileJson size={14} /> brand-dark.json
-          </button>
+          </BotaoDS>
         </div>
         <p className="text-xs text-muted-foreground mt-3">
           Os temas são serializados a partir dos tokens atuais do Design System (versão {BRAND_THEME_VERSION}).
@@ -226,13 +227,13 @@ export default function GraficosDownloadsPage() {
         description="Consuma o catálogo de forma programática: id, nome, categoria, descrição, tags e caminho dos arquivos de cada gráfico."
       />
       <div className="brand-card mb-4">
-        <button data-ds="button" data-variant="default"
+        <BotaoDS data-ds="button" data-variant="default"
           type="button"
           onClick={downloadManifest}
           className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold border border-primary bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           <FileJson size={14} /> Baixar index.json
-        </button>
+        </BotaoDS>
       </div>
       <CodeBlock code={consumoManifesto} language="ts" title="Consumindo o manifesto" />
 
