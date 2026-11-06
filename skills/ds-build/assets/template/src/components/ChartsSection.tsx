@@ -1,5 +1,21 @@
 import { useState } from "react";
 import { ComponentPreview, SectionHeader } from "@/components/DSComponents";
+import { ESTILO } from "@/config/estilo";
+import NeumorfismoAreaBasico from "@/components/estilo/NeumorfismoGraficoArea";
+import NeumorfismoAreaMultipla from "@/components/estilo/NeumorfismoGraficoAreaMultipla";
+import NeumorfismoAreaTemporal from "@/components/estilo/NeumorfismoGraficoAreaTemporal";
+import NeumorfismoAreaComSinal from "@/components/estilo/NeumorfismoGraficoAreaComSinal";
+import NeumorfismoAreaEmpilhada from "@/components/estilo/NeumorfismoGraficoAreaEmpilhada";
+import NeumorfismoBarrasAgrupadas from "@/components/estilo/NeumorfismoGraficoBarrasAgrupadas";
+import NeumorfismoColunas from "@/components/estilo/NeumorfismoGraficoColunas";
+import NeumorfismoColunasRotulos from "@/components/estilo/NeumorfismoGraficoColunasRotulos";
+import NeumorfismoColunasPercentuais from "@/components/estilo/NeumorfismoGraficoColunasPercentuais";
+import NeumorfismoColunasAgrupadasEmpilhadas from "@/components/estilo/NeumorfismoGraficoColunasAgrupadasEmpilhadas";
+import NeumorfismoBarrasHorizontais from "@/components/estilo/NeumorfismoGraficoBarrasHorizontais";
+import NeumorfismoLinhas from "@/components/estilo/NeumorfismoGraficoLinhas";
+import NeumorfismoRosca from "@/components/estilo/NeumorfismoGraficoRosca";
+import NeumorfismoComposto from "@/components/estilo/NeumorfismoGraficoComposto";
+import NeumorfismoMedidor from "@/components/estilo/NeumorfismoGraficoMedidor";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, Legend,
@@ -465,6 +481,7 @@ export default function ChartsSection() {
         whenNotToUse={["Comparar muitas séries simultaneamente", "Dados categóricos sem continuidade"]}
         accessibility={["Forneça descrição textual do gráfico via aria-label", "Use cores com contraste suficiente"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAreaBasico /> : (
         <ChartCard title="Basic Area Chart">
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={basicAreaData}>
@@ -476,6 +493,7 @@ export default function ChartsSection() {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 2. Spline Area */}
@@ -486,6 +504,7 @@ export default function ChartsSection() {
         whenToUse={["Comparar dois datasets ao longo do tempo", "Visualizar tendências paralelas"]}
         whenNotToUse={["Mais de 4 séries (fica poluído)", "Dados com poucos pontos"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAreaMultipla /> : (
         <ChartCard title="Spline Area">
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={splineData}>
@@ -499,6 +518,7 @@ export default function ChartsSection() {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 3. Time Series with filter */}
@@ -509,6 +529,7 @@ export default function ChartsSection() {
         whenToUse={["Dashboards financeiros com seleção de período", "Séries temporais longas"]}
         whenNotToUse={["Dados sem dimensão temporal", "Poucos pontos de dados"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAreaTemporal /> : (
         <ChartCard title="Area Chart — Datetime X-axis">
           <div className="flex gap-2 mb-4">
             {["1M", "6M", "1Y", "YTD", "ALL"].map((p) => (
@@ -535,6 +556,7 @@ export default function ChartsSection() {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 4. Negative Values */}
@@ -545,6 +567,7 @@ export default function ChartsSection() {
         whenToUse={["Exibir saldo positivo/negativo", "Comparar ganhos vs perdas"]}
         whenNotToUse={["Dados sem valores negativos", "Quando a distinção positivo/negativo não é relevante"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAreaComSinal /> : (
         <ChartCard title="Area with Negative Values">
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={negativeData}>
@@ -557,6 +580,7 @@ export default function ChartsSection() {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 5. Stacked Area */}
@@ -567,6 +591,7 @@ export default function ChartsSection() {
         whenToUse={["Exibir composição de um total", "Visualizar contribuição de cada categoria"]}
         whenNotToUse={["Muitas categorias (mais de 5)", "Quando valores individuais são mais importantes que o total"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAreaEmpilhada /> : (
         <ChartCard title="Stacked Area">
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={stackedData}>
@@ -581,6 +606,7 @@ export default function ChartsSection() {
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 6. Bar Chart */}
@@ -591,6 +617,7 @@ export default function ChartsSection() {
         whenToUse={["Comparar valores entre categorias", "Visualizar receita vs despesa"]}
         whenNotToUse={["Dados contínuos temporais (use área/linha)", "Muitas categorias com nomes longos"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoBarrasAgrupadas /> : (
         <ChartCard title="Bar Chart">
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={barData}>
@@ -604,6 +631,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 7. Multi-Line */}
@@ -614,6 +642,7 @@ export default function ChartsSection() {
         whenToUse={["Acompanhar tendências de 2-4 indicadores", "Dashboard de performance"]}
         whenNotToUse={["Mais de 5 linhas", "Dados categóricos sem continuidade"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoLinhas /> : (
         <ChartCard title="Multi-Line Chart">
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={lineMultiData}>
@@ -628,6 +657,7 @@ export default function ChartsSection() {
             </LineChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 8. Donut / Pie */}
@@ -638,6 +668,7 @@ export default function ChartsSection() {
         whenToUse={["Exibir distribuição percentual", "Máximo 5-6 fatias"]}
         whenNotToUse={["Muitas categorias", "Quando precisão exata é necessária (use tabela)"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoRosca /> : (
         <ChartCard title="Donut Chart">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -660,6 +691,7 @@ export default function ChartsSection() {
             </PieChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 9. Composed Chart */}
@@ -670,6 +702,7 @@ export default function ChartsSection() {
         whenToUse={["Combinar métricas com escalas diferentes", "Análises comparativas multidimensionais"]}
         whenNotToUse={["Dados simples (use um tipo único)", "Quando pode causar confusão visual"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoComposto /> : (
         <ChartCard title="Composed Chart">
           <ResponsiveContainer width="100%" height={280}>
             <ComposedChart data={composedData}>
@@ -684,6 +717,7 @@ export default function ChartsSection() {
             </ComposedChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 10. Radial Bar */}
@@ -694,6 +728,7 @@ export default function ChartsSection() {
         whenToUse={["Exibir progresso de metas", "KPIs em formato compacto"]}
         whenNotToUse={["Comparar muitas categorias", "Quando precisão numérica é prioritária"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoMedidor /> : (
         <ChartCard title="Radial Bar Chart">
           <ResponsiveContainer width="100%" height={300}>
             <RadialBarChart cx="50%" cy="50%" innerRadius="30%" outerRadius="90%" data={radialData} startAngle={180} endAngle={0}>
@@ -703,6 +738,7 @@ export default function ChartsSection() {
             </RadialBarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* ===== COLUMN / BAR CHARTS ===== */}
@@ -715,6 +751,7 @@ export default function ChartsSection() {
         whenToUse={["Comparar 2-3 programas por período", "Análise de repasses por programa"]}
         whenNotToUse={["Mais de 4 séries (fica poluído)", "Dados contínuos (use linha/área)"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoColunas /> : (
         <ChartCard title="Colunas Básicas — Programas __BRAND_NAME__">
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={basicColumnData}>
@@ -729,6 +766,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 12. Column with Data Labels */}
@@ -739,6 +777,7 @@ export default function ChartsSection() {
         whenToUse={["Relatórios impressos ou exportados", "Quando o valor exato é mais importante que a tendência"]}
         whenNotToUse={["Muitas barras (labels se sobrepõem)", "Visualizações interativas com tooltip"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoColunasRotulos /> : (
         <ChartCard title="Gráfico de Colunas com Rótulos de Dados">
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={dataLabelsData}>
@@ -750,6 +789,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 13. Stacked Column */}
@@ -784,6 +824,7 @@ export default function ChartsSection() {
         whenToUse={["Comparar proporções relativas", "Market share por período"]}
         whenNotToUse={["Valores absolutos são mais importantes", "Poucas categorias sem variação significativa"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoColunasPercentuais /> : (
         <ChartCard title="100% Empilhadas — Programas __BRAND_NAME__">
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={stacked100Data}>
@@ -798,6 +839,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 15. Grouped + Stacked */}
@@ -808,6 +850,7 @@ export default function ChartsSection() {
         whenToUse={["Análise de múltiplas dimensões", "Comparar composições entre grupos"]}
         whenNotToUse={["Dados simples", "Quando causa confusão visual"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoColunasAgrupadasEmpilhadas /> : (
         <ChartCard title="Grouped Stacked Column Chart">
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={groupedStackedData}>
@@ -823,6 +866,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
 
       {/* 16. Horizontal Bar */}
@@ -833,6 +877,7 @@ export default function ChartsSection() {
         whenToUse={["Rankings e classificações", "Categorias com nomes longos"]}
         whenNotToUse={["Dados temporais (use vertical)", "Muitas categorias (> 10)"]}
       >
+        {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoBarrasHorizontais /> : (
         <ChartCard title="Horizontal Bar Chart">
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={horizontalData} layout="vertical">
@@ -844,6 +889,7 @@ export default function ChartsSection() {
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
+        )}
       </ComponentPreview>
     </>
   );

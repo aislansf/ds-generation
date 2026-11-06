@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Check, Copy } from "lucide-react";
 
 interface CodeBlockProps {
@@ -28,7 +29,7 @@ export function CodeBlock({ code, language = "html", title }: CodeBlockProps) {
         <pre className="bg-foreground/[0.03] p-4 overflow-x-auto text-xs leading-relaxed">
           <code>{code}</code>
         </pre>
-        <button data-ds="button" data-variant="toggle"
+        <BotaoDS data-ds="button" data-variant="toggle"
           onClick={handleCopy}
           className={`absolute top-2 right-2 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-semibold uppercase tracking-wider transition-colors shadow-sm border ${
             copied
@@ -40,7 +41,7 @@ export function CodeBlock({ code, language = "html", title }: CodeBlockProps) {
         >
           {copied ? <Check size={14} /> : <Copy size={14} />}
           <span>{copied ? "Copiado" : "Copiar"}</span>
-        </button>
+        </BotaoDS>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { PageHeader, SectionHeader, CodeBlock } from "@/components/DSComponents";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { SEO } from "@/components/SEO";
 
 export default function AcessibilidadePage() {
@@ -35,9 +36,9 @@ export default function AcessibilidadePage() {
       <SectionHeader id="foco" title="Foco Visível" description="Todo elemento interativo deve ter um indicador de foco visível para navegação por teclado." />
       <div className="brand-card mb-8">
         <div className="flex flex-wrap gap-4 mb-4">
-          <button data-ds="button" data-variant="default" className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
+          <BotaoDS data-ds="button" data-variant="default" className="px-4 py-2 bg-primary text-primary-foreground rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
             Clique ou use Tab
-          </button>
+          </BotaoDS>
           <input data-ds="input" placeholder="Campo com foco visível" className="border border-input rounded px-3 py-2 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background" />
         </div>
         <CodeBlock code={`/* Padrão de foco visível — funciona em ambos os temas */

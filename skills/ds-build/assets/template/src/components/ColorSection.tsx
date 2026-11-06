@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { Check, Copy, Droplets, Palette, SwatchBook, Layers } from "lucide-react";
 import { CodeBlock } from "@/components/DSComponents";
+import { renderSuperficies } from "@/components/estilo/NeumorfismoSuperficies";
 
 /* ------------------------------------------------------------------ */
 /*  Helper: copy to clipboard with visual feedback                     */
@@ -14,7 +16,7 @@ function CopyHex({ value }: { value: string }) {
   }, [value]);
 
   return (
-    <button data-ds="button" data-variant="secondary"
+    <BotaoDS data-ds="button" data-variant="secondary"
       onClick={copy}
       className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted px-1.5 py-0.5 rounded transition-colors"
       title={`Copiar ${value}`}
@@ -22,7 +24,7 @@ function CopyHex({ value }: { value: string }) {
     >
       {copied ? <Check size={10} className="text-success" /> : <Copy size={10} />}
       {value}
-    </button>
+    </BotaoDS>
   );
 }
 
@@ -86,7 +88,7 @@ function GradientCard({ name, css, colors, description }: GradientCardProps) {
       />
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-foreground">{name}</p>
-        <button data-ds="button" data-variant="secondary"
+        <BotaoDS data-ds="button" data-variant="secondary"
           onClick={copy}
           className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground bg-muted/60 hover:bg-muted px-1.5 py-0.5 rounded transition-colors"
           title="Copiar CSS do gradiente"
@@ -94,7 +96,7 @@ function GradientCard({ name, css, colors, description }: GradientCardProps) {
         >
           {copied ? <Check size={10} className="text-success" /> : <Copy size={10} />}
           Copiar CSS
-        </button>
+        </BotaoDS>
       </div>
       <div className="flex flex-wrap gap-1 mt-1">
         {colors.map(c => <CopyHex key={c} value={c} />)}
@@ -303,12 +305,12 @@ export default function ColorSection() {
           Superfícies neutras com leve tinta do azul primário, garantindo coerência cromática em todo o sistema.
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {[
+          {renderSuperficies([
             { label: "Background", hex: "#F5F7FA", darkHex: "#06141F", token: "background", cls: "bg-background border" },
             { label: "Card",       hex: "#FFFFFF", darkHex: "#0E2638", token: "card",       cls: "bg-card border" },
             { label: "Muted",      hex: "#F0F7FC", darkHex: "#163F5F", token: "muted",      cls: "bg-muted" },
             { label: "Accent",     hex: "#DCEBF6", darkHex: "#1F5C8A", token: "accent",     cls: "bg-accent" },
-          ].map(s => (
+          ], s => (
             <div key={s.label} className="text-center">
               <div className={`h-14 rounded-lg mb-1 ${s.cls} border-border`} />
               <p className="text-xs font-semibold">{s.label}</p>

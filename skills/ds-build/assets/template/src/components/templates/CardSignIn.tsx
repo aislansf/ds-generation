@@ -3,6 +3,8 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { ComponentPreview, CodeBlock } from "@/components/DSComponents";
 import exemploImg from "@/assets/brand-empreendedora.jpg";
 import { brandCor as brandLogo } from "@/assets/brand";
+import { ESTILO } from "@/config/estilo";
+import { ExemploEntrarCartao } from "@/components/estilo/NeumorfismoSignIn";
 
 function CardSignInPreview() {
   const [showPw, setShowPw] = useState(false);
@@ -257,7 +259,7 @@ export default function CardSignInSection() {
       description="Layout com formulário à esquerda com ícones nos campos e imagem institucional à direita, seguindo o padrão visual __BRAND_NAME__."
       code={cardSignInCode}
     >
-      <CardSignInPreview />
+      {(ESTILO.id as string) === "neumorfismo" ? <ExemploEntrarCartao /> : <CardSignInPreview />}
     </ComponentPreview>
   );
 }

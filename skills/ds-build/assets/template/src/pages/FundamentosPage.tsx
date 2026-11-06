@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHeader, SectionHeader, CodeBlock } from "@/components/DSComponents";
 import { SEO } from "@/components/SEO";
@@ -99,7 +100,7 @@ function IconCard({
       <span className="text-[10px] font-semibold text-center">{label}</span>
       <code className="text-[9px] text-muted-foreground text-center break-all">{name}</code>
       <span className={`text-[8px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded ${collection === "lucide" ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>{collection}</span>
-      <button
+      <BotaoDS
         type="button"
         onClick={handleCopy}
         aria-label={`Copiar SVG do ícone ${name}`}
@@ -109,7 +110,7 @@ function IconCard({
       >
         <feedback.Icon size={11} aria-hidden="true" />
         {feedback.text}
-      </button>
+      </BotaoDS>
     </div>
   );
 }
@@ -309,32 +310,32 @@ export default function FundamentosPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-border">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Escala tipográfica dinâmica</h4>
           <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg border border-border">
-            <button data-ds="button" data-variant="ghost"
+            <BotaoDS data-ds="button" data-variant="ghost"
               onClick={() => setFontSizeOffset(prev => Math.max(prev - 0.125, -0.125))}
               disabled={fontSizeOffset <= -0.125}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               title="Diminuir tamanho (mínimo legível: 12px no menor corpo)"
             >
               <Minus size={16} />
-            </button>
+            </BotaoDS>
             <div className="px-3 text-xs font-mono font-bold min-w-[60px] text-center">
               {fontSizeOffset > 0 ? `+${fontSizeOffset.toFixed(3)}` : fontSizeOffset.toFixed(3)}rem
             </div>
-            <button data-ds="button" data-variant="ghost" 
+            <BotaoDS data-ds="button" data-variant="ghost" 
               onClick={() => setFontSizeOffset(prev => Math.min(prev + 0.125, 1))}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all"
               title="Aumentar tamanho"
             >
               <Plus size={16} />
-            </button>
+            </BotaoDS>
             <div className="w-px h-4 bg-border mx-1" />
-            <button data-ds="button" data-variant="ghost" 
+            <BotaoDS data-ds="button" data-variant="ghost" 
               onClick={() => setFontSizeOffset(0)}
               className="p-1.5 hover:bg-background rounded shadow-sm transition-all text-muted-foreground hover:text-foreground"
               title="Resetar para o padrão"
             >
               <RotateCcw size={16} />
-            </button>
+            </BotaoDS>
           </div>
         </div>
 
@@ -832,18 +833,18 @@ h1, h2, h3, h4, h5, h6 {
               { v: "lucide", label: "Lucide" },
               { v: "remix", label: "Remix" },
             ] as const).map(o => (
-              <button data-ds="button" data-variant="toggle" key={o.v} onClick={() => setIconCollection(o.v)}
+              <BotaoDS data-ds="button" data-variant="toggle" key={o.v} onClick={() => setIconCollection(o.v)}
                 className={`text-[11px] font-semibold px-3 py-1.5 rounded-md transition-colors ${iconCollection === o.v ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {o.label}
-              </button>
+              </BotaoDS>
             ))}
           </div>
           <div className="flex gap-1 rounded-lg border border-border p-1 bg-muted/30">
             {([14, 16, 20, 24, 32] as const).map(sz => (
-              <button data-ds="button" data-variant="toggle" key={sz} onClick={() => setIconSize(sz)}
+              <BotaoDS data-ds="button" data-variant="toggle" key={sz} onClick={() => setIconSize(sz)}
                 className={`text-[11px] font-semibold px-2.5 py-1.5 rounded-md transition-colors ${iconSize === sz ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
                 {sz}px
-              </button>
+              </BotaoDS>
             ))}
           </div>
         </div>
@@ -1144,12 +1145,12 @@ h1, h2, h3, h4, h5, h6 {
           <div className="p-5 border border-border rounded-xl bg-muted/20">
             <div className="flex items-center justify-between mb-4">
               <h5 className="text-xs font-bold uppercase tracking-wider">01. Entrada Suave</h5>
-              <button data-ds="button" data-variant="secondary" 
+              <BotaoDS data-ds="button" data-variant="secondary" 
                 onClick={() => setKey1(prev => prev + 1)}
                 className="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded font-bold hover:bg-primary/20 transition-colors"
               >
                 Reiniciar
-              </button>
+              </BotaoDS>
             </div>
             <motion.div 
               key={key1}
@@ -1190,12 +1191,12 @@ h1, h2, h3, h4, h5, h6 {
           <div className="p-5 border border-border rounded-xl bg-muted/20">
             <div className="flex items-center justify-between mb-4">
               <h5 className="text-xs font-bold uppercase tracking-wider">03. Lista em Cascata</h5>
-              <button data-ds="button" data-variant="secondary" 
+              <BotaoDS data-ds="button" data-variant="secondary" 
                 onClick={() => setKey3(prev => prev + 1)}
                 className="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded font-bold hover:bg-primary/20 transition-colors"
               >
                 Reiniciar
-              </button>
+              </BotaoDS>
             </div>
             <div className="space-y-2">
               {[1, 2, 3].map((i) => (

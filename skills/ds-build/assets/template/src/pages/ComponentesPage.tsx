@@ -1,7 +1,74 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import NeumorfismoTabelas from "@/components/estilo/NeumorfismoTabelas";
+import NeumorfismoListaDescritiva from "@/components/estilo/NeumorfismoListaDescritiva";
+import NeumorfismoFiltros from "@/components/estilo/NeumorfismoFiltros";
+import NeumorfismoUpload from "@/components/estilo/NeumorfismoUpload";
+import NeumorfismoUploadEmMassa from "@/components/estilo/NeumorfismoUploadEmMassa";
+import NeumorfismoAnexos from "@/components/estilo/NeumorfismoAnexos";
 import { PageHeader, SectionHeader, ComponentPreview, CodeBlock } from "@/components/DSComponents";
 import { SEO } from "@/components/SEO";
+import { ESTILO } from "@/config/estilo";
+import NeumorfismoCards from "@/components/estilo/NeumorfismoCards";
+import { NeumorfismoTabs, NeumorfismoAccordion, NeumorfismoSteps } from "@/components/estilo/NeumorfismoNavegacao";
+import NeumorfismoIcones from "@/components/estilo/NeumorfismoIcones";
+import NeumorfismoBotoes from "@/components/estilo/NeumorfismoBotoes";
+import NeumorfismoGrupoBotoes from "@/components/estilo/NeumorfismoGrupoBotoes";
+import NeumorfismoBotaoIcone from "@/components/estilo/NeumorfismoBotaoIcone";
+import NeumorfismoCampos from "@/components/estilo/NeumorfismoCampos";
+import NeumorfismoCheckbox from "@/components/estilo/NeumorfismoCheckbox";
+import NeumorfismoSwitch from "@/components/estilo/NeumorfismoSwitch";
+import NeumorfismoSelect from "@/components/estilo/NeumorfismoSelect";
+import NeumorfismoDatePicker from "@/components/estilo/NeumorfismoDatePicker";
+import NeumorfismoSlider from "@/components/estilo/NeumorfismoSlider";
+import NeumorfismoSegmentado from "@/components/estilo/NeumorfismoSegmentado";
+import NeumorfismoQuestionario from "@/components/estilo/NeumorfismoQuestionario";
+import NeumorfismoBadges from "@/components/estilo/NeumorfismoBadges";
+import NeumorfismoAlertas from "@/components/estilo/NeumorfismoAlertas";
+import NeumorfismoToasts from "@/components/estilo/NeumorfismoToasts";
+import NeumorfismoTooltips from "@/components/estilo/NeumorfismoTooltips";
+import NeumorfismoSpinners from "@/components/estilo/NeumorfismoSpinners";
+import NeumorfismoSkeletons from "@/components/estilo/NeumorfismoSkeletons";
+import NeumorfismoProgresso from "@/components/estilo/NeumorfismoProgresso";
+import NeumorfismoVazios from "@/components/estilo/NeumorfismoVazios";
+import NeumorfismoModais from "@/components/estilo/NeumorfismoModais";
+import NeumorfismoDialogoAlerta from "@/components/estilo/NeumorfismoDialogoAlerta";
+import NeumorfismoDialogo from "@/components/estilo/NeumorfismoDialogo";
+import NeumorfismoFolha from "@/components/estilo/NeumorfismoFolha";
+import NeumorfismoGaveta from "@/components/estilo/NeumorfismoGaveta";
+import NeumorfismoPopovers from "@/components/estilo/NeumorfismoPopovers";
+import NeumorfismoHoverCards from "@/components/estilo/NeumorfismoHoverCards";
+import NeumorfismoAbas from "@/components/estilo/NeumorfismoAbas";
+import NeumorfismoCarrossel from "@/components/estilo/NeumorfismoCarrossel";
+import NeumorfismoRecolhiveis from "@/components/estilo/NeumorfismoRecolhivel";
+import NeumorfismoComandos from "@/components/estilo/NeumorfismoComandos";
+import NeumorfismoMenubar from "@/components/estilo/NeumorfismoMenubar";
+import NeumorfismoNavegacaoSite from "@/components/estilo/NeumorfismoNavegacaoSite";
+import NeumorfismoAcordeao from "@/components/estilo/NeumorfismoAcordeao";
+import NeumorfismoBreadcrumb from "@/components/estilo/NeumorfismoBreadcrumb";
+import NeumorfismoPaginacao from "@/components/estilo/NeumorfismoPaginacao";
+import NeumorfismoMenuSuspenso from "@/components/estilo/NeumorfismoMenuSuspenso";
+import NeumorfismoKebab from "@/components/estilo/NeumorfismoKebab";
+import NeumorfismoEtapas from "@/components/estilo/NeumorfismoEtapas";
+import NeumorfismoCabecalhos from "@/components/estilo/NeumorfismoCabecalhos";
+import NeumorfismoRodapes from "@/components/estilo/NeumorfismoRodapes";
+import NeumorfismoMenuLateral from "@/components/estilo/NeumorfismoMenuLateral";
+import NeumorfismoGavetaLateral from "@/components/estilo/NeumorfismoGavetaLateral";
+import NeumorfismoPainelLateral from "@/components/estilo/NeumorfismoPainelLateral";
+import NeumorfismoWorkspaceLateral from "@/components/estilo/NeumorfismoWorkspaceLateral";
+import NeumorfismoAvatares from "@/components/estilo/NeumorfismoAvatares";
+import NeumorfismoBaloes from "@/components/estilo/NeumorfismoBaloes";
+import NeumorfismoMensagens from "@/components/estilo/NeumorfismoMensagens";
+import NeumorfismoRolagemMensagens from "@/components/estilo/NeumorfismoRolagemMensagens";
+import NeumorfismoMarcadores from "@/components/estilo/NeumorfismoMarcadores";
+import NeumorfismoItens from "@/components/estilo/NeumorfismoItens";
+import NeumorfismoTeclas from "@/components/estilo/NeumorfismoTeclas";
+import NeumorfismoKpis from "@/components/estilo/NeumorfismoKpis";
+import NeumorfismoIndicadores from "@/components/estilo/NeumorfismoIndicadores";
+import NeumorfismoMetas from "@/components/estilo/NeumorfismoMetas";
+import NeumorfismoEstatisticas from "@/components/estilo/NeumorfismoEstatisticas";
+import NeumorfismoMetricas from "@/components/estilo/NeumorfismoMetricas";
+import NeumorfismoGraficoBarras from "@/components/estilo/NeumorfismoGraficoBarras";
 import ChartsSection from "@/components/ChartsSection";
 import {
   AlertTriangle, Check, ChevronDown, ChevronRight, Copy, Download,
@@ -25,12 +92,39 @@ export default function ComponentesPage() {
         description="Biblioteca de componentes prontos para uso. Cada componente inclui preview, código, variantes e diretrizes de uso e acessibilidade."
       />
 
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="icones" title="Ícones" description="Ícones de linha do sistema (geometria Lucide), desenhados na cor do texto." />
+          <ComponentPreview
+            title="Ícone"
+            description="Traço de 2px em grade de 24px, pontas redondas, na cor do texto (currentColor). Ficam em quadrados de cantos suaves ou na linha, junto do texto."
+            whenToUse={["Reforçar o rótulo de botões, campos, menus e estados", "Botões só de ícone, sempre com nome acessível"]}
+            whenNotToUse={["Como único indicador de estado (acompanhe de palavra)", "Cor da marca em ícone parado: só no ativo ou na ação principal"]}
+            accessibility={["Decorativo: aria-hidden; sozinho e com significado: role=img e aria-label", "Tamanho 18px por padrão, 16px em linhas densas, 14px em breadcrumbs"]}
+            code={'<Icone name="search" size={16} label="Buscar" />'}
+          >
+            <NeumorfismoIcones />
+          </ComponentPreview>
+        </>
+      )}
+
       {/* BUTTON */}
       <SectionHeader id="botao" title="Botão Templates" description="Elemento interativo para ações primárias, secundárias e terciárias." />
+      {(ESTILO.id as string) === "neumorfismo" && <NeumorfismoBotoes />}
       <ButtonSection />
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="grupo-botoes" title="Grupo de botões" description="Botões relacionados numa só casca, lidos como um único controle." />
+          <NeumorfismoGrupoBotoes />
+          <SectionHeader id="botao-icone" title="Botão somente ícone" description="Tecla de 44px só com o ícone, sempre com nome acessível." />
+          <NeumorfismoBotaoIcone />
+        </>
+      )}
 
       {/* INPUT */}
       <SectionHeader id="input" title="Campo de Texto" description="Entrada de dados de texto pelo usuário." />
+      {(ESTILO.id as string) === "neumorfismo" && <NeumorfismoCampos />}
       <InputSection />
 
       {/* SELECT */}
@@ -39,6 +133,7 @@ export default function ComponentesPage() {
 
       {/* CHECKBOX / RADIO */}
       <SectionHeader id="checkbox" title="Checkbox e Radio" description="Seleção de uma ou múltiplas opções." />
+      {(ESTILO.id as string) === "neumorfismo" && <NeumorfismoCheckbox />}
       <CheckboxSection />
 
       {/* SWITCH */}
@@ -73,6 +168,174 @@ export default function ComponentesPage() {
       <SectionHeader id="modal" title="Modal" description="Diálogo que exige atenção ou ação do usuário." />
       <ModalSection />
 
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="alert-dialog" title="Alert Dialog" description="Confirmação modal que interrompe o fluxo e espera uma resposta." />
+          <NeumorfismoDialogoAlerta />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="dialog" title="Dialog" description="Janela modal geral para formulários e conteúdo livre." />
+          <NeumorfismoDialogo />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="sheet" title="Sheet" description="Painel que desliza de uma borda da tela, para editar sem sair da página." />
+          <NeumorfismoFolha />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="drawer" title="Drawer" description="Painel com alça de arrastar, que vem da direita no desktop e de baixo no celular." />
+          <NeumorfismoGaveta />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="popover" title="Popover" description="Painel flutuante não modal, preso a um gatilho." />
+          <NeumorfismoPopovers />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="hovercard" title="HoverCard" description="Cartão de pré-visualização que abre ao passar o mouse ou focar um link." />
+          <NeumorfismoHoverCards />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="carousel" title="Carousel" description="Fileira de slides que se move um passo por vez, por teclas, arrasto ou teclado." />
+          <NeumorfismoCarrossel />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="collapsible" title="Collapsible" description="Cartão com cabeçalho sempre visível e uma região que abre e fecha." />
+          <NeumorfismoRecolhiveis />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="command" title="Command" description="Lista de ações pesquisável, em página ou em paleta aberta com Ctrl/⌘ + K." />
+          <NeumorfismoComandos />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="menubar" title="Menubar" description="Barra de menu de aplicativo, com painéis de comandos, submenus e itens marcáveis." />
+          <NeumorfismoMenubar />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="navigationmenu" title="NavigationMenu" description="Navegação de site com painéis de links, destaque e grade." />
+          <NeumorfismoNavegacaoSite />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="header-topo" title="Header" description="Barra institucional do topo, em cinco variantes." />
+          <NeumorfismoCabecalhos />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="rodape" title="Footer" description="Rodapé padrão (slim) e rodapé completo, com links e ambiente." />
+          <NeumorfismoRodapes />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="sidebar" title="Sidebar" description="Navegação lateral fixa, que recolhe numa trilha de 84px." />
+          <NeumorfismoMenuLateral />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="sidebar-gaveta" title="Sidebar · Gaveta" description="Navegação lateral em gaveta, que desliza da esquerda sobre um véu desfocado." />
+          <NeumorfismoGavetaLateral />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="sidebar-painel" title="Sidebar · Painel" description="Painel de navegação embutido no layout, que recolhe de 260px para 68px." />
+          <NeumorfismoPainelLateral />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="sidebar-workspace" title="Sidebar · Workspace" description="Navegação de aplicativo com troca de espaço, seções, aviso e menu do usuário." />
+          <NeumorfismoWorkspaceLateral />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="avatar" title="Avatar" description="Foto ou iniciais de uma pessoa num disco convexo, com status e grupo sobreposto." />
+          <NeumorfismoAvatares />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="bubble" title="Bubble" description="Balão de mensagem de conversa, com grupo, reações, hora e status de envio." />
+          <NeumorfismoBaloes />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="message" title="Message" description="Uma vez da conversa: avatar, balões, nome e rodapé, alinhada ao outro ou a você." />
+          <NeumorfismoMensagens />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="message-scroller" title="MessageScroller" description="Registro de conversa preso à mensagem mais nova, com âncora de turno e tecla para ir à mais recente." />
+          <NeumorfismoRolagemMensagens />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="marker" title="Marker" description="Nota de sistema na linha de um feed: evento, estado ao vivo ou separador." />
+          <NeumorfismoMarcadores />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="item" title="Item" description="Linha flexível com mídia, título, descrição e ações; link, botão ou estática, e em grupo." />
+          <NeumorfismoItens />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="kbd" title="Kbd" description="Teclas convexas para atalhos: uma tecla ou um grupo, no texto, em botões e em tooltips." />
+          <NeumorfismoTeclas />
+        </>
+      )}
+
       {/* TOAST */}
       <SectionHeader id="toast" title="Toast / Notificação" description="Feedback temporário não-bloqueante." />
       <ToastSection />
@@ -97,6 +360,13 @@ export default function ComponentesPage() {
       <SectionHeader id="spinner" title="Spinner / Loading" description="Indicador de carregamento." />
       <SpinnerSection />
 
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="progress" title="Progress" description="Barra de progresso para tarefas, envios e etapas." />
+          <NeumorfismoProgresso />
+        </>
+      )}
+
       {/* EMPTY STATE */}
       <SectionHeader id="empty-state" title="Empty State" description="Estado vazio quando não há dados para exibir." />
       <EmptyStateSection />
@@ -113,6 +383,27 @@ export default function ComponentesPage() {
       <SectionHeader id="datepicker" title="DatePicker" description="Seleção de datas com calendário interativo e campos formatados." />
       <DatePickerSection />
 
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="slider" title="Slider" description="Seleção de um valor numa faixa contínua." />
+          <NeumorfismoSlider />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="segmentado" title="Controle segmentado" description="Alternância entre poucas opções lado a lado, uma escolhida por vez." />
+          <NeumorfismoSegmentado />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="questionario" title="Questionário" description="Perguntas respondidas uma por vez, com progresso, validação e atalhos de teclado." />
+          <NeumorfismoQuestionario />
+        </>
+      )}
+
       {/* FILTROS DINÂMICOS */}
       <SectionHeader id="filtros" title="Filtros Dinâmicos" description="Barra de filtros combinados para refinar listagens e dashboards." />
       <DynamicFiltersSection />
@@ -121,9 +412,51 @@ export default function ComponentesPage() {
       <SectionHeader id="big-numbers" title="Big Numbers / KPIs" description="Cards de indicadores numéricos para dashboards e painéis gerenciais." />
       <BigNumbersSection />
 
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="indicator-card" title="IndicatorCard" description="Um número de destaque num leito afundado, com legenda, variação e hora da última atualização." />
+          <NeumorfismoIndicadores />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="stat-card" title="StatCard" description="Uma estatística contra a meta: valor, calha de progresso e a escala 0% · Meta · 100%." />
+          <NeumorfismoMetas />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="statistic-card" title="StatisticCard" description="Sete cartões de estatística para painéis: meta, comparação, destaque, rosca, barras, área e relatório." />
+          <NeumorfismoEstatisticas />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="metric-card" title="MetricCard" description="Uma métrica com um mini gráfico ao lado: um anel de percentual ou uma série de barras." />
+          <NeumorfismoMetricas />
+        </>
+      )}
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="bar-chart" title="BarChart" description="Barras verticais em forma de pílula, esculpidas num leito, com a barra destacada em relevo." />
+          <NeumorfismoGraficoBarras />
+        </>
+      )}
+
       {/* UPLOAD EM MASSA */}
       <SectionHeader id="upload" title="Upload em Massa" description="Componente de upload de múltiplos arquivos com barra de progresso e feedback por item." />
       <BulkUploadSection />
+
+      {(ESTILO.id as string) === "neumorfismo" && (
+        <>
+          <SectionHeader id="anexos" title="Anexos" description="Chip compacto para um arquivo ou imagem anexada, com estado de envio, erro e ações, avulso ou em grupo." />
+          <NeumorfismoAnexos />
+        </>
+      )}
 
       {/* STEPS / STEPPER */}
       <SectionHeader id="steps" title="Barra de Etapas (Stepper)" description="Indicador de progresso em etapas para fluxos multi-step como formulários e wizards." />
@@ -816,6 +1149,7 @@ function SelectSection() {
   </div>
 ))}`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoSelect /> : (
       <div className="space-y-6">
         <div className="max-w-md">
           <label className="block text-sm font-medium mb-1.5">Estado</label>
@@ -867,6 +1201,7 @@ function SelectSection() {
           ))}
         </div>
       </div>
+      )}
     </ComponentPreview>
   );
 }
@@ -974,6 +1309,7 @@ function Switch() {
   );
 }`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoSwitch /> : (
       <label className="flex items-center gap-3 cursor-pointer">
         <button data-ds="switch"
           role="switch"
@@ -985,12 +1321,14 @@ function Switch() {
         </button>
         <span className="text-sm">Notificações por e-mail</span>
       </label>
+      )}
     </ComponentPreview>
   );
 }
 
 /* ==================== BADGE ==================== */
 function BadgeSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoBadges />;
   return (
     <ComponentPreview
       title="Badge / Tag"
@@ -1027,6 +1365,7 @@ function BadgeSection() {
 
 /* ==================== ALERT ==================== */
 function AlertSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoAlertas />;
   return (
     <ComponentPreview
       title="Alert"
@@ -1110,6 +1449,7 @@ function CardSection() {
   </div>
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoCards /> : (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div data-ds="card" className="bg-card rounded-lg border border-border overflow-hidden">
           <div className="p-4 border-b border-border">
@@ -1135,6 +1475,7 @@ function CardSection() {
           <p className="text-xs opacity-80">Para informações de destaque institucional.</p>
         </div>
       </div>
+      )}
     </ComponentPreview>
   );
 }
@@ -1208,6 +1549,8 @@ function KebabMenu({ onEdit, onDelete, onView }: { onEdit?: () => void; onDelete
 
 function TableSection() {
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
+
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoTabelas />;
 
   const thClass = "text-left py-3 px-4 font-semibold text-xs uppercase tracking-wide text-muted-foreground";
   const tdClass = "py-3 px-4 text-sm";
@@ -1886,6 +2229,7 @@ function AccordionSection() {
     { title: "Quais programas e soluções estão disponíveis?", content: "Empreender, AGI (Agentes de Inovação), Programa Inova, Mais Produtividade, Elas Empreendem, Compras Públicas, Visita Técnica e Primeiro Negócio, entre outras soluções para pequenos negócios." },
   ];
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoAcordeao />;
   return (
     <ComponentPreview
       title="Accordion"
@@ -1922,6 +2266,7 @@ const [open, setOpen] = useState<number | null>(0);
   ))}
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoAccordion /> : (
       <div className="border border-border rounded-lg divide-y divide-border">
         {items.map((item, i) => (
           <div key={i}>
@@ -1941,6 +2286,7 @@ const [open, setOpen] = useState<number | null>(0);
           </div>
         ))}
       </div>
+      )}
     </ComponentPreview>
   );
 }
@@ -1950,6 +2296,7 @@ function TabsSection() {
   const [tab, setTab] = useState(0);
   const tabs = ["Visão geral", "Detalhes", "Histórico"];
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoAbas />;
   return (
     <ComponentPreview
       title="Tabs"
@@ -1984,6 +2331,7 @@ const [tab, setTab] = useState(0);
   </div>
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoTabs /> : (
       <div>
         <div role="tablist" className="flex border-b border-border mb-4">
           {tabs.map((t, i) => (
@@ -2006,6 +2354,7 @@ const [tab, setTab] = useState(0);
           {tab === 2 && <p>Histórico de alterações, datas e registros de auditoria.</p>}
         </div>
       </div>
+      )}
     </ComponentPreview>
   );
 }
@@ -2059,6 +2408,8 @@ function ModalSection() {
       triggerRef.current?.focus();
     };
   }, [open]);
+
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoModais />;
 
   return (
     <ComponentPreview
@@ -2203,6 +2554,8 @@ function Modal() {
 function ToastSection() {
   const [showToast, setShowToast] = useState(false);
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoToasts />;
+
   return (
     <ComponentPreview
       title="Toast"
@@ -2260,6 +2613,7 @@ const [showToast, setShowToast] = useState(false);
 
 /* ==================== BREADCRUMB ==================== */
 function BreadcrumbSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoBreadcrumb />;
   return (
     <ComponentPreview
       title="Breadcrumb"
@@ -2294,6 +2648,7 @@ function BreadcrumbSection() {
 /* ==================== PAGINATION ==================== */
 function PaginationSection() {
   const [page, setPage] = useState(1);
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoPaginacao />;
   return (
     <div className="space-y-8">
       <ComponentPreview
@@ -2433,6 +2788,7 @@ const [page, setPage] = useState(1);
 
 /* ==================== TOOLTIP ==================== */
 function TooltipSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoTooltips />;
   return (
     <ComponentPreview
       title="Tooltip"
@@ -2493,6 +2849,7 @@ function TooltipSection() {
 
 /* ==================== SKELETON ==================== */
 function SkeletonSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoSkeletons />;
   return (
     <ComponentPreview
       title="Skeleton"
@@ -2531,6 +2888,7 @@ function SkeletonSection() {
 
 /* ==================== SPINNER ==================== */
 function SpinnerSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoSpinners />;
   return (
     <ComponentPreview
       title="Spinner"
@@ -2582,6 +2940,7 @@ function SpinnerSection() {
 
 /* ==================== EMPTY STATE ==================== */
 function EmptyStateSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoVazios />;
   return (
     <ComponentPreview
       title="Empty State"
@@ -2619,6 +2978,7 @@ function DropdownMenuSection() {
   const [open, setOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoMenuSuspenso />;
   return (
     <ComponentPreview
       title="Dropdown Menu"
@@ -2766,6 +3126,7 @@ function DatePickerSection() {
 function MenuKebabSection() {
   const [lastAction, setLastAction] = useState<string | null>(null);
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoKebab />;
   return (
     <ComponentPreview
       title="Menu Kebab"
@@ -2994,6 +3355,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
   <input type="text" placeholder="DD/MM/AAAA" aria-label="Data final" className="border border-input rounded px-3 py-2 text-sm" />
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoDatePicker /> : (
       <div className="space-y-6">
         {/* DatePicker simples */}
         <div>
@@ -3091,6 +3453,7 @@ const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
           </div>
         </div>
       </div>
+      )}
     </ComponentPreview>
   );
 }
@@ -3119,6 +3482,7 @@ function DynamicFiltersSection() {
     else setActiveFilters(prev => prev.filter(f => !f.startsWith("Tipo:")));
   };
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoFiltros />;
   return (
     <ComponentPreview
       title="Filtros Dinâmicos"
@@ -3302,6 +3666,8 @@ const kpis = [
   ))}
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoKpis /> : (
+      <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { icon: <Users size={20} />, value: "12.847", label: "Empresas atendidas", trend: "+12,3%", up: true, comparison: "vs. 11.436 mês anterior", color: "text-primary bg-primary/10" },
@@ -3341,6 +3707,8 @@ const kpis = [
           ))}
         </div>
       </div>
+      </>
+      )}
     </ComponentPreview>
   );
 }
@@ -3387,6 +3755,12 @@ function BulkUploadSection() {
     simulateUpload(["relatorio_2026.pdf", "planilha_dados.xlsx", "comprovante_003.pdf", "foto_evento.jpg"]);
   };
 
+  if ((ESTILO.id as string) === "neumorfismo") return (
+    <>
+      <NeumorfismoUpload />
+      <NeumorfismoUploadEmMassa />
+    </>
+  );
   return (
     <ComponentPreview
       title="Upload em Massa com Progresso"
@@ -3555,6 +3929,7 @@ function StepperSection() {
     { label: "Confirmação", description: "Envio e protocolo" },
   ];
 
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoEtapas />;
   return (
     <ComponentPreview
       title="Barra de Etapas (Stepper)"
@@ -3625,6 +4000,7 @@ const [currentStep, setCurrentStep] = useState(1);
   </button>
 </div>`}
     >
+      {(ESTILO.id as string) === "neumorfismo" ? <NeumorfismoSteps /> : (
       <div className="space-y-6">
         {/* Horizontal stepper */}
         <nav aria-label="Etapas do formulário">
@@ -3717,12 +4093,14 @@ const [currentStep, setCurrentStep] = useState(1);
           </ol>
         </div>
       </div>
+      )}
     </ComponentPreview>
   );
 }
 
 /* ==================== LISTA DESCRITIVA ==================== */
 function DescriptionListSection() {
+  if ((ESTILO.id as string) === "neumorfismo") return <NeumorfismoListaDescritiva />;
   return (
     <ComponentPreview
       title="Lista Descritiva"

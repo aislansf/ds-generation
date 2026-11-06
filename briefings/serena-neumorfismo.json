@@ -1,0 +1,55 @@
+{
+  "nome": "Serena Saúde",
+  "nome_curto": "Serena",
+  "nome_completo": "Serena Saúde e Bem-Estar Ltda.",
+  "genero": "f",
+  "slug": "serena-saude",
+  "slogan": "Cuidar também é simples",
+  "descricao": "Padrões de UI para os produtos digitais da Serena Saúde.",
+
+  "dominios": {
+    "ds": "ds.serena.example",
+    "org": "serena.example",
+    "org_raiz": false
+  },
+  "manual_marca_url": false,
+  "og_image_url": false,
+
+  "estilo": "neumorfismo",
+
+  "cores": {
+    "primaria": "#4F5BD5",
+    "secundaria": "#1F7F7A",
+    "destaque": "#DDE1FF",
+    "realce": "#B23E0C"
+  },
+
+  "fontes": {
+    "primaria": { "nome": "Nunito Sans", "google": true },
+    "display": { "nome": "DM Sans", "google": true },
+    "sistema": false
+  },
+
+  "logos": { "cor": false, "branco": false, "preto": false },
+  "favicon": false,
+
+  "termos_proibidos": ["Calmaria Digital"],
+
+  "conteudo": {
+    "tom_de_voz": "Acolhedor, calmo e claro, sem jargão médico.",
+    "publico": "Pacientes e profissionais de saúde que usam os aplicativos e o portal da Serena.",
+    "paleta_estendida": [
+      { "nome": "Azul Névoa", "hex": "#8EA2F0", "uso": "fundos de destaque e ilustrações" },
+      { "nome": "Verde Alecrim", "hex": "#4FA37A", "uso": "gráficos e estados de sucesso" },
+      { "nome": "Areia", "hex": "#E9D8B8", "uso": "áreas de apoio e gráficos" }
+    ],
+    "regras_de_marca": [
+      "Área de proteção do logo igual à altura do símbolo.",
+      "Nunca aplicar o logo sobre fundos de baixo contraste."
+    ]
+  },
+
+  "modulos": { "modelos_bi": true },
+
+  "confirmado_pelo_usuario": true
+}

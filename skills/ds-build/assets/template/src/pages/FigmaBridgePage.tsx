@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BotaoDS } from "@/components/estilo/NeumorfismoBotaoDS";
 import { SEO } from "@/components/SEO";
 import { Copy, Download, Package, Check, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
@@ -228,7 +229,7 @@ export default function FigmaBridgePage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h2 className="text-primary m-0">Endpoints públicos</h2>
           <div className="flex flex-wrap gap-2">
-            <button data-ds="button" data-variant="secondary"
+            <BotaoDS data-ds="button" data-variant="secondary"
               onClick={copyToClipboard}
               disabled={copying}
               className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/90 transition shadow-sm font-medium border border-border"
@@ -236,15 +237,15 @@ export default function FigmaBridgePage() {
             >
               {copying ? <Check size={18} /> : <Copy size={18} />}
               {copying ? "Copiado!" : "Copiar JSON"}
-            </button>
-            <button data-ds="button" data-variant="default"
+            </BotaoDS>
+            <BotaoDS data-ds="button" data-variant="default"
               onClick={downloadBundle}
               className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition shadow-sm font-medium"
               title="Baixar pacote JSON consolidado com nome versionado"
             >
               <Download size={18} />
               Exportar Pacote Único (JSON)
-            </button>
+            </BotaoDS>
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
