@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { SuperficiesCores, renderSuperficies } from "../NeumorfismoSuperficies";
 
@@ -7,7 +7,15 @@ const itens = [
   { label: "Card", hex: "#FFFFFF", darkHex: "#0E2638", token: "card", cls: "bg-card" },
 ];
 
+// O estilo ativo vem do DS gerado; o teste fixa o que quer exercitar, para valer em qualquer estilo
+const estilo = vi.hoisted(() => ({ ESTILO: { id: "neumorfismo", nome: "Neumorfismo", temaPadrao: "light", layout: "padrao" } }));
+vi.mock("@/config/estilo", () => estilo);
+
 describe("NeumorfismoSuperficies", () => {
+  beforeEach(() => {
+    estilo.ESTILO.id = "neumorfismo";
+  });
+
   it("uma linha por superfície na Lista descritiva, com o token e os dois hex", () => {
     const { container } = render(<SuperficiesCores itens={itens} />);
     expect(container.querySelector("dl.neu-dlp")?.getAttribute("aria-label")).toBe("Superfícies e fundos");
@@ -39,5 +47,12 @@ describe("NeumorfismoSuperficies", () => {
     const { container } = render(<div>{renderSuperficies(itens, (s) => <span key={s.label} className="amostra-antiga">{s.label}</span>)}</div>);
     expect(container.querySelector(".neu-cor-lista")).not.toBeNull();
     expect(container.querySelector(".amostra-antiga")).toBeNull();
+  });
+
+  it("nos outros estilos renderSuperficies devolve as amostras de sempre, sem a lista", () => {
+    estilo.ESTILO.id = "corporativo";
+    const { container } = render(<div>{renderSuperficies(itens, (s) => <span key={s.label} className="amostra-antiga">{s.label}</span>)}</div>);
+    expect(container.querySelector(".neu-cor-lista")).toBeNull();
+    expect(container.querySelectorAll(".amostra-antiga").length).toBe(itens.length);
   });
 });

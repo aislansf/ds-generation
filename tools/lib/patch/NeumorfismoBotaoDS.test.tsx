@@ -1,8 +1,16 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, it, expect, vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { BotaoDS, classesDePosicao, escolherBotao } from "../NeumorfismoBotaoDS";
 
+// O estilo ativo vem do DS gerado; o teste fixa o que quer exercitar, para valer em qualquer estilo
+const estilo = vi.hoisted(() => ({ ESTILO: { id: "neumorfismo", nome: "Neumorfismo", temaPadrao: "light", layout: "padrao" } }));
+vi.mock("@/config/estilo", () => estilo);
+
 describe("NeumorfismoBotaoDS", () => {
+  beforeEach(() => {
+    estilo.ESTILO.id = "neumorfismo";
+  });
+
   it("fica só a posição: cor, tamanho e raio escritos à mão saem", () => {
     expect(classesDePosicao("absolute top-2 right-2 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-primary text-primary-foreground mt-3 w-full md:mt-4 text-success")).toBe("absolute top-2 right-2 mt-3 w-full md:mt-4 text-success");
   });
@@ -62,5 +70,17 @@ describe("NeumorfismoBotaoDS", () => {
     expect(screen.getByRole("button", { name: "Aumentar" }).className).toContain("neu-ib");
     expect(screen.getByRole("button", { name: "Ver código" }).className).toBe("text-xs text-primary");
     expect(screen.getByRole("button", { name: "Imagem" }).getAttribute("data-ds")).toBeNull();
+  });
+
+  it("nos outros estilos continua sendo o <button> escrito à mão, sem mexer em classe nem variante", () => {
+    estilo.ESTILO.id = "corporativo";
+    render(
+      <BotaoDS data-ds="button" data-variant="toggle" className="px-2.5 py-1.5 rounded-md bg-primary text-primary-foreground" aria-label="Copiar código">
+        Copiar
+      </BotaoDS>,
+    );
+    const botao = screen.getByRole("button", { name: "Copiar código" });
+    expect(botao.getAttribute("data-variant")).toBe("toggle");
+    expect(botao.className).toBe("px-2.5 py-1.5 rounded-md bg-primary text-primary-foreground");
   });
 });
